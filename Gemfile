@@ -10,6 +10,7 @@ gem 'sqlite3', group: [:development,:test,:production]
 group :staging do
   gem 'rails_12factor'
   gem 'pg'
+  gem 'unicorn'
 end
 
 # Use SCSS for stylesheets
