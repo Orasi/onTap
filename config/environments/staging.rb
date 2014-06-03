@@ -1,6 +1,9 @@
 LunchLearn::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Raise an error on page load if there are pending migrations
+  config.active_record.migration_error = :page_load
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -11,7 +14,7 @@ LunchLearn::Application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = true
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
