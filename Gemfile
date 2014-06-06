@@ -39,6 +39,9 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+# Use LDAP for authentication
+gem 'net-ldap'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
