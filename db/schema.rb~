@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20140613182721) do
     t.string   "username"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "role"
     t.boolean  "admin"
   end
 

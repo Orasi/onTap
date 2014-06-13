@@ -1,6 +1,7 @@
 LunchLearn::Application.routes.draw do
+  get "/calendar" => 'lunch_and_learn#calendar'
+  get "lunch_and_learn/create"
   get "/tempLogin" => 'users#tempLogin'
-
   post '/login' => "welcome#validate"
   get '/login' => 'welcome#login'
 

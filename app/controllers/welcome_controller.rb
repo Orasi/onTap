@@ -2,7 +2,7 @@ class WelcomeController < ApplicationController
   def validate
     if validate_against_ad(login_params["username"], login_params["password"])     
         user_exist(login_params["username"])
-	redirect_to :tempLogin
+	redirect_to :calendar and return
 
 	#Validates the user is valid.  If valid set the Session id
 	if @User.save
@@ -29,7 +29,7 @@ class WelcomeController < ApplicationController
 	  @User = User.find_by(username: username)
 	else
 	  name=username.split('.')
-	  @User=User.new(username: username, first_name: name.first, last_name: name.last, role: "Attendee")
+	  @User=User.new(username: username, first_name: name.first, last_name: name.last, admin: false)
 	end
   end
 
