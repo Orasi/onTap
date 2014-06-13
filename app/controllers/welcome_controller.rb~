@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
         user_exist(login_params["username"])
 	redirect_to :tempLogin
 
-	#Validates the user is valid.  If valid set the Session id
+	
 	if @User.save
 		session[:current_user_id] = @User.id
 		Session.create(session_id: session[:session_id])
