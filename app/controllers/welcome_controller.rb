@@ -2,12 +2,12 @@ class WelcomeController < ApplicationController
   def validate
     if validate_against_ad(login_params["username"], login_params["password"])     
         user_exist(login_params["username"])
-	redirect_to :calendar and return
-
+	
 	#Validates the user is valid.  If valid set the Session id
 	if @User.save
 		session[:current_user_id] = @User.id
 		Session.create(session_id: session[:session_id])
+		redirect_to :calendar
     	else
 		redirect_to :login
 		#TODO: User Validation error reporting
