@@ -4,7 +4,7 @@ LunchLearn::Application.routes.draw do
   get "/tempLogin" => 'users#tempLogin'
   post '/login' => "welcome#validate"
   get '/login' => 'welcome#login'
-
+  get '/logout' => 'welcome#logout'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

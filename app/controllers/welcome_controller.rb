@@ -18,7 +18,10 @@ class WelcomeController < ApplicationController
 
 
   end
-
+  def logout
+    @_current_user = session[:current_user_id] = nil
+    redirect_to :login, :error => "Logged Out"
+  end 
   private
 
   #Checks if the user already exist in the system. If not, creates a entry in the Users database
