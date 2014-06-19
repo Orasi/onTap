@@ -52,4 +52,7 @@ gem 'net-ldap'
 # gem 'capistrano', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
+gem 'pry', group: [:development, :test]
+
+# Use haml
+gem 'haml-rails'
