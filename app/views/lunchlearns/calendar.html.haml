@@ -1,19 +1,22 @@
 %h1
   This is the Calendar page
-  -@lunchlearns.each do |lunch|
-    %h5
-      =link_to lunch.title,lunchlearn_path(lunch)
-      - if is_admin
-        =link_to "Edit", edit_lunchlearn_path(lunch)
-        =link_to "Delete", lunchlearn_path(lunch), method: :delete
-      - if not lunch.attendees.exists?(user_id: session[:current_user_id])
-        =link_to "Attend", attendee_path(lunch)
+  -if @lunchlearns
+    -@lunchlearns.each do |lunch|
+      %h5
+        =link_to lunch.title,lunchlearn_path(lunch)
+        - if is_admin
+          =link_to "Edit", edit_lunchlearn_path(lunch)
+          =link_to "Delete", lunchlearn_path(lunch), method: :delete
+        - if not lunch.attendees.exists?(user_id: session[:current_user_id])
+          =link_to "Attend", attendee_path(lunch)
 
-      - if lunch.attendees.exists?(user_id: session[:current_user_id])
-        =link_to "Don't Attend", attendee_path(lunch)
+        - if lunch.attendees.exists?(user_id: session[:current_user_id])
+          =link_to "Don't Attend", attendee_path(lunch)
 
      
-    %p= lunch.description
+      %p= lunch.description
+- if @lunchlearns.count == 0
+  %h1 No lunch and learns are currently scheduled
 - if is_admin
   %h3= link_to "Add New Lunch and Learn", new_lunchlearn_path
 
