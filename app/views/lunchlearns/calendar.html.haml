@@ -1,0 +1,9 @@
+%h1
+  This is the Calendar page
+  -@lunchlearns.each do |lunch|
+    %h5
+      =link_to lunch.title,lunchlearn_path(lunch)
+      =link_to "Edit", edit_lunchlearn_path(lunch)
+      =link_to "Delete", lunchlearn_path(lunch), method: :delete
+    %p= lunch.description
+%h3= link_to "Add New Lunch and Learn", new_lunchlearn_path

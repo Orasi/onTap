@@ -1,0 +1,6 @@
+%h1 This is the show view
+%h3= @lunch.title
+%p= @lunch.description
+%ol
+  -@lunch.attendees.each do |attendee|
+    %li= User.find(attendee.user).display_name

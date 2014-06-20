@@ -1,0 +1,2 @@
+module LunchlearnsHelper
+end

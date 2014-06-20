@@ -11,7 +11,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140613182721) do
+ActiveRecord::Schema.define(version: 20140619235843) do
+
+  create_table "attendees", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "lunchlearn_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lunch_attendees", force: true do |t|
+    t.integer  "lunch_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lunch_hosts", force: true do |t|
+    t.integer  "lunch_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lunches", force: true do |t|
+    t.string   "topic"
+    t.string   "brief_description"
+    t.date     "lunch_date"
+    t.time     "lunch_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "host_id"
+  end
+
+  create_table "lunchlearns", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sessions", force: true do |t|
     t.string   "session_id"
