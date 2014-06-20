@@ -1,4 +1,0 @@
-%h1
-  This is the Admin page
-  =link_to "New", new_lunchlearn_path(lunch)
-
