@@ -7,6 +7,7 @@ class WelcomeController < ApplicationController
 	if @User.save
 		session[:current_user_id] = @User.id
 		Session.create(session_id: session[:session_id])
+		#Checks if the user is an admin
                   redirect_to :calendar
     	else
 		redirect_to :login

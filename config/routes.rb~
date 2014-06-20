@@ -1,10 +1,13 @@
 LunchLearn::Application.routes.draw do
-  get "/calendar" => 'lunch_and_learn#calendar'
-  get "lunch_and_learn/create"
-  get "/tempLogin" => 'users#tempLogin'
+  get "/calendar" => 'lunchlearns#calendar'
+  resources :lunchlearns, except: :index
+  resources :attendees
+ # get "lunch_and_learn/create"
+ # get "/tempLogin" => 'users#tempLogin'
+  get "/adminlogin" => 'lunchlearns#adminlogin'
   post '/login' => "welcome#validate"
   get '/login' => 'welcome#login'
-
+  get '/logout' => 'welcome#logout'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,0 +1,56 @@
+%h1 This is the new view
+%= form_for @lunchlearn do |f|
+%  = f.label :title
+%  = f.text_field :title
+%  <br/>
+%  = f.label :description
+%  = f.text_area :description
+%  <br/>
+%  = f.submit
+
+<%= form_for @lunchlearn, html: {class: "form-horizontal", role: "form"} do |f| %>
+<div class="form-group">
+	<%= f.label :topic, nil, class: "control-label" %>
+	<%= f.text_field :topic, value: "#{@lunchlearn.topic unless @lunchlearn.topic.blank?}", class: "form-control", required: true %>
+</div>
+<div class="form-group">
+	<%= f.label :description, nil, class: "control-label" %>
+	<%= f.text_field :description, value: "#{@lunchlearn.brief_description unless @lunchlearn.description.blank?}", class: "form-control", required: true %>
+</div>
+<div class="form-group">
+	<%= f.label :lunch_date, nil, class: "control-label" %>
+	<%= f.date_field :lunch_date, class: "form-control", placeholder: "YYYY-MM-DD", pattern: '\d{4}-\d{2}-\d{2}', title: "YYYY-MM-DD", required: true %>
+</div>
+<div class="form-group">
+	<%= f.label :lunch_time, nil, class: "control-label" %>
+	<%= f.text_field :lunch_time, value: "#{@lunchlearn.lunch_time unless @lunchlearn.time.blank?}", class: "form-control", pattern: '\d{1,2}:\d{2}', title: "HH:MM" %>
+</div>
+
+<%= f.label 'Hosts(s)', class: "control-label lunch-host-section" %>
+<% @lunchlearn.hosts.order(first_name: :asc).each do |host| %>
+<div class="form-group lunch-host-section">
+<%= f.select :hosts, User.order(first_name: :asc).collect {|l| [l.username, l.id] }, {include_blank: true, selected: host.id},  name: "lunchlearn[hosts][]", class: "form-control additional-host-field"%>
+<span class="remove"></span>
+</div>
+<% end %>
+<div>
+	<script type="text/javascript">
+	$(document).on("ready", function() {
+	  $("#add-lunch-host").on("click", function() {
+	    $(".lunch-host-section").last().after('<div class="form-group lunch-host-section"><%= f.select(:hosts, User.order(first_name: :asc).collect {|l| [l.username, l.id] }, {}, name: "lunchlearn[hosts][]", class: "form-control additional-host-field").tr_s("\n","").html_safe %><span class="remove" style="width:5%;">Remove</span></div>');
+	    return $(".remove").on("click", function() {
+	      return $(this).parent().remove();
+	    });
+	  });
+	  return $(".remove").on("click", function() {
+	    return $(this).parent().remove();
+	  });
+	});	
+	</script>
+	<button class="btn btn-default form-control" id="add-lunch-host" type="button" style="margin-bottom:5px;">Add</button>
+	<div class="clearfix"></div>
+</div>
+	<div class="form-group">
+		<%= f.submit 'Add Lunch', class: "btn btn-primary", "data-loading-text" => "Logging in..." %>
+	</div>
+<% end %>

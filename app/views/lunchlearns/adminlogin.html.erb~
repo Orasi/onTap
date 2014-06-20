@@ -1,0 +1,3 @@
+<h1>LunchAndLearn#adminlogin</h1>
+<%= link_to 'Add Lunch', :addnewlunch %>
+<p>Find me in app/views/lunch_and_learn/adminlogin.html.erb</p>

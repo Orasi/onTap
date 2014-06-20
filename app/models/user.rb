@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
   def display_name
     self.first_name.capitalize + " " + self.last_name.capitalize
   end
+  
+  def check_if_admin?
+    self.admin
+  end
 
 
 end
