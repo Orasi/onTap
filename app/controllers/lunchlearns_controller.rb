@@ -25,7 +25,7 @@ class LunchlearnsController < ApplicationController
     @lunch = Lunchlearn.find(params[:id])
     @lunch.update_attributes(lunchlearn_params)
     @lunch.save
-    render :show
+    redirect_to lunchlearn_path(@lunch)
   end
 
   def destroy

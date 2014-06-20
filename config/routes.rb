@@ -1,8 +1,9 @@
 LunchLearn::Application.routes.draw do
   get "/calendar" => 'lunchlearns#calendar'
   resources :lunchlearns, except: :index
-  get "lunch_and_learn/create"
-  get "/tempLogin" => 'users#tempLogin'
+  resources :attendees
+ # get "lunch_and_learn/create"
+ # get "/tempLogin" => 'users#tempLogin'
   post '/login' => "welcome#validate"
   get '/login' => 'welcome#login'
   get '/logout' => 'welcome#logout'
