@@ -1,6 +1,8 @@
 %h1 This is the show view
-%h3= @lunch.title
+%h3= "#{@lunch.title} hosted by #{@lunch.hosts.collect{|host| User.find(host.user_id).first_name.capitalize + " " + User.find(host.user_id).last_name.capitalize}.join(" and ")}"
 %p= @lunch.description
+%h5 The following users have registered to attend
 %ol
   -@lunch.attendees.each do |attendee|
-    %li= User.find(attendee.user).display_name
+    %li= User.find(attendee.user_id).display_name
+%h5= "No users registered" if @lunch.attendees.count == 0
