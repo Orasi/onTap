@@ -2,11 +2,11 @@
 <%= form_for @lunchlearn, html: {class: "form-horizontal", role: "form"} do |f| %>
 <div class="form-group">
 	<%= f.label :title, nil, class: "control-label" %>
-	<%= f.text_field :title, value: "#{@lunchlearn.title unless @lunchlearn.title.blank?}", class: "form-control", required: true %>
+	<%= f.text_field :title, value: "#{@lunchlearn.title}", class: "form-control", required: true %>
 </div>
 <div class="form-group">
 	<%= f.label :description, nil, class: "control-label" %>
-	<%= f.text_field :description, value: "#{@lunchlearn.description unless @lunchlearn.description.blank?}", class: "form-control", required: true %>
+	<%= f.text_field :description, value: "#{@lunchlearn.description}", class: "form-control", required: true %>
 </div>
 <div class="form-group">
 	<%= f.label :lunch_date, nil, class: "control-label" %>
@@ -14,7 +14,7 @@
 </div>
 <div class="form-group">
 	<%= f.label :lunch_time, nil, class: "control-label" %>
-	<%= f.text_field :lunch_time, value: "#{@lunchlearn.lunch_time unless @lunchlearn.lunch_time.blank?}", class: "form-control", pattern: '\d{1,2}:\d{2}', title: "HH:MM" %>
+	<%= f.text_field :lunch_time, value: "#{@lunchlearn.lunch_time.strftime("%H:%M") unless @lunchlearn.lunch_time.blank?}", class: "form-control", pattern: '\d{1,2}:\d{2}', title: "HH:MM" %>
 </div>
 
 <%= f.label 'Hosts(s)', class: "control-label lunch-host-section" %>
