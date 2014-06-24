@@ -1,9 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  description: MyText
+lunchone:
+  id: 101
+  title: Ruby
+  description: Something Fun
+  lunch_date: 2015-05-05
+  lunch_time: 11:30
 
-two:
-  title: MyString
-  description: MyText
+
