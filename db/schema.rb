@@ -27,30 +27,6 @@ ActiveRecord::Schema.define(version: 20140620140638) do
     t.datetime "updated_at"
   end
 
-  create_table "lunch_attendees", force: true do |t|
-    t.integer  "lunch_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "lunch_hosts", force: true do |t|
-    t.integer  "lunch_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "lunches", force: true do |t|
-    t.string   "topic"
-    t.string   "brief_description"
-    t.date     "lunch_date"
-    t.time     "lunch_time"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "host_id"
-  end
-
   create_table "lunchlearns", force: true do |t|
     t.string   "title"
     t.text     "description"
