@@ -25,8 +25,8 @@
       %div
         = lunch.description
         %br
-        =link_to (lunch.attendees.exists?(user_id: session[:current_user_id]) ? "Don't Attend" : "Attend"), attendee_path(lunch), class: "btn btn-primary btn-lg"
-        = link_to "Details", lunchlearn_path(lunch), class: "btn btn-primary btn-lg"
+        = link_to (lunch.attendees.exists?(user_id: session[:current_user_id]) ? "Don't Attend" : "Attend"), attendee_path(lunch), class: "btn btn-primary btn-lg white-text"
+        = link_to "Details", lunchlearn_path(lunch), class: "btn btn-primary btn-lg white-text"
         - if is_admin
           %span.right
             =link_to "Edit", edit_lunchlearn_path(lunch), class: "btn btn-default btn-sm"
