@@ -2,6 +2,7 @@ class LunchlearnsController < ApplicationController
   before_action :require_admin, only: [:new, :update, :destroy]
   after_action :add_hosts, only: [:create]
   after_action :update_hosts, only: [:update]
+
   def calendar
     @lunchlearns = Lunchlearn.all
   end
