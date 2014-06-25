@@ -1,4 +1,4 @@
--if @lunchlearns.count != 0
+=if @lunchlearns.count != 0
   %h1
     Next Event
     -firstLL = @lunchlearns.shift

@@ -12,8 +12,4 @@ div {
          display: inline;
          color:  #ffff;
 	   }
-    .right{
-	float: right;
-          } 
-    }
-    
+     }
