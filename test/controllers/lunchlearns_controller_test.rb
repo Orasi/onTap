@@ -6,6 +6,7 @@ class LunchlearnsControllerTest < ActionController::TestCase
   # end
   def setup
     @lunchone=lunchlearns(:lunchone)
+    @lunchtwo=lunchlearns(:lunchtwo)
     @employee=users(:employee)
     @employeetwo=users(:employeetwo)
     @host=users(:host)
@@ -32,4 +33,13 @@ class LunchlearnsControllerTest < ActionController::TestCase
     assert_select 'h5', 'The following users have registered to attend'
   end
 
+  test "host should be listed on show page" do
+    get :show, {id: @lunchone.id}, {current_user_id: @employee.id}
+    assert_select 'h1', /.*hosted by Lewis Gordon/
+  end
+
+  test "if no attendees, no users registered should display" do
+    get :show, {id: @lunchtwo.id}, {current_user_id: @admin.id}
+    assert_select 'h5', 'No users registered'
+  end
 end

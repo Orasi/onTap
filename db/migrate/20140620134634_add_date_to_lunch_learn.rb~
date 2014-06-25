@@ -1,5 +1,0 @@
-class AddDateToLunchLearn < ActiveRecord::Migration
-  def change
-    add_column :lunch_learns, :lunch_date, :date
-  end
-end
