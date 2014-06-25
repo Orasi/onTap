@@ -1,3 +1,45 @@
 // Place all the styles related to the lunchlearns controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+h1 {
+    small {
+	font-size:medium;
+	  }
+    }
+div {
+    .inline {
+         display: inline;
+         color:  #ffff;
+	   }
+    .right{
+	float: right;
+          } 
+    }
+.ui-state-default{
+	color: #2d6ca2;
+ small{
+     	color: #6F6F6F;
+     }
+}
+
+.ui-state-active{
+	color: #ffffff;
+	background: #2d6ca2;
+     small{
+     	color: #D3CDCD;
+     }
+}
+.ui-state-hover{
+	color: #ffffff;
+	background: #2d6ca2;
+  small{
+     	color: #D3CDCD;
+     }
+}
+.ui-widget-content > a{
+	color: #ffffff;
+	margin-top: 10px;
+}
+
+
