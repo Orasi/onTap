@@ -13,7 +13,7 @@
 
   %div.form_group
     =f.label :lunch_time, nil, class: "control-label"
-    =f.text_field :lunch_time, value: (@lunchlearn.lunch_time.strftime("%I:%M") unless @lunchlearn.lunch_time.blank?), class: "form-control", required: true
+    =f.text_field :lunch_time, value: (@lunchlearn.lunch_time.strftime("%I:%M") unless @lunchlearn.lunch_time.blank?), class: "form-control", id: "timepicker", required: true
 
   %div.form_group
     %div.lunch-host-section.form-inline
@@ -32,6 +32,7 @@
     :javascript
       $(document).on("ready", function(){
         $("#datepicker").datepicker();
+        $("#timepicker").timepicker();
         $(".remove").on("click", function(){
           return $(this).parent().remove();
         });

@@ -15,3 +15,4 @@
 //= require jquery-ui-1.10.4.custom.min
 //= require bootstrap.min
 //= require_tree .
+//= require jquery.timepicker.js
