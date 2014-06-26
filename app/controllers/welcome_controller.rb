@@ -19,7 +19,7 @@ class WelcomeController < ApplicationController
 	Session.create(session_id: session[:session_id])
         redirect_to :calendar
     else
-	redirect_to :login, flash: {error: "something weird" + @user.username}
+	redirect_to :login, flash: {error: "Unknown Error"}
 	#TODO: User Validation error reporting
     end	
    
