@@ -13,6 +13,8 @@ class SuggestionsController < ApplicationController
 
   def create
     @suggestion=Suggestion.create(suggestion_params)
+    @suggestion.suggestor_id=current_user.id
+    @suggestion.save
     redirect_to :calendar
   end
 
