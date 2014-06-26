@@ -20,7 +20,7 @@ class WelcomeController < ApplicationController
         redirect_to :calendar
     else
 	redirect_to :login, flash: {error: "Unknown Error"}
-	#TODO: User Validation error reporting
+	#TODO: User Validation errors reporting
     end	
    
   end
