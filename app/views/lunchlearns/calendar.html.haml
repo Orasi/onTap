@@ -6,7 +6,7 @@
       %h1
         = firstLL.title
         %small= "Hosted by  #{firstLL.hosts.collect{|host| User.find(host.user_id).display_name}.join(" and ")}"
-  
+      %p= firstLL.lunch_date.to_date.strftime("%B %d, %Y") + " at " + firstLL.lunch_time.to_formatted_s(:time)
       %p= firstLL.description
       %div
         %div.inline
@@ -21,7 +21,7 @@
     -@lunchlearns.each do |lunch|
       %h5
         =lunch.title
-        %small= "Hosted by  #{lunch.hosts.collect{|host| User.find(host.user_id).display_name}.join(" and ")}"
+        %small= "Hosted by  #{lunch.hosts.collect{|host| User.find(host.user_id).display_name}.join(" and ")}   -    #{ lunch.lunch_date.to_date.strftime("%B %d, %Y") + " at " + lunch.lunch_time.to_formatted_s(:time)}"
       %div
         = lunch.description
         %br

@@ -4,7 +4,7 @@ class LunchlearnsController < ApplicationController
   after_action :update_hosts, only: [:update]
 
   def calendar
-    @lunchlearns = Lunchlearn.all
+    @lunchlearns = Lunchlearn.where("lunch_date > #{DateTime.now.to_date}").order(lunch_date: :asc)
   end
   
   def show
