@@ -9,7 +9,11 @@
 
   %div.form_group
     =f.label :lunch_date, nil, class: "control-label"
-    =f.text_field :lunch_date, value:  @lunchlearn.lunch_date, class: "form-control", id: "datepicker",required: true
+    - if @lunchlearn.lunch_date
+      =f.text_field :lunch_date, value:  @lunchlearn.lunch_date.strftime("%m/%d/%Y"), class: "form-control", id: "datepicker",required: true
+    - if not @lunchlearn.lunch_date
+      =f.text_field :lunch_date, value:  @lunchlearn.lunch_date, class: "form-control", id: "datepicker",required: true
+
 
   %div.form_group
     =f.label :lunch_time, nil, class: "control-label"

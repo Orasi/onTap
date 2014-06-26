@@ -4,7 +4,7 @@ class LunchlearnsController < ApplicationController
   after_action :update_hosts, only: [:update]
 
   def calendar
-    @lunchlearns = Lunchlearn.where("lunch_date > #{DateTime.now.to_date}").order(lunch_date: :asc)
+    @lunchlearns = Lunchlearn.where("lunch_date >= ?",DateTime.now.to_date).order(lunch_date: :asc)
   end
   
   def show
@@ -16,6 +16,7 @@ class LunchlearnsController < ApplicationController
   end
 
   def create
+    params[:lunchlearn][:lunch_date] = DateTime.strptime(params[:lunchlearn][:lunch_date], "%m/%d/%Y")
     @lunch=Lunchlearn.create(lunchlearn_params)
     redirect_to :calendar
   end
@@ -26,6 +27,7 @@ class LunchlearnsController < ApplicationController
   end
 
   def update
+    params[:lunchlearn][:lunch_date] = DateTime.strptime(params[:lunchlearn][:lunch_date], "%m/%d/%Y")
     @lunch = Lunchlearn.find(params[:id])
     @lunch.update_attributes(lunchlearn_params)
     @lunch.save
