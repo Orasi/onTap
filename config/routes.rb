@@ -1,7 +1,13 @@
 LunchLearn::Application.routes.draw do
-  get "/calendar" => 'lunch_and_learn#calendar'
-  get "lunch_and_learn/create"
-  get "/tempLogin" => 'users#tempLogin'
+  get "suggestions/new"
+  get "/calendar" => 'lunchlearns#calendar'
+  resources :lunchlearns, except: :index
+  resources :suggestions, except: :index
+  get "/suggestioncollection" => 'suggestions#suggestioncollection'
+  get "/attendee/:id" => 'attendees#change', as: :attendee
+#  resources :attendees
+ # get "lunch_and_learn/create"
+ # get "/tempLogin" => 'users#tempLogin'
   post '/login' => "welcome#validate"
   get '/login' => 'welcome#login'
   get '/logout' => 'welcome#logout'
@@ -9,7 +15,7 @@ LunchLearn::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  root 'welcome#login'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -1,4 +1,12 @@
 class WelcomeController < ApplicationController
+  skip_before_action :require_login, only:[:validate, :login]
+  
+  def login
+    if not session[:current_user_id].blank?
+      redirect_to :calendar
+    end
+  end
+  
   def validate
     if validate_against_ad(login_params["username"], login_params["password"])     
         user_exist(login_params["username"])
@@ -7,7 +15,7 @@ class WelcomeController < ApplicationController
 	if @User.save
 		session[:current_user_id] = @User.id
 		Session.create(session_id: session[:session_id])
-		redirect_to :calendar
+                  redirect_to :calendar
     	else
 		redirect_to :login
 		#TODO: User Validation error reporting

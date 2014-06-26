@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  suggestor_id: 
+  suggestion_title: MyString
+  suggestion_description: MyString
+
+two:
+  suggestor_id: 
+  suggestion_title: MyString
+  suggestion_description: MyString

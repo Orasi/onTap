@@ -1,0 +1,10 @@
+%h1
+  = @lunch.title
+  %small= " hosted by #{@lunch.hosts.collect{|host| User.find(host.user_id).first_name.capitalize + " " + User.find(host.user_id).last_name.capitalize}.join(" and ")}"
+%p= @lunch.description
+-if @lunch.attendees.exists?(user_id:session[:current_user_id]) || @lunch.hosts.exists?(user_id:session[:current_user_id]) || is_admin
+  %h5 The following users have registered to attend
+  %ol
+  -@lunch.attendees.each do |attendee|
+    %li= User.find(attendee.user_id).display_name
+  %h5= "No users registered" if @lunch.attendees.count == 0
