@@ -5,6 +5,7 @@ class SuggestionsController < ApplicationController
   
   def show
     @suggestion = Suggestion.find(params[:id])
+    @user = @suggestion
   end  
 
   def new
@@ -13,8 +14,6 @@ class SuggestionsController < ApplicationController
 
   def create
     @suggestion=Suggestion.create(suggestion_params)
-    @suggestion.suggestor_id=current_user.id
-    @suggestion.save
     redirect_to :calendar
   end
 

@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20140625190433) do
   end
 
   create_table "suggestions", force: true do |t|
-    t.integer  "suggestor_id"
+    t.integer  "user_id"
     t.string   "suggestion_title"
     t.string   "suggestion_description"
     t.datetime "created_at"
