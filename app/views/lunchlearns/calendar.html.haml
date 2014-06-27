@@ -3,11 +3,16 @@
     Next Event
     -firstLL = @lunchlearns.shift
   %div.jumbotron
-    %h1
-      = firstLL.title
-      %small= "Hosted by  #{firstLL.hosts.collect{|host| User.find(host.user_id).display_name}.join(" and ")}"
-      -if firstLL.hosts.count == 1
-        = image_tag User.find(firstLL.hosts.first.user_id).photo, class: "img-circle"
+    %table
+      %tr
+        %td
+          %h1
+            = firstLL.title
+        %td
+          %h1
+            %small= "Hosted by  #{firstLL.hosts.collect{|host| User.find(host.user_id).display_name}.join(" and ")}"
+            -if firstLL.hosts.count == 1
+              = image_tag User.find(firstLL.hosts.first.user_id).photo, class: "img-circle"
 
 
 
