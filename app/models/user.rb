@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
     return false if password.blank?
     unless Rails.env.production?
       self.first_name,self.last_name = self.username.downcase.split(".") if self.first_name.blank? or self.last_name.blank?
-      self.admin = false
+      self.admin = false if self.admin.blank?
       self.email = "#{self.username.downcase}@orasi.com" if self.email.blank?
       return true
     end
