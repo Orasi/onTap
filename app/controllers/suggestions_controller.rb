@@ -1,5 +1,7 @@
 class SuggestionsController < ApplicationController
   
+  before_action :require_admin, only: [:index]
+
   def index
     @suggestions = Suggestion.all
   end
