@@ -13,4 +13,10 @@ class ApplicationController < ActionController::Base
       redirect_to :login, flash: {error: "You must be logged in to view Lunch and Learns."}
     end
   end
+
+  def require_admin
+    if current_user.nil? or not current_user.admin
+      redirect_to :calendar, flash: {error: "You do not have the required permissions to access this area"}
+    end
+  end
 end

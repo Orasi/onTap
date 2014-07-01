@@ -2,7 +2,7 @@
 %html
   %head
   %title Orasi Training Oppurtunities
-  = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+  = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
   = javascript_include_tag "application", "data-turbolinks-track" => true
   = csrf_meta_tags
   %body
@@ -35,7 +35,7 @@
                     = link_to "View Suggestions", suggestions_path
             -if session[:current_user_id]
               %li
-                = link_to "Logout", { controller: "welcome", action: "logout" }
+                = link_to "Logout", { controller: "welcome", action: "logout" }   
       
     %div.container.theme-showcase{role: :main, style: "margin-top: 80px"}
       = yield
