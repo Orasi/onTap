@@ -1,5 +1,8 @@
 class SuggestionsController < ApplicationController
-  def suggestioncollection
+  
+  before_action :require_admin, only: [:index]
+
+  def index
     @suggestions = Suggestion.all
   end
   
@@ -12,7 +15,7 @@ class SuggestionsController < ApplicationController
   end
 
   def create
-    @suggestion=Suggestion.create(suggestion_params)
+    @suggestion=User.find(current_user.id).suggestions.create(suggestion_params)
     redirect_to :calendar
   end
 
@@ -30,7 +33,7 @@ class SuggestionsController < ApplicationController
 
   def destroy
     Suggestion.find(params[:id]).destroy
-    redirect_to :suggestioncollection
+    redirect_to suggestions_path
   end
 
   def suggestion_params

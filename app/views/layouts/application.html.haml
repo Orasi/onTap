@@ -21,6 +21,8 @@
               =link_to "Calendar", root_url
             %li
               = link_to "Archive", root_url + "/archive"
+            %li
+              = link_to "Suggest Topic", new_suggestion_path
             -if is_admin
               %li.dropdown
                 %a.dropdown-toggle{href: "#", "data-toggle" => "dropdown"}
@@ -29,10 +31,11 @@
                 %ul.dropdown-menu
                   %li
                     = link_to "Add New Event", new_lunchlearn_path
+                  %li
+                    = link_to "View Suggestions", suggestions_path
             -if session[:current_user_id]
               %li
                 = link_to "Logout", { controller: "welcome", action: "logout" }   
       
     %div.container.theme-showcase{role: :main, style: "margin-top: 80px"}
       = yield
-

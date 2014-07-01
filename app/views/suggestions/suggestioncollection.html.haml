@@ -1,8 +1,0 @@
-%h1
-  All Suggestions:
-  -@suggestions.each do |suggestion|
-    %h5
-      =link_to suggestion.suggestion_title,suggestion_path(suggestion)
-    %p= suggestion.suggestion_description
-
-%h1= "No Suggestions to display" if @suggestions.count == 0
