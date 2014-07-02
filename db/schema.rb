@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140626192124) do
+ActiveRecord::Schema.define(version: 20140702143751) do
 
   create_table "attendees", force: true do |t|
     t.integer  "user_id"
@@ -34,6 +34,9 @@ ActiveRecord::Schema.define(version: 20140626192124) do
     t.datetime "updated_at"
     t.date     "lunch_date"
     t.time     "lunch_time"
+    t.string   "meeting_phone_number"
+    t.string   "access_code"
+    t.boolean  "has_GoToMeeting"
   end
 
   create_table "sessions", force: true do |t|
