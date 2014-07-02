@@ -56,3 +56,6 @@ gem 'pry', group: [:development, :test]
 
 # Use haml
 gem 'haml-rails'
+
+#iCalendar to generate Calendar Invites
+gem 'icalendar'
