@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140702143751) do
+ActiveRecord::Schema.define(version: 20140702201605) do
 
   create_table "attendees", force: true do |t|
     t.integer  "user_id"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20140702143751) do
     t.string   "meeting_phone_number"
     t.string   "access_code"
     t.boolean  "has_GoToMeeting"
+    t.string   "go_to_meeting_url"
   end
 
   create_table "sessions", force: true do |t|

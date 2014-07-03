@@ -41,7 +41,7 @@ class LunchlearnsController < ApplicationController
   private
 
   def lunchlearn_params
-    params[:lunchlearn].permit(:title, :description, :lunch_date, :lunch_time, :has_GoToMeeting, :meeting_phone_number, :access_code)
+    params[:lunchlearn].permit(:title, :description, :lunch_date, :lunch_time, :has_GoToMeeting, :meeting_phone_number, :access_code, :go_to_meeting_url)
   end
 
   def lunch_host_ids
