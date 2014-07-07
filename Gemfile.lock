@@ -46,6 +46,7 @@ GEM
       railties (>= 4.0.1)
     hike (1.2.3)
     i18n (0.6.9)
+    icalendar (2.1.0)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -150,6 +151,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
   haml-rails
+  icalendar
   jbuilder (~> 1.2)
   jquery-rails
   net-ldap
