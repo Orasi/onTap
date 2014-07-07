@@ -31,11 +31,33 @@
         %span.btn.btn-primary.remove
           %span.glyphicon.glyphicon-minus
           Remove
+
+  %div.form_group
+    =f.label :has_GoToMeeting, "Add GoToMeeting", class: "control-label"
+    =f.check_box :has_GoToMeeting, checked: @lunchlearn.has_GoToMeeting, class: "meeting gotomeeting"
+ 
+    %div.form_group#gotomeetingform
+      %div.form_group
+        =f.label :go_to_meeting_url, nil, class: "control-label"
+        =f.text_field :go_to_meeting_url, value: @lunchlearn.go_to_meeting_url, class: "form-control"
+      %div.form_group
+        =f.label :meeting_phone_number, nil, class: "control-label"
+        =f.text_field :meeting_phone_number, value: @lunchlearn.meeting_phone_number, class: "form-control"   
+      %div.form_group
+        =f.label :access_code, nil, class: "control-label"
+        =f.text_field :access_code, value: @lunchlearn.access_code, class: "form-control"  
+   
+  
   %div.form_group
     =f.submit class: "btn btn-primary", "data-loading-text" => "Adding Lunch and Learn..."
     :javascript
       $(document).on("ready", function(){
+        if ($("input:checked").length > 0)
+          $("#gotomeetingform").show()
         $("#datepicker").datepicker();
+        $(".meeting").on("click", function(){
+          $("#gotomeetingform").toggle($(this));        
+        });
         $("#timepicker").timepicker();
         $(".remove").on("click", function(){
           return $(this).parent().remove();

@@ -3,6 +3,18 @@
   %small= " hosted by #{@lunch.hosts.collect{|host| User.find(host.user_id).first_name.capitalize + " " + User.find(host.user_id).last_name.capitalize}.join(" and ")}"
 %p= @lunch.description
 -if @lunch.attendees.exists?(user_id:session[:current_user_id]) || @lunch.hosts.exists?(user_id:session[:current_user_id]) || is_admin
+  -if @lunch.has_GoToMeeting
+    %p2="GoTo Meeting information:"
+    %div.meetinglink
+      %p3="Please join the meeting:  "
+      %p3=@lunch.go_to_meeting_url
+    %div.meetingphone
+      %p4="To call in dial:  "
+      %p4=@lunch.meeting_phone_number
+      %div.access
+        %p5="Use access code:  "
+        %p5=@lunch.access_code
+
   %h5 The following users have registered to attend
   %ol
   -@lunch.attendees.each do |attendee|
