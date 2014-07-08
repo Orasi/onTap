@@ -1,36 +1,38 @@
-= render "flash_messages"
 -if @lunchlearns.count != 0
-  %h1
+  .h1
     Next Event
     -firstLL = @lunchlearns.shift
-  %div.jumbotron
-    %table
-      %tr
-        %td
-          %h1
-            = firstLL.title
-        %td
-          %h1
-            %small= "Hosted by  #{firstLL.hosts.collect{|host| User.find(host.user_id).display_name}.join(" and ")}"
-            -if firstLL.hosts.count == 1
-              = image_tag User.find(firstLL.hosts.first.user_id).photo, class: "img-circle"
-
-
-
-
-    %p= firstLL.lunch_date.to_date.strftime("%B %d, %Y") + " at " + firstLL.lunch_time.to_formatted_s(:time)
-    %p= firstLL.description
-
-    %div
-      %div.inline
-        = link_to (firstLL.attendees.exists?(user_id: session[:current_user_id]) ? "Don't Attend" : "Attend"), attendee_path(firstLL), class: "btn btn-primary btn-lg inline"
-        = link_to "Details", lunchlearn_path(firstLL), class: "btn btn-primary btn-lg inline"
+  .jumbotron
+    .jumbo-header
+      .jumbo-title.h1
+        = firstLL.title
+      .jumbo-date-hosts.h2
+        .jumbo-date.small
+          = firstLL.lunch_date.to_date.strftime("%B %d, %Y") + " at " + firstLL.lunch_time.to_formatted_s(:time)
+        .jumbo-spacer
+        .jumbo-hosts
+          .jumbo-hosted-by.small
+            Hosted by
+          -firstLL.hosts.collect.each do |host|
+            .jumbo-hosts.small
+              .jumbo-hosts-picture
+                =image_tag User.find(host.user_id).photo, class: "img-circle"
+              .jumbo-hosts-name
+                ="#{User.find(host.user_id).display_name}"
+    %p.jumbo-description
+      = firstLL.description
+    .jumbo-button-panel
+      %div.jumbo-main-buttons.pull-left
+        = link_to (firstLL.attendees.exists?(user_id: session[:current_user_id]) ? "Don't Attend" : "Attend"), attendee_path(firstLL), class: "btn btn-primary btn-lg"
+        = link_to "Details", lunchlearn_path(firstLL), class: "btn btn-primary btn-lg"
+     
       - if is_admin
-        %div.inline.right      
-          %span=link_to "Edit", edit_lunchlearn_path(firstLL), class: "btn btn-default btn-sm inline"
-          %span=link_to "Delete", lunchlearn_path(firstLL), method: :delete, class: "btn btn-default btn-sm inline"
+        .jumbo-admin-buttons.pull-right     
+          = link_to "Edit", edit_lunchlearn_path(firstLL), class: "btn btn-default btn-sm"
+          = link_to "Delete", lunchlearn_path(firstLL), method: :delete, class: "btn btn-default btn-sm"
+
   %h3 Other Upcoming Events
-  %div#accordion
+  #accordion
     -@lunchlearns.each do |lunch|
       %h5
         =lunch.title
@@ -41,7 +43,7 @@
         = link_to (lunch.attendees.exists?(user_id: session[:current_user_id]) ? "Don't Attend" : "Attend"), attendee_path(lunch), class: "btn btn-primary btn-lg white-text"
         = link_to "Details", lunchlearn_path(lunch), class: "btn btn-primary btn-lg white-text"
         - if is_admin
-          %span.right
+          %span.pull-right
             =link_to "Edit", edit_lunchlearn_path(lunch), class: "btn btn-default btn-sm"
             =link_to "Delete", lunchlearn_path(lunch), method: :delete, class: "btn btn-default btn-sm"
 
