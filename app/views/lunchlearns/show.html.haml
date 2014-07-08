@@ -36,8 +36,28 @@
   .jumbo-button-panel
     %div.jumbo-main-buttons.pull-left
 
-  %h5 The following users have registered to attend
-  %ol
-  -@lunch.attendees.each do |attendee|
-    %li= User.find(attendee.user_id).display_name
-  %h5= "No users registered" if @lunch.attendees.count == 0
+
+-if @lunch.attendees.exists?(user_id:session[:current_user_id]) || @lunch.hosts.exists?(user_id:session[:current_user_id]) || is_admin
+  -if @lunch.has_GoToMeeting
+    .panel.panel-default
+      .panel-heading GoTo Meeting information:
+      .meetinglink
+        Please join the meeting:  
+        = link_to @lunch.go_to_meeting_url
+      .meetingphone
+        To call in dial:  
+        = @lunch.meeting_phone_number
+      .access
+        Use access code:  
+        = @lunch.access_code
+  .panel.panel-default
+    .panel-heading 
+      Attendees
+      %span.badge
+        = @lunch.attendees.count
+    .panel-body
+      %h4 The following users have registered to attend
+      %ol
+        -@lunch.attendees.each do |attendee|
+          %li= User.find(attendee.user_id).display_name
+        %h5= "No users registered" if @lunch.attendees.count == 0
