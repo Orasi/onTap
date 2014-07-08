@@ -36,7 +36,7 @@ class LunchlearnsController < ApplicationController
 
   def destroy
     Lunchlearn.find(params[:id]).destroy
-    redirect_to :calendar
+    redirect_to :calendar, flash: {error: "Lunch and Learn Deleted"}
   end
   private
 

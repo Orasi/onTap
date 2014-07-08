@@ -1,3 +1,4 @@
+= render "flash_messages"
 = form_for @suggestion, html: {class: "form-horizontal", role: "form"} do |f|
   %div.form_group
     =f.label :suggestion_title, nil, class: "control-label"
