@@ -38,4 +38,5 @@
                 = link_to "Logout", { controller: "welcome", action: "logout" }   
       
     %div.container.theme-showcase{role: :main, style: "margin-top: 80px"}
+      = render "flash_messages"
       = yield

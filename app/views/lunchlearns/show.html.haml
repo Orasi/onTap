@@ -1,4 +1,3 @@
-= render "flash_messages"
 %h1
   = @lunch.title
   %small= " hosted by #{@lunch.hosts.collect{|host| User.find(host.user_id).first_name.capitalize + " " + User.find(host.user_id).last_name.capitalize}.join(" and ")}"
