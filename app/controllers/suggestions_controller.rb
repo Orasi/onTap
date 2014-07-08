@@ -16,7 +16,7 @@ class SuggestionsController < ApplicationController
 
   def create
     @suggestion=User.find(current_user.id).suggestions.create(suggestion_params)
-    redirect_to :calendar, flash: {success: "Suggestion \"#{@suggestion.title}\" was created"}
+    redirect_to :calendar, flash: {success: "Suggestion \"#{@suggestion.suggestion_title}\" was created"}
   end
 
   def edit
@@ -28,12 +28,13 @@ class SuggestionsController < ApplicationController
     @suggestion = Suggestions.find(params[:id])
     @suggestion.update_attributes(suggestion_params)
     @suggestion.save
-    redirect_to suggestion_path(@suggestion), flash: {success: "Suggestion \"#{@suggestion.title}\" was updated"}
+    redirect_to suggestion_path(@suggestion), flash: {success: "Suggestion \"#{@suggestion.suggestion_title}\" was updated"}
   end
 
   def destroy
+    oldtitle=Suggestion.find(params[:id]).suggestion_title
     Suggestion.find(params[:id]).destroy
-    redirect_to suggestions_path, flash: {error: "Suggestion \"#{@suggestion.title}\" was deleted"}
+    redirect_to suggestions_path, flash: {error: "Suggestion \"#{oldtitle}\" was deleted"}
   end
 
   def suggestion_params

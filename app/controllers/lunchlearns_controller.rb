@@ -35,8 +35,9 @@ class LunchlearnsController < ApplicationController
   end
 
   def destroy
+    oldEventTitle=Lunchlearn.find(params[:id]).title
     Lunchlearn.find(params[:id]).destroy
-    redirect_to :calendar, flash: {error: "Event \"#{@lunch.title}\" was deleted"}
+    redirect_to :calendar, flash: {error: "Event \"#{oldEventTitle}\" was deleted"}
   end
   private
 
