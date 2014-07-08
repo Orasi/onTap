@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-  %title onTap
+    %title onTap
   = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
   = javascript_include_tag "application", "data-turbolinks-track" => true
   = csrf_meta_tags
@@ -14,7 +14,9 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
+
           = link_to "onTap  @  Orasi", root_url, class: "navbar-brand"
+
         %div.navbar-collapse.collapse
           %ul.nav.navbar-nav
             %li.active
@@ -38,4 +40,5 @@
                 = link_to "Logout", { controller: "welcome", action: "logout" }   
       
     %div.container.theme-showcase{role: :main, style: "margin-top: 80px"}
+      = render "flash_messages"
       = yield
