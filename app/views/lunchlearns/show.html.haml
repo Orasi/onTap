@@ -1,19 +1,40 @@
-%h1
-  = @lunch.title
-  %small= " hosted by #{@lunch.hosts.collect{|host| User.find(host.user_id).first_name.capitalize + " " + User.find(host.user_id).last_name.capitalize}.join(" and ")}"
-%p= @lunch.description
--if @lunch.attendees.exists?(user_id:session[:current_user_id]) || @lunch.hosts.exists?(user_id:session[:current_user_id]) || is_admin
-  -if @lunch.has_GoToMeeting
-    %p2="GoTo Meeting information:"
-    %div.meetinglink
-      %p3="Please join the meeting:  "
-      %p3=@lunch.go_to_meeting_url
-    %div.meetingphone
-      %p4="To call in dial:  "
-      %p4=@lunch.meeting_phone_number
-      %div.access
-        %p5="Use access code:  "
-        %p5=@lunch.access_code
+- if @lunch.attendees.exists?(user_id: session[:current_user_id])
+  .alert.alert-success.alert-dismissible{role: 'alert'}
+    %button{type: 'button', class: 'close', 'data-dismiss'=>'alert'}
+      %span{'aria-hidden' => 'true'}
+        &times
+      %span.sr-only 
+    %strong You are attending this event
+    = "  -  No longer attending?"
+    = link_to  "Don't Attend" , attendee_path(@lunch)
+
+      
+.jumbotron
+  .jumbo-header
+    .jumbo-admin-buttons.pull-right     
+      = link_to (@lunch.attendees.exists?(user_id: session[:current_user_id]) ? "Don't Attend" : "Attend"), attendee_path(@lunch), class: "btn btn-primary btn-lg" if not @lunch.attendees.exists?(user_id: session[:current_user_id])
+      - if is_admin
+        = link_to "Edit", edit_lunchlearn_path(@lunch), class: "btn btn-default btn-sm"
+        = link_to "Delete", lunchlearn_path(@lunch), method: :delete, class: "btn btn-default btn-sm"
+    .jumbo-title.h1
+      = @lunch.title
+    .jumbo-date-hosts.h2
+      .jumbo-date.small
+        = @lunch.lunch_date.to_date.strftime("%B %d, %Y") + " at " + @lunch.lunch_time.to_formatted_s(:time)
+      .jumbo-spacer
+      .jumbo-hosts
+        .jumbo-hosted-by.small
+          Hosted by
+        -@lunch.hosts.collect.each do |host|
+          .jumbo-hosts.small
+            .jumbo-hosts-picture
+              =image_tag User.find(host.user_id).photo, class: "img-circle"
+            .jumbo-hosts-name
+              ="#{User.find(host.user_id).display_name}"
+  %p.jumbo-description
+    = @lunch.description
+  .jumbo-button-panel
+    %div.jumbo-main-buttons.pull-left
 
   %h5 The following users have registered to attend
   %ol
