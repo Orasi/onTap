@@ -33,7 +33,7 @@ class SuggestionsController < ApplicationController
 
   def destroy
     Suggestion.find(params[:id]).destroy
-    redirect_to suggestions_path
+    redirect_to suggestions_path, flash: {error: "Suggestion Deleted"}
   end
 
   def suggestion_params
