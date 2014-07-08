@@ -10,7 +10,7 @@ class WelcomeController < ApplicationController
   def validate
     @user = User.find_or_create(params[:login][:username].downcase)
     unless @user.validate_against_ad(params[:login][:password])
-      redirect_to :login, flash: {error: "Invalide username or password"}
+      redirect_to :login, flash: {error: "Invalid username or password"}
       return
     end
     

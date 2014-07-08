@@ -42,10 +42,10 @@
         =f.text_field :go_to_meeting_url, value: @lunchlearn.go_to_meeting_url, class: "form-control"
       %div.form_group
         =f.label :meeting_phone_number, nil, class: "control-label"
-        =f.text_field :meeting_phone_number, value: @lunchlearn.meeting_phone_number, class: "form-control"   
+        =f.text_field :meeting_phone_number, value: @lunchlearn.meeting_phone_number, class: "form-control", pattern: '\(\d{3}\)\d{3}-\d{4}', placeholder: "(XXX)XXX-XXXX", title: "(XXX)XXX-XXXX" 
       %div.form_group
         =f.label :access_code, nil, class: "control-label"
-        =f.text_field :access_code, value: @lunchlearn.access_code, class: "form-control"  
+        =f.text_field :access_code, value: @lunchlearn.access_code, class: "form-control", pattern: '\d{3}-\d{3}-\d{3}', placeholder: "XXX-XXX-XXX", title: "XXX-XXX-XXX" 
    
   
   %div.form_group
@@ -58,7 +58,7 @@
         $(".meeting").on("click", function(){
           $("#gotomeetingform").toggle($(this));        
         });
-        $("#timepicker").timepicker();
+        $('#timepicker').timepicker();
         $(".remove").on("click", function(){
           return $(this).parent().remove();
         });
