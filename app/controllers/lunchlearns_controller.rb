@@ -17,8 +17,12 @@ class LunchlearnsController < ApplicationController
 
   def create
     params[:lunchlearn][:lunch_date] = DateTime.strptime(params[:lunchlearn][:lunch_date], "%m/%d/%Y")
-    @lunch=Lunchlearn.create(lunchlearn_params)
-    redirect_to :calendar, flash: {success: "Event \"#{@lunch.title}\" was Created"}
+    @lunch=Lunchlearn.new(lunchlearn_params)
+    if @lunch.save
+      redirect_to :calendar, flash: {success: "Event \"#{@lunch.title}\" was reated"}
+    else
+      redirect_to :calendar, flash: {error: "Event \"#{@lunch.title}\" was not created"}
+    end
   end
 
   def edit

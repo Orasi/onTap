@@ -1,6 +1,6 @@
 class SuggestionsController < ApplicationController
   
-  before_action :require_admin, only: [:index]
+  before_action :require_admin, only: [:index, :show, :edit, :update, :destroy]
 
   def index
     @suggestions = Suggestion.all
@@ -15,8 +15,12 @@ class SuggestionsController < ApplicationController
   end
 
   def create
-    @suggestion=User.find(current_user.id).suggestions.create(suggestion_params)
-    redirect_to :calendar, flash: {success: "Suggestion \"#{@suggestion.suggestion_title}\" was created"}
+    @suggestion=User.find(current_user.id).suggestions.new(suggestion_params)
+    if @suggestion.save
+      redirect_to :calendar, flash: {success: "Suggestion \"#{@suggestion.suggestion_title}\" was created"}
+    else
+      redirect_to :calendar, flash: {error: "Suggestion \"#{@suggestion.suggestion_title}\" was not created"}
+    end
   end
 
   def edit
