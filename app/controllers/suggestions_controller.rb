@@ -16,7 +16,7 @@ class SuggestionsController < ApplicationController
 
   def create
     @suggestion=User.find(current_user.id).suggestions.create(suggestion_params)
-    redirect_to :calendar
+    redirect_to :calendar, flash: {success: "Suggestion Created"}
   end
 
   def edit
@@ -28,7 +28,7 @@ class SuggestionsController < ApplicationController
     @suggestion = Suggestions.find(params[:id])
     @suggestion.update_attributes(suggestion_params)
     @suggestion.save
-    redirect_to suggestion_path(@suggestion)
+    redirect_to suggestion_path(@suggestion), flash: {success: "Suggestion Updated"}
   end
 
   def destroy

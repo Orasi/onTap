@@ -18,7 +18,7 @@ class LunchlearnsController < ApplicationController
   def create
     params[:lunchlearn][:lunch_date] = DateTime.strptime(params[:lunchlearn][:lunch_date], "%m/%d/%Y")
     @lunch=Lunchlearn.create(lunchlearn_params)
-    redirect_to :calendar
+    redirect_to :calendar, flash: {success: "Lunch and Learn Created"}
   end
 
   def edit
@@ -31,7 +31,7 @@ class LunchlearnsController < ApplicationController
     @lunch = Lunchlearn.find(params[:id])
     @lunch.update_attributes(lunchlearn_params)
     @lunch.save
-    redirect_to lunchlearn_path(@lunch)
+    redirect_to lunchlearn_path(@lunch), flash: {success: "Lunch and Learn Updated"}
   end
 
   def destroy
