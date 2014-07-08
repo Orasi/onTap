@@ -7,22 +7,51 @@ h1 {
 	font-size:medium;
 	  }
     }
-div {
-    .inline {
-         display: inline;
-         color:  #ffff;
-	   }
-    .right{
-	float: right;
-          } 
-    }
+.jumbo-button-panel{
+    padding-bottom: 20px
+}
+.jumbotron{
+    padding-top: 5px
+}
+.jumbo-description{
+    clear: right
+}
 .ui-state-default{
 	color: #2d6ca2;
  small{
      	color: #6F6F6F;
      }
 }
+.jumbo-date-hosts{
+    display: table;
+    width: 100%;
+    margin-top: 0px;
+    padding-right: 10px;
+}
+.jumbo-date{
+    vertical-align: middle;
+    display: table-cell;
+    white-space: nowrap;
+}
+.jumbo-title{
+    margin-bottom: 0px;
+}
+.jumbo-spacer{
+   display:table-cell;
+   width: 100%;
+}
+.jumbo-hosts{
+    display: table-cell;
+    padding-right: 10px;
 
+   
+}
+.jumbo-hosted-by{
+    display: table-cell;
+    vertical-align: middle;
+    padding-right: 10px;
+    white-space: nowrap;
+}
 .ui-state-active{
 	color: #ffffff;
 	background: #2d6ca2;
@@ -45,8 +74,10 @@ div {
 {
 	display:none;
 }
-.namepicpair
+.jumbo-hosts-name
 {
-	white-space: nowrap
+        text-align: center;
+	white-space: nowrap;
+        font-size:  75%
 }
 
