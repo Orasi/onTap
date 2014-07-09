@@ -18,7 +18,7 @@
       = @lunch.title
     .jumbo-date-hosts.h2
       .jumbo-date.small
-        = @lunch.lunch_date.to_date.strftime("%B %d, %Y") + " at " + @lunch.lunch_time.to_formatted_s(:time)
+        = @lunch.lunch_date.to_date.strftime("%B %d, %Y") + " at " + @lunch.lunch_time.strftime("%I:%M %p")
       .jumbo-spacer
       .jumbo-hosts
         .jumbo-hosted-by.small
