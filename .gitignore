@@ -16,4 +16,4 @@
 /tmp
 /.idea
 *.*~
-/public/photos
+#/public/photos
