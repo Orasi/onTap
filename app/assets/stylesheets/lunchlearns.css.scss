@@ -81,3 +81,8 @@ h1 {
         font-size:  75%
 }
 
+.tint:hover{
+    background: rgba(0,0,0,0.5);
+    transition: background 0.3s linear;
+}
+

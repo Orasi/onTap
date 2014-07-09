@@ -10,7 +10,7 @@
         %br
         = link_to "Details", lunchlearn_path(lunch), class: "btn btn-primary btn-lg white-text"
         - if is_admin
-          %span.right
+          %span.pull-right
             =link_to "Edit", edit_lunchlearn_path(lunch), class: "btn btn-default btn-sm"
             =link_to "Delete", lunchlearn_path(lunch), method: :delete, class: "btn btn-default btn-sm"
 
