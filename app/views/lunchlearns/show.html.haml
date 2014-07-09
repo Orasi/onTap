@@ -63,8 +63,8 @@
           .attending-cell
             %figure.tint.close-picture{'data-toggle' => 'tooltip', 'data-placement' => 'top', title:  "#{User.find(attendee.user_id).display_name}"}
               .imagetooltip
-                = image_tag User.find(attendee.user_id).photo, class: "img-circle" if User.find(attendee.user_id).photo
-                = image_tag "/photos/blank.jpg", class: "img-circle" if not User.find(attendee.user_id).photo
+                = image_tag User.find(attendee.user_id).photo if User.find(attendee.user_id).photo
+                = image_tag "/photos/blank.jpg" if not User.find(attendee.user_id).photo
         - break if attending.count == 0
       %h5= "No users registered" if @lunch.attendees.count == 0
 :javascript
