@@ -55,10 +55,18 @@
         = @lunch.attendees.count
     .panel-body
       %h4 The following users have registered to attend
-      -@lunch.attendees.each do |attendee|
-        %figure.tint.close-picture{'data-toggle' => 'tooltop', 'data-placement' => 'top', title: User.find(attendee.user_id).display_name}
-        .image= image_tag User.find(attendee.user_id).photo, class: "img-circle"
+      .attending
+      -attending = @lunch.attendees.all
+      - loop do
+        .attending-row
+        - attending.pop(7).each do |attendee|
+          .attending-cell
+            %figure.tint.close-picture{'data-toggle' => 'tooltip', 'data-placement' => 'top', title:  "#{User.find(attendee.user_id).display_name}"}
+              .imagetooltip
+                = image_tag User.find(attendee.user_id).photo, class: "img-circle" if User.find(attendee.user_id).photo
+                = image_tag "/photos/blank.jpg", class: "img-circle" if not User.find(attendee.user_id).photo
+        - break if attending.count == 0
       %h5= "No users registered" if @lunch.attendees.count == 0
 :javascript
-  $('.image').tooltip()
+  $('.close-picture').tooltip()
   
