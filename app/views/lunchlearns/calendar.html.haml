@@ -8,7 +8,7 @@
         = firstLL.title
       .jumbo-date-hosts.h2
         .jumbo-date.small
-          = firstLL.lunch_date.to_date.strftime("%B %d, %Y") + " at " + firstLL.lunch_time.strftime("%I:%M %p")
+          = firstLL.lunch_date.to_date.strftime("%B %d, %Y") + " at " + firstLL.lunch_time.strftime("%I:%M %p") + (firstLL.end_time.blank? ? "" : " to " +firstLL.end_time.strftime("%I:%M %p"))
         .jumbo-spacer
         .jumbo-hosts
           .jumbo-hosted-by.small
@@ -40,7 +40,7 @@
           -if lunch.hosts.count != 0
             = "Hosted by  #{lunch.hosts.collect{|host| User.find(host.user_id).display_name}.join(" and ")}   -    "
           %strong
-            = "#{ lunch.lunch_date.to_date.strftime("%B %d, %Y") + " at " + lunch.lunch_time.strftime("%I:%M %p")}"
+            = "#{ lunch.lunch_date.to_date.strftime("%B %d, %Y") + " at " + lunch.lunch_time.strftime("%I:%M %p") + (lunch.end_time.blank? ? "" : " to " +lunch.end_time.strftime("%I:%M %p"))}"
       %div
         = lunch.description
         %br
