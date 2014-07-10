@@ -3,7 +3,6 @@
     Next Event
   -firstLL = @lunchlearns.shift
   = render partial: 'eventJumbo', locals: {event: firstLL}      
-
   %h3 Other Upcoming Events
   #accordion
     -@lunchlearns.each do |lunch|
@@ -13,7 +12,7 @@
           -if lunch.hosts.count != 0
             = "Hosted by  #{lunch.hosts.collect{|host| host.user.display_name}.join(" and ")}   -    "
           %strong
-            = "#{ lunch.lunch_date.to_date.strftime("%B %d, %Y") + " at " + lunch.lunch_time.strftime("%I:%M %p")}"
+            = "#{ lunch.lunch_date.to_date.strftime("%B %d, %Y") + " at " + lunch.lunch_time.strftime("%I:%M %p") + (lunch.end_time.blank? ? "" : " to " +lunch.end_time.strftime("%I:%M %p"))}"
       %div
         = lunch.description
         %br
