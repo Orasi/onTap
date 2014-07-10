@@ -17,4 +17,13 @@ class Lunchlearn < ActiveRecord::Base
       end
     end
   end
+
+  def is_attending_event(user)
+    self.attendees.exists?(user_id: user.id)
+  end
+
+ def is_hosting_event(user)
+   self.hosts.exists?(user.id)
+ end 
+
 end
