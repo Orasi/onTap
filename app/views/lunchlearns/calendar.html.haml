@@ -14,9 +14,14 @@
           %strong
             = "#{ lunch.lunch_date.to_date.strftime("%B %d, %Y") + " at " + lunch.lunch_time.strftime("%I:%M %p") + (lunch.end_time.blank? ? "" : " to " +lunch.end_time.strftime("%I:%M %p"))}"
       %div
+        - if lunch.is_attending_event(current_user)
+          .well.well-sm.bg-success
+            %strong You are attending this event
+            = "  -  No longer attending?"
+            = link_to  "Don't Attend" , attendee_path(lunch)
         = lunch.description
         %br
-        = link_to (lunch.is_attending_event ? "Don't Attend" : "Attend"), attendee_path(lunch), class: "btn btn-primary btn-lg white-text"
+        = link_to (lunch.is_attending_event(current_user) ? "Don't Attend" : "Attend"), attendee_path(lunch), class: "btn btn-primary btn-lg white-text" unless lunch.is_attending_event(current_user)
         = link_to "Details", lunchlearn_path(lunch), class: "btn btn-primary btn-lg white-text"
         - if is_admin
           %span.pull-right
