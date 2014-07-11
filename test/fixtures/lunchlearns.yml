@@ -5,13 +5,15 @@ lunchone:
   title: Ruby
   description: Something Fun
   lunch_date: 2015-05-05
-  lunch_time: 11:30
+  lunch_time: 2000-01-01 01:30:00.000000
+  end_time: 2000-01-01 03:30:00.000000
 
 lunchtwo:
   id: 102
   title: Java
   description: Also pretty fun
   lunch_date: 2015-05-15
-  lunch_time: 12:30
+  lunch_time: 2000-01-01 03:30:00.000000
+  end_time: 2000-01-01 22:30:00.000000
 
 
