@@ -61,3 +61,5 @@ gem 'haml-rails'
 
 #iCalendar to generate Calendar Invites
 gem 'icalendar'
+
+gem 'coveralls', require: false
