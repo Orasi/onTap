@@ -1,3 +1,4 @@
+{<img src="https://travis-ci.org/Orasi/onTap.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/Orasi/onTap]
 {<img src="https://coveralls.io/repos/Orasi/onTap/badge.png" alt="Coverage Status" />}[https://coveralls.io/r/Orasi/onTap]
  
 == README
