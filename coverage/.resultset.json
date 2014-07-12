@@ -1,118 +1,7 @@
 {
   "MiniTest": {
     "coverage": {
-      "/home/matt/Desktop/Projects/LunchLearn/app/models/host.rb": [
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        null
-      ],
-      "/home/matt/Desktop/Projects/LunchLearn/app/models/user.rb": [
-        1,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        null,
-        0,
-        null,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null,
-        1,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/home/matt/Desktop/Projects/LunchLearn/app/models/session.rb": [
-        1,
-        1,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null
-      ],
-      "/home/matt/Desktop/Projects/LunchLearn/app/models/attendee.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/app/models/attendee.rb": [
         1,
         1,
         1,
@@ -127,13 +16,22 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/app/models/suggestion.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/app/models/host.rb": [
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null
+      ],
+      "/home/lew/Developer/RubymineProjects/onTap/app/models/suggestion.rb": [
         1,
         1,
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/app/models/lunchlearn.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/app/models/lunchlearn.rb": [
         1,
         1,
         1,
@@ -173,7 +71,109 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/app/helpers/application_helper.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/app/models/user.rb": [
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        null,
+        0,
+        null,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null,
+        1,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/lew/Developer/RubymineProjects/onTap/app/models/session.rb": [
+        1,
+        1,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null
+      ],
+      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/application_helper.rb": [
         1,
         1,
         0,
@@ -205,74 +205,65 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/app/helpers/archive_helper.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/archive_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/app/helpers/attendees_helper.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/attendees_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/app/helpers/lunch_and_learn_helper.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/lunch_and_learn_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/app/helpers/lunchlearns_helper.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/lunchlearns_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/app/helpers/suggestions_helper.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/suggestions_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/app/helpers/users_helper.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/users_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/app/helpers/welcome_helper.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/welcome_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/helpers/attendees_helper_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/helpers/attendees_helper_test.rb": [
         1,
         null,
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/helpers/lunch_and_learn_helper_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/helpers/lunch_and_learn_helper_test.rb": [
         1,
         null,
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/helpers/lunchlearns_helper_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/helpers/lunchlearns_helper_test.rb": [
         1,
         null,
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/helpers/suggestions_helper_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/helpers/suggestions_helper_test.rb": [
         1,
         null,
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/helpers/welcome_helper_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/helpers/welcome_helper_test.rb": [
         1,
         null,
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/models/attendee_test.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/models/host_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/models/attendee_test.rb": [
         1,
         null,
         1,
@@ -281,7 +272,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/models/lunchlearn_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/models/host_test.rb": [
         1,
         null,
         1,
@@ -290,7 +281,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/models/session_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/models/lunchlearn_test.rb": [
         1,
         null,
         1,
@@ -299,7 +290,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/models/suggestion_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/models/session_test.rb": [
         1,
         null,
         1,
@@ -308,7 +299,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/models/user_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/models/suggestion_test.rb": [
         1,
         null,
         1,
@@ -317,7 +308,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/controllers/archive_controller_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/models/user_test.rb": [
         1,
         null,
         1,
@@ -326,7 +317,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/controllers/attendees_controller_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/controllers/archive_controller_test.rb": [
         1,
         null,
         1,
@@ -335,7 +326,16 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/controllers/lunchlearns_controller_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/controllers/attendees_controller_test.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/lew/Developer/RubymineProjects/onTap/test/controllers/lunchlearns_controller_test.rb": [
         1,
         null,
         1,
@@ -374,6 +374,7 @@
         1,
         0,
         0,
+        0,
         null,
         null,
         1,
@@ -382,7 +383,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/controllers/suggestions_controller_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/controllers/suggestions_controller_test.rb": [
         1,
         null,
         1,
@@ -393,7 +394,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/controllers/welcome_controller_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/controllers/welcome_controller_test.rb": [
         1,
         null,
         1,
@@ -405,7 +406,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/LunchLearn/test/mailers/event_mailer_test.rb": [
+      "/home/lew/Developer/RubymineProjects/onTap/test/mailers/event_mailer_test.rb": [
         1,
         null,
         1,
@@ -415,6 +416,183 @@
         null
       ]
     },
-    "timestamp": 1405103117
+    "timestamp": 1405122304
+  },
+  "Unit Tests": {
+    "coverage": {
+      "/home/lew/Developer/RubymineProjects/onTap/app/models/attendee.rb": [
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/lew/Developer/RubymineProjects/onTap/app/models/host.rb": [
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null
+      ],
+      "/home/lew/Developer/RubymineProjects/onTap/app/models/suggestion.rb": [
+        1,
+        1,
+        1,
+        null
+      ],
+      "/home/lew/Developer/RubymineProjects/onTap/app/models/lunchlearn.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null
+      ],
+      "/home/lew/Developer/RubymineProjects/onTap/app/models/user.rb": [
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        null,
+        0,
+        null,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null,
+        1,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/lew/Developer/RubymineProjects/onTap/app/models/session.rb": [
+        1,
+        1,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1405124034
   }
 }
