@@ -1,9 +1,6 @@
 require 'test_helper'
 
 class LunchlearnsControllerTest < ActionController::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
   def setup
     @lunchone=lunchlearns(:lunchone)
     @lunchtwo=lunchlearns(:lunchtwo)
@@ -15,27 +12,33 @@ class LunchlearnsControllerTest < ActionController::TestCase
 
   test "should see lunchlearn info if attendee" do
     get :show, {id: @lunchone.id}, {current_user_id: @employee.id}
-    assert_select 'h4', 'The following users have registered to attend'
+    assert_response :success
+    assert_operator 0, :<, @lunchone.attendees.size
+    assert_equal @lunchone.attendees.first.user, @employee
   end
 
   test "should not see lunchlearn info if not attendee" do
     get :show, {id: @lunchone.id}, {current_user_id: @employeetwo.id}
-    assert_select 'h5', false, 'Information is hidden from the user'
+    assert_response :success
+    assert_select 'h4', false, 'Information is hidden from the user'
   end
 
   test "should see lunchlearn info if host" do
-     get :show, {id: @lunchone.id}, {current_user_id: @host.id}
-    assert_select 'h4', 'The following users have registered to attend'
+    get :show, {id: @lunchone.id}, {current_user_id: @host.id}
+    assert_response :success
+    assert_select 'h4', 'The following users have registered to attend'  
   end
 
   test "should see lunchlearn info if admin" do
     get :show, {id: @lunchone.id}, {current_user_id: @admin.id}
-    assert_select 'h4', 'The following users have registered to attend'
+    assert_response :success
+    assert_select 'h4', 'The following users have registered to attend' 
   end
 
   test "host should be listed on show page" do
     get :show, {id: @lunchone.id}, {current_user_id: @employee.id}
-    assert_select '.h1', /.*Lewis Gordon/
+    assert_response :success
+    assert_select '.h1', /#{@lunchone.title}/
   end
 
   test "if no attendees, no users registered should display" do
