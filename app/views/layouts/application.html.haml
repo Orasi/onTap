@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-  %title Orasi Training Oppurtunities
+    %title onTap
   = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
   = javascript_include_tag "application", "data-turbolinks-track" => true
   = csrf_meta_tags
@@ -14,13 +14,15 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          = link_to "Orasi Training Oppurtunities", root_url, class: "navbar-brand"
+
+          = link_to "onTap  @  Orasi", root_url, class: "navbar-brand"
+
         %div.navbar-collapse.collapse
           %ul.nav.navbar-nav
-            %li.active
+            %li
               =link_to "Calendar", root_url
             %li
-              = link_to "Archive", root_url + "/archive"
+              = link_to "Archive", archive_index_path
             %li
               = link_to "Suggest Topic", new_suggestion_path
             -if is_admin
@@ -38,4 +40,5 @@
                 = link_to "Logout", { controller: "welcome", action: "logout" }   
       
     %div.container.theme-showcase{role: :main, style: "margin-top: 80px"}
+      = render "flash_messages"
       = yield

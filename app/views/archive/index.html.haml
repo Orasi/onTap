@@ -1,0 +1,22 @@
+-if @lunchlearns.count != 0
+  %h3 Previous Lunch and Learns
+  %div#accordion
+    -@lunchlearns.each do |lunch|
+      %h5
+        =lunch.title
+        %small= "Hosted by  #{lunch.hosts.collect{|host| User.find(host.user_id).display_name}.join(" and ")}   -    #{ lunch.lunch_date.to_date.strftime("%B %d, %Y")}"
+      %div
+        = lunch.description
+        %br
+        = link_to "Details", lunchlearn_path(lunch), class: "btn btn-primary btn-lg white-text"
+        - if is_admin
+          %span.pull-right
+            =link_to "Edit", edit_lunchlearn_path(lunch), class: "btn btn-default btn-sm"
+            =link_to "Delete", lunchlearn_path(lunch), method: :delete, class: "btn btn-default btn-sm"
+
+-if @lunchlearns.count == 0
+  = "There are no previous Lunch and Learns in the system"
+:javascript
+  $(function(){
+    $("#accordion").accordion({collapsible: true, active:false,heightStyle: "content"});
+  });

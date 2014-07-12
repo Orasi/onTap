@@ -78,7 +78,12 @@ class User < ActiveRecord::Base
     thumbnail_array = ldap.search(:base => treebase, :filter => filter).first["thumbnailphoto"].first
     thumbnail_array.each_line {|line| f.puts line} unless thumbnail_array.nil?
     f.close
-    self.photo='/photos/' + self.first_name+self.last_name+'.jpg'
+    unless thumbnail_array.nil?
+      self.photo='/photos/' + self.first_name+self.last_name+'.jpg' 
+    else
+      self.photo = nil
+    end
+    
   end
 
 end

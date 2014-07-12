@@ -17,3 +17,5 @@
 /.idea
 *.*~
 /public/photos
+/vendor
+
