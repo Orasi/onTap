@@ -1,26 +1,7 @@
 {
   "MiniTest": {
     "coverage": {
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/app/models/host.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/app/models/attendee.rb": [
->>>>>>> staging
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/home/lew/Developer/RubymineProjects/onTap/app/models/host.rb": [
         1,
         1,
         1,
@@ -29,57 +10,7 @@
         1,
         null
       ],
-      "/home/lew/Developer/RubymineProjects/onTap/app/models/suggestion.rb": [
-        1,
-        1,
-        1,
-        null
-      ],
-      "/home/lew/Developer/RubymineProjects/onTap/app/models/lunchlearn.rb": [
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        null
-      ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/app/models/user.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/app/models/user.rb": [
->>>>>>> staging
         1,
         null,
         null,
@@ -170,11 +101,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/app/models/session.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/app/models/session.rb": [
->>>>>>> staging
         1,
         1,
         0,
@@ -185,7 +112,6 @@
         null,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/app/models/attendee.rb": [
         1,
         1,
@@ -248,9 +174,6 @@
         null
       ],
       "/home/matt/Desktop/Projects/onTap/app/helpers/application_helper.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/application_helper.rb": [
->>>>>>> staging
         1,
         1,
         0,
@@ -282,7 +205,6 @@
         null,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/app/helpers/archive_helper.rb": [
         1,
         null
@@ -312,87 +234,36 @@
         null
       ],
       "/home/matt/Desktop/Projects/onTap/test/helpers/attendees_helper_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/archive_helper.rb": [
-        1,
-        null
-      ],
-      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/attendees_helper.rb": [
-        1,
-        null
-      ],
-      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/lunch_and_learn_helper.rb": [
-        1,
-        null
-      ],
-      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/lunchlearns_helper.rb": [
-        1,
-        null
-      ],
-      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/suggestions_helper.rb": [
-        1,
-        null
-      ],
-      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/users_helper.rb": [
-        1,
-        null
-      ],
-      "/home/lew/Developer/RubymineProjects/onTap/app/helpers/welcome_helper.rb": [
-        1,
-        null
-      ],
-      "/home/lew/Developer/RubymineProjects/onTap/test/helpers/attendees_helper_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/helpers/lunch_and_learn_helper_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/helpers/lunch_and_learn_helper_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/helpers/lunchlearns_helper_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/helpers/lunchlearns_helper_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/helpers/suggestions_helper_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/helpers/suggestions_helper_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/helpers/welcome_helper_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/helpers/welcome_helper_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/models/attendee_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/models/attendee_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
@@ -401,11 +272,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/models/host_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/models/host_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
@@ -414,11 +281,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/models/lunchlearn_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/models/lunchlearn_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
@@ -427,11 +290,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/models/session_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/models/session_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
@@ -440,11 +299,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/models/suggestion_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/models/suggestion_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
@@ -453,11 +308,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/models/user_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/models/user_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
@@ -466,11 +317,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/controllers/archive_controller_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/controllers/archive_controller_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
@@ -479,11 +326,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/controllers/attendees_controller_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/controllers/attendees_controller_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
@@ -492,17 +335,10 @@
         null,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/controllers/lunchlearns_controller_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/controllers/lunchlearns_controller_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
-        null,
-        null,
-        null,
         1,
         0,
         0,
@@ -517,17 +353,24 @@
         0,
         null,
         null,
-        1,
-        0,
-        0,
+        null,
         null,
         null,
         1,
         0,
         0,
+        0,
         null,
         null,
         1,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
         0,
         0,
         null,
@@ -544,11 +387,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/controllers/suggestions_controller_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/controllers/suggestions_controller_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
@@ -559,11 +398,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/controllers/welcome_controller_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/controllers/welcome_controller_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
@@ -575,11 +410,7 @@
         null,
         null
       ],
-<<<<<<< HEAD
       "/home/matt/Desktop/Projects/onTap/test/mailers/event_mailer_test.rb": [
-=======
-      "/home/lew/Developer/RubymineProjects/onTap/test/mailers/event_mailer_test.rb": [
->>>>>>> staging
         1,
         null,
         1,
@@ -589,187 +420,6 @@
         null
       ]
     },
-<<<<<<< HEAD
-    "timestamp": 1405122471
-=======
-    "timestamp": 1405122304
-  },
-  "Unit Tests": {
-    "coverage": {
-      "/home/lew/Developer/RubymineProjects/onTap/app/models/attendee.rb": [
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/home/lew/Developer/RubymineProjects/onTap/app/models/host.rb": [
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        null
-      ],
-      "/home/lew/Developer/RubymineProjects/onTap/app/models/suggestion.rb": [
-        1,
-        1,
-        1,
-        null
-      ],
-      "/home/lew/Developer/RubymineProjects/onTap/app/models/lunchlearn.rb": [
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        null
-      ],
-      "/home/lew/Developer/RubymineProjects/onTap/app/models/user.rb": [
-        1,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        null,
-        0,
-        null,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null,
-        1,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/home/lew/Developer/RubymineProjects/onTap/app/models/session.rb": [
-        1,
-        1,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null
-      ]
-    },
-    "timestamp": 1405124034
->>>>>>> staging
+    "timestamp": 1405286872
   }
 }
