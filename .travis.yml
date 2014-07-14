@@ -6,7 +6,10 @@ deploy:
   provider: heroku
   api_key:
     secure: alxddvlSdf/O5BYEXfCHIXETgnFLxTUckgJJBC8mypoDU/+ATQfBNsUIL8LmjdV9uHp6SpT9LH2oyGyWgd888aM71HDKlUwmfolZnPtIwQC8pf77bTZpYshApzpIOoJQvu1keSwEHrI+BQoYQ2XJL7wFNXD7E711qju6EbTUhcs=
-  run: "rake db:migrate RAILS_ENV=staging"
+  run: 
+    - "rake db:schema:load"
+    - "rake db:migrate RAILS_ENV=staging"
+    - "rake db:seed"
   app: ontapstaging
   on:
     branch: staging
