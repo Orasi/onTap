@@ -13,7 +13,8 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
-/tmp
+/tmp/*
 /.idea
+/coverage/*
 *.*~
 /public/photos
