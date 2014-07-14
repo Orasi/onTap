@@ -1,16 +1,7 @@
 {
   "MiniTest": {
     "coverage": {
-      "/home/matt/Desktop/Projects/onTap/app/models/host.rb": [
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        null
-      ],
-      "/home/matt/Desktop/Projects/onTap/app/models/user.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/app/models/user.rb": [
         1,
         null,
         null,
@@ -101,7 +92,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/app/models/session.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/app/models/session.rb": [
         1,
         1,
         0,
@@ -112,28 +103,13 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/app/models/attendee.rb": [
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/home/matt/Desktop/Projects/onTap/app/models/suggestion.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/app/models/suggestion.rb": [
         1,
         1,
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/app/models/lunchlearn.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/app/models/lunchlearn.rb": [
         1,
         1,
         1,
@@ -173,7 +149,31 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/app/helpers/application_helper.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/app/models/attendee.rb": [
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/kjmunro/Documents/fixerrors/onTap/app/models/host.rb": [
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null
+      ],
+      "/home/kjmunro/Documents/fixerrors/onTap/app/helpers/application_helper.rb": [
         1,
         1,
         0,
@@ -205,74 +205,65 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/app/helpers/archive_helper.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/app/helpers/archive_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/app/helpers/attendees_helper.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/app/helpers/attendees_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/app/helpers/lunch_and_learn_helper.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/app/helpers/lunch_and_learn_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/app/helpers/lunchlearns_helper.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/app/helpers/lunchlearns_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/app/helpers/suggestions_helper.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/app/helpers/suggestions_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/app/helpers/users_helper.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/app/helpers/users_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/app/helpers/welcome_helper.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/app/helpers/welcome_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/helpers/attendees_helper_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/helpers/attendees_helper_test.rb": [
         1,
         null,
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/helpers/lunch_and_learn_helper_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/helpers/lunch_and_learn_helper_test.rb": [
         1,
         null,
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/helpers/lunchlearns_helper_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/helpers/lunchlearns_helper_test.rb": [
         1,
         null,
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/helpers/suggestions_helper_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/helpers/suggestions_helper_test.rb": [
         1,
         null,
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/helpers/welcome_helper_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/helpers/welcome_helper_test.rb": [
         1,
         null,
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/models/attendee_test.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/home/matt/Desktop/Projects/onTap/test/models/host_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/models/attendee_test.rb": [
         1,
         null,
         1,
@@ -281,7 +272,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/models/lunchlearn_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/models/host_test.rb": [
         1,
         null,
         1,
@@ -290,7 +281,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/models/session_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/models/lunchlearn_test.rb": [
         1,
         null,
         1,
@@ -299,7 +290,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/models/suggestion_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/models/session_test.rb": [
         1,
         null,
         1,
@@ -308,7 +299,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/models/user_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/models/suggestion_test.rb": [
         1,
         null,
         1,
@@ -317,7 +308,16 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/controllers/archive_controller_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/models/user_test.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/kjmunro/Documents/fixerrors/onTap/test/controllers/archive_controller_test.rb": [
         1,
         null,
         1,
@@ -328,7 +328,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/controllers/attendees_controller_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/controllers/attendees_controller_test.rb": [
         1,
         null,
         1,
@@ -337,7 +337,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/controllers/lunchlearns_controller_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/controllers/lunchlearns_controller_test.rb": [
         1,
         null,
         1,
@@ -453,7 +453,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/controllers/suggestions_controller_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/controllers/suggestions_controller_test.rb": [
         1,
         null,
         1,
@@ -464,7 +464,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/controllers/welcome_controller_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/controllers/welcome_controller_test.rb": [
         1,
         null,
         1,
@@ -476,7 +476,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap/test/mailers/event_mailer_test.rb": [
+      "/home/kjmunro/Documents/fixerrors/onTap/test/mailers/event_mailer_test.rb": [
         1,
         null,
         1,
@@ -486,6 +486,6 @@
         null
       ]
     },
-    "timestamp": 1405367355
+    "timestamp": 1405368046
   }
 }
