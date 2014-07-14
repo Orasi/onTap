@@ -80,7 +80,6 @@ class LunchlearnsControllerTest < ActionController::TestCase
 
   test "should see lunchlearn info if admin" do
     get :show, {id: @lunchone.id}, {current_user_id: @admin.id}
-    assert_response :success
     assert_select 'h4', 'The following users have registered to attend' 
   end
 
@@ -88,6 +87,7 @@ class LunchlearnsControllerTest < ActionController::TestCase
     get :show, {id: @lunchone.id}, {current_user_id: @employee.id}
     assert_response :success
     assert_select '.h1', /#{@lunchone.title}/
+
   end
 
   test "if no attendees, no users registered should display" do

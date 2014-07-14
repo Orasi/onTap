@@ -9,7 +9,6 @@ lunchone:
   end_time: 2000-01-01 03:30:00.000000
   has_GoToMeeting: f
 
-
 lunchtwo:
   id: 102
   title: Java
@@ -18,5 +17,4 @@ lunchtwo:
   lunch_time: 2000-01-01 03:30:00.000000
   end_time: 2000-01-01 22:30:00.000000
   has_GoToMeeting: f
-
 
