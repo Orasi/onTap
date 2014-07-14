@@ -5,7 +5,7 @@
 # below each fixture, per the syntax in the comments below
 #
 attendeesone: 
-  user: employee
-  lunchlearn: lunchone
+  user: 101
+  lunchlearn: 101
 
 

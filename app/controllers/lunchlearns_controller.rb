@@ -1,7 +1,8 @@
 class LunchlearnsController < ApplicationController
-  before_action :require_admin, only: [:new, :update, :destroy]
+  before_action :require_admin, only: [:new, :destroy]
   after_action :add_hosts, only: [:create]
   after_action :update_hosts, only: [:update]
+  before_action :require_admin_or_host, only: [:update, :edit]
 
   def calendar
     @lunchlearns = Lunchlearn.where("lunch_date >= ?",DateTime.now.to_date).order(lunch_date: :asc)
@@ -70,5 +71,11 @@ class LunchlearnsController < ApplicationController
     end
   end
 
+  def require_admin_or_host
+    @lunchlearn = Lunchlearn.find(params[:id])
+    if !@lunchlearn.is_hosting_event( current_user) && !current_user.admin
+      redirect_to :calendar, flash: {error: "You must be an admin or host of the event to edit it"}
+    end
+  end
 
 end
