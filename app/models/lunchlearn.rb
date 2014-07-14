@@ -32,7 +32,7 @@ class Lunchlearn < ActiveRecord::Base
   end
 
  def is_hosting_event(user)
-   self.hosts.exists?(user.id)
+   self.hosts.exists?(user_id: user.id)
  end 
 
 end
