@@ -43,6 +43,27 @@ class LunchlearnsControllerTest < ActionController::TestCase
     get :edit, {id: @lunchone.id}, {current_user_id: @admin.id}
     assert_response :success
   end
+
+  test "should be able to edit if host" do
+    get :edit, {id: @lunchone.id}, {current_user_id: @host.id}
+    assert_response :success
+  end
+
+  test "should not be able to edit if not host or admin" do
+    get :edit, {id: @lunchone.id}, {current_user_id: @employeetwo.id}
+    assert_redirected_to :login
+  end
+
+  test "should be able to commit edits if admin" do
+    post :edit, {id: @lunchone.id}, {current_user_id: @admin.id}
+    assert_response :success
+  end
+
+  test "should be able to commit edits if host" do
+    post :edit, {id: @lunchone.id}, {current_user_id: @host.id}
+    assert_response :success
+  end
+
 #views
  test "should see lunchlearn info if attendee" do
     get :show, {id: @lunchone.id}, {current_user_id: @employee.id}
