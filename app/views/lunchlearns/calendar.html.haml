@@ -15,7 +15,7 @@
             = "#{ lunch.lunch_date.to_date.strftime("%B %d, %Y") + " at " + lunch.lunch_time.strftime("%I:%M %p") + (lunch.end_time.blank? ? "" : " to " +lunch.end_time.strftime("%I:%M %p"))}"
       %div
         - if lunch.is_attending_event(current_user)
-          .well.well-sm.bg-success
+          .well.well-sm.well-success
             %strong You are attending this event
             = "  -  No longer attending?"
             = link_to  "Don't Attend" , attendee_path(lunch)

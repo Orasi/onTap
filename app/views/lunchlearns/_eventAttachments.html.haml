@@ -1,0 +1,34 @@
+.panel.panel-default
+  .panel-heading 
+    Event Attachments
+    %span.badge
+      = event.attachments.count
+  .panel-body
+    .form-grou
+      #add_attachment.btn.btn-primary.btn-lrg
+        %span.glyphicon.glyphicon-plus
+        Add Attachment
+    #attachment-panel.well.well-lg
+      - if event.is_hosting_event(current_user) || current_user.admin?
+        = form_for Attachment.new, url: attachments_path, html: {multipart: true} do |f|
+          .form_group
+            = f.label :title, 'Attachment Title:'
+            = f.text_field :title
+          .form_group{style: 'display:inline'}
+            = f.label :file, 'Attachment:'
+            = f.file_field :file
+          = f.hidden_field :lunchlearn_id, value: event.id
+          .form_group
+            = f.submit  
+  
+    %h4 
+      The following attachments have been added for this event
+      %ul
+      - event.attachments.each do |attachment|
+        %li
+          = link_to (attachment.title.blank? ? attachment.file_file_name : attachment.title), attachment.file.url
+:javascript
+  $("#add_attachment").click(function(){
+    $("#attachment-panel").fadeToggle();
+  });
+  

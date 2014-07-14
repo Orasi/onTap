@@ -1,7 +1,7 @@
 .jumbotron
   .jumbo-header
     - if event.attendees.exists?(user_id: session[:current_user_id])
-      .well.well-sm.bg-success
+      .well.well-sm.well-success
         %strong You are attending this event
         = "  -  No longer attending?"
         = link_to  "Don't Attend" , attendee_path(event)

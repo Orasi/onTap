@@ -4,6 +4,7 @@ LunchLearn::Application.routes.draw do
   resources :lunchlearns, except: :index
   resources :suggestions
   resources :archive
+  resources :attachments
   get "/attendee/:id" => 'attendees#change', as: :attendee
 #  resources :attendees
  # get "lunch_and_learn/create"

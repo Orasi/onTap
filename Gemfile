@@ -63,3 +63,7 @@ gem 'haml-rails'
 gem 'icalendar'
 
 gem 'coveralls', require: false
+
+# Paperclip for attaching files to eventsgem 
+gem "paperclip", "~> 4.1"
+

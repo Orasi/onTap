@@ -4,7 +4,8 @@
 -if @lunch.is_attending_event(current_user) || @lunch.is_hosting_event(current_user) || is_admin
   -if @lunch.has_GoToMeeting
     = render partial: 'eventGoToMeeting', locals: {event: @lunch}      
-  = render partial: 'eventAttendees', locals: {event: @lunch}      
+  = render partial: 'eventAttendees', locals: {event: @lunch}
+  = render partial: 'eventAttachments', locals: {event: @lunch}            
 :javascript
   $('.close-picture').tooltip()
   

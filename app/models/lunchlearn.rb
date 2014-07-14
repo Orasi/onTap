@@ -4,6 +4,7 @@ class Lunchlearn < ActiveRecord::Base
   validate :event_time_order_check
   has_many :hosts
   has_many :lunch_hosts, through: :hosts, source: :user
+  has_many :attachments
 
 
   def lunch_date_range
