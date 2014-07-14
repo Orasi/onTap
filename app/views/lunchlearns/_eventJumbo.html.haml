@@ -25,7 +25,8 @@
     .jumbo-button-panel
       %div.jumbo-main-buttons.pull-left
         = link_to (event.is_attending_event(current_user) ? "Don't Attend" : "Attend"), attendee_path(event), class: "btn btn-primary btn-lg"
-        = link_to "Details", lunchlearn_path(event), class: "btn btn-primary btn-lg"
+        - if params[:action] != 'show'
+          = link_to "Details", lunchlearn_path(event), class: "btn btn-primary btn-lg"
      
       - if event.is_hosting_event(current_user) || is_admin
         .jumbo-admin-buttons.pull-right     

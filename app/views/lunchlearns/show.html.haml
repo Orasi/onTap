@@ -6,6 +6,6 @@
     = render partial: 'eventGoToMeeting', locals: {event: @lunch}      
   = render partial: 'eventAttendees', locals: {event: @lunch}
   = render partial: 'eventAttachments', locals: {event: @lunch}            
+= "Event Details will be displayed for event attendees" unless @lunch.is_attending_event(current_user)
 :javascript
-  $('.close-picture').tooltip()
-  
+  $('.close-picture').tooltip() 
