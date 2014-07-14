@@ -51,7 +51,7 @@ class LunchlearnsControllerTest < ActionController::TestCase
 
   test "should not be able to edit if not host or admin" do
     get :edit, {id: @lunchone.id}, {current_user_id: @employeetwo.id}
-    assert_redirected_to :login
+    assert_redirected_to :calendar
   end
 
   test "should be able to commit edits if admin" do
