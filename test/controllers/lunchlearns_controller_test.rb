@@ -21,6 +21,16 @@ class LunchlearnsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should not be able to get new page if not logged in" do
+    get :new, {id: @lunchone.id}
+    assert_redirected_to :login
+  end
+
+  test "should not be able to get new page if not admin" do
+    get :new, {id: @lunchone.id}, {current_user_id: @host.id}
+    assert_redirected_to :calendar
+  end
+
   test "should be able to get show view if admin" do
     get :show, {id: @lunchone.id}, {current_user_id: @admin.id}
     assert_response :success
@@ -59,6 +69,16 @@ class LunchlearnsControllerTest < ActionController::TestCase
   test "should be able to commit edits if host" do
     post :edit, {id: @lunchone.id}, {current_user_id: @host.id}
     assert_response :success
+  end
+
+  test "should not be able to commit post if not admin or event host" do
+    post :edit, {id: @lunchone.id}, {current_user_id: @employeetwo.id}
+    assert_redirected_to :calendar
+  end
+
+  test "should not be able to commit post if not logged in" do
+    post :edit, {id: @lunchone.id}
+    assert_redirected_to :login
   end
 
 #views

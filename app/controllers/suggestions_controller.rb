@@ -29,7 +29,7 @@ class SuggestionsController < ApplicationController
   end
 
   def update
-    @suggestion = Suggestions.find(params[:id])
+    @suggestion = Suggestion.find(params[:id])
     @suggestion.update_attributes(suggestion_params)
     @suggestion.save
     redirect_to suggestion_path(@suggestion), flash: {success: "Suggestion \"#{@suggestion.suggestion_title}\" was updated"}
