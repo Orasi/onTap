@@ -6,7 +6,7 @@
   .panel-body
     %h4 The following users have registered to attend
  
-    -attending = event.attendees.all
+    -attending = event.attendees
     .row
       - attending.each do |attendee|
         .attending-cell.col-lg-2.col-sm-3.col-xs-4

@@ -73,7 +73,7 @@ class LunchlearnsController < ApplicationController
 
   def require_admin_or_host
     @lunchlearn = Lunchlearn.find(params[:id])
-    if !@lunchlearn.hosts.exists?(user_id: current_user) && !current_user.admin
+    if !@lunchlearn.is_hosting_event( current_user) && !current_user.admin
       redirect_to :calendar, flash: {error: "You must be an admin or host of the event to edit it"}
     end
   end

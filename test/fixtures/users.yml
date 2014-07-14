@@ -4,14 +4,14 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-employee: 
+employee:
   id: 101
   username: kevin.munro
   first_name: Kevin
   last_name: Munro
   admin: false
 
-employeetwo: 
+employeetwo:
   id: 104
   username: david.quach
   first_name: David
