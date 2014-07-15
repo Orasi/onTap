@@ -11,7 +11,7 @@ class SuggestionsControllerTest < ActionController::TestCase
   end
 
 
-  test "should not get calendar if user not logged in" do
+  test "should not get index if user not logged in" do
     get :index
     assert_redirected_to :login
   end
