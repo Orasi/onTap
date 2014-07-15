@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  suggestion_title: MyString
-  suggestion_description: MyString
+suggestionone:
+  user_id: 102
+  suggestion_title: Learn about Orasi
+  suggestion_description: Learn about the history of the company.
 
-two:
-  suggestion_title: MyString
-  suggestion_description: MyString
+suggestiontwo:
+  user_id: 101
+  suggestion_title: Learn binary
+  suggestion_description: Teach me about those 1's and 0's

@@ -18,3 +18,11 @@ lunchtwo:
   end_time: 2000-01-01 22:30:00.000000
   has_GoToMeeting: f
 
+lunchthree:
+  id: 103
+  title: C#
+  description: Also pretty fun
+  lunch_date: 2014-01-20
+  lunch_time: 2000-01-01 03:30:00.000000
+  end_time: 2000-01-01 22:30:00.000000
+  has_GoToMeeting: f
