@@ -4,11 +4,11 @@
     %span.badge
       = event.attachments.count
   .panel-body
-    .form-grou
-      #add_attachment.btn.btn-default.btn-sm.pull-right
-        Add Attachment
-    #attachment-panel.well.well-lg
-      - if event.is_hosting_event(current_user) || current_user.admin?
+    - if event.is_hosting_event(current_user) || current_user.admin?
+      .form-group
+        #add_attachment.btn.btn-default.btn-sm.pull-right
+          Add Attachment
+      #attachment-panel.well.well-lg
         = form_for Attachment.new, url: attachments_path, html: {multipart: true} do |f|
           .form_group
             = f.label :title, 'Attachment Title:'
@@ -26,6 +26,8 @@
       - event.attachments.each do |attachment|
         %li
           = link_to (attachment.title.blank? ? attachment.file_file_name : attachment.title), attachment.file.url
+          - if event.is_hosting_event( current_user ) || is_admin
+            .btn.btn-default.btn-xs= link_to "Delete", attachment_path(attachment), method: :delete 
 :javascript
   $("#add_attachment").click(function(){
     $("#attachment-panel").fadeToggle();
