@@ -5,8 +5,7 @@
       = event.attachments.count
   .panel-body
     .form-grou
-      #add_attachment.btn.btn-primary.btn-lrg
-        %span.glyphicon.glyphicon-plus
+      #add_attachment.btn.btn-default.btn-sm.pull-right
         Add Attachment
     #attachment-panel.well.well-lg
       - if event.is_hosting_event(current_user) || current_user.admin?

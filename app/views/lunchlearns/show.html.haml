@@ -3,9 +3,11 @@
 
 -if @lunch.is_attending_event(current_user) || @lunch.is_hosting_event(current_user) || is_admin
   -if @lunch.has_GoToMeeting
-    = render partial: 'eventGoToMeeting', locals: {event: @lunch}      
+    = render partial: 'eventGoToMeeting', locals: {event: @lunch} 
+ 
+  = render partial: 'eventAttachments', locals: {event: @lunch} if @lunch.attachments.count > 0 || is_admin || @lunch.is_hosting_event(current_user)
   = render partial: 'eventAttendees', locals: {event: @lunch}
-  = render partial: 'eventAttachments', locals: {event: @lunch}            
-= "Event Details will be displayed for event attendees" unless @lunch.is_attending_event(current_user)
+           
+= "Event Details will be displayed for event attendees" unless @lunch.is_attending_event(current_user) || is_admin || @lunch.is_hosting_event(current_user)
 :javascript
   $('.close-picture').tooltip() 
