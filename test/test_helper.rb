@@ -1,8 +1,14 @@
+require 'simplecov'
+require 'coveralls'
+
+SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+SimpleCov.start do
+  add_filter 'test'
+end
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'coveralls'
-Coveralls.wear!('rails')
+
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
 
