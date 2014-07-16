@@ -12,7 +12,7 @@ class WelcomeControllerTest < ActionController::TestCase
   end
 
   test "Should be redirected to calendar if already logged in" do
-    get :login, {current_user_id: @employee.id}
+    get :login, {session[current_user_id]: @employee.id}
     assert_redirected_to :calendar
   end
 end

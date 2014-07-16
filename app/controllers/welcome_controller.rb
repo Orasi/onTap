@@ -2,7 +2,7 @@ class WelcomeController < ApplicationController
   skip_before_action :require_login, only:[:validate, :login]
   
   def login
-    if not session[:current_user_id].blank?
+    unless session[:current_user_id].blank?
       redirect_to :calendar
     end
   end
