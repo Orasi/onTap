@@ -1,10 +1,11 @@
 class Lunchlearn < ActiveRecord::Base
-  has_many :attendees
+  has_many :attendees, dependent: :destroy
+  validates :title, :description, presence: true
   validate :lunch_date_range
   validate :event_time_order_check
-  has_many :hosts
+  has_many :hosts, dependent: :destroy
   has_many :lunch_hosts, through: :hosts, source: :user
-  has_many :attachments
+  has_many :attachments, dependent: :destroy
 
 
   def lunch_date_range
