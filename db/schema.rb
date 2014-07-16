@@ -11,14 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140714143047) do
-
-  create_table "attachements", force: true do |t|
-    t.string   "title"
-    t.integer  "lunchlearn_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 2014071602515327) do
 
   create_table "attachments", force: true do |t|
     t.string   "title"
@@ -33,14 +26,30 @@ ActiveRecord::Schema.define(version: 20140714143047) do
 
   create_table "attendees", force: true do |t|
     t.integer  "user_id"
-    t.integer  "lunchlearn_id"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "event_classes", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "event_styles", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "events", force: true do |t|
+    t.string   "event_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "hosts", force: true do |t|
     t.integer  "user_id"
-    t.integer  "lunchlearn_id"
+    t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -50,12 +59,17 @@ ActiveRecord::Schema.define(version: 20140714143047) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "lunch_date"
-    t.time     "lunch_time"
     t.string   "meeting_phone_number"
     t.string   "access_code"
     t.boolean  "has_GoToMeeting"
     t.string   "go_to_meeting_url"
+  end
+
+  create_table "schedules", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "lunch_date"
+    t.time     "lunch_time"
     t.time     "end_time"
   end
 
@@ -82,6 +96,11 @@ ActiveRecord::Schema.define(version: 20140714143047) do
     t.boolean  "admin"
     t.string   "photo"
     t.string   "email"
+  end
+
+  create_table "webinars", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
