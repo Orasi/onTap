@@ -24,7 +24,8 @@ class LunchlearnsController < ApplicationController
     @event=Event.create
     @schedule=@event.schedules.create(schedule_params)
     @lunch=Lunchlearn.new(lunchlearn_params)
-    @event.event_styles.create(:element => @lunch)
+    @eventstyle=@event.build_event_style(:element => @lunch)
+    @eventstyle.save
     if @lunch.save
       redirect_to :calendar, flash: {success: "Event \"#{@lunch.title}\" was created"}
     else
