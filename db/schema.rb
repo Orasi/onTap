@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2014071602515327) do
+ActiveRecord::Schema.define(version: 2014071715323732) do
 
   create_table "attachments", force: true do |t|
     t.string   "title"
@@ -34,6 +34,9 @@ ActiveRecord::Schema.define(version: 2014071602515327) do
   create_table "event_styles", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "event_id"
+    t.integer  "element_id"
+    t.string   "element_type"
   end
 
   create_table "events", force: true do |t|
@@ -63,10 +66,10 @@ ActiveRecord::Schema.define(version: 2014071602515327) do
   create_table "schedules", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "event_id"
     t.date     "lunch_date"
     t.time     "lunch_time"
     t.time     "end_time"
-    t.integer  "event_id"
   end
 
   create_table "sessions", force: true do |t|

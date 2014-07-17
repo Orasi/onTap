@@ -22,6 +22,7 @@ class LunchlearnsController < ApplicationController
   def create
     params[:lunchlearn][:lunch_date] = DateTime.strptime(params[:lunchlearn][:lunch_date], "%m/%d/%Y")
     @event=Event.create
+    @schedule=@event.schedules.create(schedule_params)
     @lunch=Lunchlearn.new(lunchlearn_params)
     @event.event_styles.create(:element => @lunch)
     if @lunch.save
@@ -60,7 +61,7 @@ class LunchlearnsController < ApplicationController
   end
 
   def schedule_params
-    params.require(:lunchlearn).permite(:lunch_date, :end_time, :lunch_time)
+    params.require(:lunchlearn).permit(:lunch_date, :end_time, :lunch_time)
   end
 
   def add_hosts
