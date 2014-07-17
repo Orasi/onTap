@@ -87,4 +87,20 @@ class LunchlearnTest < ActiveSupport::TestCase
     end
   end
 
+  test 'should not create event endtime < starttime' do
+ random_start = rand(-1.years..1.years).ago
+    random_end = random_start + rand(1..5).hours
+    if random_start.to_time.hour > random_end.to_time.hour
+      start_time = random_end.to_time
+      end_time = random_start.to_time
+
+    else
+      start_time = random_start.to_time
+      end_time = random_end.to_time
+    end
+    event = Lunchlearn.new(title: Faker::Name.title, lunch_date: (DateTime.now).to_date, lunch_time: end_time, meeting_phone_number: "", access_code: "", has_GoToMeeting: false, go_to_meeting_url: "", end_time: start_time)
+     assert_raises ActiveRecord::RecordInvalid do
+       event.save!
+    end
+  end
 end
