@@ -4,8 +4,9 @@ class LunchlearnsController < ApplicationController
   after_action :update_hosts, only: [:update]
   before_action :require_admin_or_host, only: [:update, :edit]
 
-  def calendar
-    @lunchlearns = Lunchlearn.where("lunch_date >= ?",DateTime.now.to_date).order(lunch_date: :asc)
+  def index
+ #   @lunchlearns = Lunchlearn.where("lunch_date >= ?",DateTime.now.to_date).order(lunch_date: :asc)
+    @lunchlearns=Lunchlearn.all
   end
   
   def show

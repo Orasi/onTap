@@ -1,7 +1,9 @@
 LunchLearn::Application.routes.draw do
 
-  get "/calendar" => 'lunchlearns#calendar'
-  resources :lunchlearns, except: :index
+  get "/calendar" => 'events#calendar'
+  resources :lunchlearns
+  resources :events, except: :index
+  resources :webinars
   resources :suggestions
   resources :archive
   resources :attachments

@@ -31,11 +31,6 @@ ActiveRecord::Schema.define(version: 2014071602515327) do
     t.datetime "updated_at"
   end
 
-  create_table "event_classes", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "event_styles", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
