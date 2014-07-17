@@ -11,7 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140716020956) do
+
+ActiveRecord::Schema.define(version: 20140717170505) do
+
 
   create_table "attachements", force: true do |t|
     t.string   "title"
@@ -36,6 +38,7 @@ ActiveRecord::Schema.define(version: 20140716020956) do
     t.integer  "lunchlearn_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
   end
 
   create_table "delayed_jobs", force: true do |t|
