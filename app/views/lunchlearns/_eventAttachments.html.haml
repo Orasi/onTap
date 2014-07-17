@@ -2,7 +2,7 @@
   .panel-heading 
     Event Attachments
     %span.badge
-      = event.attachments.count
+      = event.event_style.element.attachments.count
   .panel-body
     - if event.is_hosting_event(current_user) || current_user.admin?
       .form-group
@@ -23,7 +23,7 @@
     %h4 
       The following attachments have been added for this event
       %ul
-      - event.attachments.each do |attachment|
+      - event.event_style.element.attachments.each do |attachment|
         %li
           = link_to (attachment.title.blank? ? attachment.file_file_name : attachment.title), attachment.file.url
           - if event.is_hosting_event( current_user ) || is_admin

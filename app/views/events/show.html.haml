@@ -2,11 +2,11 @@
 = render partial: 'eventJumbo', locals: {event: @event}      
 
 -if @event.is_attending_event(current_user) || @event.is_hosting_event(current_user) || is_admin
-  -if (@event.event_styles.first.element.event_type=="LunchLearn") && @event.event_styles.element.first.has_GoToMeeting
+  -if @event.event_style.element.has_GoToMeeting
     = render partial: 'eventGoToMeeting', locals: {event: @lunch} 
  
-  = render partial: 'eventAttachments', locals: {event: @event} if @event.eventstyle.first.attachments.count > 0 || is_admin || @event.is_hosting_event(current_user)
-  = render partial: 'eventAttendees', locals: {event: @event}
+  = render partial: 'eventAttachments', locals: {event: @lunch} if @event.event_style.element.attachments.count > 0 || is_admin || @lunch.is_hosting_event(current_user)
+  = render partial: 'eventAttendees', locals: {event: @lunch}
            
 = "Event Details will be displayed for event attendees" unless @event.is_attending_event(current_user) || is_admin || @event.is_hosting_event(current_user)
 :javascript

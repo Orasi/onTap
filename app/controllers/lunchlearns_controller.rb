@@ -2,15 +2,15 @@ class LunchlearnsController < ApplicationController
   before_action :require_admin, only: [:new, :destroy]
   after_action :add_hosts, only: [:create]
   after_action :update_hosts, only: [:update]
-  before_action :require_admin_or_host, only: [:update, :edit]
-
+  before_action :require_admin_or_host, only: [:update]
+  before_action :temp_admin_or_host_ugly, only: [ :edit]
   def index
  #   @lunchlearns = Lunchlearn.where("lunch_date >= ?",DateTime.now.to_date).order(lunch_date: :asc)
     @lunchlearns=Lunchlearn.all
   end
   
   def show
-    @lunch = Lunchlearn.find(params[:id])
+    @event = Event.find(params[:id])
   end  
 
   def new
@@ -34,21 +34,25 @@ class LunchlearnsController < ApplicationController
   end
 
   def edit
-    @lunchlearn = Lunchlearn.find(params[:id])
+    @event = Event.find(params[:id])
+    @lunchlearn=Lunchlearn.find(@event.event_style.element.id)
     render :new
   end
 
   def update
     params[:lunchlearn][:lunch_date] = DateTime.strptime(params[:lunchlearn][:lunch_date], "%m/%d/%Y")
     @lunch = Lunchlearn.find(params[:id])
+    @eventstyle = EventStyle.find_by(element_id: @lunch.id)
+    @event=Event.find_by(id: @eventstyle.event_id)
     @lunch.update_attributes(lunchlearn_params)
     @lunch.save
-    redirect_to lunchlearn_path(@lunch), flash: {success: "Event \"#{@lunch.title}\" was updated"}
+    redirect_to lunchlearn_path(@event), flash: {success: "Event \"#{@lunch.title}\" was updated"}
   end
 
   def destroy
-    oldEventTitle=Lunchlearn.find(params[:id]).title
-    Lunchlearn.find(params[:id]).destroy
+    oldEventTitle=Event.find(params[:id]).event_style.element.title
+    #add additional cleanup
+    Event.find(params[:id]).destroy
     redirect_to :calendar, flash: {error: "Event \"#{oldEventTitle}\" was deleted"}
   end
   private
@@ -58,7 +62,7 @@ class LunchlearnsController < ApplicationController
   end
 
   def lunch_host_ids
-    params.require(:lunchlearn).permit(hosts: [])
+    params.require(:event).permit(hosts: [])
   end
 
   def schedule_params
@@ -68,25 +72,33 @@ class LunchlearnsController < ApplicationController
   def add_hosts
     if !lunch_host_ids[:hosts].blank?
       lunch_host_ids[:hosts].each do |host_id|
-        Host.create(lunchlearn: @lunch, user: User.find(host_id))
+        Host.create(event: @event, user: User.find(host_id))
       end
     end
   end
 
   def update_hosts
-    Host.where(lunchlearn: @lunch).delete_all
+    Host.where(event: @lunch).delete_all
     if !lunch_host_ids[:hosts].blank?
       lunch_host_ids[:hosts].each do |host_id|
-        Host.create(lunchlearn: @lunch, user: User.find(host_id))
+        Host.create(event: @event, user: User.find(host_id))
       end
     end
   end
 
+  def temp_admin_or_host_ugly
+    @event = Event.find(params[:id])    
+      if@event.is_hosting_event( current_user) && !current_user.admin
+        redirect_to :calendar, flash: {error: "You must be an admin or host of the event to edit it"}
+      end
+  end
+
   def require_admin_or_host
-    @lunchlearn = Lunchlearn.find(params[:id])
-    if !@lunchlearn.is_hosting_event( current_user) && !current_user.admin
-      redirect_to :calendar, flash: {error: "You must be an admin or host of the event to edit it"}
-    end
+ #   @lunchlearn = Lunchlearn.find(params[:id])
+#    @event=Event.where(Event.event_style.element.
+ #   if !@lunchlearn.is_hosting_event( current_user) && !current_user.admin
+ #     redirect_to :calendar, flash: {error: "You must be an admin or host of the event to edit it"}
+ #   end
   end
 
 end

@@ -4,8 +4,8 @@ class Event < ActiveRecord::Base
   has_many :attendees
   has_many :schedules
   has_one :event_style
-  has_one :lunchlearns, :through => :event_style, :source => :element, :source_type => 'LunchLearn'
-  has_one :webinars, :through => :event_style, :source => :element, :source_type => 'Webinar'
+  has_one :lunchlearns, :through => :event_style, :source => :element, :source_type => 'lunchlearn'
+  has_one :webinars, :through => :event_style, :source => :element, :source_type => 'webinar'
 
   def is_attending_event(user)
     self.attendees.exists?( user_id: user.id )
