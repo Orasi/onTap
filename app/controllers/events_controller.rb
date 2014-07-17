@@ -10,7 +10,7 @@ class EventsController < ApplicationController
   end  
 
   def new
-    @lunchlearn = Lunchlearn.new
+    redirect_to new_lunchlearn_path
   end
 
   def create

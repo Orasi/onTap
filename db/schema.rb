@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2014071602515327) do
     t.date     "lunch_date"
     t.time     "lunch_time"
     t.time     "end_time"
+    t.integer  "event_id"
   end
 
   create_table "sessions", force: true do |t|

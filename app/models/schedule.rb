@@ -1,7 +1,7 @@
 class Schedule < ActiveRecord::Base
   validate :lunch_date_range
   validate :event_time_order_check
-
+  belongs_to :event
   def lunch_date_range
     minimum_date = Date.new(2000)
     maximum_date = Date.new(2050)

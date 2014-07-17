@@ -1,4 +1,4 @@
 class Webinar < ActiveRecord::Base
-  has_one :event_style, :as =>:element
-  has_one :event, through: :event_style
+  has_one :event_style, :as => :element
+  has_one :event, :through => :event_styles
 end

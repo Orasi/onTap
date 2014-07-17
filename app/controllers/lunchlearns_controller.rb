@@ -14,12 +14,16 @@ class LunchlearnsController < ApplicationController
   end  
 
   def new
+    @event = Event.new
+    @schedule = @event.schedules.new
     @lunchlearn = Lunchlearn.new
   end
 
   def create
     params[:lunchlearn][:lunch_date] = DateTime.strptime(params[:lunchlearn][:lunch_date], "%m/%d/%Y")
+    @event=Event.create
     @lunch=Lunchlearn.new(lunchlearn_params)
+    @event.event_styles.create(:element => @lunch)
     if @lunch.save
       redirect_to :calendar, flash: {success: "Event \"#{@lunch.title}\" was created"}
     else
@@ -48,11 +52,15 @@ class LunchlearnsController < ApplicationController
   private
 
   def lunchlearn_params
-    params[:lunchlearn].permit(:title, :description, :lunch_date, :end_time, :lunch_time, :has_GoToMeeting, :meeting_phone_number, :access_code, :go_to_meeting_url)
+    params[:lunchlearn].permit(:title, :description, :has_GoToMeeting, :meeting_phone_number, :access_code, :go_to_meeting_url)
   end
 
   def lunch_host_ids
     params.require(:lunchlearn).permit(hosts: [])
+  end
+
+  def schedule_params
+    params.require(:lunchlearn).permite(:lunch_date, :end_time, :lunch_time)
   end
 
   def add_hosts
