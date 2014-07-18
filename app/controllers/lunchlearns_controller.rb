@@ -59,7 +59,11 @@ class LunchlearnsController < ApplicationController
   end
 
   def lunch_host_ids
-    params.require(:event).permit(hosts: [])
+    if !params[:event].nil?
+      params.require(:event).permit(hosts: [])
+    else
+      params.permit(hosts: [])
+    end
   end
 
   def schedule_params
