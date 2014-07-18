@@ -2,7 +2,9 @@ class ArchiveController < ApplicationController
   before_action :require_admin, only: [:update, :destroy]
 
   def index
-    @lunchlearns = Lunchlearn.where("lunch_date < ?",DateTime.now.to_date).order(lunch_date: :desc)
+ #   @events = Event.includes(Schedule)
+ #   @events = Event.where(Event.schedules.first.lunch_date < DateTime.now.to_date).order(lunch_date: :desc)
+    @events = Event.all
   end
   
   def show
