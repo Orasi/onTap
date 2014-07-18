@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(version: 2014071715323732) do
   end
 
   create_table "events", force: true do |t|
-    t.string   "event_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
