@@ -1,12 +1,12 @@
 class Attendee < ActiveRecord::Base
   belongs_to :user
-  belongs_to :lunchlearn
+  belongs_to :event
   validate :not_in_archive
 
   def not_in_archive
-    if lunchlearn.lunch_date.past?
-      if !user.check_if_admin?
-        errors.add(:lunch_date, "#{lunchlearn.title} is already in the ")
+    if event.schedules.first.event_date.past?
+      unless user.check_if_admin?
+        errors.add(:event_date, "#{event.event_style.element.title} is already in the archive")
       end
     end
   end

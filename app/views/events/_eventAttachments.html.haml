@@ -1,0 +1,35 @@
+.panel.panel-default
+  .panel-heading 
+    Event Attachments
+    %span.badge
+      = event.attachments.count
+  .panel-body
+    - if event.hosting_event?(current_user) || current_user.admin?
+      .form-group
+        #add_attachment.btn.btn-default.btn-sm.pull-right
+          Add Attachment
+      #attachment-panel.well.well-lg
+        = form_for Attachment.new, url: attachments_path, html: {multipart: true} do |f|
+          .form_group
+            = f.label :title, 'Attachment Title:'
+            = f.text_field :title
+          .form_group{style: 'display:inline'}
+            = f.label :file, 'Attachment:'
+            = f.file_field :file
+          = f.hidden_field :event_id, value: event.id
+          .form_group
+            = f.submit  
+  
+    %h4 
+      The following attachments have been added for this event
+      %ul
+      - event.attachments.each do |attachment|
+        %li
+          = link_to (attachment.title.blank? ? attachment.file_file_name : attachment.title), attachment.file.url
+          - if event.hosting_event?( current_user ) || admin?
+            .btn.btn-default.btn-xs= link_to "Delete", attachment_path(attachment), method: :delete 
+:javascript
+  $("#add_attachment").click(function(){
+    $("#attachment-panel").fadeToggle();
+  });
+  

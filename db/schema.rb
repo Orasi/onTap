@@ -11,18 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140717170505) do
-
-  create_table "attachements", force: true do |t|
-    t.string   "title"
-    t.integer  "lunchlearn_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 2014071715323732) do
 
   create_table "attachments", force: true do |t|
     t.string   "title"
-    t.integer  "lunchlearn_id"
+    t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "file_file_name"
@@ -33,7 +26,7 @@ ActiveRecord::Schema.define(version: 20140717170505) do
 
   create_table "attendees", force: true do |t|
     t.integer  "user_id"
-    t.integer  "lunchlearn_id"
+    t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
@@ -55,9 +48,22 @@ ActiveRecord::Schema.define(version: 20140717170505) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
+  create_table "event_styles", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "event_id"
+    t.integer  "element_id"
+    t.string   "element_type"
+  end
+
+  create_table "events", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "hosts", force: true do |t|
     t.integer  "user_id"
-    t.integer  "lunchlearn_id"
+    t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -73,6 +79,15 @@ ActiveRecord::Schema.define(version: 20140717170505) do
     t.string   "access_code"
     t.boolean  "has_GoToMeeting"
     t.string   "go_to_meeting_url"
+    t.time     "end_time"
+  end
+
+  create_table "schedules", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "event_id"
+    t.date     "event_date"
+    t.time     "event_time"
     t.time     "end_time"
   end
 
@@ -99,6 +114,11 @@ ActiveRecord::Schema.define(version: 20140717170505) do
     t.boolean  "admin"
     t.string   "photo"
     t.string   "email"
+  end
+
+  create_table "webinars", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
