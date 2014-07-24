@@ -3,12 +3,21 @@
     = f.label "Event Type", class: 'control-label'
     - files =  Dir.glob(Rails.root.join("app", "views", params[:controller])+ "forms/_*")
     - files = files.map{|file| [File.basename(file, '.html.haml').gsub("_", " ").strip.titleize, File.basename(file, '.html.haml')[1..-1]]}
-    = f.collection_select :event_style, files, :last, :first, :include_blank => false, selected: files[1].last
+    = f.collection_select :event_style, files, :last, :first, :include_blank => false, selected: (@event.event_style.display_name unless @event.event_style.nil?)
+
+  .form_group
+    %br
+    =f.label :title, nil, class: "control-label"
+    =f.text_field :title, value: @event.title, class: "form-control", required: true
+
+  .form_group
+    =f.label :description, nil, class: "control-label"
+    =f.text_field :description, value: @event.description, class: "form-control", required: true
 
     .form_group
-      %br
       - files.each do |file|
         .form_styles{id: file.last, style: 'display:none'}
+          %br
           = render partial: 'events/forms/' +file.last, locals: { f: f, event: @event }
 
   -@event.schedules.each do |schedule|

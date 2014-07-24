@@ -6,7 +6,7 @@
         = "  -  No longer attending?"
         = link_to  "Don't Attend" , attendee_path(event)
     .jumbo-title.h1
-      = event.event_style.element.title
+      = event.title
       .jumbo-date-hosts.h2
         .jumbo-date.small
           = event.schedules.first.event_date.to_date.strftime("%B %d, %Y") + " at " + event.schedules.first.event_time.strftime("%I:%M %p") + (event.schedules.first.end_time.blank? ? "" : " to " +event.schedules.first.end_time.strftime("%I:%M %p"))
@@ -21,7 +21,7 @@
               .jumbo-hosts-name
                 ="#{host.user.display_name}"
     %p.jumbo-description
-      = event.event_style.element.description
+      = event.description
     .jumbo-button-panel
       %div.jumbo-main-buttons.pull-left
         = link_to (event.attending_event?(current_user) ? "Don't Attend" : "Attend"), attendee_path(event), class: "btn btn-primary btn-lg" unless event.attending_event?(current_user) || event.hosting_event?(current_user)

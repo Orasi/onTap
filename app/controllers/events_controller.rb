@@ -30,11 +30,21 @@ class EventsController < ApplicationController
     end
 
     if params[:event][:event_style] == 'lunch_and_learn'
-      @eventtype=Lunchlearn.new(lunchlearn_params)
+      @eventtype = Lunchlearn.new(lunchlearn_params)
+    elsif params[:event][:event_style] == 'webinar'
+      @eventtype = Webinar.new(webinar_params)
     end
-    
-    params[:event][:hosts].each do |host|
-      @event.hosts.create(user_id: host)
+
+    unless @eventtype.save
+       @event.destroy
+       redirect_to :calendar, flash: {error: "Event \"#{params[:event][:title]}\" was not created"}
+       return
+    end
+
+    unless params[:event][:hosts].nil?
+      params[:event][:hosts].each do |host|
+        @event.hosts.create(user_id: host)
+      end
     end
 
     @eventstyle=@event.build_event_style(:element => @eventtype)
@@ -67,9 +77,13 @@ class EventsController < ApplicationController
     if params[:event][:event_style] == 'lunch_and_learn'
       @event_type = Lunchlearn.find_by(id: @event_style.element_id)
       @event_type.update_attributes(lunchlearn_params)
+    elsif params[:event][:event_style] == 'webinar'
+      @event_type = Webinar.find_by(id: @event_style.element_id)
+      @event_type.update_Attributes(webinar_params)
+    elsif params[:event][:event_style] == 'training_class'
     end
 
-    redirect_to event_path(@event), flash: {success: "Event \"#{@event.event_style.element.title}\" was updated"}
+    redirect_to event_path(@event), flash: {success: "Event \"#{@event.title}\" was updated"}
   end
 
   private
@@ -80,6 +94,10 @@ class EventsController < ApplicationController
  
   def lunchlearn_params
     params[:event].permit(:title, :description, :has_GoToMeeting, :meeting_phone_number, :access_code, :go_to_meeting_url)
+  end
+
+  def webinar_params
+    params[:event].permit()
   end
 
 end

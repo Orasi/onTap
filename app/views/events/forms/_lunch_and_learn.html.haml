@@ -1,14 +1,6 @@
-.form_group
-  =f.label :title, nil, class: "control-label"
-  =f.text_field :title, value: (event.event_style.element.title unless event.event_style.nil?), class: "form-control", required: true
-
-.form_group
-  =f.label :description, nil, class: "control-label"
-  =f.text_field :description, value: (event.event_style.element.description unless event.event_style.nil?), class: "form-control", required: true
 
 =fields_for event do |e|
   .form_group
-    %br
     .event-host-section.form-inline
       =e.label "Host(s)", class: "control-group"
       %button.btn.btn-default.form-control#add-event-host{type: "button", style: "margin-bottom:5px;"}

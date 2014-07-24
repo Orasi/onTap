@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(version: 2014071715323732) do
 
+  create_table "attachements", force: true do |t|
+    t.string   "title"
+    t.integer  "lunchlearn_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "attachments", force: true do |t|
     t.string   "title"
     t.integer  "event_id"
@@ -59,6 +66,8 @@ ActiveRecord::Schema.define(version: 2014071715323732) do
   create_table "events", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
+    t.string   "description"
   end
 
   create_table "hosts", force: true do |t|
@@ -69,8 +78,6 @@ ActiveRecord::Schema.define(version: 2014071715323732) do
   end
 
   create_table "lunchlearns", force: true do |t|
-    t.string   "title"
-    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "lunch_date"
@@ -119,6 +126,7 @@ ActiveRecord::Schema.define(version: 2014071715323732) do
   create_table "webinars", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "url"
   end
 
 end

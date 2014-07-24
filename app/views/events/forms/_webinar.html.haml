@@ -1,3 +1,8 @@
-.jumbotron
-  .jumbo-header
-    This is text
+.form_group
+  =f.label :url, nil, class: "control-label"
+  =f.text_field :title, value: (event.event_style.element.host unless event.event_style.nil?), class: "form-control", required: true
+
+.form_group
+  =f.label :host, nil, class: "control-label"
+  =f.text_field :host, value: (event.hosts.first.user_id unless event.hosts.blank?), class: "form-control", required: true
+
