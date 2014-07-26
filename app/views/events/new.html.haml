@@ -3,7 +3,8 @@
     = f.label "Event Type", class: 'control-label'
     - files =  Dir.glob(Rails.root.join("app", "views", params[:controller])+ "forms/_*")
     - files = files.map{|file| [File.basename(file, '.html.haml').gsub("_", " ").strip.titleize, File.basename(file, '.html.haml')[1..-1]]}
-    = f.collection_select :event_style, files, :last, :first, :include_blank => false, selected: (@event.event_style.display_name unless @event.event_style.nil?)
+    = f.collection_select :event_style, files, :last, :first, {:include_blank => false, selected: (@event.event_style.display_name unless @event.event_style.nil?)}, class: ("hidden" unless @event.id.nil?)
+    = @event.event_style.element_type unless @event.id.nil?
 
   .form_group
     %br
@@ -45,7 +46,6 @@
   function forms(){
     $('.form_styles').fadeOut('fast');
     $('#' + this.value).fadeIn('fast');  
-
   }
 
   $(document).on("ready", function(){

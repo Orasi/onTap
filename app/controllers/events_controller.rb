@@ -16,7 +16,7 @@ class EventsController < ApplicationController
   def create
     params[:event][:event_date] = DateTime.strptime(params[:event][:event_date], "%m/%d/%Y")
 
-    @event=Event.new
+    @event=Event.new(event_params)
     unless @event.save
       redirect_to :calendar, flash: {error: "Event \"#{params[:event][:title]}\" was not created"}
       return
@@ -33,6 +33,7 @@ class EventsController < ApplicationController
       @eventtype = Lunchlearn.new(lunchlearn_params)
     elsif params[:event][:event_style] == 'webinar'
       @eventtype = Webinar.new(webinar_params)
+      @event.hosts.create(external: true, host: params[:event][:host])
     end
 
     unless @eventtype.save
@@ -79,25 +80,37 @@ class EventsController < ApplicationController
       @event_type.update_attributes(lunchlearn_params)
     elsif params[:event][:event_style] == 'webinar'
       @event_type = Webinar.find_by(id: @event_style.element_id)
-      @event_type.update_Attributes(webinar_params)
+      @event_type.update_attributes(webinar_params)
+      @event.hosts.each {|host| host.destroy}
+      @event.hosts.create(external: true, host: params[:event][:host])
     elsif params[:event][:event_style] == 'training_class'
     end
 
     redirect_to event_path(@event), flash: {success: "Event \"#{@event.title}\" was updated"}
   end
-
+  
+  def destroy
+    oldEventTitle=Event.find(params[:id]).title
+    #add additional cleanup
+    Event.find(params[:id]).destroy
+    redirect_to :calendar, flash: {error: "Event \"#{oldEventTitle}\" was deleted"}
+  end
   private
+
+  def event_params
+    params.require(:event).permit(:title, :description)
+  end
 
   def schedule_params
     params.require(:event).permit(:event_date, :end_time, :event_time)
   end
  
   def lunchlearn_params
-    params[:event].permit(:title, :description, :has_GoToMeeting, :meeting_phone_number, :access_code, :go_to_meeting_url)
+    params[:event].permit(:has_GoToMeeting, :meeting_phone_number, :access_code, :go_to_meeting_url)
   end
 
   def webinar_params
-    params[:event].permit()
+    params[:event].permit(:url)
   end
 
 end

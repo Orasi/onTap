@@ -2,8 +2,7 @@
 = render partial: 'eventJumbo', locals: {event: @event}      
 
 -if @event.attending_event?(current_user) || @event.hosting_event?(current_user) || admin?
-  -if @event.event_style.element.has_GoToMeeting
-    = render partial: 'eventGoToMeeting', locals: {event: @event} 
+  = render partial: 'eventGoToMeeting', locals: {event: @event} 
  
   = render partial: 'eventAttachments', locals: {event: @event} if @event.attachments.count > 0 || admin? || @event.hosting_event?(current_user)
   = render partial: 'eventAttendees', locals: {event: @event}

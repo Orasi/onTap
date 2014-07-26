@@ -75,6 +75,8 @@ ActiveRecord::Schema.define(version: 2014071715323732) do
     t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "external"
+    t.string   "host"
   end
 
   create_table "lunchlearns", force: true do |t|

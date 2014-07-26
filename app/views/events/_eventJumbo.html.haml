@@ -17,9 +17,10 @@
           -event.hosts.collect.each do |host|
             .jumbo-hosts.small
               .jumbo-hosts-picture
-                =display_circle_picture(host.user.id)
+                = display_circle_picture(host.user.id) unless host.external
+                = host.host
               .jumbo-hosts-name
-                ="#{host.user.display_name}"
+                ="#{host.user.display_name}" unless host.external
     %p.jumbo-description
       = event.description
     .jumbo-button-panel

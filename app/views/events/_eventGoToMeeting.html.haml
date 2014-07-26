@@ -1,12 +1,13 @@
-.panel.panel-default
-  .panel-heading
-    GoTo Meeting information:
-  .meetinglink
-    Please join the meeting:  
-    = link_to event.go_to_meeting_url
-  .meetingphone
-    To call in dial:  
-    = event.meeting_phone_number
-  .access
-    Use access code:  
-    = event.access_code
+-if @event.event_style.element.respond_to?(:has_GoToMeeting) && @event.event_style.element.has_GoToMeeting
+  .panel.panel-default
+    .panel-heading
+      GoTo Meeting information:
+    .meetinglink
+      Please join the meeting:  
+      = link_to event.go_to_meeting_url
+    .meetingphone
+      To call in dial:  
+      = event.meeting_phone_number
+    .access
+      Use access code:  
+      = event.access_code
