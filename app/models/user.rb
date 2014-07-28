@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
       return true
     end
 
-    ldap = Net::LDAP.new :host => '10.238.242.32',
+    ldap = Net::LDAP.new :host => '10.238.240.27',
     :port => 389,
     :auth => {
       :method => :simple,
