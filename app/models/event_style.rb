@@ -5,6 +5,8 @@ class EventStyle < ActiveRecord::Base
   def display_name
     if element_type == "Lunchlearn"
       "lunch_and_learn"
+    elsif element_type == "Webinar"
+      "webinar"
     end
   end
 end
