@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(version: 201407231840563432432) do
 
+  create_table "attachements", force: true do |t|
+    t.string   "title"
+    t.integer  "lunchlearn_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "attachments", force: true do |t|
     t.string   "title"
     t.integer  "event_id"
@@ -31,6 +38,22 @@ ActiveRecord::Schema.define(version: 201407231840563432432) do
     t.datetime "updated_at"
     t.string   "status"
   end
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "event_styles", force: true do |t|
     t.datetime "created_at"
@@ -59,10 +82,13 @@ ActiveRecord::Schema.define(version: 201407231840563432432) do
   create_table "lunchlearns", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "lunch_date"
+    t.time     "lunch_time"
     t.string   "meeting_phone_number"
     t.string   "access_code"
     t.boolean  "has_GoToMeeting"
     t.string   "go_to_meeting_url"
+    t.time     "end_time"
   end
 
   create_table "schedules", force: true do |t|
