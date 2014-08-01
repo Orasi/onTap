@@ -58,7 +58,6 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
-    @eventtype=Lunchlearn.find(@event.event_style.element.id)
     render :new
   end
 
