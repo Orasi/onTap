@@ -12,15 +12,21 @@
           = event.schedules.first.event_date.to_date.strftime("%B %d, %Y") + " at " + event.schedules.first.event_time.strftime("%I:%M %p") + (event.schedules.first.end_time.blank? ? "" : " to " +event.schedules.first.end_time.strftime("%I:%M %p"))
         .jumbo-spacer
         .jumbo-hosts
-          .jumbo-hosted-by.small
-            Hosted by
-          -event.hosts.collect.each do |host|
-            .jumbo-hosts.small
-              .jumbo-hosts-picture
-                = display_circle_picture(host.user.id) unless host.external
-                = host.host
-              .jumbo-hosts-name
-                ="#{host.user.display_name}" unless host.external
+          - if event.hosts.first.external
+            .jumbo-hosted-by.small
+              Hosted by
+              %br
+              = event.hosts.first.host
+          - unless event.hosts.first.external
+            .jumbo-hosted-by.small
+              Hosted by
+            -event.hosts.collect.each do |host|
+              .jumbo-hosts.small
+                .jumbo-hosts-picture
+                  = display_circle_picture(host.user.id) unless host.external
+                  = host.host
+                .jumbo-hosts-name
+                  ="#{host.user.display_name}" unless host.external
     %p.jumbo-description
       = event.description
     .jumbo-button-panel

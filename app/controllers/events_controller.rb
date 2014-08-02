@@ -75,6 +75,12 @@ class EventsController < ApplicationController
       end
     end
     
+    @event.schedules.each do |s|
+      s.destroy
+    end
+    @schedule=@event.schedules.new(schedule_params)
+    @schedule.save
+
     if params[:event][:event_style] == 'lunch_and_learn'
       @event_type = Lunchlearn.find_by(id: @event_style.element_id)
       @event_type.update_attributes(lunchlearn_params)
