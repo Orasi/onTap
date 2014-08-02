@@ -1,21 +1,22 @@
--if @lunchlearns.count != 0
-  %h3 Previous Lunch and Learns
+-if @events.count != 0
+  %h3 Previous Events
   %div#accordion
-    -@lunchlearns.each do |lunch|
+    -@events.each do |event|
       %h5
-        =lunch.title
-        %small= "Hosted by  #{lunch.hosts.collect{|host| User.find(host.user_id).display_name}.join(" and ")}   -    #{ lunch.lunch_date.to_date.strftime("%B %d, %Y")}"
+        =event.title
+        %small= "Hosted by  #{event.hosts.collect{|host| User.find(host.user_id).display_name}.join(" and ")}   -    #{ event.schedules.first.event_date.to_date.strftime("%B %d, %Y")}" unless event.hosts.first.external
+        %small= "Hosted by  #{event.hosts.first.host}" if event.hosts.first.external 
       %div
-        = lunch.description
+        = event.description
         %br
-        = link_to "Details", lunchlearn_path(lunch), class: "btn btn-primary btn-lg white-text"
-        - if is_admin
+        = link_to "Details", event_path(event), class: "btn btn-primary btn-lg white-text"
+        - if admin?
           %span.pull-right
-            =link_to "Edit", edit_lunchlearn_path(lunch), class: "btn btn-default btn-sm"
-            =link_to "Delete", lunchlearn_path(lunch), method: :delete, class: "btn btn-default btn-sm"
+            =link_to "Edit", edit_event_path(event), class: "btn btn-default btn-sm"
+            =link_to "Delete", event_path(event), method: :delete, class: "btn btn-default btn-sm"
 
--if @lunchlearns.count == 0
-  = "There are no previous Lunch and Learns in the system"
+-if @events.count == 0
+  = "There are no previous events in the system"
 :javascript
   $(function(){
     $("#accordion").accordion({collapsible: true, active:false,heightStyle: "content"});

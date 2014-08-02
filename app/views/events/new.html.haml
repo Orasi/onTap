@@ -1,0 +1,74 @@
+= form_for @event, html: {class: "form-horizontal", role: "form"} do |f|
+  .form_group
+    = f.label "Event Type", class: 'control-label'
+    - files =  Dir.glob(Rails.root.join("app", "views", params[:controller])+ "forms/_*")
+    - files = files.map{|file| [File.basename(file, '.html.haml').gsub("_", " ").strip.titleize, File.basename(file, '.html.haml')[1..-1]]}
+    = f.collection_select :event_style, files, :last, :first, {:include_blank => false, selected: (@event.event_style.display_name unless @event.event_style.nil?)}, class: ("hidden" unless @event.id.nil?)
+    = @event.event_style.element_type unless @event.id.nil?
+
+  .form_group
+    %br
+    =f.label :title, nil, class: "control-label"
+    =f.text_field :title, value: @event.title, class: "form-control", required: true
+
+  .form_group
+    =f.label :description, nil, class: "control-label"
+    =f.text_field :description, value: @event.description, class: "form-control", required: true
+
+    .form_group
+      - files.each do |file|
+        .form_styles{id: file.last, style: 'display:none'}
+          %br
+          = render partial: 'events/forms/' +file.last, locals: { f: f, event: @event }
+
+  -@event.schedules.each do |schedule|
+    .form_group
+      =f.label :event_date, class: "control-label"
+      - if schedule.event_date
+        =f.text_field :event_date, value: schedule.event_date.strftime("%m/%d/%Y"), class: "form-control", id: "datepicker", required: true
+      - if not schedule.event_date
+        =f.text_field :event_date, value: schedule.event_date, class: "form-control", id: "datepicker", required: true
+    .form_group
+      %br
+      =f.label :event_time, "Event start time:", class: "control-label"
+      =f.text_field :event_time, value: (schedule.event_time.strftime("%I:%M%p") unless schedule.event_time.blank?), class: "time", id: "timepicker", required: true
+    .form_group
+      %br
+      =f.label :end_time, "Event end time:", class: "control-label"
+      =f.text_field :end_time, value: (schedule.end_time.strftime("%I:%M%p") unless schedule.end_time.blank?), id: "timepickerend" 
+  
+  .form_group
+    %br
+    =f.submit class: "btn btn-primary", data: { disable_with: "Adding Event..."}
+:javascript
+
+  $("#event_event_style").on('change', forms) 
+  function forms(){
+    $('.form_styles').fadeOut('fast');
+    $('#' + this.value).fadeIn('fast');  
+  }
+
+  $(document).on("ready", function(){
+      value = $("#event_event_style").val();
+      $('#' + value).show(); 
+    
+    if ($("input:checked").length > 0)
+      $("#gotomeetingform").show()
+    $("#datepicker").datepicker();
+    $(".meeting").on("click", function(){
+      $("#gotomeetingform").toggle($(this));        
+    });
+    $('#timepicker').timepicker({ 
+      useSelect: true,
+      'scrollDefault': 'now' 
+    });
+    $('#timepickerend').timepicker({ 
+      useSelect: true,
+      'scrollDefault': 'now' 
+    });
+    $(".remove").on("click", function(){
+      return $(this).parent().remove();
+    });
+  });
+ 
+.clearfix

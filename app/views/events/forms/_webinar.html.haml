@@ -1,0 +1,8 @@
+.form_group
+  =f.label :url, nil, class: "control-label"
+  =f.text_field :url, value: (event.event_style.element.url unless event.event_style.nil? || !event.event_style.element.respond_to?(:url)), class: "form-control webinar"
+
+.form_group
+  =f.label :host, nil, class: "control-label webinar"
+  =f.text_field :host, value: (event.hosts.first.host unless event.hosts.blank?), class: "form-control webinar"
+
