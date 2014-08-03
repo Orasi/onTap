@@ -85,6 +85,8 @@ class EventsController < ApplicationController
       @event.hosts.create(external: true, host: params[:event][:host])
     elsif params[:event][:event_style] == 'training_class'
     end
+    @event.schedules.first.update_attributes(schedule_params)
+
 
     redirect_to event_path(@event), flash: {success: "Event \"#{@event.title}\" was updated"}
   end
