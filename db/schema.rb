@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2014072319234223224324) do
     t.datetime "updated_at"
     t.string   "title"
     t.string   "description"
+    t.boolean  "restricted"
   end
 
   create_table "hosts", force: true do |t|

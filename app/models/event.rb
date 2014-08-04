@@ -3,6 +3,7 @@ class Event < ActiveRecord::Base
   has_many :lunch_hosts, through: :hosts, source: :user
   has_many :attendees
   has_many :schedules
+  has_many :attend_requests
   has_many :attachments
   has_one :event_style
   has_one :lunchlearns, :through => :event_style, :source => :element, :source_type => 'lunchlearn'
