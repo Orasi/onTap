@@ -79,6 +79,7 @@
         1,
         1,
         1,
+        null,
         null
       ],
       "/home/matt/Desktop/Projects/onTap-old/app/models/host.rb": [
@@ -301,6 +302,6 @@
         null
       ]
     },
-    "timestamp": 1406937398
+    "timestamp": 1407117290
   }
 }

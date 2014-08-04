@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 201407231840563432432) do
-
+ActiveRecord::Schema.define(version: 2014072319234223224324) do
 
   create_table "attachements", force: true do |t|
     t.string   "title"
@@ -83,13 +82,10 @@ ActiveRecord::Schema.define(version: 201407231840563432432) do
   create_table "lunchlearns", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "lunch_date"
-    t.time     "lunch_time"
     t.string   "meeting_phone_number"
     t.string   "access_code"
     t.boolean  "has_GoToMeeting"
     t.string   "go_to_meeting_url"
-    t.time     "end_time"
   end
 
   create_table "schedules", force: true do |t|
