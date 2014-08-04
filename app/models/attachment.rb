@@ -3,5 +3,5 @@ class Attachment < ActiveRecord::Base
   belongs_to :event
   has_attached_file :file
   validates_attachment_content_type :file, :content_type => /\A.*\Z/
-  process_in_background :file
+  #process_in_background :file
 end
