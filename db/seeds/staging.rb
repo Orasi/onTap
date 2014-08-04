@@ -11,7 +11,7 @@ User.create(username: "company.admin", first_name: "company", last_name: "admin"
   User.create(username: usernames, first_name: first_names, last_name: last_names, email: usernames + "@orasi.com", admin: false, photo: nil,)
 end
 
-event_types = ["lunch_and_learn", "webinar"]
+event_types = ["lunch_and_learn", "webinar", "training_class"]
 40.times do 
   random_start = rand(-1.years..1.years).ago
   while random_start.hour > 16 do
@@ -38,7 +38,7 @@ event_types = ["lunch_and_learn", "webinar"]
   elsif style == 'webinar'
     type = Webinar.create(url: Faker::Internet.url)
   elsif style == 'training_class'
-
+    type = TrainingClass.create()
   end
       es = e.build_event_style(element: type)
       es.save
