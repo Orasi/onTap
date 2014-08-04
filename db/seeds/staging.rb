@@ -11,7 +11,7 @@ User.create(username: "company.admin", first_name: "company", last_name: "admin"
   User.create(username: usernames, first_name: first_names, last_name: last_names, email: usernames + "@orasi.com", admin: false, photo: nil,)
 end
 
-event_types = ["lunch_and_learn"]
+event_types = ["lunch_and_learn", "webinar"]
 40.times do 
   random_start = rand(-1.years..1.years).ago
   while random_start.hour > 16 do
@@ -28,21 +28,18 @@ event_types = ["lunch_and_learn"]
     end
   end
   style = event_types[rand(0..(event_types.count-1))]
-  #if style == 'lunch_and_learn'
+  if style == 'lunch_and_learn'
     has_meeting = [true, false].sample
     if has_meeting
-      type = Lunchlearn.create(has_GoToMeeting: has_meeting, meeting_phone_number: "(" + rand(100..999).to_s + ")" + rand(100..999).to_s + "-" + rand(100..999).to_s, access_code: rand(100..999).to_s + "-" + rand(100..999).to_s + "-" + rand(100..999).to_s, go_to_meeting_url: Faker::Internet.url)
+      type = Lunchlearn.create(has_GoToMeeting: has_meeting, meeting_phone_number: "(" + rand(100..999).to_s + ")" + rand(100..999).to_s + "-" + rand(1000..9999).to_s, access_code: rand(100..999).to_s + "-" + rand(100..999).to_s + "-" + rand(100..999).to_s, go_to_meeting_url: Faker::Internet.url)
     else
       type = Lunchlearn.create(has_GoToMeeting: has_meeting)
     end
-  #elsif style == 'webinar'
-   # @event_type = Webinar.find_by(id: @event_style.element_id)
-   # @event_type.update_attributes(webinar_params)
-   # @event.hosts.each {|host| host.destroy}
-   # @event.hosts.create(external: true, host: params[:event][:host])
-  #elsif style == 'training_class'
+  elsif style == 'webinar'
+    type = Webinar.create(url: Faker::Internet.url)
+  elsif style == 'training_class'
 
-  #end
+  end
       es = e.build_event_style(element: type)
       es.save
 end

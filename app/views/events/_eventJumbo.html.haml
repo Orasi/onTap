@@ -5,6 +5,8 @@
         %strong You are attending this event
         = "  -  No longer attending?"
         = link_to  "Don't Attend" , attendee_path(event)
+    .h2.small.pull-right
+      = event.event_style.display_name.titleize.sub("_", " ")
     .jumbo-title.h1
       = event.title
       .jumbo-date-hosts.h2

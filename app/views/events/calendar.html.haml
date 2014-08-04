@@ -14,6 +14,7 @@
             = "Hosted by  #{event.hosts.first.host}" if event.hosts.first.external 
           %strong
             = "#{ event.schedules.first.event_date.to_date.strftime("%B %d, %Y") + " at " + event.schedules.first.event_time.strftime("%I:%M %p") + (event.schedules.first.end_time.blank? ? "" : " to " +event.schedules.first.end_time.strftime("%I:%M %p"))}"
+          .pull-right= event.event_style.display_name.titleize.sub("_", " ")
       %div
         - if event.attending_event?(current_user)
           .well.well-sm.well-success

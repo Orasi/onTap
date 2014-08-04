@@ -111,6 +111,9 @@ ActiveRecord::Schema.define(version: 2014072319234223224324) do
     t.datetime "updated_at"
   end
 
+  create_table "training_classes", force: true do |t|
+  end
+
   create_table "users", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
