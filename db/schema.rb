@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2014072319234223224324) do
+ActiveRecord::Schema.define(version: 201407231923422322432) do
 
   create_table "attachments", force: true do |t|
     t.string   "title"
