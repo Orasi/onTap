@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class AttachmentTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+#   test "attachment should not save without name" do
+#     attach = Attachment.new
+#     assert_not attach.save
+#   end
 end

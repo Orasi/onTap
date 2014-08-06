@@ -6,13 +6,19 @@ class AttendeesController < ApplicationController
       redirect_to (:back)
     else
       if Event.find(params[:id]).restricted
-        if Event.find(params[:id]).attend_requests.exists?(requester_id: session[:current_user_id])
-          Event.find(params[:id]).attend_requests.find_by(requester_id: session[:current_user_id]).destroy
+        if Event.find(params[:id]).requests.exists?(requester_id: session[:current_user_id])
+          Event.find(params[:id]).requests.find_by(requester_id: session[:current_user_id]).destroy
           flash[:success] = "Cancelled request to attend: #{Event.find(params[:id]).title}!"
           redirect_to (:back)
         else
-          #createrequest
-          redirect_to (:back)
+          @request=Event.find(params[:id]).requests.create(user_id: session[:current_user_id], notification_type: 0)
+          if @request.save
+            flash[:success] = "A request has been sent to attend the event: #{Event.find(params[:id]).title}!"
+            redirect_to (:back)
+          else
+            flash[:error] = "#{Event.find(params[:id]).title} is in the archive."
+            redirect_to :calendar
+          end
         end
       else
         @attendee=Event.find(params[:id]).attendees.new(user_id: session[:current_user_id])

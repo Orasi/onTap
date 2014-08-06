@@ -45,6 +45,13 @@ GEM
       simplecov (>= 0.7)
       term-ansicolor
       thor
+    delayed_job (4.0.2)
+      activesupport (>= 3.0, < 4.2)
+    delayed_job_active_record (4.0.1)
+      activerecord (>= 3.0, < 4.2)
+      delayed_job (>= 3.0, < 4.1)
+    delayed_paperclip (2.8.0)
+      paperclip (>= 3.3)
     docile (1.1.5)
     erubis (2.7.0)
     execjs (2.2.1)
@@ -79,7 +86,7 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.10.1)
-    net-ldap (0.6.1)
+    net-ldap (0.7.0)
     netrc (0.7.7)
     paperclip (4.2.0)
       activemodel (>= 3.0.0)
@@ -188,6 +195,8 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
   coveralls
+  delayed_job_active_record
+  delayed_paperclip
   faker
   haml-rails
   icalendar

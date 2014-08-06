@@ -5,7 +5,9 @@
       %h5
         =event.title
         %small= "Hosted by  #{event.hosts.collect{|host| User.find(host.user_id).display_name}.join(" and ")}   -    #{ event.schedules.first.event_date.to_date.strftime("%B %d, %Y")}" unless event.hosts.first.external
-        %small= "Hosted by  #{event.hosts.first.host}" if event.hosts.first.external 
+        %small
+          = "Hosted by  #{event.hosts.first.host}" if event.hosts.first.external 
+          .pull-right= event.event_style.display_name.titleize.sub("_", " ")
       %div
         = event.description
         %br

@@ -11,22 +11,53 @@ User.create(username: "company.admin", first_name: "company", last_name: "admin"
   User.create(username: usernames, first_name: first_names, last_name: last_names, email: usernames + "@orasi.com", admin: false, photo: nil,)
 end
 
-
+event_types = ["lunch_and_learn", "webinar", "training_class"]
 40.times do 
   random_start = rand(-1.years..1.years).ago
+  while random_start.hour > 16 do
+    random_start = rand(-1.years..1.years).ago
+  end
   random_end = random_start + rand(1..5).hours
-  Lunchlearn.create( title: Faker::Name.title, description:   Faker::Hacker.say_something_smart, lunch_date: random_start.to_date, lunch_time: random_start.to_time, meeting_phone_number: "", access_code: "", has_GoToMeeting: false, go_to_meeting_url: "", end_time: random_end.to_time)
-
-
+  e = Event.new( title: Faker::Name.title, description:   Faker::Hacker.say_something_smart)
+  if e.save
+    s = e.schedules.new(event_date: random_start.to_date, event_time: random_start.to_time, end_time: random_end.to_time)
+    unless s.save
+      print s.errors.full_messages
+      print random_start.to_s
+      print random_end.to_s
+    end
+  end
+  style = event_types[rand(0..(event_types.count-1))]
+  if style == 'lunch_and_learn'
+    has_meeting = [true, false].sample
+    if has_meeting
+      type = Lunchlearn.create(has_GoToMeeting: has_meeting, meeting_phone_number: "(" + rand(100..999).to_s + ")" + rand(100..999).to_s + "-" + rand(1000..9999).to_s, access_code: rand(100..999).to_s + "-" + rand(100..999).to_s + "-" + rand(100..999).to_s, go_to_meeting_url: Faker::Internet.url)
+    else
+      type = Lunchlearn.create(has_GoToMeeting: has_meeting)
+    end
+  elsif style == 'webinar'
+    type = Webinar.create(url: Faker::Internet.url)
+  elsif style == 'training_class'
+    type = TrainingClass.create()
+  end
+      es = e.build_event_style(element: type)
+      es.save
 end
 
-Lunchlearn.all.each do |l|
+
+Event.all.each do |l|
   rand(1..3).times do
-    l.hosts.create(user_id: rand(1..User.all.count))
+    user_id = rand(1..User.all.count)
+    unless l.hosting_event?(User.find(user_id))
+      l.hosts.create(user_id: user_id)
+    end
   end
 
     rand(5..20).times do
-      l.attendees.create(user_id: rand(1..User.all.count))
+      user_id = rand(1..User.all.count)
+      unless l.attending_event?(User.find(user_id))
+        l.attendees.create(user_id: rand(1..User.all.count))
+      end
     end
 
 

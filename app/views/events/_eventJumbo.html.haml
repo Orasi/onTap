@@ -5,6 +5,8 @@
         %strong You are attending this event
         = "  -  No longer attending?"
         = link_to  "Don't Attend" , attendee_path(event)
+    .h2.small.pull-right
+      = event.event_style.display_name.titleize.sub("_", " ")
     .jumbo-title.h1
       = event.title
       .jumbo-date-hosts.h2
@@ -12,20 +14,26 @@
           = event.schedules.first.event_date.to_date.strftime("%B %d, %Y") + " at " + event.schedules.first.event_time.strftime("%I:%M %p") + (event.schedules.first.end_time.blank? ? "" : " to " +event.schedules.first.end_time.strftime("%I:%M %p"))
         .jumbo-spacer
         .jumbo-hosts
-          .jumbo-hosted-by.small
-            Hosted by
-          -event.hosts.collect.each do |host|
-            .jumbo-hosts.small
-              .jumbo-hosts-picture
-                = display_circle_picture(host.user.id) unless host.external
-                = host.host
-              .jumbo-hosts-name
-                ="#{host.user.display_name}" unless host.external
+          - if event.hosts.first.external
+            .jumbo-hosted-by.small
+              Hosted by
+              %br
+              = event.hosts.first.host
+          - unless event.hosts.first.external
+            .jumbo-hosted-by.small
+              Hosted by
+            -event.hosts.collect.each do |host|
+              .jumbo-hosts.small
+                .jumbo-hosts-picture
+                  = display_circle_picture(host.user.id) unless host.external
+                  = host.host
+                .jumbo-hosts-name
+                  ="#{host.user.display_name}" unless host.external
     %p.jumbo-description
       = event.description
     .jumbo-button-panel
       %div.jumbo-main-buttons.pull-left
-        = link_to (event.attending_event?(current_user) ? "Don't Attend" : "Attend"), attendee_path(event), class: "btn btn-primary btn-lg" unless event.attending_event?(current_user) || event.hosting_event?(current_user)
+        = link_to (event.attend_button_text(current_user)), attendee_path(event), class: "btn btn-primary btn-lg" unless event.attending_event?(current_user) || event.hosting_event?(current_user)
         - if params[:action] != 'show'
           = link_to "Details", event_path(event), class: "btn btn-primary btn-lg"
      
