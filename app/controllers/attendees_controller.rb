@@ -6,12 +6,13 @@ class AttendeesController < ApplicationController
       redirect_to (:back)
     else
       if Event.find(params[:id]).restricted
-        if Event.find(params[id]).attend_requests.exists?(requester_id: session[:current_user_id])
-          Event.find(params[id]).attend_requests.find_by(requester_id: session[:current_user_id]).destroy
+        if Event.find(params[:id]).attend_requests.exists?(requester_id: session[:current_user_id])
+          Event.find(params[:id]).attend_requests.find_by(requester_id: session[:current_user_id]).destroy
           flash[:success] = "Cancelled request to attend: #{Event.find(params[:id]).title}!"
           redirect_to (:back)
         else
           #createrequest
+          redirect_to (:back)
         end
       else
         @attendee=Event.find(params[:id]).attendees.new(user_id: session[:current_user_id])

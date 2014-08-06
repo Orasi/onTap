@@ -15,8 +15,20 @@ class Event < ActiveRecord::Base
     self.attendees.exists?( user_id: user.id )
   end
 
- def hosting_event?(user)
-   self.hosts.exists?( user_id: user.id )
- end 
+  def hosting_event?(user)
+    self.hosts.exists?( user_id: user.id )
+  end 
+
+  def attend_button_text(user)
+    if attending_event(user)
+      return "Don't Attend"
+    elsif self.restricted && self.attend_requests.exists(user_id: user.id)
+      return "Cancel Request"
+    elsif self.restricted
+      return "Request (something)"
+    else
+      return "Attend"
+    end    
+  end
 
 end
