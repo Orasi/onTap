@@ -5,13 +5,30 @@ class AttendeesController < ApplicationController
       flash[:error] = "You are no longer attending the event: #{Event.find(params[:id]).title}!"
       redirect_to (:back)
     else
-      @attendee=Event.find(params[:id]).attendees.new(user_id: session[:current_user_id])
-      if @attendee.save
-        flash[:success] = "You are now attending the event: #{Event.find(params[:id]).title}!"
-        redirect_to (:back)
+      if Event.find(params[:id]).restricted
+        if Event.find(params[:id]).requests.exists?(requester_id: session[:current_user_id])
+          Event.find(params[:id]).requests.find_by(requester_id: session[:current_user_id]).destroy
+          flash[:success] = "Cancelled request to attend: #{Event.find(params[:id]).title}!"
+          redirect_to (:back)
+        else
+          @request=Event.find(params[:id]).requests.create(user_id: session[:current_user_id], notification_type: 0)
+          if @request.save
+            flash[:success] = "A request has been sent to attend the event: #{Event.find(params[:id]).title}!"
+            redirect_to (:back)
+          else
+            flash[:error] = "#{Event.find(params[:id]).title} is in the archive."
+            redirect_to :calendar
+          end
+        end
       else
-        flash[:error] = "#{Event.find(params[:id]).title} is in the archive."
-        redirect_to :calendar
+        @attendee=Event.find(params[:id]).attendees.new(user_id: session[:current_user_id])
+        if @attendee.save
+          flash[:success] = "You are now attending the event: #{Event.find(params[:id]).title}!"
+          redirect_to (:back)
+        else
+          flash[:error] = "#{Event.find(params[:id]).title} is in the archive."
+          redirect_to :calendar
+        end
       end
     end   
   end

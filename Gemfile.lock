@@ -86,7 +86,7 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.10.1)
-    net-ldap (0.6.1)
+    net-ldap (0.7.0)
     netrc (0.7.7)
     paperclip (4.2.0)
       activemodel (>= 3.0.0)
