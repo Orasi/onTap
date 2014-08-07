@@ -6,7 +6,7 @@ module EventsHelper
 #    flash.now[:success] = "#{User.find(request.user_id).display_name} is requesting to attend event: #{Event.find(request.event_id).title}"
 #    end
     if @requests.exists?(notification_type: 0)
-      flashmessage="New attendance notifications!  #{link_to 'View ', onclick: "render partial: '_attendance_notifications'"}\n"
+      flashmessage="New attendance notifications!  #{link_to 'View ', user_notifications_path}\n"
 #      flashmessage="New attendance notifications!  #{link_to 'View ', :onclick => "render :partial => '_attendance_notifications'"}\n"
 #render partial: 'eventJumbo'
     end

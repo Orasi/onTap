@@ -1,0 +1,17 @@
+.h1
+  Pending Employee Requests
+%div#accordion
+  -@notifications.each do |notification|
+    .h5
+      =User.find(notification.user_id).display_name + " is requesting to attend event " + Event.find(notification.event_id).title
+    %div
+      %h1
+        =link_to Event.find(notification.event_id).title, event_path(Event.find(notification.event_id))
+      %br
+      %p2
+        =link_to "Approve", approve_attend_path( :id => notification.id), class: "btn btn-default btn-sm"
+        =link_to "Reject", suggestions_path, method: :delete, class: "btn btn-default btn-sm"
+:javascript
+  $(function(){
+    $("#accordion").accordion({collapsible: false, active:false,heightStyle: "content"});
+  });

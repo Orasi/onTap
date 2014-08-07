@@ -32,4 +32,17 @@ class AttendeesController < ApplicationController
       end
     end   
   end
+
+  def approve_attend
+    @notification=Request.find(params[:id])
+    @attendee=Event.find(@notification.event_id).attendees.new(user_id: @notification.user_id)
+    if @attendee.save
+      flash[:success] = "#{User.find(@notification.user_id).display_name} is now attending the event: #{Event.find(@notification.event_id).title}!"
+      @notification.destroy
+      redirect_to (:back)
+    else
+      flash[:error] = "#{Event.find(@notification.event_id).title} is in the archive."
+      redirect_to :calendar
+    end
+  end
 end
