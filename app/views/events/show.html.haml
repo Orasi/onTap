@@ -1,12 +1,7 @@
 
-= render partial: 'eventJumbo', locals: {event: @event}      
-
--if @event.attending_event?(current_user) || @event.hosting_event?(current_user) || admin?
-  = render partial: 'eventGoToMeeting', locals: {event: @event} 
- 
-  = render partial: 'eventAttachments', locals: {event: @event} if @event.attachments.count > 0 || admin? || @event.hosting_event?(current_user)
-  = render partial: 'eventAttendees', locals: {event: @event}
+-@event.event_style.element.class::VIEWS.each do |view|
+  = render partial: ('event'+view), locals: {event: @event}     
            
-= "Event Details will be displayed for event attendees" unless @event.attending_event?(current_user) || admin? || @event.hosting_event?(current_user)
+= "Event Details will be displayed for event attendees" if !@event.attending_or_above?(current_user) && @event.event_style.element.class::ATTENDABLE
 :javascript
   $('.close-picture').tooltip() 
