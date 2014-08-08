@@ -15,6 +15,8 @@ LunchLearn::Application.routes.draw do
   get '/logout' => 'welcome#logout'
   get 'user_notifications' => 'users#notifications'
   get 'approve_attend' => 'attendees#approve_attend'
+  get 'reject_attend' => 'attendees#reject_attend'
+  get 'remove_notification' => 'users#remove_notification'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
