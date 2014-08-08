@@ -86,7 +86,6 @@ ActiveRecord::Schema.define(version: 2014072319234223224324) do
     t.string   "access_code"
     t.boolean  "has_GoToMeeting"
     t.string   "go_to_meeting_url"
-    t.string   "views"
   end
 
   create_table "schedules", force: true do |t|
@@ -113,7 +112,6 @@ ActiveRecord::Schema.define(version: 2014072319234223224324) do
   end
 
   create_table "training_classes", force: true do |t|
-    t.string "views"
   end
 
   create_table "users", force: true do |t|
@@ -131,7 +129,6 @@ ActiveRecord::Schema.define(version: 2014072319234223224324) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "url"
-    t.string   "views"
   end
 
 end
