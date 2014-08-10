@@ -1,7 +1,11 @@
+require 'date'
 FactoryGirl.define do
   sequence :username do |n|
     "first.last#{n}"
   end
+
+
+#**************  USER FACTORY ***********************
 
   factory :user do
     first_name 'john'
@@ -23,18 +27,38 @@ FactoryGirl.define do
     end
   end
 
+
+#**************  EVENT FACTORIES **********************
+
   factory :event do
     title 'some title'
     description 'this is a description of an event.  descriptions are not very long'
-    
-    after(:create) {|event| event.schedules.create(event_date: DateTime.now.to_date, event_time: DateTime.now.to_time, end_time: DateTime.now.to_time)}
-    after(:create) {|event| event.hosts.create(user_id: create(:host_user).id)}
+
+    after(:create) do |event|
+      event.schedules.create(event_date: DateTime.now.to_date, event_time: DateTime.now.to_time, end_time: DateTime.now.to_time)
+   
+      [1, 2, 3].sample.times do
+        event.hosts.create(user_id: create(:host_user).id)
+      end
+
+      rand(5..20).times do
+        event.attendees.create(user_id: create(:normal_user).id)
+      end
+    end
+
     factory :lunchlearnstyle do
       after(:build) {|event| event.build_event_style(element: Lunchlearn.find(create(:lunchlearn).id))}
     end
-
+    
   end
- 
+  trait :past do
+    after(:create) do |event|
+      event.schedules.each do |s|
+        s.update_attribute(:event_date, (Date.today-5))
+      end
+    end
+  end
+
   factory :lunchlearn do
     has_GoToMeeting true
     access_code '123-456-789'
@@ -42,6 +66,15 @@ FactoryGirl.define do
     go_to_meeting_url 'https://somecompany.com/meeting'
   end
 
+
+#***********************Suggestion Factory **************************
+  factory :suggestion do
+    suggestion_title 'some suggestion title'
+    suggestion_description 'some suggestion description'
+    after(:build) {|suggestion| suggestion.user_id = create(:normal_user).id}
+  end
+
 end
+
 
 

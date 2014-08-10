@@ -94,41 +94,41 @@ class EventsControllerTest < ActionController::TestCase
   end
 
 #views
-#  test "should see lunchlearn info if attendee" do
-    #get :show, {id: @lunchone.id}, {current_user_id: @employee.id}
-    #assert_select 'h4', 'The following users have registered to attend'
-#  end
+  test "should see lunchlearn info if attendee" do
+    get :show, {id: @lunchlearn.id}, {current_user_id: @lunchlearn.attendees.sample.id}
+   	 assert_select 'h4', 'The following users have registered to attend'
+  end
 
-#  test "should not see lunchlearn info if not attendee" do
-    #get :show, {id: @lunchone.id}, {current_user_id: @employeetwo.id}
-    #assert_response :success
-    #assert_select 'h4', false, 'Information is hidden from the user'
-#  end
+  test "should not see lunchlearn info if not attendee" do
+    get :show, {id: @lunchlearn.id}, {current_user_id: @user.id}
+    assert_response :success
+    assert_select 'h4', false, 'Information is hidden from the user'
+  end
 
-#  test "should see lunchlearn info if host" do
-    #get :show, {id: @lunchone.id}, {current_user_id: @host.id}
-    #assert_select 'h4', 'The following users have registered to attend'
-#  end
+  test "should see lunchlearn info if host" do
+    get :show, {id: @lunchlearn.id}, {current_user_id: @lunchlearn.hosts.sample.id}
+    assert_select 'h4', 'The following users have registered to attend'
+  end
 
-#  test "should see lunchlearn info if admin" do
-    #get :show, {id: @lunchone.id}, {current_user_id: @admin.id}
-    #assert_select 'h4', 'The following users have registered to attend' 
-#  end
+  test "should see lunchlearn info if admin" do
+    get :show, {id: @lunchlearn.id}, {current_user_id: @admin.id}
+    assert_select 'h4', 'The following users have registered to attend' 
+  end
 
-#  test "host should be listed on show page" do
-    #get :show, {id: @lunchone.id}, {current_user_id: @employee.id}
-    #assert_response :success
-    #assert_select '.h1', /#{@lunchone.title}/
-#  end
+  test "host should be listed on show page" do
+    get :show, {id: @lunchlearn.id}, {current_user_id: @user.id}
+    assert_response :success
+    assert_select '.h1', /#{@lunchlearn.title}/
+  end
 
-#  test "if no attendees, no users registered should display" do
-    #get :show, {id: @lunchtwo.id}, {current_user_id: @admin.id}
-    #assert_select 'h5', 'No users registered'
-#  end
+  test "if no attendees, no users registered should display" do
+    get :show, {id: @lunchlearn.id}, {current_user_id: @admin.id}
+    assert_select 'h5', 'No users registered'
+  end
 
 #  test "next LunchLearn should be displayed in the jumbotron" do
-    #get :calendar,{id: @lunchtwo.id}, {current_user_id: @admin.id} 
-    #assert_select 'h5', /Java.*/  
+#    get :calendar,{id: @lunchtwo.id}, {current_user_id: @admin.id} 
+#    assert_select 'h5', /Java.*/  
 #  end
 
 #  test "host information should be in the jumbotron" do

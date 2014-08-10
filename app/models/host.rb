@@ -1,15 +1,18 @@
 class Host < ActiveRecord::Base
   belongs_to :event
   belongs_to :user
+  validates_presence_of :event_id
   validate :user_id_xor_external_and_host
   #still adds but eliminates duplicates
-  #validates :user, uniqueness: { scope: :event, message: "can only be listed as host once."}
+  validates :user, uniqueness: { scope: :event, message: "can only be listed as host once."}
 
   def user_id_xor_external_and_host
-    if external == false && user_id.blank?
-      error.add(:base, "If External Host is false a user id must be provided")
+    if (external == false || external.blank?) && user_id.blank?
+      errors.add(:user_id, "cannot be nil if not external hosst")
+      return false
     elsif external && host.blank?
-      error.add(:base, "If External host is true a host must be provided")
+      errors.add(:host, "cannot be nil if external host")
+      return false
     end
   end
 end
