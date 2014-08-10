@@ -11,10 +11,10 @@ class LunchlearnsControllerTest < ActionController::TestCase
 #  end
 
 
-#  test "should not get calendar if user not logged in" do
-    #get :calendar
+  #test "should not get calendar if user not logged in" do
+   # get :calendar
     #assert_redirected_to :login
-#  end
+  #end
 
 #  test "should be able to get new event page if admin" do
     #get :new, {id: @lunchone.id}, {current_user_id: @admin.id}

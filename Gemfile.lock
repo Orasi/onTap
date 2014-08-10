@@ -55,6 +55,11 @@ GEM
     docile (1.1.5)
     erubis (2.7.0)
     execjs (2.2.1)
+    factory_girl (4.4.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.4.1)
+      factory_girl (~> 4.4.0)
+      railties (>= 3.0.0)
     faker (1.4.2)
       i18n (~> 0.5)
     ffi (1.9.3-x86-mingw32)
@@ -197,6 +202,7 @@ DEPENDENCIES
   coveralls
   delayed_job_active_record
   delayed_paperclip
+  factory_girl_rails (~> 4.0)
   faker
   haml-rails
   icalendar

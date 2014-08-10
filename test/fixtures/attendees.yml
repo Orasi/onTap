@@ -6,6 +6,6 @@
 #
 attendeesone: 
   user_id: 101
-  lunchlearn_id: 101
+  event_id: 101
 
 

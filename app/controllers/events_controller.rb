@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-
+  before_action :require_admin_or_host, only: [:new, :edit, :destroy]
   def calendar
      @events=Event.joins(:schedules).merge(Schedule.where("event_date >= ?",DateTime.now.to_date))
      @events.sort! { |a,b| a.schedules.first.event_date <=> b.schedules.first.event_date }
@@ -104,6 +104,14 @@ class EventsController < ApplicationController
     redirect_to :calendar, flash: {error: "Event \"#{oldEventTitle}\" was deleted"}
   end
   private
+
+  def require_admin_or_host
+    if params[:id]
+      redirect_to :calendar, flash: {error: "You do not have the required permission to edit this content"} unless current_user.admin || Event.find(params[:id]).hosting_event?(current_user)
+    else
+      redirect_to :calendar, flash: {error: "You do not have the required permission to edit this content"} unless current_user.admin
+    end
+  end
 
   def event_params
     params.require(:event).permit(:title, :description)

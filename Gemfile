@@ -69,4 +69,4 @@ gem "paperclip", "~> 4.1"
 gem 'delayed_paperclip'
 gem 'delayed_job_active_record'
 gem 'faker'
-
+gem "factory_girl_rails", "~> 4.0"
