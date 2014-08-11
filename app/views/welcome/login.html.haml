@@ -1,6 +1,19 @@
-= form_for :login, url: "/login" do |f|
-  = f.label :username
-  = f.text_field :username
-  = f.label :password
-  = f.password_field :password
-  = f.submit "Login"
+.well.well-lg
+  %table{width:'100%'}
+    %tr
+      %td{align: 'center', valign: 'middle'}
+        = form_for :login, url: "/login" do |f|
+          .form-group
+            = f.label :username
+            = f.text_field :username
+          .form-group      
+            = f.label :password
+            = f.password_field :password
+          .form-group
+            = f.submit "Login", class: 'btn btn-primary btn-lg'
+      %td{align: 'center', valign: 'middle'}
+        =image_tag 'onTap.png', height: '400'
+    %tr
+      %td{colspan: '2', align: 'center', valign: 'middle' }
+        %h2 Online Training Administration Portal
+     

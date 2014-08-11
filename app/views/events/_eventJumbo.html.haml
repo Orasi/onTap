@@ -33,7 +33,8 @@
       = event.description
     .jumbo-button-panel
       %div.jumbo-main-buttons.pull-left
-        = link_to event.attend_button_text(current_user), attendee_path(event), class: "btn btn-primary btn-lg" unless event.attending_event?(current_user) || event.hosting_event?(current_user)
+        - if event.type.class::ATTENDABLE
+          = link_to event.attend_button_text(current_user), attendee_path(event), class: "btn btn-primary btn-lg" unless event.attending_event?(current_user) || event.hosting_event?(current_user)
         - if params[:action] != 'show'
           = link_to "Details", event_path(event), class: "btn btn-primary btn-lg"
      
@@ -41,4 +42,5 @@
         .jumbo-admin-buttons.pull-right     
           = link_to "Edit",  edit_event_path(event), class: "btn btn-default btn-sm"
           = link_to "Delete", event_path(event), method: :delete, class: "btn btn-default btn-sm"
+
 

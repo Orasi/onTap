@@ -1,2 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+#lunchlearn1:
+#  title: 'Some Lunch and Learn'
+#  description: 'This is the description of a lunch and learn. It is describing what will eventualyl be happening in this event'
+#  event_style: lunchlearnstyle
+
+#lunchlearnstyle:
+#  meeting_phone_number: '336-259-7240'
+#  access_code: '123-456-789'
+#  go_to_meeting_url: 'http://www.someurl.org/meeting'
+#  has_GoToMeeting: true
