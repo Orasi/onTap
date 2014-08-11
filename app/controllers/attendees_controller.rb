@@ -5,7 +5,7 @@ class AttendeesController < ApplicationController
       flash[:error] = "You are no longer attending the event: #{Event.find(params[:id]).title}!"
       redirect_to (:back)
     else
-      if Event.find(params[:id]).restricted
+      if Event.find(params[:id]).restricted and !User.find(session[:current_user_id]).check_if_admin?
         if Event.find(params[:id]).requests.exists?(user_id: session[:current_user_id], status: 0)
           Event.find(params[:id]).requests.find_by(user_id: session[:current_user_id]).destroy
           flash[:success] = "Cancelled request to attend: #{Event.find(params[:id]).title}!"
@@ -49,6 +49,7 @@ class AttendeesController < ApplicationController
   def reject_attend
     @notification=Request.find(params[:id])
     @notification.update(status: 2, manager_id: session[:current_user_id])
+    flash[:success] = "#{User.find(@notification.user_id).display_name} has been rejected from attending event: #{Event.find(@notification.event_id).title}!"
     redirect_to (:back)
   end
 end

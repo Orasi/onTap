@@ -15,7 +15,7 @@
 -if @acceptedrequests.count != 0
   .h1
     Accepted Requests
-  %div#accordion
+  %div#accordion1
     -@acceptedrequests.each do |notification|
       .h5
         =User.find(notification.manager_id).display_name + " has approved your request to attend " + Event.find(notification.event_id).title
@@ -28,7 +28,7 @@
 -if @rejectedrequests.count != 0
   .h1
     Rejected Requests
-  %div#accordion
+  %div#accordion2
     -@rejectedrequests.each do |notification|
       .h5
         =User.find(notification.manager_id).display_name + " has approved your request to attend " + Event.find(notification.event_id).title
@@ -42,4 +42,10 @@
 :javascript
   $(function(){
     $("#accordion").accordion({collapsible: false, active:false,heightStyle: "content"});
+  });
+  $(function(){
+    $("#accordion1").accordion({collapsible: false, active:false,heightStyle: "content"});
+  });
+  $(function(){
+    $("#accordion2").accordion({collapsible: false, active:false,heightStyle: "content"});
   });

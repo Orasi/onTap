@@ -26,7 +26,7 @@ class Event < ActiveRecord::Base
     elsif self.restricted && self.requests.exists?(user_id: user.id, status: 0)
       return "Cancel Request"
     elsif self.restricted
-      return "Request something"
+      return "Request To Attend"
     else
       return "Attend"
     end    
