@@ -11,14 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2014072319234223224324) do
-
-  create_table "attachements", force: true do |t|
-    t.string   "title"
-    t.integer  "lunchlearn_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 201407231923422322432) do
 
   create_table "attachments", force: true do |t|
     t.string   "title"
@@ -29,6 +22,15 @@ ActiveRecord::Schema.define(version: 2014072319234223224324) do
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
+  end
+
+  create_table "attend_requests", force: true do |t|
+    t.integer  "event_id"
+    t.integer  "requester_id"
+    t.integer  "manager_id"
+    t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "attendees", force: true do |t|
@@ -68,6 +70,7 @@ ActiveRecord::Schema.define(version: 2014072319234223224324) do
     t.datetime "updated_at"
     t.string   "title"
     t.string   "description"
+    t.boolean  "restricted"
   end
 
   create_table "hosts", force: true do |t|
@@ -86,6 +89,16 @@ ActiveRecord::Schema.define(version: 2014072319234223224324) do
     t.string   "access_code"
     t.boolean  "has_GoToMeeting"
     t.string   "go_to_meeting_url"
+  end
+
+  create_table "requests", force: true do |t|
+    t.integer  "event_id"
+    t.integer  "user_id"
+    t.integer  "manager_id"
+    t.integer  "status"
+    t.integer  "notification_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "schedules", force: true do |t|
@@ -112,6 +125,8 @@ ActiveRecord::Schema.define(version: 2014072319234223224324) do
   end
 
   create_table "training_classes", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

@@ -1,0 +1,51 @@
+-if @notifications.count != 0 && admin?
+  .h1
+    Pending Employee Requests
+  %div#accordion
+    -@notifications.each do |notification|
+      .h5
+        =User.find(notification.user_id).display_name + " is requesting to attend event " + Event.find(notification.event_id).title
+      %div
+        %h1
+          =link_to Event.find(notification.event_id).title, event_path(Event.find(notification.event_id))
+        %br
+        %p2
+          =link_to "Approve", approve_attend_path( :id => notification.id), class: "btn btn-default btn-sm"
+          =link_to "Reject", reject_attend_path( :id => notification.id), class: "btn btn-default btn-sm"
+-if @acceptedrequests.count != 0
+  .h1
+    Accepted Requests
+  %div#accordion1
+    -@acceptedrequests.each do |notification|
+      .h5
+        =User.find(notification.manager_id).display_name + " has approved your request to attend " + Event.find(notification.event_id).title
+      %div
+        %h1
+          =link_to Event.find(notification.event_id).title, event_path(Event.find(notification.event_id))
+        %br
+        %p2
+          =link_to "Remove", remove_notification_path( :id => notification.id), class: "btn btn-default btn-sm"
+-if @rejectedrequests.count != 0
+  .h1
+    Rejected Requests
+  %div#accordion2
+    -@rejectedrequests.each do |notification|
+      .h5
+        =User.find(notification.manager_id).display_name + " has approved your request to attend " + Event.find(notification.event_id).title
+      %div
+        %h1
+          =link_to Event.find(notification.event_id).title, event_path(Event.find(notification.event_id))
+        %br
+        %p2
+          =link_to "Remove", remove_notification_path( :id => notification.id), class: "btn btn-default btn-sm"
+
+:javascript
+  $(function(){
+    $("#accordion").accordion({collapsible: false, active:false,heightStyle: "content"});
+  });
+  $(function(){
+    $("#accordion1").accordion({collapsible: false, active:false,heightStyle: "content"});
+  });
+  $(function(){
+    $("#accordion2").accordion({collapsible: false, active:false,heightStyle: "content"});
+  });
