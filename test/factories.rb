@@ -59,6 +59,10 @@ FactoryGirl.define do
     end
   end
 
+  trait :restricted do
+    restricted true
+  end
+
   factory :lunchlearn do
     has_GoToMeeting true
     access_code '123-456-789'
