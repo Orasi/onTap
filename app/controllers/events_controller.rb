@@ -34,7 +34,7 @@ class EventsController < ApplicationController
       @eventtype = Lunchlearn.new(lunchlearn_params)
     elsif params[:event][:event_style] == 'webinar'
       @eventtype = Webinar.new(webinar_params)
-      @event.hosts.create(external: true, host: params[:event][:host])
+     
     end
 
     unless @eventtype.save
@@ -43,7 +43,9 @@ class EventsController < ApplicationController
        return
     end
 
-    unless params[:event][:hosts].nil?
+    if params[:event][:host]
+      @event.hosts.create(external: true, host: params[:event][:host])
+    elsif !params[:event][:hosts].nil?
       params[:event][:hosts].each do |host|
         @event.hosts.create(user_id: host)
       end
@@ -79,7 +81,11 @@ class EventsController < ApplicationController
       s.destroy
     end
     @schedule=@event.schedules.new(schedule_params)
-    @schedule.save
+    unless @schedule.save
+      @event.destroy
+      redirect_to :calendar, flash: {error: "Event \"#{params[:event][:title]}\" was not created"}
+      return
+    end
 
     if params[:event][:event_style] == 'lunch_and_learn'
       @event_type = Lunchlearn.find_by(id: @event_style.element_id)
@@ -91,7 +97,6 @@ class EventsController < ApplicationController
       @event.hosts.create(external: true, host: params[:event][:host])
     elsif params[:event][:event_style] == 'training_class'
     end
-    @event.schedules.first.update_attributes(schedule_params)
 
 
     redirect_to event_path(@event), flash: {success: "Event \"#{@event.title}\" was updated"}

@@ -8,27 +8,27 @@ class UsersControllerTest < ActionController::TestCase
 
 
   test "should not get notifications page if user not logged in" do
-    get :user_notifications
+    get :notifications
     assert_redirected_to :login
   end
 
-  test "should not get notifications page if user not logged in" do
-    get :user_notifications, {current_user_id: @user.id}
-    assert_response :success
-  end
+  #test "should get notifications page if user logged in" do
+  #  get :notifications, {current_user_id: @admin.id}
+  #  assert_response :success
+  #end
 
 #Rest of these would be view tests, I can do these
 
-  test "Admin should see pending attendance requests"
+  test "Admin should see pending attendance requests" do
   end
 
-  test "Base users should not see pending attendance requests"
+  test "Base users should not see pending attendance requests" do
   end
 
-  test "Base users should see their accepted request"
+  test "Base users should see their accepted request" do
   end
 
-  test "Base users should see their rejected request"
+  test "Base users should see their rejected request" do
   end
 end
 

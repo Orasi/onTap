@@ -17,7 +17,7 @@ class AttendeeTest < ActiveSupport::TestCase
   end
 
   test 'attendee should not save unless unique' do 
-    attend = @event.attendees.create(user_id: @event.attendees.sample.id)
+    attend = @event.attendees.create(user_id: @event.attendees.sample.user_id)
     assert_not attend.save
   end
   
