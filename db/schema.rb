@@ -24,15 +24,6 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "file_updated_at"
   end
 
-  create_table "attend_requests", force: true do |t|
-    t.integer  "event_id"
-    t.integer  "requester_id"
-    t.integer  "manager_id"
-    t.integer  "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "attendees", force: true do |t|
     t.integer  "user_id"
     t.integer  "event_id"

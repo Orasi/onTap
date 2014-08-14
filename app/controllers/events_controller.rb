@@ -69,7 +69,7 @@ class EventsController < ApplicationController
     #need better way to find event
     @event = Event.find(params[:id])
     @event_style = EventStyle.find_by(event_id: @event.id)
-
+    
     @event.hosts.each {|host| host.destroy} 
     unless params[:event][:hosts].nil?
       params[:event][:hosts].each do |host|
@@ -97,7 +97,10 @@ class EventsController < ApplicationController
       @event.hosts.create(external: true, host: params[:event][:host])
     elsif params[:event][:event_style] == 'training_class'
     end
-
+    
+    unless @event.update_attributes(event_params)
+      redirect_to :calendar, flash: {error: "Event \"#{params[:event][:title]}\" was not updated"}
+    end
 
     redirect_to event_path(@event), flash: {success: "Event \"#{@event.title}\" was updated"}
   end

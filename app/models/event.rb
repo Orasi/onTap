@@ -12,7 +12,6 @@ class Event < ActiveRecord::Base
   validates_presence_of :title, :description
   attr_accessor :has_GoToMeeting, :go_to_meeting_url, :meeting_phone_number, :access_code, :url
 
-
   def attending_event?(user)
     self.attendees.exists?( user_id: user.id ) 
   end
