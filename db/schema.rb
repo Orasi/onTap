@@ -120,6 +120,12 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "went_well"
+    t.text     "improved"
+    t.text     "host_knowledge"
+    t.text     "host_presentation"
+    t.text     "effect"
+    t.text     "extra"
   end
 
   create_table "training_classes", force: true do |t|

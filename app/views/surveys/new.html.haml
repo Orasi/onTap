@@ -1,11 +1,27 @@
-= form_for @suggestion, html: {class: "form-horizontal", role: "form"} do |f|
+= form_for @survey, html: {class: "form-horizontal", role: "form"} do |f|
   %div.form_group
-    =f.label :suggestion_title, nil, class: "control-label"
-    =f.text_field :suggestion_title, value: @suggestion.suggestion_title, class: "form-control", required: true
+    =f.label "What went well with the event?", nil, class: "control-label"
+    =f.text_field :went_well, value: @survey.went_well, class: "form-control", required: true
 
   %div.form_group
-    =f.label :suggestion_description, nil, class: "control-label"
-    =f.text_field :suggestion_description, value: @suggestion.suggestion_description, class: "form-control", required: true
+    =f.label "What could have been improved on?", nil, class: "control-label"
+    =f.text_field :improved, value: @survey.improved, class: "form-control", required: true
 
   %div.form_group
-    =f.submit class: "btn btn-primary", data: { disable_with: "Adding Suggestion..."}
+    =f.label "How would you rate the host's knowledge on the topic?", nil, class: "control-label"
+    =f.text_field :host_knowledge, value: @survey.host_knowledge, class: "form-control", required: true
+
+  %div.form_group
+    =f.label "How would you rate the host's presentation?", nil, class: "control-label"
+    =f.text_field :host_presentation, value: @survey.host_presentation, class: "form-control", required: true
+
+  %div.form_group
+    =f.label "How could the informaiton covered be used in your current work?", nil, class: "control-label"
+    =f.text_field :effect, value: @survey.effect, class: "form-control", required: true
+
+  %div.form_group
+    =f.label "Any extra thoughts or comments?", nil, class: "control-label"
+    =f.text_field :extra, value: @survey.extra, class: "form-control", required: true
+
+  %div.form_group
+    =f.submit "Submit Survey", class: "btn btn-primary", data: { disable_with: "Adding Suggestion..."}

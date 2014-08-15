@@ -60,6 +60,10 @@ class EventsController < ApplicationController
   end
 
   def edit
+    #temp for testing surveys
+
+    Survey.create_survey_notification(current_user.id, params[:id])
+     #end temp for testing surveys
     @event = Event.find(params[:id])
     render :new
   end

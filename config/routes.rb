@@ -2,6 +2,7 @@ LunchLearn::Application.routes.draw do
 
   get "/calendar" => 'events#calendar'
   resources :events, except: :index
+  resources :surveys
   resources :webinars
   resources :suggestions
   resources :archive
