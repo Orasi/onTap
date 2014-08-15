@@ -1,7 +1,7 @@
 {
   "MiniTest": {
     "coverage": {
-      "/home/matt/Desktop/Projects/onTap-old/app/models/event.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/models/event.rb": [
         1,
         1,
         1,
@@ -15,7 +15,6 @@
         null,
         1,
         1,
-        null,
         null,
         1,
         12,
@@ -51,7 +50,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/models/webinar.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/models/webinar.rb": [
         1,
         1,
         1,
@@ -61,7 +60,7 @@
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/models/schedule.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/models/schedule.rb": [
         1,
         1,
         null,
@@ -69,14 +68,14 @@
         1,
         null,
         1,
-        39,
-        39,
-        39,
-        39,
+        61,
+        61,
+        61,
+        61,
         1,
         1,
         null,
-        38,
+        60,
         1,
         1,
         null,
@@ -93,7 +92,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/models/event_style.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/models/event_style.rb": [
         1,
         1,
         1,
@@ -109,7 +108,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/models/attachment.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/models/attachment.rb": [
         1,
         1,
         1,
@@ -118,7 +117,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/models/host.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/models/host.rb": [
         1,
         1,
         1,
@@ -128,156 +127,14 @@
         1,
         null,
         1,
-        90,
+        117,
         1,
         1,
         null,
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/models/training_class.rb": [
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        1,
-        null
-      ],
-      "/home/matt/Desktop/Projects/onTap-old/app/models/request.rb": [
-        1,
-        1,
-        null
-      ],
-      "/home/matt/Desktop/Projects/onTap-old/app/models/user.rb": [
-        1,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        342,
-        null,
-        null,
-        1,
-        1,
-        null,
-        null,
-        1,
-        null,
-        0,
-        null,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null,
-        1,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/home/matt/Desktop/Projects/onTap-old/app/models/session.rb": [
-        1,
-        1,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null
-      ],
-      "/home/matt/Desktop/Projects/onTap-old/app/models/attendee.rb": [
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        440,
-        1,
-        1,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/home/matt/Desktop/Projects/onTap-old/app/models/suggestion.rb": [
-        1,
-        1,
-        1,
-        null
-      ],
-      "/home/matt/Desktop/Projects/onTap-old/app/models/lunchlearn.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/models/training_class.rb": [
         1,
         1,
         1,
@@ -287,7 +144,149 @@
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/helpers/application_helper.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/models/request.rb": [
+        1,
+        1,
+        null
+      ],
+      "/home/matt/Desktop/Projects/onTap/app/models/user.rb": [
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        336,
+        null,
+        null,
+        1,
+        8,
+        null,
+        null,
+        1,
+        null,
+        0,
+        null,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null,
+        1,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/matt/Desktop/Projects/onTap/app/models/session.rb": [
+        1,
+        1,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null
+      ],
+      "/home/matt/Desktop/Projects/onTap/app/models/attendee.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        780,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/matt/Desktop/Projects/onTap/app/models/suggestion.rb": [
+        1,
+        1,
+        1,
+        null
+      ],
+      "/home/matt/Desktop/Projects/onTap/app/models/lunchlearn.rb": [
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null
+      ],
+      "/home/matt/Desktop/Projects/onTap/app/helpers/application_helper.rb": [
         1,
         1,
         25,
@@ -300,10 +299,10 @@
         null,
         null,
         1,
-        46,
+        47,
         0,
         null,
-        46,
+        47,
         null,
         null,
         null,
@@ -319,19 +318,19 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/helpers/archive_helper.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/helpers/archive_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/helpers/attachments_helper.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/helpers/attachments_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/helpers/attendees_helper.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/helpers/attendees_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/helpers/events_helper.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/helpers/events_helper.rb": [
         1,
         null,
         1,
@@ -361,31 +360,31 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/helpers/lunch_and_learn_helper.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/helpers/lunch_and_learn_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/helpers/lunchlearns_helper.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/helpers/lunchlearns_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/helpers/suggestions_helper.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/helpers/suggestions_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/helpers/users_helper.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/helpers/users_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/helpers/webinars_helper.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/helpers/webinars_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/helpers/welcome_helper.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/helpers/welcome_helper.rb": [
         1,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/controllers/archive_controller.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/controllers/archive_controller.rb": [
         1,
         1,
         null,
@@ -412,7 +411,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/controllers/application_controller.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/controllers/application_controller.rb": [
         1,
         null,
         null,
@@ -422,11 +421,11 @@
         null,
         1,
         null,
-        124,
+        138,
         null,
         null,
         1,
-        37,
+        51,
         12,
         null,
         null,
@@ -438,34 +437,34 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/controllers/attendees_controller.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/controllers/attendees_controller.rb": [
         1,
         1,
-        0,
-        0,
-        0,
-        0,
+        14,
+        2,
+        2,
+        2,
+        null,
+        12,
+        5,
+        1,
+        1,
+        1,
+        null,
+        4,
+        4,
+        4,
+        4,
         null,
         0,
         0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
         null,
         null,
         null,
-        0,
-        0,
-        0,
-        0,
+        7,
+        7,
+        7,
+        7,
         null,
         0,
         0,
@@ -495,7 +494,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/controllers/events_controller.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/controllers/events_controller.rb": [
         1,
         1,
         1,
@@ -595,6 +594,9 @@
         0,
         null,
         null,
+        null,
+        0,
+        0,
         null,
         null,
         0,
@@ -634,7 +636,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/controllers/suggestions_controller.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/controllers/suggestions_controller.rb": [
         1,
         null,
         1,
@@ -683,7 +685,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/controllers/users_controller.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/controllers/users_controller.rb": [
         1,
         1,
         null,
@@ -705,7 +707,7 @@
         null,
         null
       ],
-      "/home/matt/Desktop/Projects/onTap-old/app/controllers/welcome_controller.rb": [
+      "/home/matt/Desktop/Projects/onTap/app/controllers/welcome_controller.rb": [
         1,
         1,
         null,
@@ -747,6 +749,6 @@
         null
       ]
     },
-    "timestamp": 1407940784
+    "timestamp": 1408136296
   }
 }

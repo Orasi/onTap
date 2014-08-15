@@ -58,6 +58,10 @@ FactoryGirl.define do
       end
     end
   end
+  
+  trait :restricted do
+    restricted true
+  end
 
   factory :lunchlearn do
     has_GoToMeeting true
