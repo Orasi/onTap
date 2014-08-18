@@ -7,6 +7,7 @@ LunchLearn::Application.routes.draw do
   resources :suggestions
   resources :archive
   resources :attachments
+  resources :notifications
   get "/attendee/:id" => 'attendees#change', as: :attendee
 #  resources :attendees
  # get "lunch_and_learn/create"
