@@ -51,7 +51,8 @@ gem 'net-ldap'
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano', group: :development
+gem 'capistrano', group: :development
+gem 'capistrano-rails', '~> 1.1'
 
 # Use debugger
 gem 'pry', group: [:development, :test]
