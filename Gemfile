@@ -9,7 +9,6 @@ gem 'sqlite3', group: [:development,:test,:production]
 # Heroku gems
 group :staging do
   gem 'rails_12factor'
- # gem 'pg'
   gem 'unicorn'
 end
 
@@ -72,3 +71,4 @@ gem 'delayed_job_active_record'
 gem 'faker'
 gem "factory_girl_rails", "~> 4.0"
 gem 'validates_timeliness'
+gem 'capistrano-rvm'

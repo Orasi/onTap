@@ -37,6 +37,9 @@ GEM
     capistrano-rails (1.1.1)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
+    capistrano-rvm (0.1.1)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.4)
@@ -112,8 +115,6 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
-    pg (0.17.1)
-    pg (0.17.1-x86-mingw32)
     polyglot (0.3.5)
     pry (0.10.0)
       coderay (~> 1.1.0)
@@ -221,6 +222,7 @@ PLATFORMS
 DEPENDENCIES
   capistrano
   capistrano-rails (~> 1.1)
+  capistrano-rvm
   coffee-rails (~> 4.0.0)
   coveralls
   delayed_job_active_record
@@ -234,7 +236,6 @@ DEPENDENCIES
   jquery-timepicker-rails
   net-ldap
   paperclip (~> 4.1)
-  pg
   pry
   rails (= 4.0.2)
   rails_12factor
