@@ -8,7 +8,7 @@ class AttendeesController < ApplicationController
       if Event.find(params[:id]).restricted and !User.find(session[:current_user_id]).check_if_admin?
         if Event.find(params[:id]).requests.exists?(user_id: session[:current_user_id], status: 0)
           Event.find(params[:id]).requests.find_by(user_id: session[:current_user_id]).destroy
-          flash[:success] = "Cancelled request to attend: #{Event.find(params[:id]).title}!"
+          flash[:error] = "Cancelled request to attend: #{Event.find(params[:id]).title}!"
           redirect_to (:back)
         else
           @request=Event.find(params[:id]).requests.create(user_id: session[:current_user_id], status: 0, notification_type: 0)

@@ -86,8 +86,8 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.integer  "event_id"
     t.integer  "user_id"
     t.integer  "manager_id"
-    t.integer  "status"
-    t.integer  "notification_type"
+    t.string   "status"
+    t.string   "notification_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
