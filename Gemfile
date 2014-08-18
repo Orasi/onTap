@@ -9,7 +9,7 @@ gem 'sqlite3', group: [:development,:test,:production]
 # Heroku gems
 group :staging do
   gem 'rails_12factor'
-  gem 'pg'
+ # gem 'pg'
   gem 'unicorn'
 end
 
