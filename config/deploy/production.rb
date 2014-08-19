@@ -15,7 +15,7 @@ role :db,  %w{skytap@184.170.226.22}
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server '184.170.226.22', user: 'root', roles: %w{web app}, my_property: :my_value
+server '184.170.226.22', user: 'skytap', roles: %w{web app}, my_property: :my_value
 
 
 # Custom SSH Options

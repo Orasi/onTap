@@ -50,7 +50,8 @@ namespace :deploy do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
       # within release_path do
-      #   execute :rake, 'cache:clear'
+         execute :rake, 'db:schema:load'
+         execute :rake. 'db:seed'
       # end
     end
   end
