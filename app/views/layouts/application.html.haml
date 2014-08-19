@@ -19,11 +19,11 @@
         %div.navbar-collapse.collapse
           %ul.nav.navbar-nav
             %li
-              =link_to "Event", root_url
+              =link_to "Events", root_url
             %li
               = link_to "Archive", archive_index_path
             %li
-              = link_to "Suggest Topics", new_suggestion_path
+              = link_to "Suggest Topic", new_suggestion_path
             -if admin?
               %li.dropdown
                 %a.dropdown-toggle{href: "#", "data-toggle" => "dropdown"}
