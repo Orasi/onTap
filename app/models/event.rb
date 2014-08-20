@@ -25,7 +25,7 @@ class Event < ActiveRecord::Base
   def attend_button_text(user)
     if attending_event?(user)
       return "Don't Attend"
-    elsif self.restricted && self.requests.exists?(user_id: user.id, status: 0)
+    elsif self.restricted && self.requests.exists?(user_id: user.id)
       return "Cancel Request"
     elsif self.restricted
       return "Request To Attend"
