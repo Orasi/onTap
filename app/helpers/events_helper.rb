@@ -25,7 +25,7 @@ module EventsHelper
     @requests=Request.where(notification_type: "survey", status: ["new"], user_id: session[:current_user_id])
     if  @requests.count > 0
       @requests.each do |request|
-        flashmessage+="You have a new survey to take. #{link_to 'Click here to take the survey now! ', new_survey_path}<br />"
+        flashmessage+="You have a new survey to take. #{link_to 'Click here to take the survey now! ', new_survey_path(event_id: request.event_id)}<br />"
       end
     end
     if !flashmessage.blank?
