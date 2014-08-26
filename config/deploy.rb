@@ -44,9 +44,10 @@ namespace :deploy do
     end
   end
 
-  after :publishing, :restart
 
-  after :restart, :clear_cache do
+
+  desc 'Clear Cache'
+  task :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
        within release_path do
@@ -56,5 +57,8 @@ namespace :deploy do
        end
     end
   end
+  
+  after :publishing, :clear_cache
+  after :clear_cache, :restart
 
 end
