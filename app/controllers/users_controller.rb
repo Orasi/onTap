@@ -3,6 +3,4 @@ class UsersController < ApplicationController
 	   # @user = User.new
 	   # puts login_params["username"]
   end
-
-
 end

@@ -8,7 +8,9 @@ class ScheduleTest < ActiveSupport::TestCase
       s.destroy
     end
 
-    schedule = event.schedules.new(event_date: (DateTime.now + 100.years).to_date, event_time: DateTime.now.to_time, end_time: (DateTime.now + 1.hour).to_time)
+    schedule = event.schedules.new(event_date: (DateTime.now + 100.years).to_date,
+                                   event_time: DateTime.now.to_time,
+                                   end_time: (DateTime.now + 1.hour).to_time)
     assert_raises ActiveRecord::RecordInvalid do
       schedule.save!
     end
@@ -21,7 +23,9 @@ class ScheduleTest < ActiveSupport::TestCase
       s.destroy
     end
 
-    schedule = event.schedules.new(event_date: (DateTime.now - 100.years).to_date, event_time: DateTime.now.to_time, end_time: (DateTime.now + 1.hour).to_time)
+    schedule = event.schedules.new(event_date: (DateTime.now - 100.years).to_date,
+                                   event_time: DateTime.now.to_time,
+                                   end_time: (DateTime.now + 1.hour).to_time)
     assert_raises ActiveRecord::RecordInvalid do
       schedule.save!
     end
@@ -36,7 +40,9 @@ class ScheduleTest < ActiveSupport::TestCase
       s.destroy
     end
 
-    schedule = event.schedules.new(event_date: event_date, event_time: end_time, end_time: start_time)
+    schedule = event.schedules.new(event_date: event_date,
+                                   event_time: end_time,
+                                   end_time: start_time)
     assert_raises ActiveRecord::RecordInvalid do
       schedule.save!
     end

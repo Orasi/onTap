@@ -1,24 +1,23 @@
 class SurveysController < ApplicationController
-
   def index
-    @surveys=Survey.where(event_id: params[:event_id])
+    @surveys = Survey.where(event_id: params[:event_id])
   end
 
   def show
-    @survey=Survey.find(params[:event_id])
+    @survey = Survey.find(params[:event_id])
   end
 
-  def new()
-    @survey=Survey.new()
+  def new
+    @survey = Survey.new
   end
 
   def create
     @survey = Event.find(params[:event_id]).surveys.new(event_params)
     unless @survey.save
-      redirect_to :calendar, flash: {error: "Survey  was not created"}
+      redirect_to :calendar, flash: { error: 'Survey  was not created' }
       return
     end
-    redirect_to :calendar, flash: {success: "Event \"#{@event.title}\" was created"}
+    redirect_to :calendar, flash: { success: "Event \"#{@event.title}\" was created" }
   end
 
   def survey_params

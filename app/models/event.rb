@@ -25,10 +25,10 @@ class Event < ActiveRecord::Base
     if attending_event?(user)
       return "Don't Attend"
 
-    elsif self.restricted && self.requests.exists?(user_id: user.id)
-      return "Cancel Request"
-    elsif self.restricted
-      return "Request To Attend"
+    elsif restricted && requests.exists?(user_id: user.id)
+      return 'Cancel Request'
+    elsif restricted
+      return 'Request To Attend'
     else
       return 'Attend'
     end

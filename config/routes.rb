@@ -9,11 +9,11 @@ LunchLearn::Application.routes.draw do
   resources :attachments
 
   resources :requests
-  get "/attendee/:id" => 'attendees#change', as: :attendee
-#  resources :attendees
- # get "lunch_and_learn/create"
- # get "/tempLogin" => 'users#tempLogin'
-  post '/login' => "welcome#validate"
+  get '/attendee/:id' => 'attendees#change', as: :attendee
+  #  resources :attendees
+  # get "lunch_and_learn/create"
+  # get "/tempLogin" => 'users#tempLogin'
+  post '/login' => 'welcome#validate'
 
   get '/login' => 'welcome#login'
   get '/logout' => 'welcome#logout'

@@ -82,14 +82,14 @@ ActiveRecord::Schema.define(version: 201_407_231_923_422_322_432) do
     t.string 'go_to_meeting_url'
   end
 
-  create_table "requests", force: true do |t|
-    t.integer  "event_id"
-    t.integer  "user_id"
-    t.integer  "manager_id"
-    t.string   "status"
-    t.string   "notification_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table 'requests', force: true do |t|
+    t.integer 'event_id'
+    t.integer 'user_id'
+    t.integer 'manager_id'
+    t.string 'status'
+    t.string 'notification_type'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
   end
 
   create_table 'schedules', force: true do |t|
@@ -115,22 +115,22 @@ ActiveRecord::Schema.define(version: 201_407_231_923_422_322_432) do
     t.datetime 'updated_at'
   end
 
-  create_table "surveys", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "went_well"
-    t.text     "improved"
-    t.text     "host_knowledge"
-    t.text     "host_presentation"
-    t.text     "effect"
-    t.text     "extra"
+  create_table 'surveys', force: true do |t|
+    t.integer 'user_id'
+    t.integer 'event_id'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+    t.text 'went_well'
+    t.text 'improved'
+    t.text 'host_knowledge'
+    t.text 'host_presentation'
+    t.text 'effect'
+    t.text 'extra'
   end
 
-  create_table "training_classes", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table 'training_classes', force: true do |t|
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
   end
 
   create_table 'users', force: true do |t|

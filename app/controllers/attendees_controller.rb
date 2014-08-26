@@ -12,7 +12,7 @@ class AttendeesController < ApplicationController
           flash[:error] = "Cancelled request to attend: #{Event.find(params[:id]).title}!"
           redirect_to (:back)
         else
-          @request=Event.find(params[:id]).requests.create(user_id: session[:current_user_id], status: "new", notification_type: "attendance")
+          @request = Event.find(params[:id]).requests.create(user_id: session[:current_user_id], status: 'new', notification_type: 'attendance')
           if @request.save
             flash[:success] = "A request has been sent to attend the event: #{Event.find(params[:id]).title}!"
             redirect_to (:back)
@@ -39,7 +39,7 @@ class AttendeesController < ApplicationController
     @attendee = Event.find(@notification.event_id).attendees.new(user_id: @notification.user_id)
     if @attendee.save
       flash[:success] = "#{User.find(@notification.user_id).display_name} is now attending the event: #{Event.find(@notification.event_id).title}!"
-      @notification.update(status: "approved", manager_id: session[:current_user_id])
+      @notification.update(status: 'approved', manager_id: session[:current_user_id])
       redirect_to (:back)
     else
       flash[:error] = "#{Event.find(@notification.event_id).title} is in the archive."
@@ -48,8 +48,8 @@ class AttendeesController < ApplicationController
   end
 
   def reject_attend
-    @notification=Request.find(params[:id])
-    @notification.update(status: "rejected", manager_id: session[:current_user_id])
+    @notification = Request.find(params[:id])
+    @notification.update(status: 'rejected', manager_id: session[:current_user_id])
     flash[:success] = "#{User.find(@notification.user_id).display_name} has been rejected from attending event: #{Event.find(@notification.event_id).title}!"
     redirect_to (:back)
   end
