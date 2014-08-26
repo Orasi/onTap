@@ -15,8 +15,8 @@
 /log/*.log
 /tmp/*
 /.idea
-/coverage/*
+/coverage/*.*
 *.*~
 /public/photos
 /vendor
-/puglic/system/*
+/public/system/*

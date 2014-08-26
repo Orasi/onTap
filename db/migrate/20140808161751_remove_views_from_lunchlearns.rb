@@ -5,4 +5,3 @@ class RemoveViewsFromLunchlearns < ActiveRecord::Migration
     remove_column :training_classes, :views
   end
 end
-

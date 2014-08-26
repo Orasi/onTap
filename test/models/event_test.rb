@@ -2,7 +2,6 @@ require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
   def setup
-
   end
   test 'should save event' do
     event = FactoryGirl.build(:lunchlearnstyle)
@@ -17,18 +16,18 @@ class EventTest < ActiveSupport::TestCase
       Event.find(event_id)
     end
   end
- 
+
   test 'should not create event with out title' do
     event = FactoryGirl.build(:lunchlearnstyle, title: nil)
     assert_raises ActiveRecord::RecordInvalid do
-       event.save!
+      event.save!
     end
   end
 
   test 'should not create event with out description' do
     event = FactoryGirl.build(:lunchlearnstyle, description: nil)
     assert_raises ActiveRecord::RecordInvalid do
-       event.save!
+      event.save!
     end
   end
 end

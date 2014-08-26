@@ -13,6 +13,7 @@ group :staging do
   gem 'unicorn'
 end
 
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -51,7 +52,8 @@ gem 'net-ldap'
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano', group: :development
+gem 'capistrano', group: :development
+gem 'capistrano-rails', '~> 1.1'
 
 # Use debugger
 gem 'pry', group: [:development, :test]
@@ -71,3 +73,4 @@ gem 'delayed_job_active_record'
 gem 'faker'
 gem "factory_girl_rails", "~> 4.0"
 gem 'validates_timeliness'
+gem 'capistrano-rvm'

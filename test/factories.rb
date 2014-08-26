@@ -4,21 +4,20 @@ FactoryGirl.define do
     "first.last#{n}"
   end
 
-
-#**************  USER FACTORY ***********************
+  # **************  USER FACTORY ***********************
 
   factory :user do
     first_name 'john'
     last_name 'smith'
-    username { generate(:username)}
+    username { generate(:username) }
     photo nil
     email 'john.smith@orasi.com'
-    
+
     factory :admin_user do
       admin true
     end
 
-    factory :normal_user do 
+    factory :normal_user do
       admin false
     end
 
@@ -27,8 +26,7 @@ FactoryGirl.define do
     end
   end
 
-
-#**************  EVENT FACTORIES **********************
+  # **************  EVENT FACTORIES **********************
 
   factory :event do
     title 'some title'
@@ -36,7 +34,7 @@ FactoryGirl.define do
 
     after(:create) do |event|
       event.schedules.create(event_date: DateTime.now.to_date, event_time: DateTime.now.to_time, end_time: DateTime.now.to_time)
-   
+
       [1, 2, 3].sample.times do
         event.hosts.create(user_id: create(:host_user).id)
       end
@@ -47,14 +45,14 @@ FactoryGirl.define do
     end
 
     factory :lunchlearnstyle do
-      after(:build) {|event| event.build_event_style(element: Lunchlearn.find(create(:lunchlearn).id))}
+      after(:build) { |event| event.build_event_style(element: Lunchlearn.find(create(:lunchlearn).id)) }
     end
-    
+
   end
   trait :past do
     after(:create) do |event|
       event.schedules.each do |s|
-        s.update_attribute(:event_date, (Date.today-5))
+        s.update_attribute(:event_date, (Date.today - 5))
       end
     end
   end
@@ -70,15 +68,11 @@ FactoryGirl.define do
     go_to_meeting_url 'https://somecompany.com/meeting'
   end
 
-
-#***********************Suggestion Factory **************************
+  # ***********************Suggestion Factory **************************
   factory :suggestion do
     suggestion_title 'some suggestion title'
     suggestion_description 'some suggestion description'
-    after(:build) {|suggestion| suggestion.user_id = create(:normal_user).id}
+    after(:build) { |suggestion| suggestion.user_id = create(:normal_user).id }
   end
 
 end
-
-
-
