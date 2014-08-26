@@ -37,9 +37,9 @@
       =f.label :end_time, "Event end time:", class: "control-label"
       =f.text_field :end_time, value: (schedule.end_time.strftime("%I:%M%p") unless schedule.end_time.blank?), id: "timepickerend" 
 
-    .form_group
-      =f.label :restricted, "Restricted?", class: "control-label"
-      =f.check_box :restricted, checked: (@event.restricted unless @event.restricted.blank?), class: "restriction"
+  .form_group
+    =f.label :restricted, "Restricted?", class: "control-label"
+    =f.check_box :restricted, checked: (@event.restricted unless @event.restricted.blank?), class: "restriction"
 
   
   .form_group
@@ -57,7 +57,7 @@
       value = $("#event_event_style").val();
       $('#' + value).show(); 
     
-    if ($("input:checked").length > 0)
+    if ($(".meeting:checked").length > 0)
       $("#gotomeetingform").show()
     $("#datepicker").datepicker();
     $(".meeting").on("click", function(){

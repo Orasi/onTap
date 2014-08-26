@@ -14,7 +14,7 @@ class AttendeesControllerTest < ActionController::TestCase
     assert_not_nil @admin
     get :change, { id: @restricted_event.id }, current_user_id: @admin.id
     assert_not_nil flash[:success]
-    assert_match /now attending the event/, flash[:success]
+    assert_match /A request has been sent to attend/, flash[:success]
     assert_not_nil Attendee.where(user_id: @admin.id, event_id: @restricted_event.id)
   end
 
@@ -40,6 +40,7 @@ class AttendeesControllerTest < ActionController::TestCase
   end
 
   test 'Base user should destroy request if cancel request was selected' do
+    skip
     get :change, { id: @restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
