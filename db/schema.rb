@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.string   "go_to_meeting_url"
   end
 
-  create_table "requests", force: true do |t|
+  create_table "notifications", force: true do |t|
     t.integer  "event_id"
     t.integer  "user_id"
     t.integer  "manager_id"

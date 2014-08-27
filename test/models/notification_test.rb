@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RequestsControllerTest < ActionController::TestCase
+class NotificationTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
