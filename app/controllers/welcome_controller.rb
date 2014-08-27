@@ -28,8 +28,5 @@ class WelcomeController < ApplicationController
     @_current_user = session[:current_user_id] = nil
     redirect_to :login, flash: { error:  'Logged Out' }
   end
-
-  private
-
  
 end
