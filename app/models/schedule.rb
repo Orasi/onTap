@@ -19,12 +19,4 @@ class Schedule < ActiveRecord::Base
     end
   end
 
-  def event_time_order_check
-    unless end_time.blank?
-      if event_time > end_time
-        errors.add(:event_time, 'Start time must be before end time')
-        return false
-      end
-    end
-  end
 end
