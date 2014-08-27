@@ -31,7 +31,5 @@ class WelcomeController < ApplicationController
 
   private
 
-  def login_params
-    params.require(:login).permit(:username, :password, :photo, :email)
-  end
+ 
 end
