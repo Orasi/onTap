@@ -17,6 +17,11 @@ class EventsControllerTest < ActionController::TestCase
     assert_redirected_to :login
   end
 
+  test 'should get calendar if user logged on' do
+    get :calendar, {}, current_user_id: @user.id
+    assert_response :success
+  end
+
   test 'should be able to get new event page if admin' do
     get :new, { id: @lunchlearn.id }, current_user_id: @admin.id
     assert_response :success
@@ -120,6 +125,75 @@ class EventsControllerTest < ActionController::TestCase
     assert_select '.h1', /#{@lunchlearn.title}/
   end
 
+  test 'admin should be able to create an event' do
+    event = @lunchlearn
+    params = {event: {
+        title: event.title,
+        description: event.description,
+        event_date: event.schedules.first.event_date.strftime("%m/%d/%Y"),
+        event_time: (event.schedules.first.event_time).to_time,
+        end_time: (event.schedules.first.end_time + 1.hour).to_time,
+        event_style: 'lunch_and_learn'
+    }}
+    post :create, params, {current_user_id: @admin.id}
+    assert_nil flash[:error]
+  end
+
+  test 'user should be able to create an event' do
+    event = @lunchlearn
+    params = {event: {
+        title: event.title,
+        description: event.description,
+        event_date: event.schedules.first.event_date.strftime("%m/%d/%Y"),
+        event_time: (event.schedules.first.event_time).to_time,
+        end_time: (event.schedules.first.end_time + 1.hour).to_time,
+        event_style: 'lunch_and_learn'
+    }}
+    post :create, params, {current_user_id: @user.id}
+    assert_not_nil flash[:error]
+    assert_nil flash[:success]
+  end
+
+  test 'admin should be able to update an event' do
+    event = @lunchlearn
+    params = {event: {
+        title: event.title + "abc",
+        description: event.description + "abc",
+        event_date: (event.schedules.first.event_date + 1.day).strftime("%m/%d/%Y"),
+        event_time: (event.schedules.first.event_time - 1.hour).to_time,
+        end_time: (event.schedules.first.end_time + 1.hour).to_time
+    }, id: @lunchlearn.id
+    }
+    patch :update, params, {current_user_id: @admin.id}
+    assert_nil flash[:error], flash[:success]
+  end
+
+  test 'host should be able to update an event' do
+    event = @lunchlearn
+    params = {event: {
+        title: event.title + "abc",
+        description: event.description + "abc",
+        event_date: (event.schedules.first.event_date + 1.day).strftime("%m/%d/%Y"),
+        event_time: (event.schedules.first.event_time - 1.hour).to_time,
+        end_time: (event.schedules.first.end_time + 1.hour).to_time
+    }, id: @lunchlearn.id}
+    patch :update, params, {current_user_id: @lunchlearn.hosts.first.user.id}
+    assert_nil flash[:error]
+  end
+
+  test 'user should not be able to update an event' do
+    event = @lunchlearn
+    params = {event: {
+        title: event.title + "abc",
+        description: event.description + "abc",
+        event_date: "08/30/2014",
+        event_time: (event.schedules.first.event_time - 1.hour).to_time,
+        end_time: (event.schedules.first.end_time + 1.hour).to_time
+    }, id: @lunchlearn.id
+    }
+    patch :update,  params, {current_user_id: @user.id}
+    assert_not_nil flash[:error], "expected error creating event"
+  end
   # Need to create factory trait for event with no attendees
   # test "if no attendees, no users registered should display" do
   #   get :show, {id: @lunchlearn.id}, {current_user_id: @admin.id}

@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :require_admin_or_host, only: [:new, :edit, :destroy]
+  before_action :require_admin_or_host, only: [:new, :edit, :destroy, :update, :create]
   def calendar
     @events = Event.joins(:schedules).merge(Schedule.where('event_date >= ?', DateTime.now.to_date))
     @events.sort! { |a, b| a.schedules.first.event_date <=> b.schedules.first.event_date }
@@ -87,7 +87,7 @@ class EventsController < ApplicationController
     @schedule = @event.schedules.new(schedule_params)
     unless @schedule.save
       @event.destroy
-      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created" }
+      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated"}
       return
     end
 
