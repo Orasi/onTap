@@ -248,6 +248,22 @@ class EventsControllerTest < ActionController::TestCase
     assert_nil flash[:success]
   end
 
+  test 'admin should not be able to update an event without description' do
+    event = @lunchlearn
+    params = {event: {
+        title: event.title + "abc",
+        description: "",
+        event_date: (event.schedules.first.event_date + 1.day).strftime("%m/%d/%Y"),
+        event_time: (event.schedules.first.event_time - 1.hour).to_time,
+        end_time: (event.schedules.first.end_time + 1.hour).to_time,
+        event_style: 'lunch_and_learn'
+    }, id: @lunchlearn.id
+    }
+    patch :update, params, {current_user_id: @admin.id}
+    assert_not_nil flash[:error]
+    assert_nil flash[:success]
+  end
+
   test 'host should be able to update an event' do
     event = @lunchlearn
     params = {event: {
@@ -277,6 +293,22 @@ class EventsControllerTest < ActionController::TestCase
     patch :update,  params, {current_user_id: @user.id}
     assert_not_nil flash[:error], "expected error creating event"
   end
+
+  test 'user should not be able to delete event' do 
+    delete :destroy, {id: @webinar.id}, {current_user_id: @user.id}
+    assert_not_nil flash[:error]
+    assert_equal flash[:error], "You do not have the required permission to edit this content"
+
+  end
+
+  test 'admin should be able to delete event' do
+    delete :destroy, {id: @lunchlearn.id}, {current_user_id: @admin.id}
+    assert_not_nil flash[:error]
+    assert_equal flash[:error], "Event \"some title\" was deleted"
+
+  end
+
+
   # Need to create factory trait for event with no attendees
   # test "if no attendees, no users registered should display" do
   #   get :show, {id: @lunchlearn.id}, {current_user_id: @admin.id}

@@ -104,6 +104,7 @@ class EventsController < ApplicationController
 
     unless @event.update_attributes(event_params)
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated" }
+      return
     end
 
     redirect_to event_path(@event), flash: { success: "Event \"#{@event.title}\" was updated" }
