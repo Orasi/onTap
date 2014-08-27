@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-    def setup
+  def setup
     @lunchlearn = FactoryGirl.create(:lunchlearnstyle)
     assert @lunchlearn
     @webinar = FactoryGirl.create(:webinarstyle)
@@ -10,7 +10,7 @@ class UserTest < ActiveSupport::TestCase
     assert @user
     @admin = FactoryGirl.create(:admin_user)
     assert @admin
-  end
+end
 
   test 'two users should not have same username' do
     e1 = User.new
@@ -25,13 +25,13 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test 'find or create - find' do 
+  test 'find or create - find' do
     u = User.find_or_create(User.first.username)
     assert_not_nil u
   end
 
   test 'find or create - create' do
-    u = User.find_or_create("some.one")
+    u = User.find_or_create('some.one')
     assert_not_nil u
   end
 
@@ -40,7 +40,6 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'employee can login with password' do
-    assert @user.validate_against_ad("1234")
+    assert @user.validate_against_ad('1234')
   end
-  
 end

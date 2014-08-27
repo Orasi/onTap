@@ -33,7 +33,7 @@ class SuggestionsController < ApplicationController
     if @suggestion.save
       redirect_to :calendar, flash: { success: "Suggestion \"#{@suggestion.suggestion_title}\" was updated" }
     else
-      redirect_to :calendar, flash: {error: "Suggestion \"#{@suggestion.suggestion_title}\" was not updated" }
+      redirect_to :calendar, flash: { error: "Suggestion \"#{@suggestion.suggestion_title}\" was not updated" }
     end
   end
 

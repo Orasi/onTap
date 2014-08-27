@@ -127,187 +127,185 @@ class EventsControllerTest < ActionController::TestCase
 
   test 'admin should be able to create an event' do
     event = @lunchlearn
-    params = {event: {
-        title: event.title,
-        description: event.description,
-        event_date: event.schedules.first.event_date.strftime("%m/%d/%Y"),
-        event_time: (event.schedules.first.event_time).to_time,
-        end_time: (event.schedules.first.end_time + 1.hour).to_time,
-        event_style: 'lunch_and_learn',
-        hosts: [1,2,3],
-    }}
-    post :create, params, {current_user_id: @admin.id}
+    params = { event: {
+      title: event.title,
+      description: event.description,
+      event_date: event.schedules.first.event_date.strftime('%m/%d/%Y'),
+      event_time: (event.schedules.first.event_time).to_time,
+      end_time: (event.schedules.first.end_time + 1.hour).to_time,
+      event_style: 'lunch_and_learn',
+      hosts: [1, 2, 3],
+    } }
+    post :create, params, current_user_id: @admin.id
     assert_nil flash[:error]
   end
 
   test 'admin should be able to create a webinar' do
     event = @webinar
-    params = {event: {
-        title: event.title,
-        description: event.description,
-        event_date: event.schedules.first.event_date.strftime("%m/%d/%Y"),
-        event_time: (event.schedules.first.event_time).to_time,
-        end_time: (event.schedules.first.end_time + 1.hour).to_time,
-        url: "https://www.someurl.com",
-        host: "Some Guy Off The Street",
-        event_style: 'webinar'
-    }}
-    post :create, params, {current_user_id: @admin.id}
+    params = { event: {
+      title: event.title,
+      description: event.description,
+      event_date: event.schedules.first.event_date.strftime('%m/%d/%Y'),
+      event_time: (event.schedules.first.event_time).to_time,
+      end_time: (event.schedules.first.end_time + 1.hour).to_time,
+      url: 'https://www.someurl.com',
+      host: 'Some Guy Off The Street',
+      event_style: 'webinar'
+    } }
+    post :create, params, current_user_id: @admin.id
     assert_nil flash[:error]
   end
 
   test 'admin should not be able to create a webinar with out url' do
     event = @webinar
-    params = {event: {
-        title: event.title,
-        description: event.description,
-        event_date: event.schedules.first.event_date.strftime("%m/%d/%Y"),
-        event_time: (event.schedules.first.event_time).to_time,
-        end_time: (event.schedules.first.end_time + 1.hour).to_time,
-        host: "Some Guy Off The Street",
-        event_style: 'webinar'
-    }}
-    post :create, params, {current_user_id: @admin.id}
+    params = { event: {
+      title: event.title,
+      description: event.description,
+      event_date: event.schedules.first.event_date.strftime('%m/%d/%Y'),
+      event_time: (event.schedules.first.event_time).to_time,
+      end_time: (event.schedules.first.end_time + 1.hour).to_time,
+      host: 'Some Guy Off The Street',
+      event_style: 'webinar'
+    } }
+    post :create, params, current_user_id: @admin.id
     assert_not_nil flash[:error]
     assert_nil flash[:success]
   end
 
-
   test 'admin should be not able to create an event without description' do
     event = @lunchlearn
-    params = {event: {
-        title: event.title,
-        event_date: event.schedules.first.event_date.strftime("%m/%d/%Y"),
-        event_time: (event.schedules.first.event_time).to_time,
-        end_time: (event.schedules.first.end_time + 1.hour).to_time,
-        event_style: 'lunch_and_learn'
-    }}
-    post :create, params, {current_user_id: @admin.id}
+    params = { event: {
+      title: event.title,
+      event_date: event.schedules.first.event_date.strftime('%m/%d/%Y'),
+      event_time: (event.schedules.first.event_time).to_time,
+      end_time: (event.schedules.first.end_time + 1.hour).to_time,
+      event_style: 'lunch_and_learn'
+    } }
+    post :create, params, current_user_id: @admin.id
     assert_not_nil flash[:error]
     assert_nil flash[:success]
   end
 
   test 'admin should be not able to create an event without end time ' do
     event = @lunchlearn
-    params = {event: {
-        title: event.title,
-        description: event.description,
-        event_date: event.schedules.first.event_date.strftime("%m/%d/%Y"),
-        event_time: (event.schedules.first.event_time).to_time,
-        event_style: 'lunch_and_learn'
-    }}
-    post :create, params, {current_user_id: @admin.id}
+    params = { event: {
+      title: event.title,
+      description: event.description,
+      event_date: event.schedules.first.event_date.strftime('%m/%d/%Y'),
+      event_time: (event.schedules.first.event_time).to_time,
+      event_style: 'lunch_and_learn'
+    } }
+    post :create, params, current_user_id: @admin.id
     assert_not_nil flash[:error]
     assert_nil flash[:success]
   end
 
   test 'user should not be able to create an event' do
     event = @lunchlearn
-    params = {event: {
-        title: event.title,
-        description: event.description,
-        event_date: event.schedules.first.event_date.strftime("%m/%d/%Y"),
-        event_time: (event.schedules.first.event_time).to_time,
-        end_time: (event.schedules.first.end_time + 1.hour).to_time,
-        event_style: 'lunch_and_learn'
-    }}
-    post :create, params, {current_user_id: @user.id}
+    params = { event: {
+      title: event.title,
+      description: event.description,
+      event_date: event.schedules.first.event_date.strftime('%m/%d/%Y'),
+      event_time: (event.schedules.first.event_time).to_time,
+      end_time: (event.schedules.first.end_time + 1.hour).to_time,
+      event_style: 'lunch_and_learn'
+    } }
+    post :create, params, current_user_id: @user.id
     assert_not_nil flash[:error]
     assert_nil flash[:success]
   end
 
   test 'admin should be able to update an event' do
     event = @webinar
-    params = {event: {
-        title: event.title + "abc",
-        description: event.description + "abc",
-        event_date: (event.schedules.first.event_date + 1.day).strftime("%m/%d/%Y"),
-        event_time: (event.schedules.first.event_time - 1.hour).to_time,
-        end_time: (event.schedules.first.end_time + 1.hour).to_time,
-        url: "https://yourmomrocks.com",
-        host: "some other host",
-        event_style: 'webinar'
-    }, id: @webinar.id
+    params = { event: {
+      title: event.title + 'abc',
+      description: event.description + 'abc',
+      event_date: (event.schedules.first.event_date + 1.day).strftime('%m/%d/%Y'),
+      event_time: (event.schedules.first.event_time - 1.hour).to_time,
+      end_time: (event.schedules.first.end_time + 1.hour).to_time,
+      url: 'https://yourmomrocks.com',
+      host: 'some other host',
+      event_style: 'webinar'
+    },         id: @webinar.id
     }
-    patch :update, params, {current_user_id: @admin.id}
+    patch :update, params, current_user_id: @admin.id
     assert_nil flash[:error], flash[:success]
   end
 
   test 'admin should not be able to update an event without event time' do
     event = @lunchlearn
-    params = {event: {
-        title: event.title + "abc",
-        description: event.description + "abc",
-        event_date: (event.schedules.first.event_date + 1.day).strftime("%m/%d/%Y"),
-        end_time: (event.schedules.first.end_time + 1.hour).to_time,
-        event_style: 'lunch_and_learn'
-    }, id: @lunchlearn.id
+    params = { event: {
+      title: event.title + 'abc',
+      description: event.description + 'abc',
+      event_date: (event.schedules.first.event_date + 1.day).strftime('%m/%d/%Y'),
+      end_time: (event.schedules.first.end_time + 1.hour).to_time,
+      event_style: 'lunch_and_learn'
+    },         id: @lunchlearn.id
     }
-    patch :update, params, {current_user_id: @admin.id}
+    patch :update, params, current_user_id: @admin.id
     assert_not_nil flash[:error]
     assert_nil flash[:success]
   end
 
   test 'admin should not be able to update an event without description' do
     event = @lunchlearn
-    params = {event: {
-        title: event.title + "abc",
-        description: "",
-        event_date: (event.schedules.first.event_date + 1.day).strftime("%m/%d/%Y"),
-        event_time: (event.schedules.first.event_time - 1.hour).to_time,
-        end_time: (event.schedules.first.end_time + 1.hour).to_time,
-        event_style: 'lunch_and_learn'
-    }, id: @lunchlearn.id
+    params = { event: {
+      title: event.title + 'abc',
+      description: '',
+      event_date: (event.schedules.first.event_date + 1.day).strftime('%m/%d/%Y'),
+      event_time: (event.schedules.first.event_time - 1.hour).to_time,
+      end_time: (event.schedules.first.end_time + 1.hour).to_time,
+      event_style: 'lunch_and_learn'
+    },         id: @lunchlearn.id
     }
-    patch :update, params, {current_user_id: @admin.id}
+    patch :update, params, current_user_id: @admin.id
     assert_not_nil flash[:error]
     assert_nil flash[:success]
   end
 
   test 'host should be able to update an event' do
     event = @lunchlearn
-    params = {event: {
-        title: event.title + "abc",
-        description: event.description + "abc",
-        event_date: (event.schedules.first.event_date + 1.day).strftime("%m/%d/%Y"),
-        event_time: (event.schedules.first.event_time - 1.hour).to_time,
-        end_time: (event.schedules.first.end_time + 1.hour).to_time,
-        url: "https://www.google.com",
-        hosts: [2,3,4],
-        event_style: 'lunch_and_learn'
-    }, id: @lunchlearn.id}
-    patch :update, params, {current_user_id: @lunchlearn.hosts.first.user.id}
+    params = { event: {
+      title: event.title + 'abc',
+      description: event.description + 'abc',
+      event_date: (event.schedules.first.event_date + 1.day).strftime('%m/%d/%Y'),
+      event_time: (event.schedules.first.event_time - 1.hour).to_time,
+      end_time: (event.schedules.first.end_time + 1.hour).to_time,
+      url: 'https://www.google.com',
+      hosts: [2, 3, 4],
+      event_style: 'lunch_and_learn'
+    },         id: @lunchlearn.id }
+    patch :update, params, current_user_id: @lunchlearn.hosts.first.user.id
     assert_nil flash[:error]
   end
 
   test 'user should not be able to update an event' do
     event = @lunchlearn
-    params = {event: {
-        title: event.title + "abc",
-        description: event.description + "abc",
-        event_date: "08/30/2014",
-        event_time: (event.schedules.first.event_time - 1.hour).to_time,
-        end_time: (event.schedules.first.end_time + 1.hour).to_time
-    }, id: @lunchlearn.id
+    params = { event: {
+      title: event.title + 'abc',
+      description: event.description + 'abc',
+      event_date: '08/30/2014',
+      event_time: (event.schedules.first.event_time - 1.hour).to_time,
+      end_time: (event.schedules.first.end_time + 1.hour).to_time
+    },         id: @lunchlearn.id
     }
-    patch :update,  params, {current_user_id: @user.id}
-    assert_not_nil flash[:error], "expected error creating event"
+    patch :update,  params, current_user_id: @user.id
+    assert_not_nil flash[:error], 'expected error creating event'
   end
 
-  test 'user should not be able to delete event' do 
-    delete :destroy, {id: @webinar.id}, {current_user_id: @user.id}
+  test 'user should not be able to delete event' do
+    delete :destroy, { id: @webinar.id }, current_user_id: @user.id
     assert_not_nil flash[:error]
-    assert_equal flash[:error], "You do not have the required permission to edit this content"
+    assert_equal flash[:error], 'You do not have the required permission to edit this content'
 
   end
 
   test 'admin should be able to delete event' do
-    delete :destroy, {id: @lunchlearn.id}, {current_user_id: @admin.id}
+    delete :destroy, { id: @lunchlearn.id }, current_user_id: @admin.id
     assert_not_nil flash[:error]
     assert_equal flash[:error], "Event \"some title\" was deleted"
 
   end
-
 
   # Need to create factory trait for event with no attendees
   # test "if no attendees, no users registered should display" do

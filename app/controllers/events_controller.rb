@@ -87,7 +87,7 @@ class EventsController < ApplicationController
     @schedule = @event.schedules.new(schedule_params)
     unless @schedule.save
       @event.destroy
-      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated"}
+      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated" }
       return
     end
 
