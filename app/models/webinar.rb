@@ -4,5 +4,7 @@ class Webinar < ActiveRecord::Base
   has_one :event, through: :event_styles
 
   VIEWS = %w(Jumbo Webinar Attachments)
+
+  validates_presence_of :url
   ATTENDABLE = false
 end
