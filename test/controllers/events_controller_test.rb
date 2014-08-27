@@ -133,7 +133,8 @@ class EventsControllerTest < ActionController::TestCase
         event_date: event.schedules.first.event_date.strftime("%m/%d/%Y"),
         event_time: (event.schedules.first.event_time).to_time,
         end_time: (event.schedules.first.end_time + 1.hour).to_time,
-        event_style: 'lunch_and_learn'
+        event_style: 'lunch_and_learn',
+        hosts: [1,2,3],
     }}
     post :create, params, {current_user_id: @admin.id}
     assert_nil flash[:error]
@@ -148,6 +149,7 @@ class EventsControllerTest < ActionController::TestCase
         event_time: (event.schedules.first.event_time).to_time,
         end_time: (event.schedules.first.end_time + 1.hour).to_time,
         url: "https://www.someurl.com",
+        host: "Some Guy Off The Street",
         event_style: 'webinar'
     }}
     post :create, params, {current_user_id: @admin.id}
