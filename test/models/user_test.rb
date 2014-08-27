@@ -24,4 +24,8 @@ class UserTest < ActiveSupport::TestCase
       e2.save!
     end
   end
+
+  test 'employee can not login without password' do
+    assert_not @user.validate_against_ad('')
+  end
 end
