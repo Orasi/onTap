@@ -62,7 +62,7 @@ class EventsController < ApplicationController
   def edit
     # temp for testing surveys
 
-    #   Survey.create_survey_notification(current_user.id, params[:id])
+     #  Survey.create_survey_notification(current_user.id, params[:id])
     # end temp for testing surveys
     @event = Event.find(params[:id])
     render :new
@@ -104,6 +104,7 @@ class EventsController < ApplicationController
 
     unless @event.update_attributes(event_params)
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated" }
+      return
     end
 
     redirect_to event_path(@event), flash: { success: "Event \"#{@event.title}\" was updated" }
