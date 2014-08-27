@@ -3,13 +3,13 @@ require 'test_helper'
 class EventsControllerTest < ActionController::TestCase
   def setup
     @lunchlearn = FactoryGirl.create(:lunchlearnstyle)
+    assert @lunchlearn
+    @webinar = FactoryGirl.create(:webinarstyle)
+    assert @webinar
     @user = FactoryGirl.create(:normal_user)
-    # @event_with_hosts = FactoryGirl.create(:event_with_hosts)
-    # @lunchtwo=lunchlearns(:lunchtwo)
-    # @employee=users(:employee)
-    # @employeetwo=users(:employeetwo)
-    # @host=users(:host)
+    assert @user
     @admin = FactoryGirl.create(:admin_user)
+    assert @admin
   end
 
   test 'should not get calendar if user not logged in' do
@@ -139,7 +139,50 @@ class EventsControllerTest < ActionController::TestCase
     assert_nil flash[:error]
   end
 
-  test 'user should be able to create an event' do
+  test 'admin should be able to create a webinar' do
+    event = @webinar
+    params = {event: {
+        title: event.title,
+        description: event.description,
+        event_date: event.schedules.first.event_date.strftime("%m/%d/%Y"),
+        event_time: (event.schedules.first.event_time).to_time,
+        end_time: (event.schedules.first.end_time + 1.hour).to_time,
+        url: "https://www.someurl.com",
+        event_style: 'webinar'
+    }}
+    post :create, params, {current_user_id: @admin.id}
+    assert_nil flash[:error]
+  end
+
+  test 'admin should be not able to create an event without description' do
+    event = @lunchlearn
+    params = {event: {
+        title: event.title,
+        event_date: event.schedules.first.event_date.strftime("%m/%d/%Y"),
+        event_time: (event.schedules.first.event_time).to_time,
+        end_time: (event.schedules.first.end_time + 1.hour).to_time,
+        event_style: 'lunch_and_learn'
+    }}
+    post :create, params, {current_user_id: @admin.id}
+    assert_not_nil flash[:error]
+    assert_nil flash[:success]
+  end
+
+  test 'admin should be not able to create an event without end time ' do
+    event = @lunchlearn
+    params = {event: {
+        title: event.title,
+        description: event.description,
+        event_date: event.schedules.first.event_date.strftime("%m/%d/%Y"),
+        event_time: (event.schedules.first.event_time).to_time,
+        event_style: 'lunch_and_learn'
+    }}
+    post :create, params, {current_user_id: @admin.id}
+    assert_not_nil flash[:error]
+    assert_nil flash[:success]
+  end
+
+  test 'user should not be able to create an event' do
     event = @lunchlearn
     params = {event: {
         title: event.title,
@@ -155,17 +198,34 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'admin should be able to update an event' do
-    event = @lunchlearn
+    event = @webinar
     params = {event: {
         title: event.title + "abc",
         description: event.description + "abc",
         event_date: (event.schedules.first.event_date + 1.day).strftime("%m/%d/%Y"),
         event_time: (event.schedules.first.event_time - 1.hour).to_time,
-        end_time: (event.schedules.first.end_time + 1.hour).to_time
-    }, id: @lunchlearn.id
+        end_time: (event.schedules.first.end_time + 1.hour).to_time,
+        url: "https://yourmomrocks.com",
+        event_style: 'webinar'
+    }, id: @webinar.id
     }
     patch :update, params, {current_user_id: @admin.id}
     assert_nil flash[:error], flash[:success]
+  end
+
+  test 'admin should not be able to update an event without event time' do
+    event = @lunchlearn
+    params = {event: {
+        title: event.title + "abc",
+        description: event.description + "abc",
+        event_date: (event.schedules.first.event_date + 1.day).strftime("%m/%d/%Y"),
+        end_time: (event.schedules.first.end_time + 1.hour).to_time,
+        event_style: 'lunch_and_learn'
+    }, id: @lunchlearn.id
+    }
+    patch :update, params, {current_user_id: @admin.id}
+    assert_not_nil flash[:error]
+    assert_nil flash[:success]
   end
 
   test 'host should be able to update an event' do
@@ -175,7 +235,9 @@ class EventsControllerTest < ActionController::TestCase
         description: event.description + "abc",
         event_date: (event.schedules.first.event_date + 1.day).strftime("%m/%d/%Y"),
         event_time: (event.schedules.first.event_time - 1.hour).to_time,
-        end_time: (event.schedules.first.end_time + 1.hour).to_time
+        end_time: (event.schedules.first.end_time + 1.hour).to_time,
+        url: "https://www.google.com",
+        event_style: 'lunch_and_learn'
     }, id: @lunchlearn.id}
     patch :update, params, {current_user_id: @lunchlearn.hosts.first.user.id}
     assert_nil flash[:error]
