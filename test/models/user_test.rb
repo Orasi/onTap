@@ -42,5 +42,5 @@ class UserTest < ActiveSupport::TestCase
   test 'employee can login with password' do
     assert @user.validate_against_ad("1234")
   end
-
+  
 end
