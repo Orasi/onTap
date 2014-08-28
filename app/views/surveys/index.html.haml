@@ -1,17 +1,37 @@
 %h1
-  All Suggestions:
+  Event Surveys:
 %div#accordion
-  -@suggestions.each do |suggestion|
+  -@surveys.each do |survey|
     %h5
-      =suggestion.suggestion_title + "   -    " + suggestion.user.display_name
+      -if admin? && !Event.find(survey.event_id).hosting_event?(current_user)
+        Survey from
+        =User.find(survey.user_id).display_name
+      -elsif Event.find(survey.event_id).hosting_event?
+        something
     %div
-      %br
-      %p2= suggestion.user.display_name 
-      Suggested:
-      %p= suggestion.suggestion_description
-      %span
-        =link_to "Delete", suggestion_path(suggestion), method: :delete, class: "btn btn-default btn-sm"
-%h1= "No Suggestions to display" if @suggestions.count == 0
+      %strong What went well with the event?<br>
+      %p2= survey.went_well
+      <br>
+      <br>
+      %strong What could have been improved on?<br>
+      %p2= survey.improved
+      <br>
+      <br>
+      %strong How would you rate the host's knowledge on the topic? <br>
+      %p2= survey.host_knowledge
+      <br>
+      <br>
+      %strong How would you rate the host's presentation?  <br>
+      %p2= survey.host_presentation
+      <br>
+      <br>
+      %strong How could the information covered be used in your current work?  <br>
+      %p2= survey.effect
+      <br>
+      <br>
+      %strong Any extra thoughts or comments?  <br>
+      %p2= survey.extra
+%h1= "No surveys to display" if @surveys.count == 0
 :javascript
   $(function(){
     $("#accordion").accordion({collapsible: true, active:false,heightStyle: "content"});

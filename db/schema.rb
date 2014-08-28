@@ -122,8 +122,8 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "updated_at"
     t.text     "went_well"
     t.text     "improved"
-    t.text     "host_knowledge"
-    t.text     "host_presentation"
+    t.integer  "host_knowledge"
+    t.integer  "host_presentation"
     t.text     "effect"
     t.text     "extra"
   end

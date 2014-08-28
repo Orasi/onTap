@@ -1,10 +1,6 @@
 class SurveysController < ApplicationController
   def index
-    @surveys = Survey.where(event_id: params[:event_id])
-  end
-
-  def show
-    @survey = Survey.find(params[:event_id])
+    @surveys = Survey.where(event_id:  params[:id])
   end
 
   def new
@@ -17,7 +13,9 @@ class SurveysController < ApplicationController
       redirect_to :calendar, flash: { error: 'Survey  was not created' }
       return
     end
+    Notification.find_by(event_id: @survey.event_id, user_id: @survey.user_id).destroy
     redirect_to :calendar, flash: { success: "Event survey was submitted" }
+
   end
 
   def survey_params

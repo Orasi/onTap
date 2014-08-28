@@ -10,11 +10,11 @@
 
   %div.form_group
     =f.label "How would you rate the host's knowledge on the topic?", nil, class: "control-label"
-    =f.text_field :host_knowledge, value: @survey.host_knowledge, class: "form-control", required: true
+    =f.select :host_knowledge, options_for_select((1..10))
 
   %div.form_group
     =f.label "How would you rate the host's presentation?", nil, class: "control-label"
-    =f.text_field :host_presentation, value: @survey.host_presentation, class: "form-control", required: true
+    =f.select :host_presentation, options_for_select((1..10))
 
   %div.form_group
     =f.label "How could the information covered be used in your current work?", nil, class: "control-label"

@@ -5,7 +5,6 @@ module EventsHelper
       @notifications = Notification.where(notification_type: 'attendance', status: ['new'])
       if @notifications.count > 0
         @notifications.each do |notification|
-          #      flashmessage="New attendance notifications!  #{link_to 'View ', user_notifications_path}<br />"
           flashmessage += "#{User.find(notification.user_id).display_name} is requesting to attend the event #{Event.find(notification.event_id).title}.  #{link_to 'Approve ', approve_attend_path(id: notification.id)}  #{link_to 'Reject', reject_attend_path(id: notification.id)}  #{link_to 'Details ', notifications_path}<br />"
         end
       end
