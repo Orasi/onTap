@@ -42,28 +42,26 @@ class AttendeesControllerTest < ActionController::TestCase
   end
 
   test 'Base user should destroy request if cancel request was selected' do
-    skip
-    get :change, { id: @restricted_event.id }, current_user_id: @user.id
+    get :change, { id: @restricted_event.id }, {current_user_id: @user.id}
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
     assert_not Request.where(user_id: @user.id, event_id: @restricted_event.id).blank?
     flash.delete(:success)
-    get :change, { id: @restricted_event.id }, current_user_id: @user.id
-    assert_not_nil flash[:success]
-    assert_match /Cancelled request to attend/, flash[:success]
+    get :change, { id: @restricted_event.id }, {current_user_id: @user.id}
+    assert_not_nil flash[:error]
+    assert_match /Cancelled request to attend/, flash[:error]
     assert Request.where(user_id: @user.id, event_id: @restricted_event.id).blank?
   end
 
   test 'admin should destroy request if cancel request was selected' do
-    skip
     get :change, { id: @restricted_event.id }, current_user_id: @admin.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
     assert_not Request.where(user_id: @admin.id, event_id: @restricted_event.id).blank?
     flash.delete(:success)
     get :change, { id: @restricted_event.id }, current_user_id: @admin.id
-    assert_not_nil flash[:success]
-    assert_match /Cancelled request to attend/, flash[:success]
+    assert_not_nil flash[:error]
+    assert_match /Cancelled request to attend/, flash[:error]
     assert Request.where(user_id: @admin.id, event_id: @restricted_event.id).blank?
   end
 
@@ -111,14 +109,6 @@ class AttendeesControllerTest < ActionController::TestCase
     assert_not_nil flash[:error]
     assert_match /no longer attending the event/, flash[:error]
     assert Attendee.where(user_id: @admin.id, event_id: @lunchlearn.id).blank?
-  end
-
-  test 'user should cancel request when asking to attend a restricted event they are attending' do
-    Request.create(user_id: @user_id, event_id: @restricted_event.id)
-    get :change, { id: @restricted_event.id }, {current_user_id: @user.id}
-    assert_not_nil flash[:success]
-    assert_match /request has been sent/, flash[:success]
-    assert_not Request.where(user_id: @user.id, event_id: @restricted_event.id).blank?
   end
 
   test 'admin should be able to approve requeset' do
