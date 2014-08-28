@@ -5,6 +5,7 @@ class AttendeesControllerTest < ActionController::TestCase
     @restricted_event = FactoryGirl.create(:lunchlearnstyle, :restricted)
     @past_restricted_event = FactoryGirl.create(:lunchlearnstyle, :restricted, :past)
     @lunchlearn = FactoryGirl.create(:lunchlearnstyle)
+    @past_event = FactoryGirl.create(:lunchlearnstyle, :past)
     @user = FactoryGirl.create(:normal_user)
     @admin = FactoryGirl.create(:admin_user)
     @request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
@@ -148,6 +149,12 @@ class AttendeesControllerTest < ActionController::TestCase
     get :reject_attend, {id: Request.find_by(user_id: @user.id, event_id: @restricted_event.id).id}, {current_user_id: @admin.id}
     assert_not_nil flash[:success]
     assert_equal flash[:success], "John Smith has been rejected from attending event: some title!"
+  end
+
+  test 'user should not be able to attend past event' do 
+    get :change, {id: @past_event }, {current_user_id: @user.id}
+    assert_not_nil flash[:error]
+    assert_equal flash[:error], "some title is in the archive."
   end
 
 
