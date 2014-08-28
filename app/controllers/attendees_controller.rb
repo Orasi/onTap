@@ -4,6 +4,7 @@ class AttendeesController < ApplicationController
       Event.find(params[:id]).attendees.find_by(user_id: session[:current_user_id]).destroy
       flash[:error] = "You are no longer attending the event: #{Event.find(params[:id]).title}!"
       redirect_to (:back)
+      return
     else
 
       if Event.find(params[:id]).restricted
@@ -11,14 +12,17 @@ class AttendeesController < ApplicationController
           Event.find(params[:id]).requests.find_by(user_id: session[:current_user_id]).destroy
           flash[:error] = "Cancelled request to attend: #{Event.find(params[:id]).title}!"
           redirect_to (:back)
+          return
         else
           @request = Event.find(params[:id]).requests.create(user_id: session[:current_user_id], status: 'new', notification_type: 'attendance')
           if @request.save
             flash[:success] = "A request has been sent to attend the event: #{Event.find(params[:id]).title}!"
             redirect_to (:back)
+            return
           else
             flash[:error] = "#{Event.find(params[:id]).title} is in the archive."
             redirect_to :calendar
+            return
           end
         end
       else
@@ -26,9 +30,11 @@ class AttendeesController < ApplicationController
         if @attendee.save
           flash[:success] = "You are now attending the event: #{Event.find(params[:id]).title}!"
           redirect_to (:back)
+          return
         else
           flash[:error] = "#{Event.find(params[:id]).title} is in the archive."
           redirect_to :calendar
+          return
         end
       end
     end
