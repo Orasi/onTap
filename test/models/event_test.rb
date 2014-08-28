@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
+
   def setup
   end
+
   test 'should save event' do
     event = FactoryGirl.build(:lunchlearnstyle)
     assert event.save, message:  event.errors.full_messages
