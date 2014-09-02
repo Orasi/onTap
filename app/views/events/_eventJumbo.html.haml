@@ -8,7 +8,8 @@
     .h2.small.pull-right
       = event.event_style.display_name.titleize.sub("_", " ")
     .jumbo-title.h1
-      = event.title
+      .title
+        = event.title
       .jumbo-date-hosts.h2
         .jumbo-date.small
           = event.schedules.first.event_date.to_date.strftime("%B %d, %Y") + " at " + event.schedules.first.event_time.strftime("%I:%M %p") + (event.schedules.first.end_time.blank? ? "" : " to " +event.schedules.first.end_time.strftime("%I:%M %p"))
