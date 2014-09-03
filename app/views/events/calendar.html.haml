@@ -10,7 +10,8 @@
   #accordion
     -@events.each do |event|
       %h5
-        =event.title
+        .title
+          =event.title
         %small
           -if event.hosts.count != 0
             = "Hosted by  #{event.hosts.collect{|host| host.user.display_name}.join(" and ")}   -    " unless event.hosts.first.external
