@@ -18,5 +18,6 @@
 /coverage/*.*
 *.*~
 /public/photos
-/vendor
+/vendor/assets/*
+!/vendor/assets/fonts
 /public/system/*
