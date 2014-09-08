@@ -14,7 +14,7 @@
     :javascript
       $(document).on("ready", function(){
         $("#add-event-host").on("click", function(){
-          $(".event-host-section").last().after("<div class='event-host-section form-inline'>#{ e.select(:hosts, User.order(first_name: :asc).collect{|l| [l.display_name, l.id]},{}, name: 'event[hosts][]', class: 'form-control additional-host-field').tr_s('\n','').tr_s('"','\'').html_safe}<span class='btn btn-primary remove'><span class='glyphicon glyphicon-minus'/> Remove</span></div>");
+          $(".event-host-section").last().after("<div class='event-host-section form-inline'>#{ e.select(:hosts, User.order(first_name: :asc).collect{|l| [l.display_name, l.id]},{}, name: 'event[hosts][]', class: 'form-control additional-host-field').tr_s('\n','').tr_s('"','\'').html_safe}<span class='btn btn-primary remove'>Remove</div>");
           return $(".remove").on("click", function(){
             return $(this).parent().remove();
           });
