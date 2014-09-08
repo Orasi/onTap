@@ -4,13 +4,11 @@
       .event-host-section.form-inline
         =e.label "Host(s)", class: "control-group"
         %button.btn.btn-default.form-control#add-event-host{type: "button", style: "margin-bottom:5px;"}
-          %span.glyphicon.glyphicon-plus
           Add Host
       -event.lunch_hosts.order(first_name: :asc).each do |lunch_host|     
         .event-host-section.form-inline
           = e.select :hosts, User.order(first_name: :asc).collect {|l| [l.display_name, l.id]}, {include_blank: true, selected: lunch_host.id}, name: "event[hosts][]", class: "form-control additional-host-field"
           %span.btn.btn-primary.remove
-            %span.glyphicon.glyphicon-minus
             Remove
 
     :javascript
