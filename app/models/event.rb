@@ -21,6 +21,14 @@ class Event < ActiveRecord::Base
     hosts.exists?(user_id: user.id)
   end
 
+  def past?
+    return false if self.schedules.last.event_date > DateTime.now.to_date
+    return true if self.schedules.last.event_date < DateTime.now.to_date
+    if self.schedules.last.event_time < DateTime.now.to_time
+      return true
+    end
+  end
+
   def attend_button_text(user)
     if attending_event?(user)
       return "Don't Attend"

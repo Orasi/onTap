@@ -116,6 +116,19 @@ class EventsController < ApplicationController
     Event.find(params[:id]).destroy
     redirect_to :calendar, flash: { error: "Event \"#{oldEventTitle}\" was deleted" }
   end
+
+  def finalize
+     @event = Event.find(params[:id])
+     @attended = JSON.parse(params[:user_data])['attended']
+     @not_attended = JSON.parse(params[:user_data])['not_attended']
+     Attendee.where(user_id: @attended, event_id: params[:id]).each do |attendee|
+       attendee.update!(status: 'attended')
+     end
+     Attendee.where(user_id: @not_attended, event_id: params[:id]).each do |attendee|
+       attendee.update(status: 'noshow')
+     end
+     redirect_to event_path(@event), flash: { error: "Event \"#{@event.title}\" was finalized" }
+  end
   private
 
   def require_admin_or_host

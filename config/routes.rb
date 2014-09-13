@@ -9,6 +9,7 @@ LunchLearn::Application.routes.draw do
   resources :attachments
 
   resources :requests
+  post '/finalize/:id' => 'events#finalize', as: :finalize
   get '/attendee/:id' => 'attendees#change', as: :attendee
   #  resources :attendees
   # get "lunch_and_learn/create"
