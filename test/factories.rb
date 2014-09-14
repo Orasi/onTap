@@ -57,19 +57,19 @@ FactoryGirl.define do
     after(:create) do |event|
       event.schedules.each do |s|
         s.update_attribute(:event_date, (Date.today - 5))
-      end 
+      end
     end
   end
-  
+
   trait :future do
     after(:create) do |event|
       event.schedules.each do |s|
         s.update_attribute(:event_date, (Date.today + 5))
-      end 
+      end
     end
   end
 
-  trait :finalized do 
+  trait :finalized do
     status 'finalized'
   end
 

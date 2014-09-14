@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_action :require_admin_or_host, only: [:new, :edit, :destroy, :update, :create, :finalize]
   before_action :require_past, only: [:finalize]
   def calendar
-    #@events = Event.joins(:schedules).merge(Schedule.where('event_date >= ?', DateTime.now.to_date))
+    # @events = Event.joins(:schedules).merge(Schedule.where('event_date >= ?', DateTime.now.to_date))
     @events = Event.where(status: nil)
     @events.sort! { |a, b| a.schedules.first.event_date <=> b.schedules.first.event_date }
   end
@@ -120,19 +120,19 @@ class EventsController < ApplicationController
   end
 
   def finalize
-     @event = Event.find(params[:id])
-     if @event.event_style.element.class::ATTENDABLE
-       @attended = JSON.parse(params[:user_data])['attended']
-       @not_attended = JSON.parse(params[:user_data])['not_attended']
-       Attendee.where(user_id: @attended, event_id: params[:id]).each do |attendee|
-         attendee.update!(status: 'attended')
-       end
-       Attendee.where(user_id: @not_attended, event_id: params[:id]).each do |attendee|
-         attendee.update!(status: 'noshow')
-       end
-     end
-     @event.update!(status: :finalized)
-     redirect_to event_path(@event), flash: { success: "Event \"#{@event.title}\" was finalized" }
+    @event = Event.find(params[:id])
+    if @event.event_style.element.class::ATTENDABLE
+      @attended = JSON.parse(params[:user_data])['attended']
+      @not_attended = JSON.parse(params[:user_data])['not_attended']
+      Attendee.where(user_id: @attended, event_id: params[:id]).each do |attendee|
+        attendee.update!(status: 'attended')
+      end
+      Attendee.where(user_id: @not_attended, event_id: params[:id]).each do |attendee|
+        attendee.update!(status: 'noshow')
+      end
+    end
+    @event.update!(status: :finalized)
+    redirect_to event_path(@event), flash: { success: "Event \"#{@event.title}\" was finalized" }
   end
   private
 
@@ -146,7 +146,7 @@ class EventsController < ApplicationController
 
   def require_past
     unless Event.find(params[:id]).past?
-      redirect_to :calendar, flash: { error: 'Events can only be finalized after they have ended' } 
+      redirect_to :calendar, flash: { error: 'Events can only be finalized after they have ended' }
     end
   end
 

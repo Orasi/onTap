@@ -57,11 +57,11 @@ Event.all.each do |l|
     unless l.attending_event?(User.find(user_id))
       l.attendees.create(user_id: rand(1..User.all.count))
       if l.past?
-        l.update(status: ['attended', 'noshow'].sample)
+        l.update(status: %w(attended noshow).sample)
       end
     end
   end
-  
+
   if l.past?
     l.update(status: 'finalized')
   end

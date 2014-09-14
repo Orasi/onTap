@@ -111,14 +111,14 @@ class EventsControllerTest < ActionController::TestCase
         not_attended.push(a.user_id)
       end
     end
-    
-    user_data = {attended: attended, not_attended: not_attended}.to_json
-    post :finalize, {id: @pastevent.id, user_data: user_data}, current_user_id: @admin.id
-    assert_redirected_to :event 
+
+    user_data = { attended: attended, not_attended: not_attended }.to_json
+    post :finalize, { id: @pastevent.id, user_data: user_data }, current_user_id: @admin.id
+    assert_redirected_to :event
     assert_not_nil flash[:success]
     assert_match /Event .* was finalized/, flash[:success]
   end
-  
+
   test 'host should be able to finalize event in the past' do
     attended = []
     not_attended = []
@@ -129,10 +129,10 @@ class EventsControllerTest < ActionController::TestCase
         not_attended.push(a.user_id)
       end
     end
-    
-    user_data = {attended: attended, not_attended: not_attended}.to_json
-    post :finalize, {id: @pastevent.id, user_data: user_data}, current_user_id: @pastevent.hosts.first.user_id
-    assert_redirected_to :event 
+
+    user_data = { attended: attended, not_attended: not_attended }.to_json
+    post :finalize, { id: @pastevent.id, user_data: user_data }, current_user_id: @pastevent.hosts.first.user_id
+    assert_redirected_to :event
     assert_not_nil flash[:success]
     assert_match /Event .* was finalized/, flash[:success]
   end
@@ -147,11 +147,11 @@ class EventsControllerTest < ActionController::TestCase
         not_attended.push(a.user_id)
       end
     end
-    
-    user_data = {attended: attended, not_attended: not_attended}.to_json
-    post :finalize, {id: @futureevent.id, user_data: user_data}, current_user_id: @admin.id
+
+    user_data = { attended: attended, not_attended: not_attended }.to_json
+    post :finalize, { id: @futureevent.id, user_data: user_data }, current_user_id: @admin.id
     assert_not @futureevent.past?
-    assert_redirected_to :calendar 
+    assert_redirected_to :calendar
     assert_not_nil flash[:error]
     assert_match /Events can only be finalized after they have ended/, flash[:error]
 
@@ -167,15 +167,15 @@ class EventsControllerTest < ActionController::TestCase
         not_attended.push(a.user_id)
       end
     end
-    
-    user_data = {attended: attended, not_attended: not_attended}.to_json
-    post :finalize, {id: @futureevent.id, user_data: user_data}, current_user_id: @futureevent.hosts.first.user_id
-    assert_redirected_to :calendar 
+
+    user_data = { attended: attended, not_attended: not_attended }.to_json
+    post :finalize, { id: @futureevent.id, user_data: user_data }, current_user_id: @futureevent.hosts.first.user_id
+    assert_redirected_to :calendar
     assert_not_nil flash[:error]
     assert_match /Events can only be finalized after they have ended/, flash[:error]
 
   end
-  
+
   test 'user should not be able to finalize event' do
     attended = []
     not_attended = []
@@ -186,9 +186,9 @@ class EventsControllerTest < ActionController::TestCase
         not_attended.push(a.user_id)
       end
     end
-    
-    user_data = {attended: attended, not_attended: not_attended}.to_json
-    post :finalize, {id: @pastevent.id, user_data: user_data}, current_user_id: @user.id
+
+    user_data = { attended: attended, not_attended: not_attended }.to_json
+    post :finalize, { id: @pastevent.id, user_data: user_data }, current_user_id: @user.id
     assert_redirected_to :calendar
     assert_not_nil flash[:error]
     assert_match /You do not have the required permission to edit this content/, flash[:error]

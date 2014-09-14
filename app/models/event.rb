@@ -22,9 +22,9 @@ class Event < ActiveRecord::Base
   end
 
   def past?
-    return false if self.schedules.last.event_date > DateTime.now.to_date
-    return true if self.schedules.last.event_date < DateTime.now.to_date
-    if self.schedules.last.event_time < DateTime.now.to_time
+    return false if schedules.last.event_date > DateTime.now.to_date
+    return true if schedules.last.event_date < DateTime.now.to_date
+    if schedules.last.event_time < DateTime.now.to_time
       return true
     end
   end
