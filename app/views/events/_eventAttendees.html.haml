@@ -9,19 +9,18 @@
         .finalizing
           .btn.btn-sm.btn-default.submit-finalize.pull-right= "Submit"
           .btn.btn-sm.btn-default.cancel-finalize.pull-right= "Cancel"
-        .not-finalizing
-          .btn.btn-sm.btn-default.finalize.pull-right= "Finalize Event" 
-      %h4 The following users have registered to attend
+        - if event.status != 'finalized'
+          .not-finalizing
+            .btn.btn-sm.btn-default.finalize.pull-right= "Finalize Event"
+      %h4= 'The following users have registered to attend' unless event.status == 'finalized'
+      %h4= 'The following users attended the event' if event.status == 'finalized'
       -attending = event.attendees
       .row
         - attending.each do |attendee|
-          .attending-cell.col-lg-2.col-sm-3.col-xs-4
-            %figure.tint.close-picture{'data-toggle' => 'tooltip', 'data-placement' => 'top', title:  "#{attendee.user.display_name}"}
-              - unless attendee.status == 'noshow'
+          - unless attendee.status == 'noshow'
+            .attending-cell.col-lg-2.col-sm-3.col-xs-4
+              %figure.tint.close-picture{'data-toggle' => 'tooltip', 'data-placement' => 'top', title:  "#{attendee.user.display_name}"}
                 .imagetooltip{'user_data' => attendee.user.id}
-                  = display_picture(attendee.user.id)
-              - if attendee.status == 'noshow'
-                .imagetooltip.notAttend{'user_data' => attendee.user.id}
                   = display_picture(attendee.user.id)
       %h5= "No users registered" if event.attendees.count == 0
 
@@ -56,7 +55,9 @@
     submission_data.attended = attended;
     submission_data.not_attended = not_attended;
     $("#user_data").val(JSON.stringify(submission_data));
-    $("#frmPost").submit();
+    if(confirm('Finalizing an event will make it uneditable.  Are you sure you want to proceed?')){
+      $("#frmPost").submit();
+    }
   });
 
 = form_tag(finalize_path(event), id: 'frmPost', method: :post) do

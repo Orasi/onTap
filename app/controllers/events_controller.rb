@@ -1,7 +1,8 @@
 class EventsController < ApplicationController
   before_action :require_admin_or_host, only: [:new, :edit, :destroy, :update, :create]
   def calendar
-    @events = Event.joins(:schedules).merge(Schedule.where('event_date >= ?', DateTime.now.to_date))
+    #@events = Event.joins(:schedules).merge(Schedule.where('event_date >= ?', DateTime.now.to_date))
+    @events = Event.where(status: nil)
     @events.sort! { |a, b| a.schedules.first.event_date <=> b.schedules.first.event_date }
   end
 
@@ -119,15 +120,18 @@ class EventsController < ApplicationController
 
   def finalize
      @event = Event.find(params[:id])
-     @attended = JSON.parse(params[:user_data])['attended']
-     @not_attended = JSON.parse(params[:user_data])['not_attended']
-     Attendee.where(user_id: @attended, event_id: params[:id]).each do |attendee|
-       attendee.update!(status: 'attended')
+     if @event.event_style.element.class::ATTENDABLE
+       @attended = JSON.parse(params[:user_data])['attended']
+       @not_attended = JSON.parse(params[:user_data])['not_attended']
+       Attendee.where(user_id: @attended, event_id: params[:id]).each do |attendee|
+         attendee.update!(status: 'attended')
+       end
+       Attendee.where(user_id: @not_attended, event_id: params[:id]).each do |attendee|
+         attendee.update!(status: 'noshow')
+       end
      end
-     Attendee.where(user_id: @not_attended, event_id: params[:id]).each do |attendee|
-       attendee.update(status: 'noshow')
-     end
-     redirect_to event_path(@event), flash: { error: "Event \"#{@event.title}\" was finalized" }
+     @event.update!(status: :finalized)
+     redirect_to event_path(@event), flash: { success: "Event \"#{@event.title}\" was finalized" }
   end
   private
 

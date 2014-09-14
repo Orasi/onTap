@@ -1,0 +1,10 @@
+-if event.past? && event.hosting_or_above?(current_user) && event.status != 'finalized'
+  .panel.panel-default
+    .panel-heading 
+      Finalize Event
+    .panel-body
+      .h4 Please confirm event details and finalize event.
+      = form_tag(finalize_path(event), id: 'frmPost', method: :post) do
+        = hidden_field_tag 'user_data'
+        %br
+        = submit_tag "Finalize Event", class: 'btn btn-sm btn-default', confirm: 'Finalizing an event will make it uneditable.  Are you sure you want to proceed?'
