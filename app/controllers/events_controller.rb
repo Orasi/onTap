@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :require_admin_or_host, only: [:new, :edit, :destroy, :update, :create, :finalize]
+  before_action :require_past, only: [:finalize]
   def calendar
     #@events = Event.joins(:schedules).merge(Schedule.where('event_date >= ?', DateTime.now.to_date))
     @events = Event.where(status: nil)
@@ -140,6 +141,12 @@ class EventsController < ApplicationController
       redirect_to :calendar, flash: { error: 'You do not have the required permission to edit this content' } unless current_user.admin || Event.find(params[:id]).hosting_event?(current_user)
     else
       redirect_to :calendar, flash: { error: 'You do not have the required permission to edit this content' } unless current_user.admin
+    end
+  end
+
+  def require_past
+    unless Event.find(params[:id]).past?
+      redirect_to :calendar, flash: { error: 'Events can only be finalized after they have ended' } 
     end
   end
 

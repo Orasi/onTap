@@ -61,6 +61,14 @@ FactoryGirl.define do
     end
   end
   
+  trait :future do
+    after(:create) do |event|
+      event.schedules.each do |s|
+        s.update_attribute(:event_date, (Date.today + 5))
+      end 
+    end
+  end
+
   trait :finalized do 
     status 'finalized'
   end

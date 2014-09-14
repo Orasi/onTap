@@ -1,9 +1,13 @@
 require 'test_helper'
-
+require 'json'
 class EventsControllerTest < ActionController::TestCase
   def setup
     @lunchlearn = FactoryGirl.create(:lunchlearnstyle)
     assert @lunchlearn
+    @pastevent = FactoryGirl.create(:lunchlearnstyle, :past)
+    assert @pastevent
+    @futureevent = FactoryGirl.create(:lunchlearnstyle, :future)
+    assert @futureevent
     @webinar = FactoryGirl.create(:webinarstyle)
     assert @webinar
     @user = FactoryGirl.create(:normal_user)
@@ -96,6 +100,99 @@ class EventsControllerTest < ActionController::TestCase
   test 'should not be able to commit post if not logged in' do
     post :edit, id: @lunchlearn.id
     assert_redirected_to :login
+  end
+
+  test 'admin should be able to finalize event in the past' do
+    attended = []
+    not_attended = []
+    @pastevent.attendees.each do |a|
+      if [true, false].sample
+        attended.push(a.user_id)
+      else
+        not_attended.push(a.user_id)
+      end
+    end
+    
+    user_data = {attended: attended, not_attended: not_attended}.to_json
+    post :finalize, {id: @pastevent.id, user_data: user_data}, current_user_id: @admin.id
+    assert_redirected_to :event 
+    assert_not_nil flash[:success]
+    assert_match /Event .* was finalized/, flash[:success]
+  end
+  
+  test 'host should be able to finalize event in the past' do
+    attended = []
+    not_attended = []
+    @pastevent.attendees.each do |a|
+      if [true, false].sample
+        attended.push(a.user_id)
+      else
+        not_attended.push(a.user_id)
+      end
+    end
+    
+    user_data = {attended: attended, not_attended: not_attended}.to_json
+    post :finalize, {id: @pastevent.id, user_data: user_data}, current_user_id: @pastevent.hosts.first.user_id
+    assert_redirected_to :event 
+    assert_not_nil flash[:success]
+    assert_match /Event .* was finalized/, flash[:success]
+  end
+
+  test 'admin should not be able to finalize future event' do
+    attended = []
+    not_attended = []
+    @futureevent.attendees.each do |a|
+      if [true, false].sample
+        attended.push(a.user_id)
+      else
+        not_attended.push(a.user_id)
+      end
+    end
+    
+    user_data = {attended: attended, not_attended: not_attended}.to_json
+    post :finalize, {id: @futureevent.id, user_data: user_data}, current_user_id: @admin.id
+    assert_not @futureevent.past?
+    assert_redirected_to :calendar 
+    assert_not_nil flash[:error]
+    assert_match /Events can only be finalized after they have ended/, flash[:error]
+
+  end
+
+  test 'host should not be able to finalize future event' do
+    attended = []
+    not_attended = []
+    @futureevent.attendees.each do |a|
+      if [true, false].sample
+        attended.push(a.user_id)
+      else
+        not_attended.push(a.user_id)
+      end
+    end
+    
+    user_data = {attended: attended, not_attended: not_attended}.to_json
+    post :finalize, {id: @futureevent.id, user_data: user_data}, current_user_id: @futureevent.hosts.first.user_id
+    assert_redirected_to :calendar 
+    assert_not_nil flash[:error]
+    assert_match /Events can only be finalized after they have ended/, flash[:error]
+
+  end
+  
+  test 'user should not be able to finalize event' do
+    attended = []
+    not_attended = []
+    @pastevent.attendees.each do |a|
+      if [true, false].sample
+        attended.push(a.user_id)
+      else
+        not_attended.push(a.user_id)
+      end
+    end
+    
+    user_data = {attended: attended, not_attended: not_attended}.to_json
+    post :finalize, {id: @pastevent.id, user_data: user_data}, current_user_id: @user.id
+    assert_redirected_to :calendar
+    assert_not_nil flash[:error]
+    assert_match /You do not have the required permission to edit this content/, flash[:error]
   end
 
   # views
