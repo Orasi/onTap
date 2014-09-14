@@ -3,9 +3,10 @@ require 'test_helper'
 class AttendeesControllerTest < ActionController::TestCase
   def setup
     @restricted_event = FactoryGirl.create(:lunchlearnstyle, :restricted)
-    @past_restricted_event = FactoryGirl.create(:lunchlearnstyle, :restricted, :past)
+    @finalized_restricted_event = FactoryGirl.create(:lunchlearnstyle, :restricted, :past, :finalized)
     @lunchlearn = FactoryGirl.create(:lunchlearnstyle)
     @past_event = FactoryGirl.create(:lunchlearnstyle, :past)
+    @finalized_event = FactoryGirl.create(:lunchlearnstyle, :past, :finalized)
     @user = FactoryGirl.create(:normal_user)
     @admin = FactoryGirl.create(:admin_user)
     @request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
@@ -121,13 +122,12 @@ class AttendeesControllerTest < ActionController::TestCase
     assert_equal flash[:success], 'John Smith is now attending the event: some title!'
   end
 
-  test 'admin should be not able to approve past event' do
-    skip
-    get :change, { id: @past_restricted_event.id }, current_user_id: @user.id
+  test 'admin should be not able to approve finalized restricted event' do
+    get :change, { id:     @finalized_restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
-    assert_not Request.where(user_id: @user.id, event_id: @past_restricted_event.id).blank?
-    get :approve_attend, { id: Request.find_by(user_id: @user.id, event_id: @past_restricted_event.id).id }, current_user_id: @admin.id
+    assert_not Request.where(user_id: @user.id, event_id:     @finalized_restricted_event.id).blank?
+    get :approve_attend, { id: Request.find_by(user_id: @user.id, event_id:     @finalized_restricted_event.id).id }, current_user_id: @admin.id
     assert_not_nil flash[:error]
     assert_equal flash[:error], 'some title is in the archive.'
   end
@@ -142,9 +142,8 @@ class AttendeesControllerTest < ActionController::TestCase
     assert_equal flash[:success], 'John Smith has been rejected from attending event: some title!'
   end
 
-  test 'user should not be able to attend past event' do
-    skip
-    get :change, { id: @past_event }, current_user_id: @user.id
+  test 'user should not be able to attend finalized event' do
+    get :change, { id: @finalized_event }, current_user_id: @user.id
     assert_not_nil flash[:error]
     assert_equal flash[:error], 'some title is in the archive.'
   end

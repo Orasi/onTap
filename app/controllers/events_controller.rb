@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :require_admin_or_host, only: [:new, :edit, :destroy, :update, :create]
+  before_action :require_admin_or_host, only: [:new, :edit, :destroy, :update, :create, :finalize]
   def calendar
     #@events = Event.joins(:schedules).merge(Schedule.where('event_date >= ?', DateTime.now.to_date))
     @events = Event.where(status: nil)

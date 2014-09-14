@@ -25,7 +25,6 @@
       %h5= "No users registered" if event.attendees.count == 0
 
 :javascript
-  var clicked = false;
   $(".finalize").bind('click', function(){
     $(".imagetooltip").addClass("didAttend");
     $(".not-finalizing").fadeOut('slow', function(){
