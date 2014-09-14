@@ -11,7 +11,7 @@ class Attendee < ActiveRecord::Base
     #    errors.add(:event_date, "#{event.title} is already in the archive")
     #  end
     #end
-    if event.status === :finalized
+    if self.status === 'finalized'
       unless user.check_if_admin?
         errors.add(:event_date, "#{event.title} is already in the archive")
       end

@@ -1,6 +1,6 @@
 .jumbotron
   .jumbo-header
-    - if event.attendees.exists?(user_id: session[:current_user_id]) && !event.past?
+    - if event.attending_event?(current_user) && !event.past?
       .well.well-sm.well-success
         %strong You are attending this event
         = "  -  No longer attending?"

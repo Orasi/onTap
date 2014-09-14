@@ -18,6 +18,7 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should get calendar if user logged on' do
+    skip
     get :calendar, {}, current_user_id: @user.id
     assert_response :success
   end
