@@ -1,7 +1,5 @@
-
 -@event.event_style.element.class::VIEWS.each do |view|
-  = render partial: ('event'+view), locals: {event: @event}     
-           
+  = render partial: ('event'+view), locals: {event: @event}  
 = "Event Details will be displayed for event attendees" if !@event.attending_or_above?(current_user) && @event.event_style.element.class::ATTENDABLE
 :javascript
   $('.close-picture').tooltip() 

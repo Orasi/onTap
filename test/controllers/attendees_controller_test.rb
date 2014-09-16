@@ -3,7 +3,10 @@ require 'test_helper'
 class AttendeesControllerTest < ActionController::TestCase
   def setup
     @restricted_event = FactoryGirl.create(:lunchlearnstyle, :restricted)
+    @finalized_restricted_event = FactoryGirl.create(:lunchlearnstyle, :restricted, :past, :finalized)
     @lunchlearn = FactoryGirl.create(:lunchlearnstyle)
+    @past_event = FactoryGirl.create(:lunchlearnstyle, :past)
+    @finalized_event = FactoryGirl.create(:lunchlearnstyle, :past, :finalized)
     @user = FactoryGirl.create(:normal_user)
     @admin = FactoryGirl.create(:admin_user)
     @request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
@@ -40,28 +43,26 @@ class AttendeesControllerTest < ActionController::TestCase
   end
 
   test 'Base user should destroy request if cancel request was selected' do
-    skip
     get :change, { id: @restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
     assert_not Request.where(user_id: @user.id, event_id: @restricted_event.id).blank?
     flash.delete(:success)
     get :change, { id: @restricted_event.id }, current_user_id: @user.id
-    assert_not_nil flash[:success]
-    assert_match /Cancelled request to attend/, flash[:success]
+    assert_not_nil flash[:error]
+    assert_match /Cancelled request to attend/, flash[:error]
     assert Request.where(user_id: @user.id, event_id: @restricted_event.id).blank?
   end
 
   test 'admin should destroy request if cancel request was selected' do
-    skip
     get :change, { id: @restricted_event.id }, current_user_id: @admin.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
     assert_not Request.where(user_id: @admin.id, event_id: @restricted_event.id).blank?
     flash.delete(:success)
     get :change, { id: @restricted_event.id }, current_user_id: @admin.id
-    assert_not_nil flash[:success]
-    assert_match /Cancelled request to attend/, flash[:success]
+    assert_not_nil flash[:error]
+    assert_match /Cancelled request to attend/, flash[:error]
     assert Request.where(user_id: @admin.id, event_id: @restricted_event.id).blank?
   end
 
@@ -109,6 +110,42 @@ class AttendeesControllerTest < ActionController::TestCase
     assert_not_nil flash[:error]
     assert_match /no longer attending the event/, flash[:error]
     assert Attendee.where(user_id: @admin.id, event_id: @lunchlearn.id).blank?
+  end
+
+  test 'admin should be able to approve requeset' do
+    get :change, { id: @restricted_event.id }, current_user_id: @user.id
+    assert_not_nil flash[:success]
+    assert_match /request has been sent/, flash[:success]
+    assert_not Request.where(user_id: @user.id, event_id: @restricted_event.id).blank?
+    get :approve_attend, { id: Request.find_by(user_id: @user.id, event_id: @restricted_event.id).id }, current_user_id: @admin.id
+    assert_not_nil flash[:success]
+    assert_equal flash[:success], 'John Smith is now attending the event: some title!'
+  end
+
+  test 'admin should be not able to approve finalized restricted event' do
+    get :change, { id:     @finalized_restricted_event.id }, current_user_id: @user.id
+    assert_not_nil flash[:success]
+    assert_match /request has been sent/, flash[:success]
+    assert_not Request.where(user_id: @user.id, event_id:     @finalized_restricted_event.id).blank?
+    get :approve_attend, { id: Request.find_by(user_id: @user.id, event_id:     @finalized_restricted_event.id).id }, current_user_id: @admin.id
+    assert_not_nil flash[:error]
+    assert_equal flash[:error], 'some title is in the archive.'
+  end
+
+  test 'admin should be able to reject request' do
+    get :change, { id: @restricted_event.id }, current_user_id: @user.id
+    assert_not_nil flash[:success]
+    assert_match /request has been sent/, flash[:success]
+    assert_not Request.where(user_id: @user.id, event_id: @restricted_event.id).blank?
+    get :reject_attend, { id: Request.find_by(user_id: @user.id, event_id: @restricted_event.id).id }, current_user_id: @admin.id
+    assert_not_nil flash[:success]
+    assert_equal flash[:success], 'John Smith has been rejected from attending event: some title!'
+  end
+
+  test 'user should not be able to attend finalized event' do
+    get :change, { id: @finalized_event }, current_user_id: @user.id
+    assert_not_nil flash[:error]
+    assert_equal flash[:error], 'some title is in the archive.'
   end
 
   # TEST FOR MANAGER/ADMIN APPROVAL/REJECTION

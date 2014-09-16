@@ -48,6 +48,10 @@ FactoryGirl.define do
       after(:build) { |event| event.build_event_style(element: Lunchlearn.find(create(:lunchlearn).id)) }
     end
 
+    factory :webinarstyle do
+      after(:build) { |event| event.build_event_style(element: Webinar.find(create(:webinar).id)) }
+    end
+
   end
   trait :past do
     after(:create) do |event|
@@ -55,6 +59,18 @@ FactoryGirl.define do
         s.update_attribute(:event_date, (Date.today - 5))
       end
     end
+  end
+
+  trait :future do
+    after(:create) do |event|
+      event.schedules.each do |s|
+        s.update_attribute(:event_date, (Date.today + 5))
+      end
+    end
+  end
+
+  trait :finalized do
+    status 'finalized'
   end
 
   trait :restricted do
@@ -68,6 +84,9 @@ FactoryGirl.define do
     go_to_meeting_url 'https://somecompany.com/meeting'
   end
 
+  factory :webinar do
+    url 'https://www.google.com'
+  end
   # ***********************Suggestion Factory **************************
   factory :suggestion do
     suggestion_title 'some suggestion title'

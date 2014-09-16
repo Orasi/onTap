@@ -2,12 +2,16 @@ class WelcomeController < ApplicationController
   skip_before_action :require_login, only: [:validate, :login]
 
   def login
-    unless session[:current_user_id].blank?
+    if current_user
       redirect_to :calendar
     end
   end
 
   def validate
+    if params[:login][:username].blank? || params[:login][:password].blank?
+      redirect_to :login, flash: { error: 'Invalid username or password' }
+      return
+    end
     @user = User.find_or_create(params[:login][:username].downcase)
     unless @user.validate_against_ad(params[:login][:password])
       redirect_to :login, flash: { error: 'Invalid username or password' }
@@ -27,11 +31,5 @@ class WelcomeController < ApplicationController
   def logout
     @_current_user = session[:current_user_id] = nil
     redirect_to :login, flash: { error:  'Logged Out' }
-  end
-
-  private
-
-  def login_params
-    params.require(:login).permit(:username, :password, :photo, :email)
   end
 end

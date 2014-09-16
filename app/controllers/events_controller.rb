@@ -1,7 +1,9 @@
 class EventsController < ApplicationController
-  before_action :require_admin_or_host, only: [:new, :edit, :destroy]
+  before_action :require_admin_or_host, only: [:new, :edit, :destroy, :update, :create, :finalize]
+  before_action :require_past, only: [:finalize]
   def calendar
-    @events = Event.joins(:schedules).merge(Schedule.where('event_date >= ?', DateTime.now.to_date))
+    # @events = Event.joins(:schedules).merge(Schedule.where('event_date >= ?', DateTime.now.to_date))
+    @events = Event.where(status: nil)
     @events.sort! { |a, b| a.schedules.first.event_date <=> b.schedules.first.event_date }
   end
 
@@ -87,7 +89,7 @@ class EventsController < ApplicationController
     @schedule = @event.schedules.new(schedule_params)
     unless @schedule.save
       @event.destroy
-      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created" }
+      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated" }
       return
     end
 
@@ -116,6 +118,22 @@ class EventsController < ApplicationController
     Event.find(params[:id]).destroy
     redirect_to :calendar, flash: { error: "Event \"#{oldEventTitle}\" was deleted" }
   end
+
+  def finalize
+    @event = Event.find(params[:id])
+    if @event.event_style.element.class::ATTENDABLE
+      @attended = JSON.parse(params[:user_data])['attended']
+      @not_attended = JSON.parse(params[:user_data])['not_attended']
+      Attendee.where(user_id: @attended, event_id: params[:id]).each do |attendee|
+        attendee.update!(status: 'attended')
+      end
+      Attendee.where(user_id: @not_attended, event_id: params[:id]).each do |attendee|
+        attendee.update!(status: 'noshow')
+      end
+    end
+    @event.update!(status: :finalized)
+    redirect_to event_path(@event), flash: { success: "Event \"#{@event.title}\" was finalized" }
+  end
   private
 
   def require_admin_or_host
@@ -123,6 +141,12 @@ class EventsController < ApplicationController
       redirect_to :calendar, flash: { error: 'You do not have the required permission to edit this content' } unless current_user.admin || Event.find(params[:id]).hosting_event?(current_user)
     else
       redirect_to :calendar, flash: { error: 'You do not have the required permission to edit this content' } unless current_user.admin
+    end
+  end
+
+  def require_past
+    unless Event.find(params[:id]).past?
+      redirect_to :calendar, flash: { error: 'Events can only be finalized after they have ended' }
     end
   end
 

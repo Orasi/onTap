@@ -28,8 +28,8 @@ class AttendeeTest < ActiveSupport::TestCase
     assert_equal 0, Attendee.where(event_id: event_id).count
   end
 
-  test 'should not be able to attend past event' do
-    event = FactoryGirl.create(:lunchlearnstyle, :past)
+  test 'should not be able to attend finalized event' do
+    event = FactoryGirl.create(:lunchlearnstyle, :past, :finalized)
     attend =  event.attendees.new(user_id: @user.id)
     assert_not attend.save
   end

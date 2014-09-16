@@ -1,4 +1,4 @@
-
+- @events.delete_if { |event| event.past? && !event.hosting_or_above?(current_user)}
 -get_flash_for_user
 
 -if @events.count != 0
@@ -10,7 +10,8 @@
   #accordion
     -@events.each do |event|
       %h5
-        =event.title
+        .title
+          =event.title
         %small
           -if event.hosts.count != 0
             = "Hosted by  #{event.hosts.collect{|host| host.user.display_name}.join(" and ")}   -    " unless event.hosts.first.external
@@ -19,11 +20,17 @@
             = "#{ event.schedules.first.event_date.to_date.strftime("%B %d, %Y") + " at " + event.schedules.first.event_time.strftime("%I:%M %p") + (event.schedules.first.end_time.blank? ? "" : " to " +event.schedules.first.end_time.strftime("%I:%M %p"))}"
           .pull-right= event.event_style.display_name.titleize.sub("_", " ")
       %div
-        - if event.attending_event?(current_user)
+        - if event.attending_event?(current_user) && !event.past?
           .well.well-sm.well-success
             %strong You are attending this event
             = "  -  No longer attending?"
             = link_to  "Don't Attend" , attendee_path(event)
+        - if event.past? && event.hosting_or_above?(current_user)
+          .well.well-sm.well-warning
+            %strong This event has ended
+            = "  -  Please finalize event  -  "
+            = link_to  "Finalize" , event_path(event)
+        
         = event.description
         %br
         - if event.type.class::ATTENDABLE

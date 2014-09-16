@@ -59,7 +59,17 @@ h1 {
      	color: #D3CDCD;
      }
 }
+.ui-icon-triangle-1-s{
+	color: #ffffff;
+}
 .ui-state-hover{
+	color: #ffffff;
+	background: #2d6ca2;
+  small{
+     	color: #D3CDCD;
+     }	
+}
+.ui-state-focus{
 	color: #ffffff;
 	background: #2d6ca2;
   small{
@@ -102,6 +112,16 @@ h1 {
     border-color: #b2dba1;
     color: #3c763d;
     margin-top: 10px;
+}
+.well-warning{
+    background: #fcf8e3;
+    border-color: #8a6d3b;
+    color: #8a6d3b;
+    margin-top: 10px;
+    a{
+        color: #000000;
+	margin-top: 10px;
+    }
 }
 .attending-cell{
     display: table-cell;

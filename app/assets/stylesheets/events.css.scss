@@ -1,3 +1,18 @@
 // Place all the styles related to the Events controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.didAttend {
+	border-style: solid;
+	border-color: green;
+    }
+.notAttend{
+	border-style: solid;
+        border-color: red;
+}
+.finalizing{
+	display:none;
+}
+.submit-finalize{
+        margin-left: 10px;
+}

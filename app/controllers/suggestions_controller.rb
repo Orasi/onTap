@@ -30,8 +30,11 @@ class SuggestionsController < ApplicationController
   def update
     @suggestion = Suggestion.find(params[:id])
     @suggestion.update_attributes(suggestion_params)
-    @suggestion.save
-    redirect_to suggestion_path(@suggestion), flash: { success: "Suggestion \"#{@suggestion.suggestion_title}\" was updated" }
+    if @suggestion.save
+      redirect_to :calendar, flash: { success: "Suggestion \"#{@suggestion.suggestion_title}\" was updated" }
+    else
+      redirect_to :calendar, flash: { error: "Suggestion \"#{@suggestion.suggestion_title}\" was not updated" }
+    end
   end
 
   def destroy

@@ -11,7 +11,7 @@ User.create(username: 'company.admin', first_name: 'company', last_name: 'admin'
   User.create(username: usernames, first_name: first_names, last_name: last_names, email: usernames + '@orasi.com', admin: false, photo: nil,)
 end
 
-event_types = %w(lunch_and_learn webinar training_class)
+event_types = %w(lunch_and_learn webinar)
 40.times do
   random_start = rand(-1.years..1.years).ago
   while random_start.hour > 16
@@ -56,7 +56,13 @@ Event.all.each do |l|
     user_id = rand(1..User.all.count)
     unless l.attending_event?(User.find(user_id))
       l.attendees.create(user_id: rand(1..User.all.count))
+      if l.past?
+        l.update(status: %w(attended noshow).sample)
+      end
     end
   end
 
+  if l.past?
+    l.update(status: 'finalized')
+  end
 end
