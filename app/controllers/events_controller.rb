@@ -126,6 +126,7 @@ class EventsController < ApplicationController
       @not_attended = JSON.parse(params[:user_data])['not_attended']
       Attendee.where(user_id: @attended, event_id: params[:id]).each do |attendee|
         attendee.update!(status: 'attended')
+        Survey.create_survey_notification(attendee.user_id, @event.id)
       end
       Attendee.where(user_id: @not_attended, event_id: params[:id]).each do |attendee|
         attendee.update!(status: 'noshow')

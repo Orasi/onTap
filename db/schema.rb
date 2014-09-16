@@ -56,13 +56,13 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.string   "element_type"
   end
 
-  create_table 'events', force: true do |t|
-    t.datetime 'created_at'
-    t.datetime 'updated_at'
-    t.string 'title'
-    t.string 'description'
-    t.boolean 'restricted'
-    t.string 'status'
+  create_table "events", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+    t.string   "description"
+    t.boolean  "restricted"
+    t.string   "status"
   end
 
   create_table "hosts", force: true do |t|
