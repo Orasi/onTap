@@ -15,7 +15,6 @@ class SurveysController < ApplicationController
     end
     Notification.find_by(event_id: @survey.event_id, user_id: @survey.user_id).destroy
     redirect_to :calendar, flash: { success: "Event survey was submitted" }
-
   end
 
   def survey_params
