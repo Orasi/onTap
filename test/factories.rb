@@ -94,5 +94,15 @@ FactoryGirl.define do
     after(:build) { |suggestion| suggestion.user_id = create(:normal_user).id }
   end
 
-
+  # ***********************Surveys Factory **************************
+  factory :survey do
+    went_well 'something went well'
+    improved 'something could be improved on'
+    host_knowledge 5
+    host_presentation 5
+    effect 'effect work in some way'
+    extra 'some extra response'
+    after(:build) { |survey| survey.user_id = create(:normal_user).id }  
+    after(:build) { |survey| survey.event_id = create(:lunchlearnstyle, :restricted).id }  
+  end
 end
