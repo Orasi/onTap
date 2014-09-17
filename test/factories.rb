@@ -94,4 +94,5 @@ FactoryGirl.define do
     after(:build) { |suggestion| suggestion.user_id = create(:normal_user).id }
   end
 
+
 end

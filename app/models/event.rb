@@ -31,7 +31,6 @@ class Event < ActiveRecord::Base
   def attend_button_text(user)
     if attending_event?(user)
       return "Don't Attend"
-
     elsif restricted && notifications.exists?(user_id: user.id)
       return 'Cancel Request'
     elsif restricted
