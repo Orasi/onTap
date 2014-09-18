@@ -1,6 +1,5 @@
 =@survey.event_id
 = form_for @survey, html: {class: "form-horizontal", role: "form"} do |f|
-  =f.hidden_field :event_id, value: @survey.event_id
   %div.form_group
     =f.label "What went well with the event?", nil, class: "control-label"
     =f.text_field :went_well, value: @survey.went_well, class: "form-control", required: true

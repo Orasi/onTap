@@ -7,7 +7,7 @@
         Survey from
         =User.find(survey.user_id).display_name
       -elsif Event.find(survey.event_id).hosting_event?
-        something
+        Survey
     %div
       %strong What went well with the event?<br>
       %p2= survey.went_well

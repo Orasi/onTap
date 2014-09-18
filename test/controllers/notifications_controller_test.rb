@@ -28,6 +28,17 @@ class NotificationsControllerTest < ActionController::TestCase
     assert Notification.where(user_id: @user.id, event_id: eventid, status: "rejected").blank?
   end
 
+  test 'User should not be able to delete another users notifications'
+  end
+
+  test 'Admin should be able to delete another users request'
+  end
+
+  test 'Survey notification should not be removable if survey not complete'
+  end
+
+
+
 #  test 'Users should see survey notifications' do
 
  # end

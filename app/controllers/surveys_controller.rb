@@ -1,4 +1,6 @@
 class SurveysController < ApplicationController
+  before_action :survey_required_for_user, only: [:new]
+
   def index
     @surveys = Survey.where(event_id:  params[:id])
   end
@@ -19,5 +21,12 @@ class SurveysController < ApplicationController
 
   def survey_params
     params.require(:survey).permit(:went_well, :improved, :host_knowledge, :host_presentation, :effect, :extra, :event_id)
+  end
+
+  private
+  def survey_required_for_user
+    if Notification.where(user_id: session[:current_user_id], event_id: params[:event_id], notification_type: "survey").blank?
+      redirect_to :calendar, flash: { error: 'No survey for you to take for this event' }  
+    end
   end
 end
