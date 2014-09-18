@@ -1,7 +1,34 @@
 require 'test_helper'
 
 class NotificationsControllerTest < ActionController::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  def setup
+    @user = FactoryGirl.create(:normal_user)
+    @admin = FactoryGirl.create(:admin_user)
+    @newnotification = FactoryGirl.create(:notification, :new, :attendancenotification)
+    @acceptednotification = FactoryGirl.create(:notification, :approved, :attendancenotification)
+    @rejectednotification = FactoryGirl.create(:notification, :rejected, :attendancenotification)
+    @surveynotification = FactoryGirl.create(:notification, :new, :surveynotification)
+    @request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
+  end
+
+
+  test 'User should be able to delete accepted attendance request' do
+    @acceptednotification.update_attribute(:user_id, @user.id)
+    eventid=@acceptednotification.event_id
+    assert_not Notification.where(user_id: @user.id, event_id: eventid, status: "approved").blank?
+    delete :destroy, { id: @acceptednotification.id }, current_user_id: @user.id
+    assert Notification.where(user_id: @user.id, event_id: eventid, status: "approved").blank?
+  end
+
+  test 'User should be able to delete rejected attendance request' do
+    @rejectednotification.update_attribute(:user_id, @user.id)
+    eventid=@rejectednotification.event_id
+    assert_not Notification.where(user_id: @user.id, event_id: eventid, status: "rejected").blank?
+    delete :destroy, { id: @rejectednotification.id }, current_user_id: @user.id
+    assert Notification.where(user_id: @user.id, event_id: eventid, status: "rejected").blank?
+  end
+
+#  test 'Users should see survey notifications' do
+
+ # end
 end
