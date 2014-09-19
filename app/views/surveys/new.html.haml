@@ -1,4 +1,5 @@
-=@survey.event_id
+.title.h1
+  =Event.find(@survey.event_id).title
 = form_for @survey, html: {class: "form-horizontal", role: "form"} do |f|
   =f.hidden_field :event_id, value: @survey.event_id
   %div.form_group
