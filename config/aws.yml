@@ -1,7 +1,7 @@
 # config/aws.yml
 defaults: &defaults
   access_key_id: "AKIAJQ2M5RN5VB67QCWQ"
-  secret_access_key: "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"
+  secret_access_key: ""
 development:
   <<: *defaults
   bucket: "orasitest"
