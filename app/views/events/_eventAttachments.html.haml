@@ -26,7 +26,7 @@
         %ul
         - event.attachments.each do |attachment|
           %li
-            = link_to (attachment.title.blank? ? attachment.file_file_name : attachment.title), attachment.file.url
+            = link_to (attachment.title.blank? ? attachment.file_file_name : attachment.title), download_path(attachment)
             - if event.hosting_event?( current_user ) || admin?
               .btn.btn-default.btn-xs= link_to "Delete", attachment_path(attachment), method: :delete 
   :javascript
