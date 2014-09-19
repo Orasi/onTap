@@ -75,3 +75,5 @@ gem 'faker'
 gem "factory_girl_rails", "~> 4.0"
 gem 'validates_timeliness'
 gem 'capistrano-rvm'
+gem 'aws-sdk'
+gem 's3_direct_upload'

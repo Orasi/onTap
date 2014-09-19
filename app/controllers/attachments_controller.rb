@@ -16,6 +16,11 @@ class AttachmentsController < ApplicationController
     flash[:error] = title + ' deleted from event'
     redirect_to (:back)
   end
+
+  def download
+        redirect_to Attachment.find(params[:id]).file.expiring_url(10)
+  end
+
   private
 
   def attach_params

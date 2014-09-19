@@ -7,6 +7,7 @@ LunchLearn::Application.routes.draw do
   resources :suggestions
   resources :archive
   resources :attachments
+  get '/download/:id' => 'attachments#download', as: :download
 
   resources :requests
   post '/finalize/:id' => 'events#finalize', as: :finalize
