@@ -1,5 +1,6 @@
 # config/aws.yml
 defaults: &defaults
+<<<<<<< HEAD
   access_key_id: ""
   secret_access_key: ""
 staging:
