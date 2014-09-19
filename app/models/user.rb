@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, presence: true
   validates_inclusion_of :admin, in: [true, false]
   has_many :suggestions
+  has_many :surveys
 
   def display_name
     first_name.capitalize + ' ' + last_name.capitalize

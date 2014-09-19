@@ -94,4 +94,55 @@ FactoryGirl.define do
     after(:build) { |suggestion| suggestion.user_id = create(:normal_user).id }
   end
 
+  # ***********************Surveys Factory **************************
+  factory :survey do
+    went_well 'something went well'
+    improved 'something could be improved on'
+    host_knowledge 5
+    host_presentation 5
+    effect 'effect work in some way'
+    extra 'some extra response'
+    after(:build) { |survey| survey.user_id = create(:normal_user).id }  
+    after(:build) { |survey| survey.event_id = create(:lunchlearnstyle, :restricted).id }  
+  end
+
+  # ***********************Notifications Factory **************************
+  factory :notification do
+    status "new"
+    notification_type "attendance"
+    after(:build) { |notification| notification.user_id = create(:normal_user).id }  
+    after(:build) { |notification| notification.manager_id = create(:host_user).id } 
+    after(:build) { |notification| notification.event_id = create(:lunchlearnstyle, :restricted).id }  
+
+    trait :new do
+      after(:create) do |notification|
+        notification.update_attribute(:status, "new")        
+      end
+    end
+
+    trait :approved do
+      after(:create) do |notification|
+        notification.update_attribute(:status, "approved")        
+      end
+    end
+
+    trait :rejected do
+      after(:create) do |notification|
+        notification.update_attribute(:status, "rejected")        
+      end
+    end
+
+    trait :surveynotification do
+      after(:create) do |notification|
+        notification.update_attribute(:notification_type, "survey")        
+      end
+    end
+
+    trait :attendancenotification do
+      after(:create) do |notification|
+        notification.update_attribute(:notification_type, "attendance")        
+      end
+    end
+
+  end
 end
