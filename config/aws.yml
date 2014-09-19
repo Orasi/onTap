@@ -1,8 +1,8 @@
 # config/aws.yml
 defaults: &defaults
-<<<<<<< HEAD
-  access_key_id: ""
-  secret_access_key: ""
+
+  access_key_id: "124"
+  secret_access_key: "1234"
 staging:
   access_key_id: <%=ENV["AWS_ACCESS_KEY_ID"]%>
   secret_access_key: <%=ENV["AWS_SECRET_ACCESS_KEY"]%>
@@ -10,6 +10,10 @@ staging:
 development:
   <<: *defaults
   bucket: "myapp-test"
+test:
+  <<: *defaults
+  bucket: "myapp-test"
+
 production:
   access_key_id: <%=ENV["AWS_ACCESS_KEY_ID"]%>
   secret_access_key: <%=ENV["AWS_SECRET_ACCESS_KEY"]%>
