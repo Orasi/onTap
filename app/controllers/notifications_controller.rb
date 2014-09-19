@@ -25,7 +25,7 @@ class NotificationsController < ApplicationController
   end
 
   def admin_or_owner
-    if session[:current_user_id] != Notification.find(params[:id]).user_id && !User.find(Notification.find(params[:id]).user_id).check_if_admin?
+    if (session[:current_user_id] != Notification.find(params[:id]).user_id) && !(User.find(session[:current_user_id]).check_if_admin?)
       redirect_to :calendar, flash: { error: 'Must be notification owner or admin to remove notification' }  
     end
   end

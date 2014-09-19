@@ -9,6 +9,7 @@ class NotificationsControllerTest < ActionController::TestCase
     @acceptednotification = FactoryGirl.create(:notification, :approved, :attendancenotification)
     @rejectednotification = FactoryGirl.create(:notification, :rejected, :attendancenotification)
     @surveynotification = FactoryGirl.create(:notification, :new, :surveynotification)
+    @survey = FactoryGirl.create(:survey)
     @request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
   end
 
@@ -47,9 +48,20 @@ class NotificationsControllerTest < ActionController::TestCase
   end
 
   test 'Survey notification should not be removable if survey not complete' do
+    @surveynotification.update_attribute(:user_id, @user.id)
+    eventid=@surveynotification.event_id
+    assert_not Notification.where(user_id: @user.id, event_id: eventid, notification_type: "survey").blank?
+    delete :destroy, { id: @surveynotification.id }, current_user_id: @admin.id
+    assert_not Notification.where(user_id: @user.id, event_id: eventid, notification_type: "survey").blank?
   end
 
   test 'Survey notification should be removable if survey is complete' do
+    @surveynotification.update_attribute(:user_id, @user.id)
+    eventid=@surveynotification.event_id
+    assert_not Notification.where(user_id: @user.id, event_id: eventid, notification_type: "survey").blank?
+    @survey.update_attributes(:user_id => @user.id, :event_id => eventid)
+    delete :destroy, { id: @surveynotification.id }, current_user_id: @admin.id
+    assert Notification.where(user_id: @user.id, event_id: eventid, notification_type: "survey").blank?
   end
 
 #  test 'Users should see survey notifications' do
