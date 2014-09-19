@@ -1,7 +1,7 @@
 # config/aws.yml
 defaults: &defaults
 
-  access_key_id: "124"
+  access_key_id: "123"
   secret_access_key: "1234"
 staging:
   access_key_id: <%=ENV["AWS_ACCESS_KEY_ID"]%>
@@ -9,7 +9,7 @@ staging:
   bucket: "orasitest"
 development:
   <<: *defaults
-  bucket: "myapp-test"
+  bucket: "orasitest"
 test:
   <<: *defaults
   bucket: "myapp-test"
