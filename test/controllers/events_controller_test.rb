@@ -14,6 +14,14 @@ class EventsControllerTest < ActionController::TestCase
     assert @user
     @admin = FactoryGirl.create(:admin_user)
     assert @admin
+    @newnotification = FactoryGirl.create(:notification, :new, :attendancenotification)
+    assert @newnotification
+    @acceptednotification = FactoryGirl.create(:notification, :approved, :attendancenotification)
+    assert @acceptednotification
+    @rejectednotification = FactoryGirl.create(:notification, :rejected, :attendancenotification)
+    assert @rejectednotification
+    @surveynotification = FactoryGirl.create(:notification, :new, :surveynotification)
+    assert @surveynotification
   end
 
   test 'should not get calendar if user not logged in' do
@@ -401,7 +409,33 @@ class EventsControllerTest < ActionController::TestCase
     delete :destroy, { id: @lunchlearn.id }, current_user_id: @admin.id
     assert_not_nil flash[:error]
     assert_equal flash[:error], "Event \"some title\" was deleted"
+  end
 
+  test 'Admins should see new attendance notifications' do
+    get :calendar, {}, current_user_id: @admin.id
+    assert_not_nil flash[:success]
+    assert_match /is requesting to attend/, flash[:success]
+  end
+
+  test 'Users should see accepted attendance notifications' do
+    @acceptednotification.update_attribute(:user_id, @user.id)
+    get :calendar, {}, current_user_id: @user.id
+    assert_not_nil flash[:success]
+    assert_match /has approved your request to attend event/, flash[:success]
+  end
+
+  test 'Users should see rejected attendance notifications' do
+    @rejectednotification.update_attribute(:user_id, @user.id)
+    get :calendar, {}, current_user_id: @user.id
+    assert_not_nil flash[:success]
+    assert_match /has rejected your request to attend event/, flash[:success]
+  end
+
+  test 'Users should see survey notifications' do
+    @surveynotification.update_attribute(:user_id, @user.id)
+    get :calendar, {}, current_user_id: @user.id
+    assert_not_nil flash[:success]
+    assert_match /You have a new survey to take./, flash[:success]
   end
 
   # Need to create factory trait for event with no attendees
