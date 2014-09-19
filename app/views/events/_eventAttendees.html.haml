@@ -3,7 +3,7 @@
     .panel-heading 
       Attendees
       %span.badge
-        = event.attendees.where.not(status: 'noshow').count
+        = event.attendees.where(status: ['attended', nil]).count
     .panel-body
       - if event.hosting_or_above?(current_user) && event.past?
         .finalizing
