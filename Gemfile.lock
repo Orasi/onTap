@@ -258,6 +258,7 @@ DEPENDENCIES
   capistrano-rvm
   coffee-rails (~> 4.0.0)
   coveralls
+  delayed_job
   delayed_job_active_record
   delayed_paperclip
   factory_girl_rails (~> 4.0)

@@ -5,6 +5,16 @@
       %span.badge
         = event.attachments.count
     .panel-body
+      = s3_uploader_form callback_url: create_attachment_url(event), callback_param: "attachment[direct_upload_url]", id: "s3_uploader" do 
+        = file_field_tag :file, multiple: true
+      #uploads_container
+      %script#template-upload{ :type => "text/x-tmpl"}
+        %div{ :id => "upload_{%=o.unique_id%}", :class => "upload"}
+        %h5
+          {%=o.name%}
+        .progress.progress-striped.active
+          .bar{:style => "width: 0%"}
+
       - if event.hosting_event?(current_user) || current_user.admin?
         .form-group
           #add_attachment.btn.btn-default.btn-sm.pull-right
@@ -25,6 +35,7 @@
         The following attachments have been added for this event
         %ul
         - event.attachments.each do |attachment|
+ 
           %li
             = link_to (attachment.title.blank? ? attachment.file_file_name : attachment.title), download_path(attachment)
             - if event.hosting_event?( current_user ) || admin?
@@ -34,3 +45,6 @@
       $("#attachment-panel").fadeToggle();
     });
   
+
+
+

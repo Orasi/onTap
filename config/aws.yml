@@ -1,8 +1,8 @@
 # config/aws.yml
 defaults: &defaults
 
-  access_key_id: "123"
-  secret_access_key: "1234"
+  access_key_id: "AKIAIMCCEJFVGM4UKDQA"
+  secret_access_key: "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"
 staging:
   access_key_id: <%=ENV["AWS_ACCESS_KEY_ID"]%>
   secret_access_key: <%=ENV["AWS_SECRET_ACCESS_KEY"]%>

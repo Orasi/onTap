@@ -7,6 +7,7 @@ LunchLearn::Application.routes.draw do
   resources :suggestions
   resources :archive
   resources :attachments
+  post '/attachment/:event_id' => 'attachments#create', as: :create_attachment
   get '/download/:id' => 'attachments#download', as: :download
 
   resources :notifications

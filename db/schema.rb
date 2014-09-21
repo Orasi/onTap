@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
+    t.string   "direct_upload_url"
+    t.string   "processed"
   end
 
   create_table "attendees", force: true do |t|

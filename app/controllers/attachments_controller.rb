@@ -1,11 +1,18 @@
 class AttachmentsController < ApplicationController
   def create
-    @attachment = Attachment.new(attach_params)
+    event = Event.find(params[:event_id])
+    @attachment = event.attachments.new()
+    @attachment.file_file_name = params[:filename]
+    @attachment.file_content_type = params[:filetype]
+    @attachment.file_file_size = params[:filesize]
+    @attachment.direct_upload_url = params[:attachment][:direct_upload_url]
+
     if @attachment.save
       flash[:success] = 'Attachment Added to Event.'
     else
       flash[:error] = 'Attachment Failed to be added to event.  Errors:  ' + @attachment.errors.full_messages.to_s
     end
+  
     redirect_to (:back)
   end
 
