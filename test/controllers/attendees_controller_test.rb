@@ -32,38 +32,38 @@ class AttendeesControllerTest < ActionController::TestCase
     get :change, { id: @restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
-    assert_not Request.where(user_id: @user.id, event_id: @restricted_event.id).blank?
+    assert_not Notification.where(user_id: @user.id, event_id: @restricted_event.id).blank?
   end
 
   test 'admin should generate request when asking to attend a restricted event' do
     get :change, { id: @restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
-    assert_not Request.where(user_id: @user.id, event_id: @restricted_event.id).blank?
+    assert_not Notification.where(user_id: @user.id, event_id: @restricted_event.id).blank?
   end
 
   test 'Base user should destroy request if cancel request was selected' do
     get :change, { id: @restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
-    assert_not Request.where(user_id: @user.id, event_id: @restricted_event.id).blank?
+    assert_not Notification.where(user_id: @user.id, event_id: @restricted_event.id).blank?
     flash.delete(:success)
     get :change, { id: @restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:error]
     assert_match /Cancelled request to attend/, flash[:error]
-    assert Request.where(user_id: @user.id, event_id: @restricted_event.id).blank?
+    assert Notification.where(user_id: @user.id, event_id: @restricted_event.id).blank?
   end
 
   test 'admin should destroy request if cancel request was selected' do
     get :change, { id: @restricted_event.id }, current_user_id: @admin.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
-    assert_not Request.where(user_id: @admin.id, event_id: @restricted_event.id).blank?
+    assert_not Notification.where(user_id: @admin.id, event_id: @restricted_event.id).blank?
     flash.delete(:success)
     get :change, { id: @restricted_event.id }, current_user_id: @admin.id
     assert_not_nil flash[:error]
     assert_match /Cancelled request to attend/, flash[:error]
-    assert Request.where(user_id: @admin.id, event_id: @restricted_event.id).blank?
+    assert Notification.where(user_id: @admin.id, event_id: @restricted_event.id).blank?
   end
 
   test 'user should be able to attend event' do
@@ -116,8 +116,8 @@ class AttendeesControllerTest < ActionController::TestCase
     get :change, { id: @restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
-    assert_not Request.where(user_id: @user.id, event_id: @restricted_event.id).blank?
-    get :approve_attend, { id: Request.find_by(user_id: @user.id, event_id: @restricted_event.id).id }, current_user_id: @admin.id
+    assert_not Notification.where(user_id: @user.id, event_id: @restricted_event.id).blank?
+    get :approve_attend, { id: Notification.find_by(user_id: @user.id, event_id: @restricted_event.id).id }, current_user_id: @admin.id
     assert_not_nil flash[:success]
     assert_equal flash[:success], 'John Smith is now attending the event: some title!'
   end
@@ -126,8 +126,8 @@ class AttendeesControllerTest < ActionController::TestCase
     get :change, { id:     @finalized_restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
-    assert_not Request.where(user_id: @user.id, event_id:     @finalized_restricted_event.id).blank?
-    get :approve_attend, { id: Request.find_by(user_id: @user.id, event_id:     @finalized_restricted_event.id).id }, current_user_id: @admin.id
+    assert_not Notification.where(user_id: @user.id, event_id:     @finalized_restricted_event.id).blank?
+    get :approve_attend, { id: Notification.find_by(user_id: @user.id, event_id:     @finalized_restricted_event.id).id }, current_user_id: @admin.id
     assert_not_nil flash[:error]
     assert_equal flash[:error], 'some title is in the archive.'
   end
@@ -136,8 +136,8 @@ class AttendeesControllerTest < ActionController::TestCase
     get :change, { id: @restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
-    assert_not Request.where(user_id: @user.id, event_id: @restricted_event.id).blank?
-    get :reject_attend, { id: Request.find_by(user_id: @user.id, event_id: @restricted_event.id).id }, current_user_id: @admin.id
+    assert_not Notification.where(user_id: @user.id, event_id: @restricted_event.id).blank?
+    get :reject_attend, { id: Notification.find_by(user_id: @user.id, event_id: @restricted_event.id).id }, current_user_id: @admin.id
     assert_not_nil flash[:success]
     assert_equal flash[:success], 'John Smith has been rejected from attending event: some title!'
   end

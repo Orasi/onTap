@@ -52,7 +52,7 @@ class EventTest < ActiveSupport::TestCase
   test 'should display correct button text if requested to attend restricted event' do
     event = FactoryGirl.create(:lunchlearnstyle, :restricted)
     user = FactoryGirl.create(:normal_user)
-    event.requests.create(user_id: user.id)
-    assert_equal event.attend_button_text(user), 'Cancel Request'
+    event.notifications.create(user_id: user.id, status: "new", notification_type: "attendance")
+    assert_equal event.attend_button_text(user), "Cancel Request"
   end
 end

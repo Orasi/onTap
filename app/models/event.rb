@@ -4,9 +4,8 @@ class Event < ActiveRecord::Base
   has_many :attendees
   has_many :schedules
   has_many :surveys
-  has_many :attend_requests
   has_many :attachments
-  has_many :requests
+  has_many :notifications
   has_one :event_style
   # has_one :lunchlearns, :through => :event_style, :source => :element, :source_type => 'lunchlearn'
   # has_one :webinars, :through => :event_style, :source => :element, :source_type => 'webinar'
@@ -32,8 +31,7 @@ class Event < ActiveRecord::Base
   def attend_button_text(user)
     if attending_event?(user)
       return "Don't Attend"
-
-    elsif restricted && requests.exists?(user_id: user.id)
+    elsif restricted && notifications.exists?(user_id: user.id)
       return 'Cancel Request'
     elsif restricted
       return 'Request To Attend'

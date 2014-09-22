@@ -8,14 +8,14 @@ class AttendeesController < ApplicationController
     else
 
       if Event.find(params[:id]).restricted
-        if Event.find(params[:id]).requests.exists?(user_id: session[:current_user_id])
-          Event.find(params[:id]).requests.find_by(user_id: session[:current_user_id]).destroy
+        if Event.find(params[:id]).notifications.exists?(user_id: session[:current_user_id])
+          Event.find(params[:id]).notifications.find_by(user_id: session[:current_user_id]).destroy
           flash[:error] = "Cancelled request to attend: #{Event.find(params[:id]).title}!"
           redirect_to (:back)
           return
         else
-          @request = Event.find(params[:id]).requests.create(user_id: session[:current_user_id], status: 'new', notification_type: 'attendance')
-          if @request.save
+          @notification = Event.find(params[:id]).notifications.create(user_id: session[:current_user_id], status: 'new', notification_type: 'attendance')
+          if @notification.save
             flash[:success] = "A request has been sent to attend the event: #{Event.find(params[:id]).title}!"
             redirect_to (:back)
             return
@@ -41,7 +41,7 @@ class AttendeesController < ApplicationController
   end
 
   def approve_attend
-    @notification = Request.find(params[:id])
+    @notification = Notification.find(params[:id])
     @attendee = Event.find(@notification.event_id).attendees.new(user_id: @notification.user_id)
     if @attendee.save
       flash[:success] = "#{User.find(@notification.user_id).display_name} is now attending the event: #{Event.find(@notification.event_id).title}!"
@@ -54,7 +54,7 @@ class AttendeesController < ApplicationController
   end
 
   def reject_attend
-    @notification = Request.find(params[:id])
+    @notification = Notification.find(params[:id])
     @notification.update(status: 'rejected', manager_id: session[:current_user_id])
     flash[:success] = "#{User.find(@notification.user_id).display_name} has been rejected from attending event: #{Event.find(@notification.event_id).title}!"
     redirect_to (:back)
