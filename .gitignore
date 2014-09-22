@@ -21,3 +21,4 @@
 /vendor/assets/*
 !/vendor/assets/fonts
 /public/system/*
+/config/aws.yml
