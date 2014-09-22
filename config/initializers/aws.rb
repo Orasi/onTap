@@ -4,7 +4,7 @@ require 'aws-sdk'
 Rails.configuration.aws = YAML.load(ERB.new(File.read("#{Rails.root}/config/aws.yml")).result)[Rails.env].symbolize_keys!
 AWS.config(logger: Rails.logger)
 AWS.config(Rails.configuration.aws)
- 
+
 # config/initializers/paperclip.rb
 Paperclip::Attachment.default_options.merge!(
   url:                  ':s3_domain_url',
@@ -14,11 +14,11 @@ Paperclip::Attachment.default_options.merge!(
   s3_permissions:       :private,
   s3_protocol:          'https'
 )
- 
-#config/initializers/s3_direct_upload.rb
+
+# config/initializers/s3_direct_upload.rb
 S3DirectUpload.config do |c|
   c.access_key_id     = Rails.configuration.aws[:access_key_id]
   c.secret_access_key = Rails.configuration.aws[:secret_access_key]
   c.bucket            = Rails.configuration.aws[:bucket]
-  c.region            = "s3"
+  c.region            = 's3'
 end

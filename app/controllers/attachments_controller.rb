@@ -1,7 +1,7 @@
 class AttachmentsController < ApplicationController
   def create
     event = Event.find(params[:event_id])
-    @attachment = event.attachments.new()
+    @attachment = event.attachments.new
     @attachment.file_file_name = params[:filename]
     @attachment.file_content_type = params[:filetype]
     @attachment.file_file_size = params[:filesize]
@@ -12,7 +12,7 @@ class AttachmentsController < ApplicationController
     else
       flash[:error] = 'Attachment Failed to be added to event.  Errors:  ' + @attachment.errors.full_messages.to_s
     end
-  
+
     redirect_to (:back)
   end
 
@@ -25,7 +25,7 @@ class AttachmentsController < ApplicationController
   end
 
   def download
-        redirect_to Attachment.find(params[:id]).file.expiring_url(10)
+    redirect_to Attachment.find(params[:id]).file.expiring_url(10)
   end
 
   private

@@ -15,18 +15,17 @@ class NotificationsController < ApplicationController
     redirect_to (:back)
   end
 
-  private 
+  private
 
   def survey_complete
-
-    if Survey.where(user_id: Notification.find(params[:id]).user_id, event_id: Notification.find(params[:id]).event_id).blank? && Notification.find(params[:id]).notification_type == "survey"
-      redirect_to :calendar, flash: { error: 'Survey must be completed before notification may be removed' }      
+    if Survey.where(user_id: Notification.find(params[:id]).user_id, event_id: Notification.find(params[:id]).event_id).blank? && Notification.find(params[:id]).notification_type == 'survey'
+      redirect_to :calendar, flash: { error: 'Survey must be completed before notification may be removed' }
     end
   end
 
   def admin_or_owner
     if (session[:current_user_id] != Notification.find(params[:id]).user_id) && !(User.find(session[:current_user_id]).check_if_admin?)
-      redirect_to :calendar, flash: { error: 'Must be notification owner or admin to remove notification' }  
+      redirect_to :calendar, flash: { error: 'Must be notification owner or admin to remove notification' }
     end
   end
 end

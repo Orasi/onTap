@@ -26,7 +26,7 @@ class Event < ActiveRecord::Base
     if schedules.last.event_time.hour == DateTime.now.to_time.hour
       if schedules.last.event_time.min > DateTime.now.to_time.min
         return true
-      else 
+      else
         return false
       end
     elsif schedules.last.event_time.hour < DateTime.now.to_time.hour
