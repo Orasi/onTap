@@ -74,6 +74,7 @@ GEM
       simplecov (>= 0.7)
       term-ansicolor
       thor
+    daemons (1.1.9)
     delayed_job (4.0.3)
       activesupport (>= 3.0, < 4.2)
     delayed_job_active_record (4.0.2)
@@ -258,6 +259,7 @@ DEPENDENCIES
   capistrano-rvm
   coffee-rails (~> 4.0.0)
   coveralls
+  daemons
   delayed_job
   delayed_job_active_record
   delayed_paperclip
