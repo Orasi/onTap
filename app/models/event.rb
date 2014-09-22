@@ -23,8 +23,16 @@ class Event < ActiveRecord::Base
   def past?
     return false if schedules.last.event_date > DateTime.now.to_date
     return true if schedules.last.event_date < DateTime.now.to_date
-    if schedules.last.event_time < DateTime.now.to_time
+    if schedules.last.event_time.hour == DateTime.now.to_time.hour
+      if schedules.last.event_time.min > DateTime.now.to_time.min
+        return true
+      else 
+        return false
+      end
+    elsif schedules.last.event_time.hour < DateTime.now.to_time.hour
       return true
+    elsif schedules.last.event_time.hour > DateTime.now.to_time.hour
+      return false
     end
   end
 

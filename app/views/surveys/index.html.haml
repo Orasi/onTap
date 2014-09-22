@@ -6,7 +6,7 @@
       -if admin? && !Event.find(survey.event_id).hosting_event?(current_user)
         Survey from
         =User.find(survey.user_id).display_name
-      -elsif Event.find(survey.event_id).hosting_event?
+      -elsif Event.find(survey.event_id).hosting_event?(current_user)
         Survey
     %div
       %strong What went well with the event?<br>
