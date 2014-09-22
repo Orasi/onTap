@@ -14,5 +14,5 @@
  *= require bootstrap-theme.min
  *= require_tree .
  *= require jquery.timepicker.css
- *= require s3_direct_upload_progress_bars
+ *= 
  */

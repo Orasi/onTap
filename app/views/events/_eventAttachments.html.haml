@@ -5,32 +5,19 @@
       %span.badge
         = event.attachments.count
     .panel-body
-      = s3_uploader_form callback_url: create_attachment_url(event), callback_param: "attachment[direct_upload_url]", id: "s3_uploader" do 
-        = file_field_tag :file, multiple: true
-      #uploads_container
-      %script#template-upload{ :type => "text/x-tmpl"}
-        %div{ :id => "upload_{%=o.unique_id%}", :class => "upload"}
-        %h5
-          {%=o.name%}
-        .progress.progress-striped.active
-          .bar{:style => "width: 0%"}
-
       - if event.hosting_event?(current_user) || current_user.admin?
         .form-group
           #add_attachment.btn.btn-default.btn-sm.pull-right
             Add Attachment
         #attachment-panel.well.well-lg
-          = form_for Attachment.new, url: attachments_path, html: {multipart: true} do |f|
-            .form_group
-              = f.label :title, 'Attachment Title:'
-              = f.text_field :title
-            .form_group{style: 'display:inline'}
-              = f.label :file, 'Attachment:'
-              = f.file_field :file
-            = f.hidden_field :event_id, value: event.id
-            .form_group
-              = f.submit  
-  
+          = s3_uploader_form callback_url: create_attachment_url(event), callback_param: "attachment[direct_upload_url]", id: "s3_uploader" do 
+            = file_field_tag :file, multiple: true
+          #uploads_container
+            %script#template-upload{ :type => "text/x-tmpl"}
+              %div{ :id => "upload_{%=o.unique_id%}", :class => "upload"}
+                {%=o.name%}
+                .progress.progress-striped.active
+                  .bar{:style => "width: 0%"}
       %h4 
         The following attachments have been added for this event
         %ul
