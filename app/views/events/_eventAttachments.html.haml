@@ -21,12 +21,16 @@
       %h4 
         The following attachments have been added for this event
         %ul
-        - event.attachments.each do |attachment|
+          - event.attachments.each do |attachment|
  
-          %li
-            = link_to (attachment.title.blank? ? attachment.file_file_name : attachment.title), download_path(attachment)
-            - if event.hosting_event?( current_user ) || admin?
-              .btn.btn-default.btn-xs= link_to "Delete", attachment_path(attachment), method: :delete 
+            %li
+              = link_to (attachment.title.blank? ? attachment.file_file_name : attachment.title), download_path(attachment) unless attachment.processed.nil?
+              -if attachment.processed.nil? 
+                .small
+                  = attachment.title.blank? ? attachment.file_file_name : attachment.title if attachment.processed.nil?
+                  =' is currently pending'
+              - if event.hosting_event?( current_user ) || admin?
+                .btn.btn-default.btn-xs= link_to "Delete", attachment_path(attachment), method: :delete 
   :javascript
     $("#add_attachment").click(function(){
       $("#attachment-panel").fadeToggle();

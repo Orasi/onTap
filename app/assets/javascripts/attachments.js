@@ -15,9 +15,5 @@ $(function() {
     $('#upload_' + content.unique_id).find('.progress').fadeOut('slow', function(){
       $('#upload_' + content.unique_id).append('<span style="color:green" class="glyphicon glyphicon-ok-sign"></span>')
     });
-
-  });
-$('#s3_uploader').bind ("ajax:success", function(e, data){
-
   });
 });
