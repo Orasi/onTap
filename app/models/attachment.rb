@@ -32,7 +32,10 @@ class Attachment < ActiveRecord::Base
 
     s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
   end
-
+ # Queue file processing
+  def queue_processing
+    Attachment.delay.transfer_and_cleanup(id)
+  end
   protected
 
   # Set attachment attributes from the direct upload
@@ -57,8 +60,5 @@ class Attachment < ActiveRecord::Base
     #  end
   end
 
-  # Queue file processing
-  def queue_processing
-    Attachment.delay.transfer_and_cleanup(id)
-  end
+ 
 end
