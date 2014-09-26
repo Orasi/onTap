@@ -1,6 +1,6 @@
 class WeeklyMailer < ActionMailer::Base
   default from: "onTapEvents@orasi.com"
-  default_url_options[:host] = '10.238.242.85:3000'
+  default_url_options[:host] = 'ontap.orasi.com'
 
   def weekly_mailer(users)
     @weeks_events = Event.joins(:schedules).merge(Schedule.where('event_date >= ? AND event_date < ?', DateTime.now.to_date,  DateTime.now.to_date + 7.days))

@@ -17,7 +17,7 @@
           %p{style: 'margin-left: 40px'}
             = "Hosted by:  #{event.hosts.collect{|host| host.user.display_name}.join(" and ")}   -    " unless event.hosts.first.external
             = "Hosted by:  #{event.hosts.first.host}" if event.hosts.first.external 
-           
+          %p{style: 'margin-left: 40px'}= event.schedules.first.event_time.to_s + " - " + event.schedules.first.end_time.to_s 
           %p{style: 'margin-left: 40px'}=  event.description 
 
 
