@@ -21,7 +21,14 @@ class WelcomeController < ApplicationController
     if @user.save
 	     session[:current_user_id] = @user.id
 	     Session.create(session_id: session[:session_id])
-      redirect_to :calendar
+      if session[:return_to]
+        url = session[:return_to]
+        session[:return_to] = nil
+        redirect_to url
+      else
+        redirect_to :calendar
+      end
+      
     else
 	     redirect_to :login, flash: { error: 'Unknown Error' }
 	     # TODO: User Validation errors reporting

@@ -1,0 +1,24 @@
+
+%html
+  %head
+    %meta{:content => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}
+  %body
+    %h2 Events onTap This Week
+    %p
+      = "Login to " 
+      = link_to "onTap", "https://ontap.orasi.com"
+      = " to register for these events."
+
+    - @days.each do |day, events|
+      - if events.any?
+        %h2= day.capitalize
+        - events.each do |event|
+          %strong{style: 'margin-left: 20px'}=link_to event.title , event_url(event) 
+          %p{style: 'margin-left: 40px'}
+            = "Hosted by:  #{event.hosts.collect{|host| host.user.display_name}.join(" and ")}   -    " unless event.hosts.first.external
+            = "Hosted by:  #{event.hosts.first.host}" if event.hosts.first.external 
+           
+          %p{style: 'margin-left: 40px'}=  event.description 
+
+
+

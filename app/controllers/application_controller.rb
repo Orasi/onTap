@@ -9,9 +9,18 @@ class ApplicationController < ActionController::Base
     @_current_user ||= session[:current_user_id] &&
       User.find_by(id: session[:current_user_id])
   end
+  
+  def store_location
+    session[:return_to] = if request.get?
+      request.original_url
+    else
+      request.referer
+    end
+  end
 
   def require_login
     if current_user.nil?
+      store_location
       redirect_to :login, flash: { error: 'You must be logged in to view onTap.' }
     end
   end

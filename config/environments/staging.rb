@@ -24,6 +24,15 @@ LunchLearn::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
   config.serve_static_assets = false
+  config.action_mailer.smtp_settings = {
+    :user_name => '2455616b16be5528e',
+    :password => 'f02ddb4b78b642',
+    :address => 'mailtrap.io',
+    :domain => 'mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5,
+    :enable_starttls_auto => true
+  }
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
