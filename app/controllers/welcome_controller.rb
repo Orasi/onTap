@@ -26,7 +26,7 @@ class WelcomeController < ApplicationController
       display_name = saml_response.attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']
       email = saml_response.attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress']
     else
-      username = login_params[:username]
+      username = params[:login][:username]
       display_name = "Test User"
       email = "test.user@orasi.com"
     end

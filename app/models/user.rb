@@ -39,7 +39,8 @@ class User < ActiveRecord::Base
       self.email = "#{username.downcase}@orasi.com" if email.blank?
       return true
     end
-
+  end
+=begin
     ldap = Net::LDAP.new host: '10.238.240.27',
                          port: 389,
                          auth: {
@@ -82,4 +83,5 @@ class User < ActiveRecord::Base
       self.photo = nil
     end
   end
+=end
 end
