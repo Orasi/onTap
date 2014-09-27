@@ -1,17 +1,21 @@
 class WelcomeController < ApplicationController
   skip_before_action :require_login, only: [:validate, :login]
 
+  protect_from_forgery except: :validate
+
   def login
 
-    if Rails.env.development?
+    if current_user
+      redirect_to :calendar
+      return
+    end
+
+    if Rails.env.production?
       saml_request = OneLogin::RubySaml::Authrequest.new
       redirect_to(saml_request.create(saml_settings))
       return
     end
     
-    if current_user
-      redirect_to :calendar
-    end
   end
 
   def validate
@@ -19,16 +23,20 @@ class WelcomeController < ApplicationController
     if Rails.env.production?
       saml_response = saml_validation
       username = saml_response.name_id
+      display_name = saml_response.attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']
+      email = saml_response.attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress']
     else
       username = login_params[:username]
+      display_name = "Test User"
+      email = "test.user@orasi.com"
     end
-    throw Exception, true
-    @user = User.find_or_create(params[:login][:username].downcase)
-    unless @user.validate_against_ad(params[:login][:password])
-      redirect_to :login, flash: { error: 'Invalid username or password' }
-      return
+    
+    @user = User.find_or_create(username.downcase, display_name, email)
+    unless Rails.env.production?
+  #    redirect_to :login, flash: { error: 'Invalid username or password' }
+  #    return
     end
-
+    @saml = saml_response
     if @user.save
 	     session[:current_user_id] = @user.id
 	     Session.create(session_id: session[:session_id])

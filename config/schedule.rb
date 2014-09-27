@@ -5,7 +5,10 @@
 
 # Example:
 #
-# set :output, "/path/to/my/cron_log.log"
+ env :PATH, ENV['PATH']
+ env :GEM_PATH, ENV['GEM_PATH']
+ job_type :runner, "cd :path && bundle exec rails runner -e :environment ':task' :output"
+ set :output, "log/whenever.log"
 #
 # every 2.hours do
 #   command "/usr/bin/some_great_command"
@@ -17,7 +20,7 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
-every :friday, :at => '11:00 am'  do 
-  runner "WeeklyMailer.weekly_mailer(User.first).deliver", :environment => :production
+every :saturday, at: '10:00 am'  do 
+  runner "WeeklyMailer.weekly_mailer(User.where(username: 'matt.watson')).deliver"
 end
 # Learn more: http://github.com/javan/whenever

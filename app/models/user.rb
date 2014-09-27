@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
     admin
   end
 
-  def self.find_or_create(username)
+  def self.find_or_create(username, display_name, email)
     # Find the user by their username
     user = User.find_by(username: username.downcase)
 
@@ -21,7 +21,8 @@ class User < ActiveRecord::Base
     if user.nil?
       user = User.new
       user.username = username.downcase
-      user.first_name, user.last_name = user.username.split('.')
+      user.first_name, user.last_name = display_name.split(' ')
+      user.email = email
       user.admin = false
       user.username = "#{user.first_name}#{user.last_name}".downcase if user.first_name.length == 1
     end

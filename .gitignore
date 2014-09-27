@@ -18,7 +18,8 @@
 /coverage/*.*
 *.*~
 /public/photos
-/vendor/assets/*
+/vendor/*
 !/vendor/assets/fonts
 /public/system/*
 /config/aws.yml
+/config/initializers/saml.rb

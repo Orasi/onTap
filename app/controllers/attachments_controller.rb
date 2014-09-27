@@ -25,7 +25,7 @@ class AttachmentsController < ApplicationController
   end
 
   def download
-    redirect_to Attachment.find(params[:id]).file.expiring_url(10)
+    redirect_to Attachment.find(params[:id]).file.expiring_url(300)
   end
 
   private

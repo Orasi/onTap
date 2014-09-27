@@ -10,6 +10,7 @@
           #add_attachment.btn.btn-default.btn-sm.pull-right
             Add Attachment
         #attachment-panel.well.well-lg
+         
           = s3_uploader_form callback_url: create_attachment_url(event), callback_param: "attachment[direct_upload_url]", id: "s3_uploader" do 
             = file_field_tag :file, multiple: true
           #uploads_container
