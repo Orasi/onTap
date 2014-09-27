@@ -17,7 +17,8 @@ LunchLearn::Application.routes.draw do
   #  resources :attendees
   # get "lunch_and_learn/create"
   # get "/tempLogin" => 'users#tempLogin'
-  post '/login' => 'welcome#validate'
+  #post '/login' => 'welcome#validate'
+  post '/auth/saml/callback', to: 'welcome#validate', as: :saml_login
 
   get '/login' => 'welcome#login'
   get '/logout' => 'welcome#logout'

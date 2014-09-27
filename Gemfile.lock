@@ -31,6 +31,12 @@ GEM
     aws-sdk-v1 (1.53.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
+    better_errors (2.0.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.1.4)
     capistrano (3.2.1)
       i18n
@@ -66,6 +72,7 @@ GEM
       term-ansicolor
       thor
     daemons (1.1.9)
+    debug_inspector (0.0.2)
     delayed_job (4.0.3)
       activesupport (>= 3.0, < 4.2)
     delayed_job_active_record (4.0.2)
@@ -261,6 +268,8 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk
+  better_errors
+  binding_of_caller
   capistrano
   capistrano-rails (~> 1.1)
   capistrano-rvm
