@@ -20,7 +20,7 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
-every :saturday, at: '10:00 am'  do 
-  runner "WeeklyMailer.weekly_mailer(User.where(username: 'matt.watson')).deliver"
+every :monday, at: '9:00 am'  do 
+  runner "WeeklyMailer.weekly_mailer(User.where(weekly_mailer: true)).deliver"
 end
 # Learn more: http://github.com/javan/whenever

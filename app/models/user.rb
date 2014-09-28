@@ -40,34 +40,17 @@ class User < ActiveRecord::Base
       return true
     end
   end
-=begin
+
+  def get_ldap(admin_username, admin_password)
     ldap = Net::LDAP.new host: '10.238.240.27',
                          port: 389,
                          auth: {
                            method: :simple,
-                           username: "ORASI\\#{username}",
-                           password: password
+                           username: "ORASI\\#{admin_username}",
+                           password: admin_password
                          }
     validated = ldap.bind
-    if validated and (first_name.blank? || last_name.blank? || photo.blank? || email.blank?)
-
-      filter = Net::LDAP::Filter.eq('samaccountname', username)
-      treebase = 'dc=orasi, dc=com'
-      self.first_name, self.last_name = ldap.search(
-        base: treebase,
-        filter: filter,
-        attributes: %w(displayname)
-      ).first.displayname.first.downcase.split(' ')
-      retrieve_picture(ldap)
-      self.email = ldap.search(
-        base: treebase,
-        filter: filter,
-        attributes: %w(mail)
-      ).first.mail.first.downcase
-
-    end
-
-    validated
+    ldap
   end
 
   def retrieve_picture(ldap)
@@ -78,10 +61,9 @@ class User < ActiveRecord::Base
     thumbnail_array.each_line { |line| f.puts line } unless thumbnail_array.nil?
     f.close
     unless thumbnail_array.nil?
-      self.photo = '/photos/' + first_name + last_name + '.jpg'
+      self.update_attribute('photo', '/photos/' + first_name + last_name + '.jpg')
     else
-      self.photo = nil
+      self.update_attribute('photo', nil)
     end
   end
-=end
 end
