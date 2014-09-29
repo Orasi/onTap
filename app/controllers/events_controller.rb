@@ -12,6 +12,9 @@ class EventsController < ApplicationController
   end
 
   def new
+    #for testing purposes, remove if present
+    Notification.notification_cleanup()
+
     @event = Event.new
     @schedule = @event.schedules.new
   end
@@ -133,6 +136,7 @@ class EventsController < ApplicationController
       end
     end
     @event.update!(status: :finalized)
+    @event.update!(finalized_date: DateTime.now.to_date)
     redirect_to event_path(@event), flash: { success: "Event \"#{@event.title}\" was finalized" }
   end
   private
