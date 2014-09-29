@@ -6,10 +6,11 @@ class Notification < ActiveRecord::Base
   def self.notification_cleanup()
     @events=Event.all
     @events.each do |event|
-      for 
-        if DateTime.now.to_date - 7 >= Event.find(event_id).schedules.last.event_date.to_date
-        Notification.destroy_all(:event_id==eventid)
-        end
+      unless event.finalized_date.blank?
+          if DateTime.now.to_date - 7.days >= event.finalized_date
+            Notification.where(:event_id => event.id).destroy_all
+          end
       end
     end
+  end
 end 
