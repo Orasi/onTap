@@ -133,6 +133,7 @@ class EventsController < ApplicationController
       end
     end
     @event.update!(status: :finalized)
+    @event.update!(finalized_date: DateTime.now.to_date)
     redirect_to event_path(@event), flash: { success: "Event \"#{@event.title}\" was finalized" }
   end
   private
