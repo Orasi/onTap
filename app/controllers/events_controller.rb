@@ -12,9 +12,6 @@ class EventsController < ApplicationController
   end
 
   def new
-    #for testing purposes, remove if present
-    Notification.notification_cleanup()
-
     @event = Event.new
     @schedule = @event.schedules.new
   end
