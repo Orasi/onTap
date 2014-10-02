@@ -55,9 +55,9 @@ Event.all.each do |l|
   rand(5..20).times do
     user_id = rand(1..User.all.count)
     unless l.attending_event?(User.find(user_id))
-      l.attendees.create(user_id: rand(1..User.all.count))
+      a =l.attendees.create(user_id: rand(1..User.all.count))
       if l.past?
-        l.update(status: %w(attended noshow).sample)
+        a.update(status: %w(attended noshow).sample)
       end
     end
   end

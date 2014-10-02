@@ -3,7 +3,7 @@ class ArchiveController < ApplicationController
 
   def index
     # @events = Event.joins(:schedules).merge(Schedule.where('event_date < ?', DateTime.now.to_date))
-    @events = Event.where(status: :finalized)
+    @events = Event.where("status = ? OR status = ?", 'finalized', 'closed')
     @events.sort! { |b, a| a.schedules.first.event_date <=> b.schedules.first.event_date }
   end
 end
