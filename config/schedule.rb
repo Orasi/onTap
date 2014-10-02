@@ -24,7 +24,12 @@ every :day , at: '2:00pm' do
   runner 'Notification.notification_cleanup'
 end
 
+every :day , at: '3:00pm' do
+  runner 'FinalizeEventMailer.finalize_event_mailer'
+end
+
 every :monday, at: '9:00 am'  do 
   runner 'WeeklyMailer.weekly_mailer(User.where(weekly_mailer: true)).deliver'
 end
+
 # Learn more: http://github.com/javan/whenever
