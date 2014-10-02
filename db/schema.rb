@@ -66,7 +66,6 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.boolean  "restricted"
     t.string   "status"
     t.date     "finalized_date"
-
   end
 
   create_table "hosts", force: true do |t|
@@ -138,16 +137,8 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "username"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.boolean  "admin"
-    t.string   "photo"
-    t.string   "email"
-  end
+# Could not dump table "users" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "webinars", force: true do |t|
     t.datetime "created_at"
