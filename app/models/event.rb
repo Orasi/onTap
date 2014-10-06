@@ -59,4 +59,9 @@ class Event < ActiveRecord::Base
   def type
     event_style.element
   end
+
+
+  def older_than_days(days)
+    schedules.last.event_date.to_date < DateTime.now.to_date - days
+  end
 end
