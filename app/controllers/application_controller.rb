@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   def require_login
     if current_user.nil?
       store_location
-      redirect_to :login, flash: { error: 'You must be logged in to view onTap.' }
+      redirect_to :login
     end
   end
 
