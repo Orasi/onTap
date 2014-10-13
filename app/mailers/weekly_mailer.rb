@@ -4,7 +4,8 @@ class WeeklyMailer < ActionMailer::Base
 
   def weekly_mailer(users)
     @weeks_events = Event.joins(:schedules).merge(Schedule.where('event_date >= ? AND event_date < ?', DateTime.now.to_date,  DateTime.now.to_date + 7.days))
-    @new_events = Event.where('created_at >= ? AND created_at < ?', DateTime.now.to_date,  DateTime.now.to_date + 7.days)
+    @new_events = Event.where('created_at >= ? AND created_at < ? AND status IS NULL', DateTime.now.to_date-7.days,  DateTime.now.to_date )
+
     @days = Hash.new
     @days[:monday] = []
     @days[:tuesday] = []

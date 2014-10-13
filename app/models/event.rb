@@ -21,7 +21,7 @@ class Event < ActiveRecord::Base
   end
 
   def past?
-    return schedules.last.end <= DateTime.now
+    return schedules.last.end <= DateTime.now - 5.hours
     #return true if schedules.last.end < DateTime.now
     # if schedules.last.event_time.hour == DateTime.now.to_time.hour
     #  if schedules.last.event_time.min > DateTime.now.to_time.min
