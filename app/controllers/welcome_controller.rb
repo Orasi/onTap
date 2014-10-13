@@ -1,3 +1,5 @@
+require 'net/http'
+
 class WelcomeController < ApplicationController
   skip_before_action :require_login, only: [:validate, :login]
 
@@ -58,6 +60,11 @@ class WelcomeController < ApplicationController
     @_current_user = session[:current_user_id] = nil
 
     if Rails.env.production?
+      url = URI.parse('https://adfs.orasi.com/adfs/ls/?wa=wsignout1.0&wreply=https://ontap.orasi.com')
+      req = Net::HTTP::Get.new(url.to_s)
+      res = Net::HTTP.start(url.host, url.port) {|http|
+        http.request(req)
+      }
       redirect_to 'https://adfs.orasi.com/adfs/ls/?wa=wsignout1.0'
     else
       redirect_to :login
