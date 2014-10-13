@@ -20,7 +20,7 @@
         = event.title
       .jumbo-date-hosts.h2
         .jumbo-date.small
-          = event.schedules.first.event_date.to_date.strftime("%B %d, %Y") + " at " + event.schedules.first.event_time.strftime("%I:%M %p") + (event.schedules.first.end_time.blank? ? "" : " to " +event.schedules.first.end_time.strftime("%I:%M %p"))
+          = event.schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + event.schedules.first.end.strftime("%I:%M %p")
         .jumbo-spacer
         .jumbo-hosts
           - if event.hosts.first.external

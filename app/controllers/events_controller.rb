@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   def calendar
     # @events = Event.joins(:schedules).merge(Schedule.where('event_date >= ?', DateTime.now.to_date))
     @events = Event.where(status: nil)
-    @events.sort! { |a, b| a.schedules.first.event_date <=> b.schedules.first.event_date }
+    @events.sort! { |a, b| a.schedules.first.start <=> b.schedules.first.start }
   end
 
   def show
@@ -17,18 +17,22 @@ class EventsController < ApplicationController
   end
 
   def create
-    params[:event][:event_date] = DateTime.strptime(params[:event][:event_date], '%m/%d/%Y')
+    e_date = params[:event_date] = DateTime.strptime(params[:event_date], '%m/%d/%Y').to_date
 
     @event = Event.new(event_params)
     unless @event.save
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created" }
       return
     end
-
-    @schedule = @event.schedules.new(schedule_params)
+    #e_date = Date.strptime(params[:event_date], "%m/%d/%Y")
+    e_start = Time.parse(schedule_params[:start])
+    e_end = Time.parse(schedule_params[:end])
+    e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec, '-' + (schedule_params[:time_zone_offset].to_i/60).to_s)
+    e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec, '-' + (schedule_params[:time_zone_offset].to_i/60).to_s)
+    @schedule = @event.schedules.new(start: e_start, end: e_end)
     unless @schedule.save
       @event.destroy
-      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created" }
+      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created.   Error: " + @schedule.errors.full_messages.join }
       return
     end
 
@@ -41,7 +45,7 @@ class EventsController < ApplicationController
 
     unless @eventtype.save
       @event.destroy
-      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created" }
+      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created.  Error: " + @eventtype.errors.full_messages.join }
       return
     end
 
@@ -57,7 +61,7 @@ class EventsController < ApplicationController
     if  @eventstyle.save
       redirect_to :calendar, flash: { success: "Event \"#{@event.title}\" was created" }
     else
-      redirect_to :calendar, flash: { error: "Event \"#{@event.title}\" was not created" }
+      redirect_to :calendar, flash: { error: "Event \"#{@event.title}\" was not created.  Error: " + @eventstyle.errors.full_messages.join }
     end
   end
 
@@ -71,7 +75,11 @@ class EventsController < ApplicationController
   end
 
   def update
-    params[:event][:event_date] = DateTime.strptime(params[:event][:event_date], '%m/%d/%Y')
+    e_date = Date.strptime(params[:event_date], "%m/%d/%Y")
+    e_start = Time.parse(schedule_params[:start])
+    e_end = Time.parse(schedule_params[:end])
+    e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec, '-' + (schedule_params[:time_zone_offset].to_i/60).to_s)
+    e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec, '-' + (schedule_params[:time_zone_offset].to_i/60).to_s)
     # need better way to find event
     @event = Event.find(params[:id])
     @event_style = EventStyle.find_by(event_id: @event.id)
@@ -86,10 +94,11 @@ class EventsController < ApplicationController
     @event.schedules.each do |s|
       s.destroy
     end
-    @schedule = @event.schedules.new(schedule_params)
+
+    @schedule = @event.schedules.new(start: e_start, end: e_end)
     unless @schedule.save
       @event.destroy
-      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated" }
+      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated.  Error: " + @schedle.errors.full_messages.join }
       return
     end
 
@@ -105,7 +114,7 @@ class EventsController < ApplicationController
     end
 
     unless @event.update_attributes(event_params)
-      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated" }
+      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated.  Error: " + @event.errors.full_messages.join }
       return
     end
 
@@ -149,7 +158,7 @@ class EventsController < ApplicationController
 
   def require_past
     unless Event.find(params[:id]).past?
-      redirect_to :calendar, flash: { error: 'Events can only be finalized after they have ended' }
+      redirect_to :calendar, flash: { error: 'Events can not be finalized before they end.' }
     end
   end
 
@@ -158,7 +167,7 @@ class EventsController < ApplicationController
   end
 
   def schedule_params
-    params.require(:event).permit(:event_date, :end_time, :event_time)
+    params.require(:event).permit(:event_date, :end, :start)
   end
 
   def lunchlearn_params

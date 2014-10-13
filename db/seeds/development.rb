@@ -20,7 +20,7 @@ event_types = %w(lunch_and_learn webinar)
   random_end = random_start + rand(1..5).hours
   e = Event.new(title: Faker::Name.title, description:   Faker::Hacker.say_something_smart)
   if e.save
-    s = e.schedules.new(event_date: random_start.to_date, event_time: random_start.to_time, end_time: random_end.to_time)
+    s = e.schedules.new(start: random_start, end: random_end)
     unless s.save
       print s.errors.full_messages
       print random_start.to_s
