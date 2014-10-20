@@ -3,8 +3,9 @@ class WeeklyMailer < ActionMailer::Base
   default_url_options[:host] = 'ontap.orasi.com'
 
   def weekly_mailer(users)
-    @weeks_events = Event.joins(:schedules).merge(Schedule.where('event_date >= ? AND event_date < ?', DateTime.now.to_date,  DateTime.now.to_date + 7.days))
-    @new_events = Event.where('created_at >= ? AND created_at < ?', DateTime.now.to_date,  DateTime.now.to_date + 7.days)
+    @weeks_events = Event.joins(:schedules).merge(Schedule.where('start >= ? AND start < ?', DateTime.now.to_date,  DateTime.now.to_date + 7.days))
+    @new_events = Event.where('created_at > ?',  DateTime.now.to_date - 7.days)
+
     @days = Hash.new
     @days[:monday] = []
     @days[:tuesday] = []
