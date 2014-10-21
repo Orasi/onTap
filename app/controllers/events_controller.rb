@@ -40,7 +40,8 @@ class EventsController < ApplicationController
       @eventtype = Lunchlearn.new(lunchlearn_params)
     elsif params[:event][:event_style] == 'webinar'
       @eventtype = Webinar.new(webinar_params)
-
+    elseif params[:event][:event_style] == 'training_class'
+      @eventtype = TrainingClass.new(trainingclass_params)
     end
 
     unless @eventtype.save
@@ -171,6 +172,10 @@ class EventsController < ApplicationController
   end
 
   def lunchlearn_params
+    params[:event].permit(:has_GoToMeeting, :meeting_phone_number, :access_code, :go_to_meeting_url)
+  end
+
+  def trainingclass_params
     params[:event].permit(:has_GoToMeeting, :meeting_phone_number, :access_code, :go_to_meeting_url)
   end
 
