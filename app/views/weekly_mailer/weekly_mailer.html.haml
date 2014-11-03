@@ -11,14 +11,24 @@
 
     - @days.each do |day, events|
       - if events.any?
-        %h2= day.capitalize
+        %h4= day.capitalize
         - events.each do |event|
           %strong{style: 'margin-left: 20px'}=link_to event.title , event_url(event) 
           %p{style: 'margin-left: 40px'}
             = "Hosted by:  #{event.hosts.collect{|host| host.user.display_name}.join(" and ")}   -    " unless event.hosts.first.external
             = "Hosted by:  #{event.hosts.first.host}" if event.hosts.first.external 
-          %p{style: 'margin-left: 40px'}= event.schedules.first.event_time.strftime("%I:%M %p") + ' - ' + event.schedules.first.end_time.strftime("%I:%M %p")
+          %p{style: 'margin-left: 40px'}= event.schedules.first.start.strftime("%I:%M %p") + ' - ' + event.schedules.first.end.strftime("%I:%M %p")
           %p{style: 'margin-left: 40px'}=  event.description 
 
+    %h2 New Events
+    - @new_events.each do |event|
+      %strong{style: 'margin-left: 20px'}=link_to event.title , event_url(event)
+      %p{style: 'margin-left: 40px'}= event.schedules.first.start.to_date.strftime("%B %d, %Y")
 
+      %p{style: 'margin-left: 40px'}
+        = "Hosted by:  #{event.hosts.collect{|host| host.user.display_name}.join(" and ")}   -    " unless event.hosts.first.external
+        = "Hosted by:  #{event.hosts.first.host}" if event.hosts.first.external 
+
+      %p{style: 'margin-left: 40px'}= event.schedules.first.start.strftime("%I:%M %p") + ' - ' + event.schedules.first.end.strftime("%I:%M %p")
+      %p{style: 'margin-left: 40px'}=  event.description 
 
