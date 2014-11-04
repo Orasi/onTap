@@ -1,0 +1,12 @@
+= form_for @suggestion, html: {class: "form-horizontal", role: "form"} do |f|
+  .btn-group{"data-toggle" => "buttons"}
+    %label.btn.btn-default
+      = f.radio_button :food_pref, true
+    %label.btn.btn-default
+      = f.radio_button :food_pref, false
+  %div.form_group
+    =f.submit class: "btn btn-primary", data: { disable_with: "Adding Suggestion..."}
+
+
+
+
