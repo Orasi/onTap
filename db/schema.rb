@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.string   "notification_settings"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "schedules", force: true do |t|

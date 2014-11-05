@@ -36,6 +36,9 @@
                     = link_to "View Suggestions", suggestions_path
             -if session[:current_user_id]
               %li
+                = link_to "Profile", edit_profile_path(session[:current_user_id])
+            -if session[:current_user_id]
+              %li
                 = link_to "Logout", { controller: "welcome", action: "logout" }   
       
     %div.container.theme-showcase{role: :main, style: "margin-top: 80px"}
