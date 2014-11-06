@@ -1,15 +1,15 @@
 = form_for @profile, html: {class: "form-horizontal", role: "form"} do |f|
+  = f.label "Food Preference"  
+  %div.indented
+    = f.radio_button :food_pref, "Vegan"
+    = f.label :food_pref, "Vegan", :value => "Vegan", checked: (@profile.food_pref=="Vegan" unless @profile.food_pref.nil?)
+    %br
+    = f.radio_button :food_pref, "Meat"
+    = f.label :food_pref, "Meat", :value => "Meat", checked: (@profile.food_pref=="Meat" unless @profile.food_pref.nil?)
+    %br
+    = f.radio_button :food_pref, "Other"
+    = f.label :food_pref, "Other", :value => "Other", checked: (@profile.food_pref=="Other" unless @profile.food_pref.nil?)
   %div.form_group
-    .btn-group{"data-toggle" => "buttons"}
-      %label.btn.btn-default
-        = f.radio_button :food_pref, "fill", {:value => "Vegan"}
-        = f.label :end, "Vegan", class: "control-label"
-      %br
-      %label.btn.btn-default
-        = f.radio_button :food_pref, {:value => "Meat"}
-      %label.btn.btn-default
-        = f.radio_button :food_pref, {:value => "Other"}
-    %div.form_group
-      =f.submit class: "btn btn-primary", data: { disable_with: "Adding Suggestion..."}
+    =f.submit class: "btn btn-primary", data: { disable_with: "Adding Suggestion..."}
 
 
