@@ -10,9 +10,18 @@ class ProfilesController < ApplicationController
   end
 
   def update
+    @profile = Profile.find(params[:id])
+    @profile.update_attributes(profile_params)
+    redirect_to profile_path(@profile), flash: { success: "Profile was updated" }
   end
 
   def destroy
   end
+
+
+  def profile_params
+    params[:profile].permit(:food_pref, :location, :notification_settings, :other_food)
+  end
+
 
 end

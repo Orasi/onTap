@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "other_food"
   end
 
   create_table "schedules", force: true do |t|
