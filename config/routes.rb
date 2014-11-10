@@ -1,5 +1,6 @@
 LunchLearn::Application.routes.draw do
 
+  get "profiles/new"
   get '/calendar' => 'events#calendar'
   resources :events, except: :index
   resources :surveys
@@ -7,6 +8,7 @@ LunchLearn::Application.routes.draw do
   resources :suggestions
   resources :archive
   resources :attachments
+  resources :profiles, except: :index
   post '/attachment/:event_id' => 'attachments#create', as: :create_attachment
   get '/download/:id' => 'attachments#download', as: :download
 

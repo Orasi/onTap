@@ -96,6 +96,16 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "updated_at"
   end
 
+  create_table "profiles", force: true do |t|
+    t.string   "food_pref"
+    t.string   "location"
+    t.boolean  "notification_settings", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "other_food"
+  end
+
   create_table "schedules", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"

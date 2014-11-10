@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   validates_inclusion_of :admin, in: [true, false]
   has_many :suggestions
   has_many :surveys
+  has_one :profile
 
   def display_name
     first_name.capitalize + ' ' + last_name.capitalize
@@ -26,7 +27,9 @@ class User < ActiveRecord::Base
       user.admin = false
       user.username = "#{user.first_name}#{user.last_name}".downcase if user.first_name.length == 1
     end
-
+    if user.profile.nil?
+      Profile.new_user_profile(user.id)
+    end
     user
   end
 
