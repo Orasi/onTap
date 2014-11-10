@@ -1,0 +1,18 @@
+- unless env.nil?
+  .alert{ :class => "alert bg-info fadeout" }
+    %button.close{ :data => { :dismiss => "alert" } } x
+    .time
+      = "The lab #{env.template.title} is currently checked out to you."
+      %span.time
+        = 'This lab will expire in '
+        %span#time
+    - if @env.expiration < DateTime.now
+      - #check for existence delete if not found
+
+  :javascript
+    expire = Date.parse("#{env.expiration.year.to_s + '/' + env.expiration.month.to_s + '/' + env.expiration.day.to_s + ' ' + (env.expiration.hour-5).to_s + ':' + env.expiration.min.to_s + ':' + env.expiration.sec.to_s}")
+    $("#time").countdown(expire, function(event) {
+      $(this).text(
+        event.strftime(' %H hour and %M minutes')
+      );
+    });

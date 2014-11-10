@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   validates_inclusion_of :admin, in: [true, false]
   has_many :suggestions
   has_many :surveys
+  has_one :environment
 
   def display_name
     first_name.capitalize + ' ' + last_name.capitalize

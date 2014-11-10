@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 201407231923422322432) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "attachments", force: true do |t|
     t.string   "title"
     t.integer  "event_id"
@@ -48,7 +51,21 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "updated_at"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "environments", force: true do |t|
+    t.integer  "template_id"
+    t.integer  "user_id"
+    t.datetime "expiration"
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "status"
+    t.string   "published_url"
+    t.string   "schedule_id"
+    t.string   "rdp_address"
+  end
 
   create_table "event_styles", force: true do |t|
     t.datetime "created_at"
@@ -132,6 +149,16 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.integer  "host_presentation"
     t.text     "effect"
     t.text     "extra"
+  end
+
+  create_table "templates", force: true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "username"
+    t.string   "password"
+    t.text     "properties"
   end
 
   create_table "training_classes", force: true do |t|

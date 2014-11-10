@@ -24,4 +24,5 @@ module ApplicationHelper
       image_tag '/photos/blank.jpg', class: 'img-circle'
     end
   end
+
 end

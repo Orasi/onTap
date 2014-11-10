@@ -1,0 +1,11 @@
+.panel.panel-default
+  .panel-heading
+    %h4.panel-title Lab Properties
+  .panel-body
+    .h5
+      This lab is configured with the following:
+  %ul.list-group
+    - lab.properties.split(';').each do |prop|
+      %li.list-group-item
+        = '-'
+        = prop

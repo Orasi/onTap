@@ -1,0 +1,31 @@
+= render partial: 'lab_flash', locals: {env: @env}
+
+.panel.panel-default
+  .panel-heading
+    %h4.panel-title
+      Orasi Labs
+  .panel-body
+    .h5
+      Labs are a method of creating a temporary environment to use in training.  The labs below have been configured for users to be able to immedatly jump in and do stuff.  There is other relevant stuff.  And more relevant stuff that I will add here at a later date.
+
+#accordion
+  - @labs.each do |lab|
+    %h4
+      .load{style: 'position:absolute;top:3;visibility:hidden', id: 'load_' + lab.id.to_s}
+        .spinner
+          .inner
+          .outer
+      .lab_title{style: 'margin-left:40px'}= lab.title
+
+    .body
+      .description= lab.description
+
+      .btn.btn-primary.spin_button.pull-left
+        .create_env.pull-left{id: lab.id} Create Environment
+        .placeholder{style: 'visibility:hidden'} Create Environment
+      .pull-left.patient{id: 'patient_' + lab.id.to_s }
+        Please be patient while we spin up your lab.  This process can take several minutes.
+:javascript
+  $(function(){
+    $("#accordion").accordion({collapsible: true, active:false,heightStyle: "content"});
+  });

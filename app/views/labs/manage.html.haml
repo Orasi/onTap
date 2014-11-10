@@ -1,0 +1,19 @@
+= render partial: 'lab_flash', locals: {env: @env}
+
+.panel.panel-default
+  .panel-heading
+    %h4.page-title= @lab.title
+  .panel-body
+    .env_description= @lab.description
+
+    #panel_for_environment
+      #access_panel
+        #rdp.pull-left= link_to 'Connect via RDP', lab_rdp_path(@env), class: 'btn btn-primary'
+        #smartclient.pull-left= link_to 'Connect via SmartClient', @env.published_url, target: '_blank', class: 'btn btn-primary'
+        #delete.pull-right= link_to 'Delete Lab', delete_lab_path, method: :delete, class: 'btn btn-default', confirm: "This will delete the Lab and any work done while it has been running.\n Would you like to continue?"
+
+= render partial: ('lab_credentials'), locals: {lab: @lab}
+= render partial: ('lab_properties'), locals: {lab: @lab}
+:javascript
+   env_id = "#{@env.id unless @env.nil?}"
+   create_lab_path = "#{create_lab_path(@lab)}"

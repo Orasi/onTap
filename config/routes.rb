@@ -7,6 +7,13 @@ LunchLearn::Application.routes.draw do
   resources :suggestions
   resources :archive
   resources :attachments
+  post 'labs/:id' => 'labs#create_lab', as: :create_lab, format: :json
+  get 'labs/:id/status' => 'labs#lab_status', as: :lab_status, format: :json
+  get 'labs/:id/manage' => 'labs#manage', as: :manage_lab
+  delete 'labs' => 'labs#delete_lab', as: :delete_lab
+  get 'labs/:id/rdp'    => 'labs#generate_rdp_file', as: :lab_rdp
+  resources :labs
+
   post '/attachment/:event_id' => 'attachments#create', as: :create_attachment
   get '/download/:id' => 'attachments#download', as: :download
 

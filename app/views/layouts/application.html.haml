@@ -1,4 +1,4 @@
-!!!
+
 %html
   %head
     %title onTap
@@ -37,7 +37,6 @@
             -if session[:current_user_id]
               %li
                 = link_to "Logout", { controller: "welcome", action: "logout" }   
-      
     %div.container.theme-showcase{role: :main, style: "margin-top: 80px"}
       = render "flash_messages"
       = yield

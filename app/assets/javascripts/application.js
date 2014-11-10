@@ -12,9 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap.min
 //= require s3_direct_upload
 //= require jquery-ui-1.10.4.custom.min
-//= require bootstrap.min
 //= require_tree .
 //= require jquery.timepicker.js
+//= require jquery.countdown.js
 
