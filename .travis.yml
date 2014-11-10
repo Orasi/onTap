@@ -5,7 +5,7 @@ rvm:
 deploy:
   provider: heroku
   api_key:
-    secure: alxddvlSdf/O5BYEXfCHIXETgnFLxTUckgJJBC8mypoDU/+ATQfBNsUIL8LmjdV9uHp6SpT9LH2oyGyWgd888aM71HDKlUwmfolZnPtIwQC8pf77bTZpYshApzpIOoJQvu1keSwEHrI+BQoYQ2XJL7wFNXD7E711qju6EbTUhcs=
+    secure: b405e76d-b842-4d88-89c0-bcf9b4367920
   run: 
     - "rake db:schema:load"
     - "rake db:migrate RAILS_ENV=staging"
