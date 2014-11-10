@@ -7,6 +7,9 @@
     = f.radio_button :food_pref, "Meat", class: "picky food"
     = f.label :food_pref, "Meat", :value => "Meat", checked: (@profile.food_pref=="Meat" unless @profile.food_pref.nil?)
     %br
+    = f.radio_button :food_pref, "None", class: "picky food"
+    = f.label :food_pref, "None", :value => "None", checked: (@profile.food_pref=="None" unless @profile.food_pref.nil?)
+    %br
     %div.other_choice
     = f.radio_button :food_pref, "Other", class: "picky eater"
     = f.label :food_pref, "Other", :value => "Other", checked: (@profile.food_pref=="Other" unless @profile.food_pref.nil?)
@@ -21,9 +24,20 @@
     %br
     %div.other_choice
     = f.radio_button :location, "Georgia", class: "location not_known"
-    = f.label :location, "Georgia", :value => "Other", checked: (@profile.location=="Georgia" unless @profile.location.nil?)
+    = f.label :location, "Atlanta", :value => "Georgia", checked: (@profile.location=="Georgia" unless @profile.location.nil?)
+    %br
+    %div.other_choice
+    = f.radio_button :location, "Other", class: "location not_known"
+    = f.label :location, "Other", :value => "Other", checked: (@profile.location=="Other" unless @profile.location.nil?)
+
+  = f.label "Notification Settings"  
+  %div.indented
+    =f.check_box :notification_settings, checked: (@profile.notification_settings unless @profile.notification_settings.nil?), class: "meeting gotomeeting"
+    =f.label :notification_settings, "I would like to receive a weekly email about new and upcoming events on OnTap", class: "control-label"
+
 
   %div.form_group
+    %br
     =f.submit class: "btn btn-primary", data: { disable_with: "Adding Suggestion..."}
 
 :javascript
