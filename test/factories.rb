@@ -1,4 +1,5 @@
 require 'date'
+
 FactoryGirl.define do
   sequence :username do |n|
     "first.last#{n}"
@@ -33,7 +34,7 @@ FactoryGirl.define do
     description 'this is a description of an event.  descriptions are not very long'
 
     after(:create) do |event|
-      event.schedules.create(event_date: DateTime.now.to_date, event_time: DateTime.now.to_time, end_time: DateTime.now.to_time)
+      event.schedules.create(start: DateTime.now, 'end' => DateTime.now )
 
       [1, 2, 3].sample.times do
         event.hosts.create(user_id: create(:host_user).id)
@@ -56,7 +57,8 @@ FactoryGirl.define do
   trait :past do
     after(:create) do |event|
       event.schedules.each do |s|
-        s.update_attribute(:event_date, (Date.today - 5))
+        s.update_attribute(:start, (DateTime.now - 5.days))
+	s.update_attribute('end', (DateTime.now - 5.days))
       end
     end
   end
@@ -64,7 +66,8 @@ FactoryGirl.define do
   trait :future do
     after(:create) do |event|
       event.schedules.each do |s|
-        s.update_attribute(:event_date, (Date.today + 5))
+        s.update_attribute(:start, (DateTime.now + 5.days))
+	s.update_attribute('end', (DateTime.now + 5.days))
       end
     end
   end
