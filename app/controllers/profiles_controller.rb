@@ -1,4 +1,9 @@
 class ProfilesController < ApplicationController
+  before_action :require_admin, only [
+
+#validate is user editing
+#validate show is user or admin
+
   #show the profile to the user
   def show
     @profile=User.find(params[:id]).profile
@@ -23,5 +28,11 @@ class ProfilesController < ApplicationController
     params[:profile].permit(:food_pref, :location, :notification_settings, :other_food)
   end
 
+  def require_admin_or_owner
+    # need better way to find event
+    if !params[:id]==current_user.id && !current_user.admin
+       redirect_to :calendar, flash: { error: 'You do not have permission to view this profile' }
+    end
+  end
 
 end
