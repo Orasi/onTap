@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
   create_table "profiles", force: true do |t|
     t.string   "food_pref"
     t.string   "location"
-    t.boolean  "notification_settings", limit: 255
+    t.boolean  "notification_settings"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
@@ -110,11 +110,11 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "event_id"
+    t.datetime "start"
+    t.datetime "end"
     t.date     "event_date"
     t.time     "event_time"
     t.time     "end_time"
-    t.datetime "start"
-    t.datetime "end"
   end
 
   create_table "sessions", force: true do |t|
@@ -149,16 +149,8 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "username"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.boolean  "admin"
-    t.string   "photo"
-    t.string   "email"
-  end
+# Could not dump table "users" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "webinars", force: true do |t|
     t.datetime "created_at"
