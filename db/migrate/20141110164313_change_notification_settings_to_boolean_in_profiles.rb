@@ -1,5 +1,7 @@
 class ChangeNotificationSettingsToBooleanInProfiles < ActiveRecord::Migration
   def change
-    change_column :profiles, :notification_settings, :boolean
+
+    remove_column :profiles, :notification_settings
+    add_column :profiles, :notification_settings, :boolean, default: true
   end
 end
