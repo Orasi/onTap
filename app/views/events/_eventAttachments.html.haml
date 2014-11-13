@@ -11,7 +11,7 @@
             Add Attachment
         #attachment-panel.well.well-lg
          
-          = s3_uploader_form callback_url: create_attachment_url(event), callback_param: "attachment[direct_upload_url]", id: "s3_uploader" do 
+          = s3_uploader_form callback_url: '/', callback_param: "attachment[direct_upload_url]", id: "s3_uploader" do#s3_uploader_form callback_url: create_attachment_url(event), callback_param: "attachment[direct_upload_url]", id: "s3_uploader" do
             = file_field_tag :file, multiple: true
           #uploads_container
             %script#template-upload{ :type => "text/x-tmpl"}
