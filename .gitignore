@@ -19,6 +19,7 @@
 *.*~
 /public/photos
 /vendor/**
+!/vendor/assets/javascript
 !/vendor/assets/fonts
 /public/system/*
 /config/aws.yml
