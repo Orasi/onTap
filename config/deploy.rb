@@ -1,13 +1,14 @@
 # config valid only for Capistrano 3.1
 lock '3.2.1'
 
+set :application, 'onTap'
 set :repo_url, 'https://github.com/Orasi/onTap.git'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
-
+set :deploy_to, '/var/www/ontap'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -19,10 +20,10 @@ set :repo_url, 'https://github.com/Orasi/onTap.git'
 # set :log_level, :debug
 
 # Default value for :pty is false
-
+set :pty, true
 
 # Default value for :linked_files is []
-# set :linked_files, %w{config/database.yml}
+ set :linked_files, %w{config/aws.yml config/initializers/saml.rb}
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system tmp public/photos}
@@ -43,9 +44,17 @@ namespace :deploy do
     end
   end
 
+  desc 'Clear Cache'
+  task :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      within release_path do
+        execute :rake, 'db:migrate'
+      end
+    end
+  end
 
-
-  after :deploy, :restart
-
+  after :publishing, :clear_cache
+  after :clear_cache, :restart
 
 end
