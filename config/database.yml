@@ -21,7 +21,7 @@ test:
 
 production:
   adapter: postgresql
-  encoding: unicode:
+  encoding: unicode
   database: ontap_prod
   pool: 10
   timeout: 5000
