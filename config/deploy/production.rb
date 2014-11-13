@@ -15,7 +15,12 @@ role :db,  %w(matt@10.238.240.36)
 # used to set extended properties on the server.
 
 server '10.238.240.36', user: 'matt', roles: %w(web app)
+set :branch, 'master'
+set :migration_role, 'web'
 
+set :deploy_to, 'var/www/onTap'
+set :rails_env, :production
+set :linked_files, %w( config/initializers/saml.rb config/aws.yml)
 # Custom SSH Options
 # ==================
 # You may pass any option but keep in mind that net/ssh understands a
