@@ -6,6 +6,7 @@ class Template < ActiveRecord::Base
   def exists_in_skytap?
     json = api_call(request_type: 'get', request_path: '/templates/' + id.to_s )
     json['id'] === id.to_s
+    print json
   end
 
   def create_environment(user)

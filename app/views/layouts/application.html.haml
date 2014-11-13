@@ -36,7 +36,10 @@
                   %li
                     = link_to "Add New Event", new_event_path
                   %li
+                    = link_to "Add New Lab", new_lab_path
+                  %li
                     = link_to "View Suggestions", suggestions_path
+
             -if session[:current_user_id]
               %li
                 = link_to "Logout", { controller: "welcome", action: "logout" }   

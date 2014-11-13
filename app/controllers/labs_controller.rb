@@ -20,6 +20,18 @@ class LabsController < ApplicationController
     @env = current_user.environment
   end
 
+  def create
+    @template = Template.new(template_params)
+    if @template.save
+      redirect_to labs_path, flash: { success: "The lab was successfully created" }
+    else
+      redirect_to root_path,  flash: { error: "Lab could not be created.  Please Check that the lab exists in skytap and try again" }
+    end
+  end
+
+  def new
+    @lab = Template.new
+  end
   def redirect_to_manage
     unless current_user.environment.nil?
       redirect_to manage_lab_path current_user.environment
@@ -73,4 +85,8 @@ class LabsController < ApplicationController
     file.gsub! "<URL>" , env.rdp_address
     send_data file, :filename => 'connection.rdp'
   end
+end
+
+def template_params
+  params.require(:template).permit(:title, :description, :properties, :username, :password, :id)
 end
