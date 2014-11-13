@@ -51,6 +51,8 @@ GEM
     capistrano-rvm (0.1.1)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
+    capistrano-touch-linked-files (0.2.1)
+      capistrano (>= 3.0)
     chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -273,6 +275,7 @@ DEPENDENCIES
   capistrano
   capistrano-rails (~> 1.1)
   capistrano-rvm
+  capistrano-touch-linked-files
   coffee-rails (~> 4.0.0)
   coveralls
   daemons

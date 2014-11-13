@@ -4,23 +4,21 @@
 # is considered to be the first unless any hosts have the primary
 # property set.  Don't declare `role :all`, it's a meta role.
 
-role :app, %w(matt@10.238.240.36)
-role :web, %w(matt@10.238.240.36)
-role :db,  %w(matt@10.238.240.36)
-
 # Extended Server Syntax
 # ======================
 # This can be used to drop a more detailed server definition into the
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
-
+set :application, 'onTap'
 server '10.238.240.36', user: 'matt', roles: %w(web app)
+#set :linked_files, %w(config/aws.yml  config/initializers/saml.rb)
+
 set :branch, 'master'
 set :migration_role, 'web'
 
 set :deploy_to, 'var/www/onTap'
 set :rails_env, :production
-set :linked_files, %w(config/aws.yml config/initializers/saml.rb)
+
 # Custom SSH Options
 # ==================
 # You may pass any option but keep in mind that net/ssh understands a

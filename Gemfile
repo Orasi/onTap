@@ -57,7 +57,7 @@ gem 'net-ldap'
 # Use Capistrano for deployment
 gem 'capistrano', group: :development
 gem 'capistrano-rails', '~> 1.1'
-
+gem 'capistrano-touch-linked-files'
 # Use debugger
 gem 'pry', group: [:development, :test]
 
