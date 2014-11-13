@@ -20,7 +20,7 @@ set :migration_role, 'web'
 
 set :deploy_to, 'var/www/onTap'
 set :rails_env, :production
-set :linked_files, %w( config/initializers/saml.rb config/aws.yml)
+set :linked_files, %w(config/aws.yml config/initializers/saml.rb)
 # Custom SSH Options
 # ==================
 # You may pass any option but keep in mind that net/ssh understands a
