@@ -14,7 +14,7 @@ module Skytap
 
   module ClassMethods
     @@skytap_url = 'https://cloud.skytap.com'
-    @@auth_string = 'Basic TWF0dC5XYXRzb25Ab3Jhc2kuY29tOmRkMjc5NDA4YTlkNjRhZTA5YTA1MWExYzA2MzdlNzMwOWM1YmQyNjE='
+    @@auth_string = 'Basic T250YXBMYWJzOmNjNmEzOTNmZjE0NzQ1Nzk3ZWYyMjdiZWFkMDZiODcxNWE3NTEyZWU='
     @@default_header = {'Authorization' => @@auth_string, 'Accept' => 'application/json' , 'Content-Type' => 'application/json', 'Cache-Control' => 'no-cache'}
     def api_call(request_type: 'get', request_path: '/', request_headers: {}, request_form_data: {})
       request_headers = @@default_header.merge!(request_headers)
