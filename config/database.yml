@@ -25,6 +25,7 @@ production:
   pool: 10
   timeout: 5000
   username: ontap
+  password: 
 
 staging:
   adapter: postgresql
