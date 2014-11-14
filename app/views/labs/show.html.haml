@@ -22,10 +22,10 @@
           #delete.pull-right= link_to 'Delete Lab', delete_lab_path, method: :delete, class: 'btn btn-default', confirm: "This will delete the Lab and any work done while it has been running.\n Would you like to continue?"
     - unless @env
 
-      #create_env.btn.btn-primary.pull-left
-        #button_text= 'Create Environment'
-        %div{style: 'visibility: hidden'}= 'Create Environment'
-      %h5#patient.pull-right
+      .btn.btn-primary.spin_button.pull-left
+        .create_env.pull-left{id: @lab.id} Create Environment
+        .placeholder{style: 'visibility:hidden'} Create Environment
+      %h5.patient.pull-right
         Please be patient while we spin up your lab.  This process can take several minutes.
 
       #loading.pull-left{style: 'display:none'}
