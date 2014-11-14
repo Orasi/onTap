@@ -8,8 +8,12 @@
 
 .panel.panel-default
   .panel-heading
-    = @lab.title
-
+    .h4
+      .pull-left.load{style: 'visibility:hidden', id: 'load_' + @lab.id.to_s}
+        .spinner
+          .inner
+          .outer
+      = @lab.title
   .panel-body
 
     .env_description= @lab.description
@@ -25,7 +29,8 @@
       .btn.btn-primary.spin_button.pull-left
         .create_env.pull-left{id: @lab.id} Create Environment
         .placeholder{style: 'visibility:hidden'} Create Environment
-      %h5.patient.pull-right
+
+      .pull-right.patient{id: 'patient_' + @lab.id.to_s }
         Please be patient while we spin up your lab.  This process can take several minutes.
 
       #loading.pull-left{style: 'display:none'}
