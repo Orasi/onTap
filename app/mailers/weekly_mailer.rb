@@ -14,7 +14,7 @@ class WeeklyMailer < ActionMailer::Base
     @days[:thursday] = []
     @days[:friday] = []
     @weeks_events.each do |event|
-      day_of_week = Date::DAYNAMES[event.schedules.first.event_date.wday].downcase.to_sym
+      day_of_week = Date::DAYNAMES[event.schedules.first.start.wday].downcase.to_sym
       @days[day_of_week].append event
     end
     
