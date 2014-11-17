@@ -26,7 +26,7 @@ set :pty, true
  set :linked_files, %w{config/aws.yml config/initializers/saml.rb}
 
 # Default value for linked_dirs is []
- set :linked_dirs, %w{public/photos}
+ set :linked_dirs, %w{public/photos tmp/pids}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -54,7 +54,11 @@ namespace :deploy do
     end
   end
 
+ task :restart do
+    invoke 'delayed_job:restart'
+ end
+
   after :publishing, :clear_cache
   after :clear_cache, :restart
-
+  after :publishing, :restart
 end
