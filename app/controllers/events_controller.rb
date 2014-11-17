@@ -9,6 +9,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @lab = Template.find(487953)
   end
 
   def new
