@@ -16,6 +16,9 @@ role :db,  %w(matt@codeChallenge)
 
 server 'codeChallenge', user: 'matt', roles: %w(web app), my_property: :my_value
 
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"
 # Custom SSH Options
 # ==================
 # You may pass any option but keep in mind that net/ssh understands a

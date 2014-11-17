@@ -9,7 +9,8 @@ set :repo_url, 'https://github.com/Orasi/onTap.git'
 
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/var/www/ontap'
-
+set :rails_env, "production" #added for delayed job  
+set :delayed_job_args, "-n 6"
 # Default value for :scm is :git
 # set :scm, :git
 
