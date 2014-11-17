@@ -273,6 +273,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   capistrano
+  capistrano-bundler
   capistrano-rails (~> 1.1)
   capistrano-rvm
   capistrano-touch-linked-files

@@ -58,6 +58,7 @@ gem 'net-ldap'
 gem 'capistrano', group: :development
 gem 'capistrano-rails', '~> 1.1'
 gem 'capistrano-touch-linked-files'
+gem 'capistrano-bundler'
 # Use debugger
 gem 'pry', group: [:development, :test]
 
