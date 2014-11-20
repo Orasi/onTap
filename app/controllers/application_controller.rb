@@ -7,8 +7,9 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def check_expired_lab
-    unless current_user.environment.nil?
-      if !current_user.environment.expiration.nil? && current_user.environment.expiration.to_datetime > DateTime.now.utc
+
+    unless current_user.nil? && current_user.environment.nil? && current_user.environment.expiration.nil?
+      if current_user.environment.expiration.to_datetime > DateTime.now.utc
         json = current_user.environment.get_details
         unless json['error'].blank?
           puts '#@$@#$@#$@#$@#$#@$'
