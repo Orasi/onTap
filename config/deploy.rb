@@ -58,11 +58,11 @@ namespace :deploy do
     invoke 'delayed_job:restart'
  end
 
- test :stop_dj do
+ task :stop_dj do
     invoke 'delayed_job:stop'
  end
 
-  before :deploy, :stop_dj
+  before :publishing, :stop_dj
   after :publishing, :clear_cache
   after :clear_cache, :restart
   after :publishing, :restart

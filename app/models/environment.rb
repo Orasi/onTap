@@ -53,6 +53,7 @@ class Environment < ActiveRecord::Base
     puts '----------------------------------  Environment Details ---------------------------'
     puts json
     puts '---------------------------------------------------------------------------------------'
+    json
   end
 
   def change_runstate(state)

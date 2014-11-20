@@ -18,29 +18,32 @@
 
     .env_description= @lab.description
 
-    -if @env
-      #panel_for_environment
-        #access_panel
-          #rdp.pull-left= link_to 'Connect via RDP', lab_rdp_path(@env), class: 'btn btn-primary'
-          #smartclient.pull-left= link_to 'Connect via SmartClient', @env.published_url, target: '_blank', class: 'btn btn-primary'
-          #delete.pull-right= link_to 'Delete Lab', delete_lab_path, method: :delete, class: 'btn btn-default', confirm: "This will delete the Lab and any work done while it has been running.\n Would you like to continue?"
-    - unless @env
 
-      .btn.btn-primary.spin_button.pull-left
-        .create_env.pull-left{id: @lab.id} Create Environment
-        .placeholder{style: 'visibility:hidden'} Create Environment
+    .btn.btn-primary.spin_button.pull-left
+      .create_env.pull-left{id: @lab.id} Create Environment
+      .placeholder{style: 'visibility:hidden'} Create Environment
 
-      .pull-right.patient{id: 'patient_' + @lab.id.to_s }
-        Please be patient while we spin up your lab.  This process can take several minutes.
+    .pull-right.patient{id: 'patient_' + @lab.id.to_s }
+      Please be patient while we spin up your lab.  This process can take several minutes.
 
-      #loading.pull-left{style: 'display:none'}
-        .spinner
-          .inner
-          .outer
-      #timeout
-        %h4.alert.alert-danger{role: 'alert'} <strong>The requested environment could not be created.</strong> Please contact the system administrator for help resolving this matter
+    #loading.pull-left{style: 'display:none'}
+      .spinner
+        .inner
+        .outer
+    #timeout
+      %h4.alert.alert-danger{role: 'alert'} <strong>The requested environment could not be created.</strong> Please contact the system administrator for help resolving this matter
 = render partial: ('lab_credentials'), locals: {lab: @lab}
 = render partial: ('lab_properties'), locals: {lab: @lab}
+
 :javascript
    env_id = "#{@env.id unless @env.nil?}"
    create_lab_path = "#{create_lab_path(@lab)}"
+
+- unless @env.nil?
+  - if @env.template_id == @lab.id
+    :javascript
+      $(document).ready(function(){
+        Window.disable_input("#{@env.template_id}")
+        Window.get_status("#{@env.id}", "#{@env.template_id}")
+      })
+

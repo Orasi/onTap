@@ -34,13 +34,15 @@ class LabsController < ApplicationController
   end
   def redirect_to_manage
     unless current_user.environment.nil?
-      redirect_to manage_lab_path current_user.environment
+      if current_user.environment.template_id.to_s === params[:id] && current_user.environment.status == 'running'
+        redirect_to manage_lab_path current_user.environment
+      end
     end
   end
 
   def redirect_from_manage
-    if current_user.environment.nil?
-      lab = Template.find(params[:id])
+    if current_user.environment.nil? || current_user.environment.status != 'running'
+      lab = Environment.find(params[:id]).template
       redirect_to lab_path(lab)
     end
   end

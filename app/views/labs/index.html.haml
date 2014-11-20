@@ -20,9 +20,22 @@
     .body
       .description= lab.description
 
-      .btn.btn-primary.spin_button.pull-left
-        .create_env.pull-left{id: lab.id} Create Environment
-        .placeholder{style: 'visibility:hidden'} Create Environment
+
+      - if @env.nil?
+        .btn.btn-primary.spin_button.pull-left
+          .create_env.pull-left{id: lab.id} Create Environment
+          .placeholder{style: 'visibility:hidden'} Create Environment
+      - unless @env.nil?
+        - if @env.template_id == lab.id
+          .btn.btn-primary.spin_button.pull-left.disabled
+            .create_env.pull-left{id: lab.id} Currently Checked Out
+            .placeholder{style: 'visibility:hidden'} Create Environment
+        - unless @env.template_id == lab.id
+          .btn.btn-primary.spin_button.pull-left
+            .create_env.pull-left{id: lab.id} Create Environment
+            .placeholder{style: 'visibility:hidden'} Create Environment
+
+
       = link_to 'More Details', lab_path(lab), class: 'btn btn-primary pull-left details_button'
       .pull-left.patient{id: 'patient_' + lab.id.to_s }
         Please be patient while we spin up your lab.  This process can take several minutes.
@@ -30,3 +43,10 @@
   $(function(){
     $("#accordion").accordion({collapsible: true, active:false,heightStyle: "content"});
   });
+- unless @env.nil?
+  - unless @env.status === 'running'
+    :javascript
+      $(document).ready(function(){
+        Window.disable_input("#{@env.template_id}")
+        Window.get_status("#{@env.id}", "#{@env.template_id}")
+      })

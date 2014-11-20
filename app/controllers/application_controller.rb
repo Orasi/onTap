@@ -2,8 +2,23 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  before_action :check_expired_lab
   before_action :require_login
   helper_method :current_user
+
+  def check_expired_lab
+    unless current_user.environment.nil?
+      if !current_user.environment.expiration.nil? && current_user.environment.expiration.to_datetime > DateTime.now.utc
+        json = current_user.environment.get_details
+        unless json['error'].blank?
+          puts '#@$@#$@#$@#$@#$#@$'
+          puts json['error']
+          puts '#@$@#$@#$@#$@#$#@$'
+          current_user.environment.destroy
+        end
+      end
+    end
+  end
 
   def current_user
     @_current_user ||= session[:current_user_id] &&

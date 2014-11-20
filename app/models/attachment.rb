@@ -11,7 +11,7 @@ class Attachment < ActiveRecord::Base
   # DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/orasitest\.s3\.amazonaws\.com\/uploads\/.+\/(?<file_file_name>.+)\z}.freeze
   #  DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/orasitest\.s3\.amazonaws\.com\/uploads\/.*\z}.freeze
   DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/orasitest\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
-
+ssh
   # process_in_background :file
 
   def direct_upload_url=(escaped_url)
