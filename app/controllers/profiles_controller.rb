@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
-  before_action :require_admin_or_owner, only [:show]
-  before_action :require_owner, only [:edit, :update]
+  before_action :require_admin_or_owner, only: [:show]
+  before_action :require_owner, only: [:edit, :update]
 #validate is user editing
 
 
@@ -32,6 +32,12 @@ class ProfilesController < ApplicationController
     # need better way to find event
     if !params[:id]==current_user.id && !current_user.admin
        redirect_to :calendar, flash: { error: 'You do not have permission to view this profile' }
+    end
+  end
+
+  def require_owner
+    if !params[:id]==current_user.id
+       redirect_to :calendar, flash: { error: 'You do not have permission to edit this profile' }
     end
   end
 

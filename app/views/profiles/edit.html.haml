@@ -13,7 +13,7 @@
     %div.other_choice
     = f.radio_button :food_pref, "Other", class: "picky eater"
     = f.label :food_pref, "Other", :value => "Other", checked: (@profile.food_pref=="Other" unless @profile.food_pref.nil?)
-  .form_group#otherfoodbox
+  %div.indented#otherfoodbox
     =f.label :other_food, nil, class: "control-label"
     =f.text_field :other_food, value: @profile.other_food, class: "form-control"
 

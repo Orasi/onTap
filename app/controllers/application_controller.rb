@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def check_expired_lab
+    if !current_user.nil?#remove(or keep, unified vs local login issue)
     unless current_user.environment.nil?
       if !current_user.environment.expiration.nil? && current_user.environment.expiration.to_datetime > DateTime.now.utc
         json = current_user.environment.get_details
@@ -17,6 +18,7 @@ class ApplicationController < ActionController::Base
           current_user.environment.destroy
         end
       end
+    end#dups
     end
   end
 
