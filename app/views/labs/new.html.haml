@@ -1,0 +1,34 @@
+= form_for @lab, url: create_template_path do |f|
+
+  .form_group
+    %br
+    = f.label "Lab ID", class: 'control-label'
+    = f.text_field :id, value: @lab.id, class: 'form-control', required: true
+
+  .form_group
+    %br
+    = f.label "Lab Title", class: 'control-label'
+    = f.text_field :title, value: @lab.title, class: 'form-control', required: true
+
+  .form_group
+    %br
+    =f.label 'Lab Description', nil, class: "control-label"
+    =f.text_field :description, value: @lab.description, class: "form-control", required: true
+
+  .form_group
+    %br
+    =f.label 'Lab Username', nil, class: "control-label"
+    =f.text_field :username, value: @lab.username, class: "form-control", required: true
+
+  .form_group
+    %br
+    =f.label 'Lab Password', nil, class: "control-label"
+    =f.text_field :password, value: @lab.password, class: "form-control", required: true
+
+  .form_group
+    =f.label :properties, nil, class: "control-label"
+    =f.text_field :properties, value: @lab.properties, class: "form-control", required: true
+    Properties should be a semi-colon delimited string.
+
+  .form_group
+    = f.submit

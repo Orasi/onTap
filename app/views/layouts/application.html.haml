@@ -1,4 +1,4 @@
-!!!
+
 %html
   %head
     %title onTap
@@ -20,6 +20,9 @@
           %ul.nav.navbar-nav
             %li
               =link_to "Events", root_url
+            - if admin?
+              %li
+                =link_to "Labs", labs_path
             %li
               = link_to "Archive", archive_index_path
             %li
@@ -33,14 +36,16 @@
                   %li
                     = link_to "Add New Event", new_event_path
                   %li
+                    = link_to "Add New Lab", new_lab_path
+                  %li
                     = link_to "View Suggestions", suggestions_path
+
             -if session[:current_user_id]
               %li
                 = link_to "Profile", edit_profile_path(session[:current_user_id])
             -if session[:current_user_id]
               %li
                 = link_to "Logout", { controller: "welcome", action: "logout" }   
-      
     %div.container.theme-showcase{role: :main, style: "margin-top: 80px"}
       = render "flash_messages"
       = yield

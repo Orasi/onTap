@@ -5,11 +5,11 @@ gem 'rails', '4.0.2'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', group: [:development,:test,:production]
-
+gem 'pg'
 # Heroku gems
 group :staging do
   gem 'rails_12factor'
-  gem 'pg'
+
   gem 'unicorn'
 end
 
@@ -31,6 +31,8 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-timepicker-rails'
 gem 'twitter-bootstrap-rails'
+#gem 'bootstrap-sass', '~> 3.3.0'
+
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -55,7 +57,8 @@ gem 'net-ldap'
 # Use Capistrano for deployment
 gem 'capistrano', group: :development
 gem 'capistrano-rails', '~> 1.1'
-
+gem 'capistrano-touch-linked-files'
+gem 'capistrano-bundler'
 # Use debugger
 gem 'pry', group: [:development, :test]
 
@@ -83,4 +86,5 @@ gem 'whenever'
 gem 'ruby-saml'
 gem 'better_errors'
 gem 'binding_of_caller'
+
 

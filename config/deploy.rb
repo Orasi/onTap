@@ -8,7 +8,7 @@ set :repo_url, 'https://github.com/Orasi/onTap.git'
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, '/var/www/aut'
+set :deploy_to, '/var/www/ontap'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -23,10 +23,10 @@ set :deploy_to, '/var/www/aut'
 set :pty, true
 
 # Default value for :linked_files is []
-# set :linked_files, %w{config/database.yml}
+ set :linked_files, %w{config/aws.yml config/initializers/saml.rb}
 
 # Default value for linked_dirs is []
-# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system tmp public/photos}
+ set :linked_dirs, %w{public/photos tmp/pids}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -49,14 +49,21 @@ namespace :deploy do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
       within release_path do
-        execute :rake, 'db:schema:load'
-        execute :rake, 'db:seed'
         execute :rake, 'db:migrate'
       end
     end
   end
 
+ task :restart do
+    invoke 'delayed_job:restart'
+ end
+
+ task :stop_dj do
+    invoke 'delayed_job:stop'
+ end
+
+  before :publishing, :stop_dj
   after :publishing, :clear_cache
   after :clear_cache, :restart
-
+  after :publishing, :restart
 end

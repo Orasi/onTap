@@ -1,8 +1,8 @@
 class ProfilesController < ApplicationController
-  before_action :require_admin, only [
-
+  before_action :require_admin_or_owner, only [:show]
+  before_action :require_owner, only [:edit, :update]
 #validate is user editing
-#validate show is user or admin
+
 
   #show the profile to the user
   def show

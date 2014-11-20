@@ -17,10 +17,11 @@ module LunchLearn
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
 
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+    # Thre default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-
+    config.assets.paths << Rails.root.join('vendor', 'assets')
+    config.autoload_paths += Dir["#{config.root}/app/controllers/concerns", "#{config.root}/app/models/concerns"]
     config.assets.precompile << proc do |path|
       if path =~ /\.(css|js|eot|svg|ttf|woff|png)\z/
         true
