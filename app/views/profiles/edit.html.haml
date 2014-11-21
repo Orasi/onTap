@@ -4,8 +4,11 @@
     = f.radio_button :food_pref, "Vegan", class: "picky food"
     = f.label :food_pref, "Vegan", :value => "Vegan", checked: (@profile.food_pref=="Vegan" unless @profile.food_pref.nil?)
     %br
-    = f.radio_button :food_pref, "Meat", class: "picky food"
-    = f.label :food_pref, "Meat", :value => "Meat", checked: (@profile.food_pref=="Meat" unless @profile.food_pref.nil?)
+    = f.radio_button :food_pref, "Vegetarian", class: "picky food"
+    = f.label :food_pref, "Vegetarian", :value => "Vegetarian", checked: (@profile.food_pref=="Vegetarian" unless @profile.food_pref.nil?)
+    %br
+    = f.radio_button :food_pref, "Gluten Free", class: "picky food"
+    = f.label :food_pref, "Gluten Free", :value => "Gluten Free", checked: (@profile.food_pref=="Gluten Free" unless @profile.food_pref.nil?)
     %br
     = f.radio_button :food_pref, "None", class: "picky food"
     = f.label :food_pref, "None", :value => "None", checked: (@profile.food_pref=="None" unless @profile.food_pref.nil?)

@@ -64,4 +64,13 @@ class Event < ActiveRecord::Base
   def older_than_days(days)
     schedules.last.end.to_date < DateTime.now.to_date - days
   end
+
+  def get_food_preferences
+    attendees.each do |attendee|
+      @user=User.find(attendee.user_id)
+      unless @user.profile.nil?
+        @user.profile.food_pref
+      end
+    end
+  end
 end

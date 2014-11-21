@@ -1,0 +1,8 @@
+-unless event.status == 'finalized'
+  .panel.panel-default
+    .panel-heading
+      Attendee Food Preferences:
+    .panel-body
+      .h5
+        Meeting URL:  
+        = link_to event.event_style.element.url, event.event_style.element.url
