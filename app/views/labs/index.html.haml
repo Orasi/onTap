@@ -39,6 +39,7 @@
       = link_to 'More Details', lab_path(lab), class: 'btn btn-primary pull-left details_button'
       .pull-left.patient{id: 'patient_' + lab.id.to_s }
         Please be patient while we spin up your lab.  This process can take several minutes.
+
 :javascript
   $(function(){
     $("#accordion").accordion({collapsible: true, active:false,heightStyle: "content"});

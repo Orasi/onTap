@@ -168,13 +168,14 @@ class Environment < ActiveRecord::Base
   end
   handle_asynchronously :create_delete_schedule, priority: 5
 
-  def renew_delete_schedule expiration
+  def extend_delete_schedule hours
     json = api_call(request_type: 'delete', request_path: '/schedules/' + schedule_id.to_s)
     puts '----------------------------------  Remove Delete Schedule JSON ---------------------------'
     puts json
     puts '---------------------------------------------------------------------------------------'
-    update(expiration: expiration)
-    create_delete_schedule expiration
+    new_expiration = expiration.to_datetime + hours.hours
+    update(expiration: new_expiration)
+    create_delete_schedule_without_delay new_expiration
   end
 
   def create_published_service port

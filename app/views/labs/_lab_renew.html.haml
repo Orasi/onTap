@@ -1,0 +1,48 @@
+.modal.fade#renewModal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{type: 'button', 'data-dismiss' => 'modal'}
+          %span{ 'aria-hidden' => true} &times;
+          %span.sr-only Close
+        %h4.modal-title Extend Lab Expiration
+      .modal-body
+        #extend_form
+          .h5
+            This Lab expires
+            - if env.expiration.to_datetime.today?
+              today at
+            - if (env.expiration.to_datetime + 1.day).today?
+              tomorrow at
+            = env.expiration.to_time.strftime("%I:%M %p")
+          .h5
+            %span
+              .pull-left{style: 'margin-right:5px;margin-top:5px'} Extend lab for
+              #hours_select.pull-left= select_tag 'renew_hours',  options_for_select([1,2,3,4,5,6])
+              .pull-left{style: 'margin-left:5px;margin-top:5px'} hours.
+        #done{style: 'display:none'}
+          %h2 Lab Extended!
+      .modal-footer
+        #close_button.btn.btn-primary.pull-right{style: 'margin:5px', type: 'button', 'data-dismiss' => 'modal'} Close
+        #submit_extend.btn.btn-primary.pull-right{style: 'margin:5px'} Extend
+
+
+:javascript
+  $('#submit_extend').click(function(){
+    $('#submit_extend, #close_button').addClass('disabled')
+    hours = $('#hours_select option:selected').text()
+    $.post("/labs/#{env.id}/extend/" + hours  , function(data){
+        expire = Date.parse(data['expiration'])
+        $("#time").countdown(expire, function(event) {
+          $(this).text(
+            event.strftime(' %H hour and %M minutes')
+          );
+        })
+        $('#close_button').removeClass('disabled')
+        new_expiration = data.expiration
+        $('#extend_form, #submit_extend').fadeOut(function(){
+          $('#done').fadeIn()
+        })
+
+    })
+  })

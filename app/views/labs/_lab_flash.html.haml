@@ -1,4 +1,5 @@
 - unless env.nil?
+  = render partial: 'lab_renew', locals: {env: env}
   .alert{ :class => "alert bg-info fadeout" }
 
     .time
@@ -7,8 +8,11 @@
         = 'This lab will expire in '
         %span#time
     = link_to 'Manage Lab', manage_lab_path(@env), class: 'btn btn-primary' if (params[:action] != 'manage')
+    %button.btn.btn-primary{ 'data-toggle' => 'modal', 'data-target' => '#renewModal', type: 'modal'}
+      Extend Lab
     - if @env.expiration < DateTime.now
       - #check for existence delete if not found
+
 
 
   :javascript

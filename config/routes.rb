@@ -13,6 +13,7 @@ LunchLearn::Application.routes.draw do
 
   get 'labs/:id/status' => 'labs#lab_status', as: :lab_status, format: :json
   get 'labs/:id/manage' => 'labs#manage', as: :manage_lab
+  post 'labs/:id/extend/:hours' => 'labs#extend_lab', as: :extend_lab
   delete 'labs' => 'labs#delete_lab', as: :delete_lab
   get 'labs/:id/rdp'    => 'labs#generate_rdp_file', as: :lab_rdp
   resources :labs

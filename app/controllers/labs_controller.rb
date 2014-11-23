@@ -32,6 +32,13 @@ class LabsController < ApplicationController
   def new
     @lab = Template.new
   end
+
+  def extend_lab
+    @env = Environment.find(params[:id])
+    @env.extend_delete_schedule params[:hours].to_i
+    render json: @env
+  end
+
   def redirect_to_manage
     unless current_user.environment.nil?
       if current_user.environment.template_id.to_s === params[:id] && current_user.environment.status == 'running'
