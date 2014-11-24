@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class ProfilesControllerTest < ActionController::TestCase
+<<<<<<< HEAD
   def setup
     @user = FactoryGirl.create(:normal_user)
     @user2 = FactoryGirl.create(:normal_user)
@@ -13,6 +14,12 @@ class ProfilesControllerTest < ActionController::TestCase
   test 'User should be able to view edit page of their own profile' do
     @profile.update_attributes(user_id: @user.id)
     get :edit, { id: @user.id }, current_user_id: @user.id
+=======
+  
+  test "should get new" do
+skip
+    get :new
+>>>>>>> 899b6033244c4bd2dbb5e7b385347d04edb42650
     assert_response :success
   end
 
