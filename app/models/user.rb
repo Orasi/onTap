@@ -28,9 +28,6 @@ class User < ActiveRecord::Base
       user.admin = false
       user.username = "#{user.first_name}#{user.last_name}".downcase if user.first_name.length == 1
     end
-    if user.profile.nil?
-      Profile.new_user_profile(user.id)
-    end
     user
   end
 

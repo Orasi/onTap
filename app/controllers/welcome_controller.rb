@@ -40,6 +40,9 @@ class WelcomeController < ApplicationController
     end
     @saml = saml_response
     if @user.save
+      if @user.profile.nil?
+        Profile.new_user_profile(@user.id)
+      end
 	     session[:current_user_id] = @user.id
 	     Session.create(session_id: session[:session_id])
       if session[:return_to]

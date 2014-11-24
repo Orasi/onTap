@@ -66,11 +66,27 @@ class Event < ActiveRecord::Base
   end
 
   def get_food_preferences
+    food_hsh = {}
     attendees.each do |attendee|
       @user=User.find(attendee.user_id)
       unless @user.profile.nil?
-        @user.profile.food_pref
+        if @user.profile.food_pref == "Other"
+          unless @user.profile.other_food.nil?
+            if food_hsh["Other"].nil?
+              food_hsh["Other"] = @user.profile.other_food
+            else
+              food_hsh["Other"] += ", "+@user.profile.other_food
+            end
+          end
+        else
+          if food_hsh[@user.profile.food_pref].nil?
+            food_hsh[@user.profile.food_pref] = 1
+          else
+            food_hsh[@user.profile.food_pref] += 1
+          end
+        end
       end
     end
+    return food_hsh
   end
 end
