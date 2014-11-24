@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   validates_inclusion_of :admin, in: [true, false]
   has_many :suggestions
   has_many :surveys
+  has_one :profile
   has_one :environment
 
   def display_name
@@ -27,7 +28,6 @@ class User < ActiveRecord::Base
       user.admin = false
       user.username = "#{user.first_name}#{user.last_name}".downcase if user.first_name.length == 1
     end
-
     user
   end
 

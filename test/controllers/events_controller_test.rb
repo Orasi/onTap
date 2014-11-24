@@ -442,6 +442,17 @@ skip
     assert_match /You have a new survey to take./, flash[:success]
   end
 
+  test 'should see food preference info if host' do
+    get :show, { id: @lunchlearn.id }, current_user_id: @lunchlearn.hosts.sample.user_id
+    assert_select '.panel-heading', 'Attendee Food Preferences'
+  end
+
+  test 'should see food preference info if admin' do
+    get :show, { id: @lunchlearn.id }, current_user_id: @admin.id
+    assert_select '.panel-heading', 'Attendee Food Preferences'
+  end
+
+
   # Need to create factory trait for event with no attendees
   # test "if no attendees, no users registered should display" do
   #   get :show, {id: @lunchlearn.id}, {current_user_id: @admin.id}

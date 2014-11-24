@@ -16,7 +16,7 @@ class SurveysController < ApplicationController
       redirect_to :calendar, flash: { error: 'Survey  was not created' }
       return
     end
-    Notification.find_by(event_id: @survey.event_id, user_id: @survey.user_id).destroy
+    Notification.find_by(event_id: @survey.event_id, user_id: @survey.user_id, notification_type: 'survey').destroy
     redirect_to :calendar, flash: { success: 'Event survey was submitted' }
   end
 

@@ -148,4 +148,11 @@ FactoryGirl.define do
     end
 
   end
+
+  # ***********************Profile Factory **************************
+  factory :profile do
+    food_pref 'None'
+    location 'Other'
+    notification_settings true
+  end
 end

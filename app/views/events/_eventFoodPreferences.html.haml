@@ -1,0 +1,10 @@
+- if event.hosting_or_above?(current_user) && event.status != 'finalized'
+  .panel.panel-default
+    .panel-heading
+      Attendee Food Preferences
+    .panel-body
+      .h5
+        -food_col = event.get_food_preferences()
+        -food_col.each_pair do |k,v|
+          = "#{k}: #{v}"
+          %br

@@ -113,15 +113,25 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "updated_at"
   end
 
+  create_table "profiles", force: true do |t|
+    t.string   "food_pref"
+    t.string   "location"
+    t.boolean  "notification_settings"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "other_food"
+  end
+
   create_table "schedules", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "event_id"
+    t.datetime "start"
+    t.datetime "end"
     t.date     "event_date"
     t.time     "event_time"
     t.time     "end_time"
-    t.datetime "start"
-    t.datetime "end"
   end
 
   create_table "sessions", force: true do |t|
@@ -175,6 +185,7 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.boolean  "admin"
     t.string   "photo"
     t.string   "email"
+    t.boolean  "weekly_mailer"
   end
 
   create_table "webinars", force: true do |t|
