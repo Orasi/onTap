@@ -17,9 +17,10 @@
 :javascript
   $(document).on("ready", function(){
     $('#update_profile_button').click(function(){
+      $('#profile_form').submit()
       $('#cancel_profile_button').addClass('disabled')
       $('#update_profile_button').addClass('disabled')
-      $('#profile_form').submit()
+
     })
     if ($(".eater:checked").length > 0)
       $("#otherfoodbox").show()

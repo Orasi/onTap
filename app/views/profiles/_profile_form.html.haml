@@ -1,4 +1,4 @@
-= form_for profile, html: {class: "form-horizontal", role: "form"} do |f|
+= form_for profile, html: {class: "form-horizontal", role: "form", id: 'profile_form'} do |f|
   = f.label "Food Preference"
   %div.indented
     = f.radio_button :food_pref, "Vegan", class: "picky food"
@@ -43,11 +43,11 @@
       %br
       =f.submit class: "btn btn-primary", data: { disable_with: "Adding Suggestion..."}
 
-:javascript
-  $(document).on("ready", function(){
-    if ($(".eater:checked").length > 0)
-      $("#otherfoodbox").show()
-    $(".picky").on("change", function(){
-      $("#otherfoodbox").toggle($(this).hasClass("eater"));
-    });
-  });
+    :javascript
+      $(document).on("ready", function(){
+        if ($(".eater:checked").length > 0)
+          $("#otherfoodbox").show()
+        $(".picky").on("change", function(){
+          $("#otherfoodbox").toggle($(this).hasClass("eater"));
+        });
+      });
