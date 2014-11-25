@@ -29,7 +29,7 @@ every :day , at: '3:00pm' do
 end
 
 every :monday, at: '9:00 am'  do 
-  runner 'WeeklyMailer.weekly_mailer(User.joins(:profile).where(:profiles => {notification_settings: true})).deliver'
+  runner 'WeeklyMailer.weekly_mailer((User.all-User.joins(:profile).where(:profiles => {notification_settings: false}))).deliver'
 end
 
 # Learn more: http://github.com/javan/whenever
