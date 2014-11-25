@@ -41,14 +41,13 @@
                     %li
                       = link_to "View Suggestions", suggestions_path
 
-              %li
-                = link_to "Logout", { controller: "welcome", action: "logout" }
           - if current_user
             %ul.nav.navbar-nav.pull-right
-              %li.pull-right
-                %a{style: 'margin-right: 200px;cursor:pointer;cursor:hand;', data: {toggle: 'modal', target: '#profile_modal'}}
-                  Welcome
-                  = current_user.display_name
+              %li
+                %a{style: 'cursor:pointer;cursor:hand;', data: {toggle: 'modal', target: '#profile_modal'}}
+                  = "Welcome #{current_user.display_name}, "
+              %li
+                = link_to "Logout?", { controller: "welcome", action: "logout" }
     %div.container.theme-showcase{role: :main, style: "margin-top: 80px"}
       = render "flash_messages"
       - if current_user
