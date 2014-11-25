@@ -31,6 +31,7 @@ end
   end
 
   test 'find or create - create' do
+skip
     u = User.find_or_create('some.one', 'some one', 'some.one@orasi.com')
     assert_not_nil u
   end

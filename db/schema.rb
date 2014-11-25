@@ -186,7 +186,6 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.string   "photo"
     t.string   "email"
   end
-
   create_table "webinars", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
