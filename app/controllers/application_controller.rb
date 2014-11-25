@@ -4,8 +4,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :check_expired_lab
   before_action :require_login
+  before_action :get_profile
   helper_method :current_user
 
+  def get_profile
+    @profile = current_user.profile if current_user
+  end
   def check_expired_lab
     unless current_user.nil? || current_user.environment.nil? || current_user.environment.expiration.nil?
       if current_user.environment.expiration.to_datetime < DateTime.now.utc

@@ -1,0 +1,29 @@
+
+#profile_modal.modal.fade
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss' => 'modal'}
+          %span{'aria-hidden' => 'true'}x
+          %span.sr-only Close
+        %h4.modal-title#profile_modal_label Edit User Profile
+      .modal-body
+        = render partial: 'profiles/profile_form', locals: {profile: profile, modal: true}
+
+      .modal-footer
+        %button.btn.btn-primary#cancel_profile_button{'data-dismiss' => 'modal'} Close
+        %button.btn.btn-primary#update_profile_button{data: {disable_with: 'Updating Profile...'}} Save Changes
+
+:javascript
+  $(document).on("ready", function(){
+    $('#update_profile_button').click(function(){
+      $('#cancel_profile_button').addClass('disabled')
+      $('#update_profile_button').addClass('disabled')
+      $('#profile_form').submit()
+    })
+    if ($(".eater:checked").length > 0)
+      $("#otherfoodbox").show()
+    $(".picky").on("change", function(){
+      $("#otherfoodbox").toggle($(this).hasClass("eater"));
+    });
+  });

@@ -32,6 +32,7 @@ class Environment < ActiveRecord::Base
 
   def proccess
     change_environment_name
+    remove_auto_suspend
     create_published_set
     create_delete_schedule(DateTime.now + 2.hours)
     change_runstate 'running'
@@ -183,7 +184,7 @@ class Environment < ActiveRecord::Base
     get_first_interface
     return_or_create_service port
   end
-  handle_asynchronously :create_published_service, priority: 5
+  handle_asynchronously :create_published_service, priority: 3
 
   def get_first_vm
     vms = api_call(request_path: '/configurations/' + id.to_s + '/vms')
@@ -201,6 +202,14 @@ class Environment < ActiveRecord::Base
     puts @interface
     puts '---------------------------------------------------------------------------------------'
   end
+
+  def remove_auto_suspend
+    json = api_call(request_type: 'put', request_path: '/configurations/' + id.to_s, request_form_data: { suspend_on_idle: ''})
+    puts '----------------------------------  Remove Auto Suspend JSON ---------------------------'
+    puts json
+    puts '---------------------------------------------------------------------------------------'
+  end
+  handle_asynchronously :remove_auto_suspend, priority: 5
 
   def return_or_create_service port
     form_data = { port: port}

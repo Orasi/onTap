@@ -39,13 +39,18 @@
                     = link_to "Add New Lab", new_lab_path
                   %li
                     = link_to "View Suggestions", suggestions_path
-
             -if session[:current_user_id]
               %li
-                = link_to "Profile", edit_profile_path(session[:current_user_id])
-            -if session[:current_user_id]
-              %li
-                = link_to "Logout", { controller: "welcome", action: "logout" }   
+                = link_to "Logout", { controller: "welcome", action: "logout" }
+          -if current_user
+            %ul.nav.navbar-nav.pull-right
+              %li.pull-right
+                %a{style: 'margin-right: 200px',type: 'button', data: {toggle: 'modal', target: '#profile_modal'}}
+                  Welcome
+                  = current_user.display_name
     %div.container.theme-showcase{role: :main, style: "margin-top: 80px"}
       = render "flash_messages"
+      - if current_user
+        = render partial: ('profiles/profile'), locals: {profile: @profile}
       = yield
+
