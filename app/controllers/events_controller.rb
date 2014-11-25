@@ -40,7 +40,7 @@ class EventsController < ApplicationController
       @eventtype = Lunchlearn.new(lunchlearn_params)
     elsif params[:event][:event_style] == 'webinar'
       @eventtype = Webinar.new(webinar_params)
-    elseif params[:event][:event_style] == 'training_class'
+    elsif params[:event][:event_style] == 'training_class'
       @eventtype = TrainingClass.new(trainingclass_params)
     end
 
