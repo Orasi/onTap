@@ -7,7 +7,7 @@ development:
   adapter: postgresql
   encoding: unicode
   pool: 20
-
+  host: localhost
   timeout: 5000
   user: postgres
   password: '1234'

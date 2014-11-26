@@ -35,7 +35,7 @@
 
   = f.label "Notification Settings"
   %div.indented
-    =f.check_box :notification_settings, checked: (@profile.notification_settings unless @profile.notification_settings.nil?), class: "meeting gotomeeting"
+    =f.check_box :notification_settings, checked: (@profile.notification_settings unless @profile.notification_settings.nil?)
     =f.label :notification_settings, "I would like to receive a weekly email about new and upcoming events on OnTap", class: "control-label"
 
   - unless modal
