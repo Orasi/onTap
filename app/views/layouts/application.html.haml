@@ -42,7 +42,8 @@
                       = link_to "View Suggestions", suggestions_path
                     %li
                       %a{style: 'cursor:pointer;cursor:hand;', data: {toggle: 'modal', target: '#email_modal_email_all'}} Email onTap Users
-
+                    %li
+                      = link_to 'Manage Users', manage_user_path
           - if current_user
             %ul.nav.navbar-nav.pull-right
               %li
@@ -50,6 +51,7 @@
                   = "Welcome #{current_user.display_name}, "
               %li
                 = link_to "Logout?", { controller: "welcome", action: "logout" }
+
 
     %div.container.theme-showcase{role: :main, style: "margin-top: 80px"}
       = render "flash_messages"

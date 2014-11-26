@@ -10,6 +10,7 @@ LunchLearn::Application.routes.draw do
   resources :attachments
   resources :profiles, except: :index
 
+  patch 'users/:id', to: 'users#update', as: :user
   post 'email' => 'application#send_email', as: :email
 
   post 'labs/new' => 'labs#create', as: :create_template
@@ -21,7 +22,7 @@ LunchLearn::Application.routes.draw do
   delete 'labs' => 'labs#delete_lab', as: :delete_lab
   get 'labs/:id/rdp'    => 'labs#generate_rdp_file', as: :lab_rdp
   resources :labs
-
+  get 'users/manage' => 'users#manage', as: :manage_user
   post '/attachment/:event_id' => 'attachments#create', as: :create_attachment
   get '/download/:id' => 'attachments#download', as: :download
 

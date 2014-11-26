@@ -1,0 +1,27 @@
+%table.table
+  %thead
+    %td
+      %strong Name
+    %td
+      %strong Created
+    %td
+      %strong Last Login
+    %td
+      %strong Admin?
+  - @users.each do |user|
+    %tr
+      %td
+        %b
+          = user.display_name
+      %td
+        %b
+          = user.created_at.to_formatted_s(:long_ordinal)
+      %td
+        %b
+          = user.updated_at.to_formatted_s(:long_ordinal)
+      %td
+        %b
+          = form_for user, remote: true do |u|
+            = u.check_box :admin, class: 'admin_checkbox', disabled: user==current_user
+
+
