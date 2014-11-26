@@ -7,9 +7,17 @@ class ApplicationController < ActionController::Base
   before_action :get_profile
   helper_method :current_user
 
+
+  def send_email
+    users = params[:users] == 'all' ? User.all : params[:users]
+    UserEmail.user_email(users.pluck(:email), params[:subject][:subject], params[:message][:message]).deliver
+    redirect_to :back, flash: { success: "Email sent to #{users.count} users."}
+  end
+
   def get_profile
     @profile = current_user.profile if current_user
   end
+
   def check_expired_lab
     unless current_user.nil? || current_user.environment.nil? || current_user.environment.expiration.nil?
       if current_user.environment.expiration.to_datetime < DateTime.now.utc

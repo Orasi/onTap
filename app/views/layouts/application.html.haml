@@ -40,6 +40,8 @@
                       = link_to "Add New Lab", new_lab_path
                     %li
                       = link_to "View Suggestions", suggestions_path
+                    %li
+                      %a{style: 'cursor:pointer;cursor:hand;', data: {toggle: 'modal', target: '#email_modal'}} Email onTap Users
 
           - if current_user
             %ul.nav.navbar-nav.pull-right
@@ -48,9 +50,11 @@
                   = "Welcome #{current_user.display_name}, "
               %li
                 = link_to "Logout?", { controller: "welcome", action: "logout" }
+
     %div.container.theme-showcase{role: :main, style: "margin-top: 80px"}
       = render "flash_messages"
       - if current_user
         = render partial: ('profiles/profile'), locals: {profile: @profile}
+        = render partial: 'email_form', locals: {trigger: false, title: 'Email onTap Users', to: 'all'}
       = yield
 

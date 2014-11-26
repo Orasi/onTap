@@ -1,0 +1,32 @@
+-if trigger
+  .test{style: 'cursor:pointer;cursor:hand;', data: {toggle: 'modal', target: '#email_modal'}}
+    = trigger
+#email_modal.modal.fade
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss' => 'modal'}
+          %span{'aria-hidden' => 'true'}x
+          %span.sr-only Close
+        %h4.modal-title#email_modal_label= title
+      .modal-body
+        = form_tag email_path, class: "form-horizontal", role: "form", id: 'email_form', style: 'padding-left:60px;padding-right:60px' do
+          .form-group
+            = label_tag :subject, 'Email Subject'
+            %div.indented
+              = text_field :subject, :subject, style: 'width:700px'
+          .form-group
+            = label_tag :message, 'Email Content'
+            %div.indented
+              = text_area :message, :message, style: 'width:700px;height:400px'
+          = hidden_field_tag 'users', to
+      .modal-footer
+        %button.btn.btn-primary#cancel_email_button{'data-dismiss' => 'modal'} Cancel
+        %button.btn.btn-primary#send_email_button{data: {disable_with: 'Sending Email...'}} Send
+
+:javascript
+  $('#send_email_button' ).click(function(){
+    $('#email_form').submit()
+    $('#cancel_email_button').addClass('disabled')
+    $('#send_email_button').addClass('disabled')
+  });

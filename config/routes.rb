@@ -10,6 +10,8 @@ LunchLearn::Application.routes.draw do
   resources :attachments
   resources :profiles, except: :index
 
+  post 'email' => 'application#send_email', as: :email
+
   post 'labs/new' => 'labs#create', as: :create_template
   post 'labs/:id' => 'labs#create_lab', as: :create_lab, format: :json
 
