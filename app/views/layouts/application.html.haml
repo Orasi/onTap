@@ -41,7 +41,7 @@
                     %li
                       = link_to "View Suggestions", suggestions_path
                     %li
-                      %a{style: 'cursor:pointer;cursor:hand;', data: {toggle: 'modal', target: '#email_modal'}} Email onTap Users
+                      %a{style: 'cursor:pointer;cursor:hand;', data: {toggle: 'modal', target: '#email_modal_email_all'}} Email onTap Users
 
           - if current_user
             %ul.nav.navbar-nav.pull-right
@@ -55,6 +55,6 @@
       = render "flash_messages"
       - if current_user
         = render partial: ('profiles/profile'), locals: {profile: @profile}
-        = render partial: 'email_form', locals: {trigger: false, title: 'Email onTap Users', to: 'all'}
+        = render partial: 'email_form', locals: {id: 'email_all', trigger: false, title: 'Email onTap Users', to: User.all.pluck(:email)}
       = yield
 

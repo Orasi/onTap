@@ -22,18 +22,6 @@ class Event < ActiveRecord::Base
 
   def past?
     return schedules.last.end <= DateTime.now - 5.hours
-    #return true if schedules.last.end < DateTime.now
-    # if schedules.last.event_time.hour == DateTime.now.to_time.hour
-    #  if schedules.last.event_time.min > DateTime.now.to_time.min
-    #    return true
-    #  else
-     #   return false
-     # end
-    #elsif schedules.last.event_time.hour < DateTime.now.to_time.hour
-    #  return true
-    #elsif schedules.last.event_time.hour > DateTime.now.to_time.hour
-    #  return false
-    #end =end
   end
 
   def attend_button_text(user)
@@ -60,6 +48,11 @@ class Event < ActiveRecord::Base
     event_style.element
   end
 
+  def attendees_email
+    if attendees
+      User.where(id: attendees.pluck(:user_id)).pluck(:email)
+    end
+  end
 
   def older_than_days(days)
     schedules.last.end.to_date < DateTime.now.to_date - days

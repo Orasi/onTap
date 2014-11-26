@@ -1,7 +1,7 @@
 -if trigger
-  .test{style: 'cursor:pointer;cursor:hand;', data: {toggle: 'modal', target: '#email_modal'}}
+  .test{style: 'cursor:pointer;cursor:hand;', data: {toggle: 'modal', target: '#email_modal_' + id}}
     = trigger
-#email_modal.modal.fade
+.modal.fade{id: 'email_modal_' + id}
   .modal-dialog.modal-lg
     .modal-content
       .modal-header
@@ -10,23 +10,27 @@
           %span.sr-only Close
         %h4.modal-title#email_modal_label= title
       .modal-body
-        = form_tag email_path, class: "form-horizontal", role: "form", id: 'email_form', style: 'padding-left:60px;padding-right:60px' do
+        = form_tag email_path, class: "form-horizontal", role: "form", id: 'email_form_' + id, style: 'padding-left:60px;padding-right:60px' do
           .form-group
             = label_tag :subject, 'Email Subject'
             %div.indented
-              = text_field :subject, :subject, style: 'width:700px'
+              = text_field :email, :subject, style: 'width:700px', required: true
           .form-group
             = label_tag :message, 'Email Content'
             %div.indented
-              = text_area :message, :message, style: 'width:700px;height:400px'
-          = hidden_field_tag 'users', to
+              = text_area :email, :message, style: 'width:700px;height:400px', required: ''
+          = hidden_field_tag :users, to
       .modal-footer
-        %button.btn.btn-primary#cancel_email_button{'data-dismiss' => 'modal'} Cancel
-        %button.btn.btn-primary#send_email_button{data: {disable_with: 'Sending Email...'}} Send
+        %button.btn.btn-primary{id: 'cancel_email_button_' + id, data: {dismiss: 'modal'}} Cancel
+        %button.btn.btn-primary{id: 'send_email_button_' + id, data: {disable_with: 'Sending Email...'}} Send
 
 :javascript
-  $('#send_email_button' ).click(function(){
-    $('#email_form').submit()
-    $('#cancel_email_button').addClass('disabled')
-    $('#send_email_button').addClass('disabled')
+  $("#send_email_button_#{id}").click(function(){
+    $("#email_form_#{id}").submit().fail(function(){
+      alert('test')
+      $("#cancel_email_button_#{id}").removeClass('disabled')
+      $("#send_email_button_#{id}").removeClass('disabled')
+    })
+    $("#cancel_email_button_#{id}").addClass('disabled')
+    $("#send_email_button_#{id}").addClass('disabled')
   });

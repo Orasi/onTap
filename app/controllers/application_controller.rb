@@ -9,9 +9,9 @@ class ApplicationController < ActionController::Base
 
 
   def send_email
-    users = params[:users] == 'all' ? User.all : params[:users]
-    UserEmail.user_email(users.pluck(:email), params[:subject][:subject], params[:message][:message]).deliver
-    redirect_to :back, flash: { success: "Email sent to #{users.count} users."}
+    users = params[:users] == 'all' ? User.all.pluck(:email) : params[:users]
+    UserEmail.user_email(users, params[:email][:subject], params[:email][:message]).deliver
+    redirect_to :back, flash: { success: "Email sent to #{users.split.count} users."}
   end
 
   def get_profile
