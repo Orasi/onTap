@@ -9,7 +9,7 @@ LunchLearn::Application.routes.draw do
   resources :archive
   resources :attachments
   resources :profiles, except: :index
-
+  resources :referrals
   post 'email' => 'application#send_email', as: :email
 
   post 'labs/new' => 'labs#create', as: :create_template

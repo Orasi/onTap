@@ -123,6 +123,14 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.string   "other_food"
   end
 
+  create_table "referrals", force: true do |t|
+    t.string   "refer_email"
+    t.text     "refer_message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "refer_sender_id"
+  end
+
   create_table "schedules", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
