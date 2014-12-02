@@ -21,6 +21,6 @@ class ReferralsController < ApplicationController
 
   def email_referral
     @user=User.find(referral_params[:refer_sender_id])
-    UserEmail.user_email(referral_params[:refer_email], "#{@user.display_name} has referred your to an event on OnTap", referral_params[:refer_message]).deliver
+    UserEmail.user_email(referral_params[:refer_email], "#{@user.display_name} has referred your to an event on onTap", referral_params[:refer_message]).deliver
   end
 end
