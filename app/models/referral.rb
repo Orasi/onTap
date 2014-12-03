@@ -9,4 +9,5 @@ class Referral < ActiveRecord::Base
       self.errors.add(:refer_email, "Emails should be in the format name@domain.  Multiple emails should be seperate by commas.") unless email.strip=~ /^([^\s]+)@([^\s]+)$/i
     end
   end
+
 end
