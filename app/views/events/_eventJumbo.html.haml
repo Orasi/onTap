@@ -46,7 +46,8 @@
           = link_to event.attend_button_text(current_user), attendee_path(event), class: "btn btn-primary btn-lg" unless event.attending_event?(current_user) || event.hosting_event?(current_user)
         - if params[:action] != 'show'
           = link_to "Details", event_path(event), class: "btn btn-primary btn-lg"
-        = link_to "Refer a Friend", '#',  data: {toggle: 'modal', target: '#referral_modal'}, class: "btn btn-primary btn-lg"
+        - if !event.past?
+          = link_to "Refer a Friend", '#',  data: {toggle: 'modal', target: '#referral_modal'}, class: "btn btn-primary btn-lg"
       - if event.hosting_event?(current_user) || admin?
         .jumbo-admin-buttons.pull-right     
           = link_to "Edit",  edit_event_path(event), class: "btn btn-default btn-sm"
