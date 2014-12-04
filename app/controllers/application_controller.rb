@@ -16,9 +16,18 @@ class ApplicationController < ActionController::Base
 
   def logs
 
-    @dj_log = IO.readlines(Rails.root.to_s + "/log/delayed_job.log")[-1000..-1] if File.exist?(Rails.root.to_s + "/log/delayed_job.log")
-    @prod_log = IO.readlines(Rails.root.to_s + "/log/production.log")[-1000..-1] if File.exist?(Rails.root.to_s + "/log/production.log")
-    @whenever_log = IO.readlines(Rails.root.to_s + "/log/whenever.log")[-1000..-1]  if File.exist?(Rails.root.to_s + "/log/whenever.log")
+    @dj_log = IO.readlines(Rails.root.to_s + "/log/delayed_job.log") if File.exist?(Rails.root.to_s + "/log/delayed_job.log")
+    if @dj_log && @dj_log.length > 1000
+      @dj_log = @dj_log[1..1000]
+    end
+    @prod_log = IO.readlines(Rails.root.to_s + "/log/production.log") if File.exist?(Rails.root.to_s + "/log/production.log")
+    if  @prod_log && @prod_log.length > 1000
+      @prod_log = @prod_log[1..1000]
+    end
+    @whenever_log = IO.readlines(Rails.root.to_s + "/log/whenever.log")  if File.exist?(Rails.root.to_s + "/log/whenever.log")
+    if @whenever_log && @whenever_log> 1000
+      @whenever_log = @whenever_log[1..1000]
+    end
   end
 
   def get_profile
