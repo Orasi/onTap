@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
       @prod_log = @prod_log[1..1000]
     end
     @whenever_log = IO.readlines(Rails.root.to_s + "/log/whenever.log")  if File.exist?(Rails.root.to_s + "/log/whenever.log")
-    if @whenever_log && @whenever_log> 1000
+    if @whenever_log && @whenever_log.length > 1000
       @whenever_log = @whenever_log[1..1000]
     end
   end
