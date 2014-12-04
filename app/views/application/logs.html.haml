@@ -7,7 +7,12 @@
     %div
       .production_log
         - @prod_log.reverse.each do |log|
-          = log.gsub(/\n/, '<br>').html_safe
+          - if log =~ /.*ERROR -- :.*/
+            .info{style: 'color:red'}
+              = log.gsub(/\n/, '<br>').html_safe
+          - unless log =~ /.*ERROR -- :.*/
+            = log.gsub(/\n/, '<br>').html_safe
+
   - if @whenever_log
     %h5
       .title
@@ -15,7 +20,12 @@
     %div
       .whenever_log
         - @whenever_log.reverse.each do |log|
-          = log.gsub(/\n/, '<br>').html_safe
+          - if log =~ /.*ERROR -- :.*/
+            .info{style: 'color:red'}
+              = log.gsub(/\n/, '<br>').html_safe
+          - unless log =~ /.*ERROR -- :.*/
+            = log.gsub(/\n/, '<br>').html_safe
+
   - if @dj_log
     %h5
       .title
@@ -23,7 +33,11 @@
     %div
       .whenever_log
         - @dj_log.reverse.each do |log|
-          = log.gsub(/\n/, '<br>').html_safe
+          - if log =~ /.*ERROR -- :.*/
+            .info{style: 'color:red'}
+              = log.gsub(/\n/, '<br>').html_safe
+          - unless log =~ /.*ERROR -- :.*/
+            = log.gsub(/\n/, '<br>').html_safe
 
 
 
