@@ -1,0 +1,33 @@
+
+#accordion{style: 'font-size:x-small'}
+  - if @prod_log
+    %h5
+      .title
+        Production Log
+    %div
+      .production_log
+        - @prod_log.reverse.each do |log|
+          = log.gsub(/\n/, '<br>').html_safe
+  - if @whenever_log
+    %h5
+      .title
+        Whenever Log
+    %div
+      .whenever_log
+        - @whenever_log.reverse.each do |log|
+          = log.gsub(/\n/, '<br>').html_safe
+  - if @dj_log
+    %h5
+      .title
+        Delayed Job Log
+    %div
+      .whenever_log
+        - @dj_log.reverse.each do |log|
+          = log.gsub(/\n/, '<br>').html_safe
+
+
+
+:javascript
+  $(function(){
+    $("#accordion").accordion({collapsible: true, active:false, heightStyle: "content"});
+  });

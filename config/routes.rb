@@ -1,6 +1,6 @@
 LunchLearn::Application.routes.draw do
 
-  get "profiles/new"
+  get 'profiles/new'
   get '/calendar' => 'events#calendar'
   resources :events, except: :index
   resources :surveys
@@ -15,7 +15,7 @@ LunchLearn::Application.routes.draw do
 
   post 'labs/new' => 'labs#create', as: :create_template
   post 'labs/:id' => 'labs#create_lab', as: :create_lab, format: :json
-
+  get 'logs' => 'application#logs', as: :logs
   get 'labs/:id/status' => 'labs#lab_status', as: :lab_status, format: :json
   get 'labs/:id/manage' => 'labs#manage', as: :manage_lab
   post 'labs/:id/extend/:hours' => 'labs#extend_lab', as: :extend_lab

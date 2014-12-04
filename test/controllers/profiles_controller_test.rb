@@ -9,7 +9,6 @@ class ProfilesControllerTest < ActionController::TestCase
     @request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
   end
 
-
   test 'User should be able to view edit page of their own profile' do
     @profile.update_attributes(user_id: @user.id)
     get :edit, { id: @user.id }, current_user_id: @user.id
@@ -32,24 +31,24 @@ class ProfilesControllerTest < ActionController::TestCase
     @profile.update_attributes(user_id: @user.id)
     params = {
       profile: {
-      food_pref: 'None',
-      location: 'Other',
-      notification_settings: false
+        food_pref: 'None',
+        location: 'Other',
+        notification_settings: false
       },
       id: @profile.id
     }
     post :update, params, current_user_id: @user.id
     assert_redirected_to :back
-#    assert_not_nil flash[:error], flash[:success]
+    #    assert_not_nil flash[:error], flash[:success]
   end
 
   test 'User should not be able to update another users profile' do
     @profile.update_attributes(user_id: @user.id)
     params = {
       profile: {
-      food_pref: 'None',
-      location: 'Other',
-      notification_settings: false
+        food_pref: 'None',
+        location: 'Other',
+        notification_settings: false
       },
       id: @profile.id
     }
@@ -64,9 +63,9 @@ class ProfilesControllerTest < ActionController::TestCase
     @profile.update_attributes(user_id: @user.id)
     params = {
       profile: {
-      food_pref: 'None',
-      location: 'Other',
-      notification_settings: false
+        food_pref: 'None',
+        location: 'Other',
+        notification_settings: false
       },
       id: @profile.id
     }

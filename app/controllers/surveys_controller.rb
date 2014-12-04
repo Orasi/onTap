@@ -25,6 +25,7 @@ class SurveysController < ApplicationController
   end
 
   private
+
   def survey_required_for_user
     if Notification.where(user_id: session[:current_user_id], event_id: params[:event_id], notification_type: 'survey').blank?
       redirect_to :calendar, flash: { error: 'No survey for you to take for this event' }

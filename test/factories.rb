@@ -34,7 +34,7 @@ FactoryGirl.define do
     description 'this is a description of an event.  descriptions are not very long'
 
     after(:create) do |event|
-      event.schedules.create(start: DateTime.now, 'end' => DateTime.now )
+      event.schedules.create(start: DateTime.now, 'end' => DateTime.now)
 
       [1, 2, 3].sample.times do
         event.hosts.create(user_id: create(:host_user).id)
@@ -58,7 +58,7 @@ FactoryGirl.define do
     after(:create) do |event|
       event.schedules.each do |s|
         s.update_attribute(:start, (DateTime.now - 5.days))
-	s.update_attribute('end', (DateTime.now - 5.days))
+        s.update_attribute('end', (DateTime.now - 5.days))
       end
     end
   end
@@ -67,7 +67,7 @@ FactoryGirl.define do
     after(:create) do |event|
       event.schedules.each do |s|
         s.update_attribute(:start, (DateTime.now + 5.days))
-	s.update_attribute('end', (DateTime.now + 5.days))
+        s.update_attribute('end', (DateTime.now + 5.days))
       end
     end
   end

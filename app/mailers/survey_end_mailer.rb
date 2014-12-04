@@ -1,5 +1,5 @@
 class SurveyEndMailer < ActionMailer::Base
-  default from: "onTapEvents@orasi.com"
+  default from: 'onTapEvents@orasi.com'
   default_url_options[:host] = 'ontap.orasi.com'
 
   def survey_end_mailer(event)
@@ -14,6 +14,5 @@ class SurveyEndMailer < ActionMailer::Base
       emails.push user.email
     end
     mail(to: emails, subject: "Survey Finalized for Event '#{@title}'")
-
   end
 end

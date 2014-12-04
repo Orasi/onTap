@@ -1,7 +1,7 @@
 namespace :delayed_job do
 
   def args
-    fetch(:delayed_job_args, "-n 6")
+    fetch(:delayed_job_args, '-n 6')
   end
 
   def delayed_job_roles

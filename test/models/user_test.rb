@@ -26,12 +26,12 @@ end
   end
 
   test 'find or create - find' do
-    u = User.find_or_create(User.first.username, User.first.first_name + " " + User.first.last_name, User.first.email)
+    u = User.find_or_create(User.first.username, User.first.first_name + ' ' + User.first.last_name, User.first.email)
     assert_not_nil u
   end
 
   test 'find or create - create' do
-skip
+    skip
     u = User.find_or_create('some.one', 'some one', 'some.one@orasi.com')
     assert_not_nil u
   end
