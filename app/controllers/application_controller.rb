@@ -6,12 +6,19 @@ class ApplicationController < ActionController::Base
   before_action :require_login
   before_action :get_profile
   helper_method :current_user
-
+  before_action :require_admin, only: [:send_email]
 
   def send_email
     users = params[:users] == 'all' ? User.all.pluck(:email) : params[:users]
     UserEmail.user_email(users, params[:email][:subject], params[:email][:message]).deliver
     redirect_to :back, flash: { success: "Email sent to #{users.split.count} users."}
+  end
+
+  def logs
+
+    @dj_log = IO.readlines(Rails.root.to_s + "/log/delayed_job.log")[-1000..-1] if File.exist?(Rails.root.to_s + "/log/delayed_job.log")
+    @prod_log = IO.readlines(Rails.root.to_s + "/log/production.log")[-1000..-1] if File.exist?(Rails.root.to_s + "/log/production.log")
+    @whenever_log = IO.readlines(Rails.root.to_s + "/log/whenever.log")[-1000..-1]  if File.exist?(Rails.root.to_s + "/log/whenever.log")
   end
 
   def get_profile
@@ -23,9 +30,9 @@ class ApplicationController < ActionController::Base
       if current_user.environment.expiration.to_datetime < DateTime.now.utc
         json = current_user.environment.get_details
         unless json['error'].blank?
-          puts '#@$@#$@#$@#$@#$#@$'
+          puts '**************************** ERROR ******************************************'
           puts json['error']
-          puts '#@$@#$@#$@#$@#$#@$'
+          puts '*****************************************************************************'
           current_user.environment.destroy
         end
       end
