@@ -62,9 +62,9 @@ class User < ActiveRecord::Base
     thumbnail_array.each_line { |line| f.puts line } unless thumbnail_array.nil?
     f.close
     unless thumbnail_array.nil?
-      self.update_attribute('photo', '/photos/' + first_name + last_name + '.jpg')
+      update_attribute('photo', '/photos/' + first_name + last_name + '.jpg')
     else
-      self.update_attribute('photo', nil)
+      update_attribute('photo', nil)
     end
   end
 end

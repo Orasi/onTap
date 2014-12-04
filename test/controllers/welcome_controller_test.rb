@@ -28,7 +28,7 @@ class WelcomeControllerTest < ActionController::TestCase
   end
 
   test 'user should validate if doesnt exists' do
-skip
+    skip
     params = {
       login: {
         username: 'some.guy',
@@ -39,19 +39,17 @@ skip
     assert_redirected_to :calendar
   end
 
-
-#No longer valid with ADFS
-=begin  test 'user should not validate without password' do
-     params = {
-       login: {
-         username: 'some.guy'
-       }
-     }
-     post :validate, params
-     assert_redirected_to :login
-     assert_not_nil flash[:error]
-   end
-=end
+  # No longer valid with ADFS
+  #  test 'user should not validate without password' do
+  #      params = {
+  #        login: {
+  #          username: 'some.guy'
+  #        }
+  #      }
+  #      post :validate, params
+  #      assert_redirected_to :login
+  #      assert_not_nil flash[:error]
+  #    end
 
   test 'user should be able to logout' do
     skip

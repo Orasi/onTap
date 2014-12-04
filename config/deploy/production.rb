@@ -16,7 +16,6 @@ role :db,  %w(matt@codeChallenge)
 
 server 'codeChallenge', user: 'matt', roles: %w(web app), my_property: :my_value
 
-
 # Custom SSH Options
 # ==================
 # You may pass any option but keep in mind that net/ssh understands a

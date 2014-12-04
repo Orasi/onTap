@@ -1,6 +1,5 @@
 class FinalizeEventMailer < ActionMailer::Base
-
-  default from: "onTapEvents@orasi.com"
+  default from: 'onTapEvents@orasi.com'
   default_url_options[:host] = 'ontap.orasi.com'
 
   def finalize_event_mailer
@@ -15,5 +14,4 @@ class FinalizeEventMailer < ActionMailer::Base
       end
     end
   end
-
 end

@@ -52,6 +52,7 @@ class LunchlearnsController < ApplicationController
     Event.find(params[:id]).destroy
     redirect_to :calendar, flash: { error: "Event \"#{oldEventTitle}\" was deleted" }
   end
+
   private
 
   def lunchlearn_params

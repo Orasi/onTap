@@ -23,10 +23,10 @@ set :deploy_to, '/var/www/ontap'
 set :pty, true
 
 # Default value for :linked_files is []
- set :linked_files, %w{config/aws.yml config/initializers/saml.rb}
+set :linked_files, %w(config/aws.yml config/initializers/saml.rb)
 
 # Default value for linked_dirs is []
- set :linked_dirs, %w{public/photos tmp/pids}
+set :linked_dirs, %w(public/photos tmp/pids)
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -54,13 +54,13 @@ namespace :deploy do
     end
   end
 
- task :restart do
+  task :restart do
     invoke 'delayed_job:restart'
- end
+  end
 
- task :stop_dj do
+  task :stop_dj do
     invoke 'delayed_job:stop'
- end
+  end
 
   before :publishing, :stop_dj
   after :publishing, :clear_cache

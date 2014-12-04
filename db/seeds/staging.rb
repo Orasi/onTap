@@ -8,7 +8,7 @@ User.create(username: 'company.admin', first_name: 'company', last_name: 'admin'
   first_names = name_array[0]
   last_names = name_array[1]
   usernames = first_names + '.' + last_names
-  User.create(username: usernames, first_name: first_names, last_name: last_names, email: usernames + '@orasi.com', admin: false, photo: nil,)
+  User.create(username: usernames, first_name: first_names, last_name: last_names, email: usernames + '@orasi.com', admin: false, photo: nil)
 end
 
 event_types = %w(lunch_and_learn webinar)

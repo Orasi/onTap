@@ -24,11 +24,11 @@ class EventsController < ApplicationController
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created" }
       return
     end
-    #e_date = Date.strptime(params[:event_date], "%m/%d/%Y")
+    # e_date = Date.strptime(params[:event_date], "%m/%d/%Y")
     e_start = Time.parse(schedule_params[:start])
     e_end = Time.parse(schedule_params[:end])
-    e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec, '-' + (schedule_params[:time_zone_offset].to_i/60).to_s)
-    e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec, '-' + (schedule_params[:time_zone_offset].to_i/60).to_s)
+    e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec, '-' + (schedule_params[:time_zone_offset].to_i / 60).to_s)
+    e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec, '-' + (schedule_params[:time_zone_offset].to_i / 60).to_s)
     @schedule = @event.schedules.new(start: e_start, end: e_end)
     unless @schedule.save
       @event.destroy
@@ -76,25 +76,23 @@ class EventsController < ApplicationController
   end
 
   def update
-    e_date = Date.strptime(params[:event_date], "%m/%d/%Y")
+    e_date = Date.strptime(params[:event_date], '%m/%d/%Y')
     e_start = Time.parse(schedule_params[:start])
     e_end = Time.parse(schedule_params[:end])
-    e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec, '-' + (schedule_params[:time_zone_offset].to_i/60).to_s)
-    e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec, '-' + (schedule_params[:time_zone_offset].to_i/60).to_s)
+    e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec, '-' + (schedule_params[:time_zone_offset].to_i / 60).to_s)
+    e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec, '-' + (schedule_params[:time_zone_offset].to_i / 60).to_s)
     # need better way to find event
     @event = Event.find(params[:id])
     @event_style = EventStyle.find_by(event_id: @event.id)
 
-    @event.hosts.each { |host| host.destroy }
+    @event.hosts.each(&:destroy)
     unless params[:event][:hosts].nil?
       params[:event][:hosts].each do |host|
         @event.hosts.create(user_id: host)
       end
     end
 
-    @event.schedules.each do |s|
-      s.destroy
-    end
+    @event.schedules.each(&:destroy)
 
     @schedule = @event.schedules.new(start: e_start, end: e_end)
     unless @schedule.save
@@ -109,7 +107,7 @@ class EventsController < ApplicationController
     elsif params[:event][:event_style] == 'webinar'
       @event_type = Webinar.find_by(id: @event_style.element_id)
       @event_type.update_attributes(webinar_params)
-      @event.hosts.each { |host| host.destroy }
+      @event.hosts.each(&:destroy)
       @event.hosts.create(external: true, host: params[:event][:host])
     elsif params[:event][:event_style] == 'training_class'
     end
@@ -147,6 +145,7 @@ class EventsController < ApplicationController
     SurveyMailer.survey_mailer(@event).deliver
     redirect_to event_path(@event), flash: { success: "Event \"#{@event.title}\" was finalized" }
   end
+
   private
 
   def require_admin_or_host

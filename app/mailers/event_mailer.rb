@@ -2,7 +2,7 @@ class EventMailer < ActionMailer::Base
   default from: 'from@example.com'
   def event_calendar_invite
     mail(to: User.find(1).email, subject: 'Event Invite', from: 'OrasiEvents@orasi.com') do |format|
-      format.ics{
+      format.ics do
         ical = Icalendar::Calendar.new
         e = self.ical
         #        e.start.icalendar_tzid="UTC"
@@ -17,7 +17,7 @@ class EventMailer < ActionMailer::Base
         ical.publish
         ical.to_ical
         render text: ical, layout: false
-      }
+      end
     end
   end
 

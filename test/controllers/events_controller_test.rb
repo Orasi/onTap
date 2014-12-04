@@ -146,7 +146,7 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'admin should not be able to finalize future event' do
-skip
+    skip
     attended = []
     not_attended = []
     @futureevent.attendees.each do |a|
@@ -167,7 +167,7 @@ skip
   end
 
   test 'host should not be able to finalize future event' do
-skip
+    skip
     attended = []
     not_attended = []
     @futureevent.attendees.each do |a|
@@ -207,7 +207,7 @@ skip
   # views
   test 'should see lunchlearn info if attendee' do
     get :show, { id: @lunchlearn.id }, current_user_id: @lunchlearn.attendees.sample.user_id
-   	assert_select 'h4', 'The following users have registered to attend'
+    assert_select 'h4', 'The following users have registered to attend'
   end
 
   test 'should not see lunchlearn info if not attendee' do
@@ -233,7 +233,7 @@ skip
   end
 
   test 'admin should be able to create an event' do
-skip
+    skip
     event = @lunchlearn
     params = { event: {
       title: event.title,
@@ -241,14 +241,14 @@ skip
       start: event.schedules.first.start,
       'end' => event.schedules.first.end,
       event_style: 'lunch_and_learn',
-      hosts: [1, 2, 3],
+      hosts: [1, 2, 3]
     } }
     post :create, params, current_user_id: @admin.id
     assert_nil flash[:error]
   end
 
   test 'admin should be able to create a webinar' do
-skip
+    skip
     event = @webinar
     params = { event: {
       title: event.title,
@@ -264,7 +264,7 @@ skip
   end
 
   test 'admin should not be able to create a webinar with out url' do
-skip
+    skip
     event = @webinar
     params = { event: {
       title: event.title,
@@ -280,7 +280,7 @@ skip
   end
 
   test 'admin should be not able to create an event without description' do
-skip
+    skip
     event = @lunchlearn
     params = { event: {
       title: event.title,
@@ -323,7 +323,7 @@ skip
   end
 
   test 'admin should be able to update an event' do
-skip
+    skip
     event = @webinar
     params = { event: {
       title: event.title + 'abc',
@@ -356,7 +356,7 @@ skip
   end
 
   test 'admin should not be able to update an event without description' do
-skip
+    skip
     event = @lunchlearn
     params = { event: {
       title: event.title + 'abc',
@@ -372,7 +372,7 @@ skip
   end
 
   test 'host should be able to update an event' do
-skip
+    skip
     event = @lunchlearn
     params = { event: {
       title: event.title + 'abc',
@@ -388,7 +388,7 @@ skip
   end
 
   test 'user should not be able to update an event' do
-skip
+    skip
     event = @lunchlearn
     params = { event: {
       title: event.title + 'abc',
@@ -451,7 +451,6 @@ skip
     get :show, { id: @lunchlearn.id }, current_user_id: @admin.id
     assert_select '.panel-heading', 'Attendee Food Preferences'
   end
-
 
   # Need to create factory trait for event with no attendees
   # test "if no attendees, no users registered should display" do

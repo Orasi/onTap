@@ -6,7 +6,6 @@ class WelcomeController < ApplicationController
   protect_from_forgery except: :validate
 
   def login
-
     if current_user
       redirect_to :calendar
       return
@@ -17,11 +16,9 @@ class WelcomeController < ApplicationController
       redirect_to(saml_request.create(saml_settings))
       return
     end
-    
   end
 
   def validate
-
     if Rails.env.production?
       saml_response = saml_validation
       username = saml_response.name_id
@@ -29,22 +26,22 @@ class WelcomeController < ApplicationController
       email = saml_response.attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress']
     else
       username = params[:login][:username]
-      display_name = "Test User"
-      email = "test.user@orasi.com"
+      display_name = 'Test User'
+      email = 'test.user@orasi.com'
     end
-    
+
     @user = User.find_or_create(username.downcase, display_name, email)
     unless Rails.env.production?
-  #    redirect_to :login, flash: { error: 'Invalid username or password' }
-  #    return
+      #    redirect_to :login, flash: { error: 'Invalid username or password' }
+      #    return
     end
     @saml = saml_response
     if @user.save
       if @user.profile.nil?
         Profile.new_user_profile(@user.id)
       end
-	     session[:current_user_id] = @user.id
-	     Session.create(session_id: session[:session_id])
+      session[:current_user_id] = @user.id
+      Session.create(session_id: session[:session_id])
       if session[:return_to]
         url = session[:return_to]
         session[:return_to] = nil
@@ -52,10 +49,10 @@ class WelcomeController < ApplicationController
       else
         redirect_to :calendar
       end
-      
+
     else
-	     redirect_to :login, flash: { error: 'Unknown Error' }
-	     # TODO: User Validation errors reporting
+      redirect_to :login, flash: { error: 'Unknown Error' }
+      # TODO: User Validation errors reporting
     end
   end
 
@@ -70,7 +67,6 @@ class WelcomeController < ApplicationController
   end
 
   private
-
 
   def saml_validation
     response          = OneLogin::RubySaml::Response.new(params[:SAMLResponse])

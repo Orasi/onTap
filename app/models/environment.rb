@@ -2,7 +2,6 @@ require 'timeout'
 class Environment < ActiveRecord::Base
   include Skytap
 
-
   before_create :add_to_skytap
   after_create :proccess
   before_destroy :remove_from_skytap
@@ -10,18 +9,17 @@ class Environment < ActiveRecord::Base
   belongs_to :user
   attr_accessor :vm, :interface, :service, :rdp_service
 
-
   def add_to_skytap
     remove_existing_environment
     if id.blank?
       form_data = {
-          'template_id' => template_id
+        'template_id' => template_id
       }
       json = api_call(request_type: 'post', request_path: '/configurations', request_form_data: form_data)
       puts '----------------------------------  Create Environment JSON ---------------------------'
       puts json
       puts '---------------------------------------------------------------------------------------'
-      if (json['error'].blank?)
+      if json['error'].blank?
         self.id = json['id'].to_i
         return true
       else
@@ -39,9 +37,8 @@ class Environment < ActiveRecord::Base
     create_published_service '3389'
   end
 
-
   def change_environment_name
-    form_data = {'name' => title}
+    form_data = { 'name' => title }
     json = api_call(request_type: 'put', request_path: '/configurations/' + id.to_s, request_form_data: form_data)
     puts '----------------------------------  Change Environment ---------------------------'
     puts json
@@ -58,7 +55,7 @@ class Environment < ActiveRecord::Base
   end
 
   def change_runstate(state)
-    form_data = {'runstate' => state}
+    form_data = { 'runstate' => state }
     Timeout.timeout(180) do
       loop do
         sleep(2)
@@ -66,7 +63,7 @@ class Environment < ActiveRecord::Base
         puts '----------------------------------  Change Runstate JSON ---------------------------'
         puts json
         puts '---------------------------------------------------------------------------------------'
-        self.update_attribute('status', 'In Queue')
+        update_attribute('status', 'In Queue')
         delay.wait_for_runstate state
         unless json['error']
           break
@@ -76,21 +73,21 @@ class Environment < ActiveRecord::Base
   end
   handle_asynchronously :change_runstate, priority: 5
 
-  def wait_for_runstate state
-    self.update_attribute('status', 'loading')
+  def wait_for_runstate(state)
+    update_attribute('status', 'loading')
     begin
       Timeout.timeout(180) do
         loop do
           sleep(5)
           current_state = api_call(request_path: '/configurations/' + id.to_s)['runstate']
-          self.update(status: current_state)
+          update(status: current_state)
           if current_state == state
             break
           end
         end
       end
     rescue
-      self.update(status: 'error')
+      update(status: 'error')
     end
   end
   handle_asynchronously :wait_for_runstate, priority: 5
@@ -100,30 +97,29 @@ class Environment < ActiveRecord::Base
   end
 
   def self.remove_from_skytap_async(id)
-    #begin
-      Timeout.timeout(60) do
-        loop do
-          sleep(5)
-          json = Environment.api_call(request_type: 'delete', request_path: '/configurations/' + id.to_s)
-          puts '----------------------------------  Remove From Skytap ---------------------------'
-          puts json if json
-          puts 'Enviornment Deleted' unless json
-          puts '---------------------------------------------------------------------------------------'
-          if json.is_a?(Hash) && json['error']
-            if json['error'] == "Couldn't get the requested environment"
+    # begin
+    Timeout.timeout(60) do
+      loop do
+        sleep(5)
+        json = Environment.api_call(request_type: 'delete', request_path: '/configurations/' + id.to_s)
+        puts '----------------------------------  Remove From Skytap ---------------------------'
+        puts json if json
+        puts 'Enviornment Deleted' unless json
+        puts '---------------------------------------------------------------------------------------'
+        if json.is_a?(Hash) && json['error']
+          if json['error'] == "Couldn't get the requested environment"
 
-              break
-            end
+            break
           end
         end
       end
-    #rescue Timeout::Error
-      #puts '------------------------TIMEOUT------------------------------------'
-      #puts '              Failed to delete environment'
-     # puts '-------------------------------------------------------------------'
-    #end
+    end
+    # rescue Timeout::Error
+    # puts '------------------------TIMEOUT------------------------------------'
+    # puts '              Failed to delete environment'
+    # puts '-------------------------------------------------------------------'
+    # end
   end
-
 
   def remove_existing_environment
     puts '------------------------------------removing existing environment----------------------------------'
@@ -135,9 +131,8 @@ class Environment < ActiveRecord::Base
     end
   end
 
-
   def create_published_set
-    form_data = {name: 'published_set', published_set_type: 'single_url'}
+    form_data = { name: 'published_set', published_set_type: 'single_url' }
 
     json = api_call(request_type: 'post', request_path: '/configurations/' + id.to_s + '/publish_sets', request_form_data: form_data)
     puts '----------------------------------  Create Published Set ---------------------------'
@@ -153,8 +148,8 @@ class Environment < ActiveRecord::Base
   end
   handle_asynchronously :create_published_set, priority: 5
 
-  def create_delete_schedule expiration
-    form_data = {title: 'delete_schedule', configuration_id: id, start_at: expiration, end_at: expiration + 1.minute, delete_at_end: true, time_zone: 'Eastern Time (US & Canada)'}
+  def create_delete_schedule(expiration)
+    form_data = { title: 'delete_schedule', configuration_id: id, start_at: expiration, end_at: expiration + 1.minute, delete_at_end: true, time_zone: 'Eastern Time (US & Canada)' }
     update(expiration: expiration)
     json = api_call(request_type: 'post', request_path: '/schedules', request_form_data: form_data)
     puts '----------------------------------  Create Delete Schedule JSON ---------------------------'
@@ -169,7 +164,7 @@ class Environment < ActiveRecord::Base
   end
   handle_asynchronously :create_delete_schedule, priority: 5
 
-  def extend_delete_schedule hours
+  def extend_delete_schedule(hours)
     json = api_call(request_type: 'delete', request_path: '/schedules/' + schedule_id.to_s)
     puts '----------------------------------  Remove Delete Schedule JSON ---------------------------'
     puts json
@@ -179,7 +174,7 @@ class Environment < ActiveRecord::Base
     create_delete_schedule_without_delay new_expiration
   end
 
-  def create_published_service port
+  def create_published_service(port)
     get_first_vm
     get_first_interface
     return_or_create_service port
@@ -204,15 +199,15 @@ class Environment < ActiveRecord::Base
   end
 
   def remove_auto_suspend
-    json = api_call(request_type: 'put', request_path: '/configurations/' + id.to_s, request_form_data: { suspend_on_idle: ''})
+    json = api_call(request_type: 'put', request_path: '/configurations/' + id.to_s, request_form_data: { suspend_on_idle: '' })
     puts '----------------------------------  Remove Auto Suspend JSON ---------------------------'
     puts json
     puts '---------------------------------------------------------------------------------------'
   end
   handle_asynchronously :remove_auto_suspend, priority: 5
 
-  def return_or_create_service port
-    form_data = { port: port}
+  def return_or_create_service(port)
+    form_data = { port: port }
     Timeout.timeout(180) do
       loop do
         sleep(5)

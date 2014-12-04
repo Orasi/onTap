@@ -21,7 +21,7 @@ class Event < ActiveRecord::Base
   end
 
   def past?
-    return schedules.last.end <= DateTime.now - 5.hours
+    schedules.last.end <= DateTime.now - 5.hours
   end
 
   def attend_button_text(user)
@@ -61,14 +61,14 @@ class Event < ActiveRecord::Base
   def get_food_preferences
     food_hsh = {}
     attendees.each do |attendee|
-      @user=User.find(attendee.user_id)
+      @user = User.find(attendee.user_id)
       unless @user.profile.nil?
-        if @user.profile.food_pref == "Other"
+        if @user.profile.food_pref == 'Other'
           unless @user.profile.other_food.nil?
-            if food_hsh["Other"].nil?
-              food_hsh["Other"] = @user.profile.other_food
+            if food_hsh['Other'].nil?
+              food_hsh['Other'] = @user.profile.other_food
             else
-              food_hsh["Other"] += ", "+@user.profile.other_food
+              food_hsh['Other'] += ', ' + @user.profile.other_food
             end
           end
         else
@@ -80,6 +80,6 @@ class Event < ActiveRecord::Base
         end
       end
     end
-    return food_hsh
+    food_hsh
   end
 end

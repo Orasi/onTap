@@ -8,7 +8,7 @@ User.create(username: 'company.admin', first_name: 'company', last_name: 'admin'
   first_names = name_array[0]
   last_names = name_array[1]
   usernames = first_names + '.' + last_names
-  User.create(username: usernames, first_name: first_names, last_name: last_names, email: usernames + '@orasi.com', admin: false, photo: nil,)
+  User.create(username: usernames, first_name: first_names, last_name: last_names, email: usernames + '@orasi.com', admin: false, photo: nil)
 end
 
 event_types = %w(lunch_and_learn webinar)
@@ -55,7 +55,7 @@ Event.all.each do |l|
   rand(5..20).times do
     user_id = rand(1..User.all.count)
     unless l.attending_event?(User.find(user_id))
-      a =l.attendees.create(user_id: rand(1..User.all.count))
+      a = l.attendees.create(user_id: rand(1..User.all.count))
       if l.past?
         a.update(status: %w(attended noshow).sample)
       end

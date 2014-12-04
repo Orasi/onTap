@@ -4,9 +4,7 @@ class ScheduleTest < ActiveSupport::TestCase
   test 'should not create event past max date' do
     event = FactoryGirl.create(:lunchlearnstyle)
 
-    event.schedules.each do |s|
-      s.destroy
-    end
+    event.schedules.each(&:destroy)
 
     schedule = event.schedules.new(event_date: (DateTime.now + 100.years).to_date,
                                    event_time: DateTime.now.to_time,
@@ -19,9 +17,7 @@ class ScheduleTest < ActiveSupport::TestCase
   test 'should not create event before min date' do
     event = FactoryGirl.create(:lunchlearnstyle)
 
-    event.schedules.each do |s|
-      s.destroy
-    end
+    event.schedules.each(&:destroy)
 
     schedule = event.schedules.new(event_date: (DateTime.now - 100.years).to_date,
                                    event_time: DateTime.now.to_time,
@@ -36,9 +32,7 @@ class ScheduleTest < ActiveSupport::TestCase
     start_time = event.schedules.first.event_time
     end_time = event.schedules.first.end_time
     event_date = event.schedules.first.event_date
-    event.schedules.each do |s|
-      s.destroy
-    end
+    event.schedules.each(&:destroy)
 
     schedule = event.schedules.new(event_date: event_date,
                                    event_time: end_time,

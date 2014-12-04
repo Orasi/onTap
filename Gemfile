@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', group: [:development,:test,:production]
+gem 'sqlite3', group: [:development, :test, :production]
 gem 'pg'
 # Heroku gems
 group :staging do
@@ -12,7 +12,6 @@ group :staging do
 
   gem 'unicorn'
 end
-
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -31,8 +30,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-timepicker-rails'
 gem 'twitter-bootstrap-rails'
-#gem 'bootstrap-sass', '~> 3.3.0'
-
+# gem 'bootstrap-sass', '~> 3.3.0'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -65,19 +63,19 @@ gem 'pry', group: [:development, :test]
 # Use haml
 gem 'haml-rails'
 
-#iCalendar to generate Calendar Invites
+# iCalendar to generate Calendar Invites
 gem 'icalendar'
 
 gem 'coveralls', require: false
 
-# Paperclip for attaching files to eventsgem 
-gem "paperclip", "~> 4.1"
+# Paperclip for attaching files to eventsgem
+gem 'paperclip', '~> 4.1'
 gem 'delayed_job'
 gem 'daemons'
 gem 'delayed_paperclip'
 gem 'delayed_job_active_record'
 gem 'faker'
-gem "factory_girl_rails", "~> 4.0"
+gem 'factory_girl_rails', '~> 4.0'
 gem 'validates_timeliness'
 gem 'capistrano-rvm'
 gem 'aws-sdk'
@@ -86,5 +84,3 @@ gem 'whenever'
 gem 'ruby-saml'
 gem 'better_errors'
 gem 'binding_of_caller'
-
-
