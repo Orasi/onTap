@@ -1,9 +1,47 @@
+- env = current_user.environment
+-if event.lab
+  - lab = event.lab
+  .panel.panel-default
+    .panel-heading
 
-.panel.panel-default
-  .panel-heading
-    Event Lab
-  .panel-body
+      .lab_title.pull-left= 'Event Lab - ' + lab.title
+      .load.pull-left{ style: 'margin-left:20;visibility:hidden', id: 'load_' + lab.id.to_s}
+        .spinner
+          .inner
+          .outer
+      .placeholder{style: 'visibility:hidden'}  PlaceHolder Text
+    .panel-body
+      .body
+        .description= lab.description
 
-    .h4 The following lab can be used to create temporary training sandbox relevant to this event.  This environment will be automatically deleted after two hours.
 
-    .h4= link_to 'Reusable Actions and Modular Design Lab', lab_path(@lab)
+        - if env.nil?
+          .btn.btn-primary.spin_button.pull-left
+            .create_env.pull-left{id: lab.id} Create Environment
+            .placeholder{style: 'visibility:hidden'} Create Environment
+        - unless env.nil?
+          - if env.template_id == lab.id
+            .btn.btn-primary.spin_button.pull-left.disabled
+              .create_env.pull-left{id: lab.id} Currently Checked Out
+              .placeholder{style: 'visibility:hidden'} Create Environment
+            #delete.pull-right= link_to 'Delete Lab', delete_lab_path, method: :delete, class: 'btn btn-default', confirm: "This will delete the Lab and any work done while it has been running.\n Would you like to continue?"
+          - unless env.template_id == lab.id
+            .btn.btn-primary.spin_button.pull-left
+              .create_env.pull-left{id: lab.id} Create Environment
+              .placeholder{style: 'visibility:hidden'} Create Environment
+
+
+
+        = link_to 'More Details', lab_path(lab), class: 'btn btn-primary pull-left details_button'
+        .pull-left.patient{id: 'patient_' + lab.id.to_s }
+          Please be patient while we spin up your lab.  This process can take several minutes.
+
+
+- unless env.nil?
+  - unless env.status === 'running'
+    :javascript
+      $(document).ready(function(){
+        Window.disable_input("#{env.template_id}")
+        Window.get_status("#{env.id}", "#{env.template_id}")
+      })
+

@@ -3,6 +3,6 @@ class TrainingClass < ActiveRecord::Base
   has_one :event_style, as: :element
   has_one :event, through: :event_styles
 
-  VIEWS = %w(Jumbo GoToMeeting Attachments Attendees)
+  VIEWS = %w(Jumbo Labs GoToMeeting Attachments Attendees)
   ATTENDABLE = true
 end

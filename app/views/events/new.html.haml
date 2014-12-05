@@ -42,7 +42,13 @@
     =f.label :restricted, "Restricted?", class: "control-label"
     =f.check_box :restricted, checked: (@event.restricted unless @event.restricted.blank?), class: "restriction"
 
-  
+  .form_group
+    = label_tag 'Add Lab to Event?'
+    = check_box_tag 'add_lab', true, !@event.lab_id.nil?
+    .lab_section.form_group
+      = f.label 'Select Lab', class: 'control-label'
+      = f.collection_select( 'lab_id', @labs,  :id, :title )
+
   .form_group
     %br
     =f.submit class: "btn btn-primary", data: { disable_with: "Adding Event..."}
@@ -55,7 +61,11 @@
   }
 
   $(document).on("ready", function(){
-
+    if ($('#add_lab').is(':checked')){
+      $('.lab_section').show()
+    }else{
+      $('.lab_section').hide()
+    }
     var now = new Date();
     var gmtoffset = now.getTimezoneOffset();
     $('#time_zone_offset').val(gmtoffset);
@@ -80,6 +90,9 @@
     $(".remove").on("click", function(){
       return $(this).parent().remove();
     });
+    $("#add_lab").on('change', function(){
+      $('.lab_section').fadeToggle();
+    })
   });
  
 .clearfix

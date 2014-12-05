@@ -7,10 +7,19 @@ class Event < ActiveRecord::Base
   has_many :attachments
   has_many :notifications
   has_one :event_style
+
   # has_one :lunchlearns, :through => :event_style, :source => :element, :source_type => 'lunchlearn'
   # has_one :webinars, :through => :event_style, :source => :element, :source_type => 'webinar'
   validates_presence_of :title, :description
   attr_accessor :has_GoToMeeting, :go_to_meeting_url, :meeting_phone_number, :access_code, :url
+
+  def lab
+    if lab_id.nil?
+      return nil
+    else
+      return Template.find(lab_id)
+    end
+  end
 
   def attending_event?(user)
     attendees.exists?(user_id: user.id)

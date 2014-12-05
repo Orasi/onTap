@@ -14,12 +14,19 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @schedule = @event.schedules.new
+    @labs = Template.all
   end
 
   def create
     e_date = params[:event_date] = DateTime.strptime(params[:event_date], '%m/%d/%Y').to_date
 
     @event = Event.new(event_params)
+
+    #Add Lab
+    if params[:add_lab]
+      @event.update(lab_id: params[:event][:lab_id])
+    end
+
     unless @event.save
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created" }
       return
@@ -72,6 +79,7 @@ class EventsController < ApplicationController
     #  Survey.create_survey_notification(current_user.id, params[:id])
     # end temp for testing surveys
     @event = Event.find(params[:id])
+    @labs = Template.all
     render :new
   end
 
@@ -85,7 +93,13 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event_style = EventStyle.find_by(event_id: @event.id)
 
-    @event.hosts.each(&:destroy)
+    if params[:add_lab]
+      @event.update(lab_id: params[:event][:lab_id])
+    else
+      @event.update(lab_id: nil)
+    end
+
+        @event.hosts.each(&:destroy)
     unless params[:event][:hosts].nil?
       params[:event][:hosts].each do |host|
         @event.hosts.create(user_id: host)
