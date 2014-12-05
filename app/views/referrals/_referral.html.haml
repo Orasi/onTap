@@ -1,0 +1,24 @@
+
+#referral_modal.modal.fade
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss' => 'modal'}
+          %span{'aria-hidden' => 'true'}x
+          %span.sr-only Close
+        %h4.modal-title#profile_modal_label Refer a Friend
+      .modal-body
+        = render partial: 'referrals/referral_form', locals: {modal: true}
+
+      .modal-footer
+        %button.btn.btn-primary#cancel_referral_button{'data-dismiss' => 'modal'} Close
+        %button.btn.btn-primary#send_referral_button{data: {disable_with: 'Sending Referral...'}} Send Referral
+
+:javascript
+  $(document).on("ready", function(){
+    $('#send_referral_button').click(function(){
+      $('#referral_form').submit()
+      $('#cancel_referral_button').addClass('disabled')
+      $('#send_referral_button').addClass('disabled')
+    })
+  });

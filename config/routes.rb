@@ -9,6 +9,7 @@ LunchLearn::Application.routes.draw do
   resources :archive
   resources :attachments
   resources :profiles, except: :index
+  resources :referrals
 
   patch 'users/:id', to: 'users#update', as: :user
   post 'email' => 'application#send_email', as: :email
