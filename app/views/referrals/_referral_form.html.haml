@@ -1,6 +1,6 @@
 = form_for Referral.new, html: {class: "form-horizontal", role: "form", id: 'referral_form'} do |f|
-  =f.label :refer_email, "Email-Address", class: "control-label"
-  =f.text_field :refer_email, class: "form-control"
+  =f.label :refer_email, "Email-Address",title: "Enter your friend's email address.  Seperate multiple emails with commas.",  class: "control-label"
+  =f.text_field :refer_email, title: "Enter your friend's email address.  Seperate multiple emails with commas.", class: "form-control"
 
   =f.label :refer_message, "Message", class: "control-label"
   =f.text_area :refer_message, value: "Hello,  \n\nI think this event would be of interest to you", rows: 3, class: "form-control"
