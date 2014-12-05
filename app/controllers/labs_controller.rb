@@ -20,6 +20,11 @@ class LabsController < ApplicationController
     @env = current_user.environment
   end
 
+  def edit
+    @lab = Template.find(params[:id])
+    render :new
+  end
+
   def create
     @template = Template.new(template_params)
     if @template.save
@@ -29,8 +34,15 @@ class LabsController < ApplicationController
     end
   end
 
+  def update
+    @template = Template.find(params[:template][:id])
+    @template.update(template_params)
+    redirect_to labs_path, flash: { success: 'The lab was successfully updated' }
+  end
+
   def new
     @lab = Template.new
+    @lab.public = true
   end
 
   def extend_lab
@@ -97,5 +109,5 @@ class LabsController < ApplicationController
 end
 
 def template_params
-  params.require(:template).permit(:title, :description, :properties, :username, :password, :id)
+  params.require(:template).permit(:title, :description, :properties, :username, :password, :id, :public)
 end

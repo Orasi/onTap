@@ -10,35 +10,42 @@
 
 #accordion
   - @labs.each do |lab|
-    %h4
-      .load{style: 'position:absolute;top:3;visibility:hidden', id: 'load_' + lab.id.to_s}
-        .spinner
-          .inner
-          .outer
-      .lab_title{style: 'margin-left:40px'}= lab.title
+    - if lab.public || current_user.admin?
+      %h4
+        .load{style: 'position:absolute;top:3;visibility:hidden', id: 'load_' + lab.id.to_s}
+          .spinner
+            .inner
+            .outer
+        .lab_title{style: 'margin-left:40px'}= lab.title
+        - unless lab.public
+          .pull-right{style: 'margin-top:-18px'}
+            Private
 
-    .body
-      .description= lab.description
+      .body
+        .description= lab.description
 
 
-      - if @env.nil?
-        .btn.btn-primary.spin_button.pull-left
-          .create_env.pull-left{id: lab.id} Create Environment
-          .placeholder{style: 'visibility:hidden'} Create Environment
-      - unless @env.nil?
-        - if @env.template_id == lab.id
-          .btn.btn-primary.spin_button.pull-left.disabled
-            .create_env.pull-left{id: lab.id} Currently Checked Out
-            .placeholder{style: 'visibility:hidden'} Create Environment
-        - unless @env.template_id == lab.id
+        - if @env.nil?
           .btn.btn-primary.spin_button.pull-left
             .create_env.pull-left{id: lab.id} Create Environment
             .placeholder{style: 'visibility:hidden'} Create Environment
+        - unless @env.nil?
+          - if @env.template_id == lab.id
+            .btn.btn-primary.spin_button.pull-left.disabled
+              .create_env.pull-left{id: lab.id} Currently Checked Out
+              .placeholder{style: 'visibility:hidden'} Create Environment
+          - unless @env.template_id == lab.id
+            .btn.btn-primary.spin_button.pull-left
+              .create_env.pull-left{id: lab.id} Create Environment
+              .placeholder{style: 'visibility:hidden'} Create Environment
 
 
-      = link_to 'More Details', lab_path(lab), class: 'btn btn-primary pull-left details_button'
-      .pull-left.patient{id: 'patient_' + lab.id.to_s }
-        Please be patient while we spin up your lab.  This process can take several minutes.
+        = link_to 'More Details', lab_path(lab), class: 'btn btn-primary pull-left details_button'
+        .pull-right
+          =link_to "Edit", edit_lab_path(lab), class: "btn btn-default btn-sm"
+          =link_to "Delete", lab_path(lab), method: :delete, class: "btn btn-default btn-sm"
+        .pull-left.patient{id: 'patient_' + lab.id.to_s }
+          Please be patient while we spin up your lab.  This process can take several minutes.
 
 :javascript
   $(function(){

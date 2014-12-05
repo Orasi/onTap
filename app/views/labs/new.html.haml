@@ -31,4 +31,7 @@
     Properties should be a semi-colon delimited string.
 
   .form_group
+    = f.label :public, nil, class: 'control-label'
+    = f.check_box :public
+  .form_group
     = f.submit
