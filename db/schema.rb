@@ -83,7 +83,10 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.boolean  "restricted"
     t.string   "status"
     t.date     "finalized_date"
+<<<<<<< HEAD
     t.integer  "lab_id"
+=======
+>>>>>>> refer_a_friend
   end
 
   create_table "hosts", force: true do |t|
