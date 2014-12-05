@@ -1,24 +1,26 @@
-- unless env.nil?
-  = render partial: 'lab_renew', locals: {env: env}
-  .alert{ :class => "alert bg-info fadeout" }
+- unless current_user.environment.nil?
+  = render partial: '/labs/lab_renew', locals: {env: env}
+  .lab_flash.alert{ :class => "alert bg-info fadeout" }
 
     .time
       = "The lab #{env.template.title} is currently checked out to you."
       %span.time
         = 'This lab will expire in '
         %span#time
-    = link_to 'Manage Lab', manage_lab_path(@env), class: 'btn btn-primary' if (params[:action] != 'manage')
+    = link_to 'Manage Lab', manage_lab_path(env), class: 'btn btn-primary' if (params[:action] != 'manage')
     %button.btn.btn-primary{ 'data-toggle' => 'modal', 'data-target' => '#renewModal', type: 'modal'}
       Extend Lab
-    - if @env.expiration < DateTime.now
+    - if env.expiration < DateTime.now
       - #check for existence delete if not found
 
 
-
   :javascript
+    current_time = env.created_at
     expire = Date.parse("#{env.expiration.year.to_s + '/' + env.expiration.month.to_s + '/' + env.expiration.day.to_s + ' ' + (env.expiration.hour-5).to_s + ':' + env.expiration.min.to_s + ':' + env.expiration.sec.to_s}")
     $("#time").countdown(expire, function(event) {
       $(this).text(
         event.strftime(' %H hour and %M minutes')
       );
     });
+#timeout
+  %h4.alert.alert-danger{role: 'alert'} <strong>The requested environment could not be created.</strong> Please contact the system administrator for help resolving this matter

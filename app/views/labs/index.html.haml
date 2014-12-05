@@ -1,4 +1,3 @@
-= render partial: 'lab_flash', locals: {env: @env}
 
 .panel.panel-default
   .panel-heading
@@ -42,8 +41,8 @@
 
         = link_to 'More Details', lab_path(lab), class: 'btn btn-primary pull-left details_button'
         .pull-right
-          =link_to "Edit", edit_lab_path(lab), class: "btn btn-default btn-sm"
-          =link_to "Delete", lab_path(lab), method: :delete, class: "btn btn-default btn-sm"
+          =link_to "Edit Template", edit_lab_path(lab), class: "btn btn-default btn-sm"
+          =link_to "Delete Template", lab_path(lab), method: :delete, class: "btn btn-default btn-sm", confirm: "This will delete the Lab Template from onTap.  Are you sure you would like to continue?"
         .pull-left.patient{id: 'patient_' + lab.id.to_s }
           Please be patient while we spin up your lab.  This process can take several minutes.
 

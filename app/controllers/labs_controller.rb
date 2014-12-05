@@ -87,7 +87,7 @@ class LabsController < ApplicationController
       env.destroy
       redirect_to labs_path
     else
-      # error....
+      render plain: 'Deleted' and return
     end
   end
 

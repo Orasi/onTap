@@ -31,7 +31,6 @@ $(document).ready ->
       get_status(env_id, labs_id)
 
   get_status = (env_id, labs_id) ->
-    current_time = new Date()/1000
     status_poll = window.setInterval ->
       $.getJSON '/labs/' + env_id + '/status', (data) ->
         animate_crossfade $(text_query), data.status + '...'
@@ -39,12 +38,22 @@ $(document).ready ->
         if data.status == 'running'
           window.location.href = '/labs/' + env_id + '/manage'
 
-        else if (new Date()/1000) - current_time > 300
-          $('#patient_' + labs_id).fadeOut()
+        else if (new Date().getTime() - Date.parse(data['created_at']) > 300*1000)
+
           clearInterval(status_poll)
-          $('#loading').fadeOut()
-          $('#create_env').fadeOut()
-          $('#timeout').fadeIn()
+
+          $.ajax({
+            url: '/labs',
+            type: 'DELETE',
+            complete: ->
+              $('#patient_' + labs_id).fadeOut()
+              $('#loading').fadeOut()
+              $('.spinner').fadeOut()
+              $('#create_env').fadeOut()
+              $('.lab_flash').fadeOut()
+              $('#timeout').fadeIn()
+              animate_crossfade $(text_query), 'ERROR'
+          })
 
     , 10000
   Window.disable_input = disable_input
