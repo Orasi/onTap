@@ -47,7 +47,7 @@
         - if params[:action] != 'show'
           = link_to "Details", event_path(event), class: "btn btn-primary btn-lg"
         - if !event.past?
-          = link_to "Refer a Friend", '#',  data: {toggle: 'modal', target: '#referral_modal'}, class: "btn btn-primary btn-lg"
+          = link_to "Refer a Friend", '#referral_modal', data: {toggle: 'modal', event: event.id}, class: "btn btn-primary btn-lg openmodal"
           = link_to 'Add To Calendar', event_invite_path(event), class: "btn btn-primary btn-lg invite_link", remote: true
 
       - if event.hosting_event?(current_user) || admin?
