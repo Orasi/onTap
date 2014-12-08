@@ -1,7 +1,7 @@
 class LabsController < ApplicationController
   before_action :redirect_to_manage, only: [:show]
   before_action :redirect_from_manage, only: :manage
-
+  before_action :require_admin, only: [:new, :edit, :destroy, :update, :create]
   before_action :set_cache_buster
 
   def set_cache_buster
@@ -38,6 +38,12 @@ class LabsController < ApplicationController
     @template = Template.find(params[:template][:id])
     @template.update(template_params)
     redirect_to labs_path, flash: { success: 'The lab was successfully updated' }
+  end
+
+  def destroy
+    @lab = Template.find(params[:id])
+    @lab.destroy
+    redirect_to labs_path, flash: { success: "The Lab Template was Deleted" }
   end
 
   def new
