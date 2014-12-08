@@ -4,7 +4,7 @@
 
   =f.label :refer_message, "Message", class: "control-label"
   =f.text_area :refer_message, value: "Hello,  \n\nI think this event would be of interest to you", rows: 3, class: "form-control"
-
+  =f.hidden_field :refer_event_id, value: current_user.id, class: "theeventid"
   =f.hidden_field :refer_sender_id, value: current_user.id
   - unless modal
     %div.form_group
