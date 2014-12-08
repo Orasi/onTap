@@ -7,7 +7,7 @@ class SendReferralMailer < ActionMailer::Base
     @title = event.title
     @body=email_body
     @description =event.description
-    @url = event_url(event)
+    @url = event_url(event.id)
 
     mail(to: to_list, subject: email_subject).deliver
   end
