@@ -83,10 +83,7 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.boolean  "restricted"
     t.string   "status"
     t.date     "finalized_date"
-<<<<<<< HEAD
     t.integer  "lab_id"
-=======
->>>>>>> refer_a_friend
   end
 
   create_table "hosts", force: true do |t|
@@ -133,17 +130,19 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "refer_sender_id"
+    t.integer  "event_id"
+    t.integer  "refer_event_id"
   end
 
   create_table "schedules", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "event_id"
+    t.datetime "start"
+    t.datetime "end"
     t.date     "event_date"
     t.time     "event_time"
     t.time     "end_time"
-    t.datetime "start"
-    t.datetime "end"
   end
 
   create_table "sessions", force: true do |t|
@@ -198,6 +197,7 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.boolean  "admin"
     t.string   "photo"
     t.string   "email"
+    t.boolean  "weekly_mailer"
   end
 
   create_table "webinars", force: true do |t|

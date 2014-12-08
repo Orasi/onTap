@@ -38,6 +38,7 @@
         - if !event.past?
           = link_to "Refer a Friend", '#',  data: {toggle: 'modal', target: '#referral_modal'}, class: "btn btn-primary btn-lg"
           = link_to 'Add To Calendar', event_invite_path(event), class: "btn btn-primary btn-lg invite_link",  remote: true
+
         - if admin?
           %span.pull-right
             =link_to "Edit", edit_event_path(event), class: "btn btn-default btn-sm"
