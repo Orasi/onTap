@@ -57,7 +57,7 @@
 
     %div.container.theme-showcase{role: :main, style: "margin-top: 80px"}
       = render "flash_messages"
-      = render partial: '/labs/lab_flash', locals: {env: current_user.environment} if current_user
+      = render partial: '/labs/lab_flash', locals: {env: current_user.environment}
       - if current_user
         = render partial: ('profiles/profile'), locals: {profile: @profile}
         = render partial: 'email_form', locals: {id: 'email_all', trigger: false, title: 'Email onTap Users', to: User.all.pluck(:email)}
