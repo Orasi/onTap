@@ -17,6 +17,6 @@ class WeeklyMailer < ActionMailer::Base
       @days[day_of_week].append event
     end
 
-    mail(to: users.pluck(:email), subject: 'Events onTap This Week')
+    mail(to: users.map{|user| user.email}, subject: 'Events onTap This Week')
   end
 end

@@ -91,4 +91,22 @@ class Event < ActiveRecord::Base
     end
     food_hsh
   end
+
+  def ical_attachment
+
+    cal = Icalendar::Calendar.new
+
+    event = Icalendar::Event.new
+    event.dtstart    =  self.schedules.first.start
+    event.dtend       = self.schedules.last.end
+    event.summary      = title
+    event.description  = description
+
+    cal.add_event(event)
+    cal.publish
+
+    # Required To Show Up in Outlook
+    cal.to_ical.gsub("ORGANIZER:", "ORGANIZER;").gsub("ACCEPTED:", "ACCEPTED;").gsub("TRUE:", "TRUE;").gsub("PUBLISH", "REQUEST")
+  end
+
 end

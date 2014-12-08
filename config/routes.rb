@@ -13,7 +13,7 @@ LunchLearn::Application.routes.draw do
 
   patch 'users/:id', to: 'users#update', as: :user
   post 'email' => 'application#send_email', as: :email
-
+  get 'event/:id/invite' => 'events#send_invite', as: :event_invite, format: :json
   post 'labs/new' => 'labs#create', as: :create_template
   post 'labs/:id' => 'labs#create_lab', as: :create_lab, format: :json
   get 'logs' => 'application#logs', as: :logs

@@ -1,6 +1,12 @@
 class EventsController < ApplicationController
   before_action :require_admin_or_host, only: [:new, :edit, :destroy, :update, :create, :finalize]
   before_action :require_past, only: [:finalize]
+
+  def send_invite
+    @event = Event.find(params[:id])
+    CalendarInvite.invitation_email(@event, current_user).deliver
+    render json: @event
+  end
   def calendar
     # @events = Event.joins(:schedules).merge(Schedule.where('event_date >= ?', DateTime.now.to_date))
     @events = Event.where(status: nil)
