@@ -117,11 +117,11 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
   create_table "profiles", force: true do |t|
     t.string   "food_pref"
     t.string   "location"
+    t.boolean  "notification_settings"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "other_food"
-    t.boolean  "notification_settings", default: true
   end
 
   create_table "referrals", force: true do |t|
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "refer_sender_id"
+    t.integer  "event_id"
     t.integer  "refer_event_id"
   end
 
