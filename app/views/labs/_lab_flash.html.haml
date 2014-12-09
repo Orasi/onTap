@@ -15,7 +15,7 @@
 
 
   :javascript
-    current_time = env.created_at
+    current_time = "#{env.created_at}"
     expire = Date.parse("#{env.expiration.year.to_s + '/' + env.expiration.month.to_s + '/' + env.expiration.day.to_s + ' ' + (env.expiration.hour-5).to_s + ':' + env.expiration.min.to_s + ':' + env.expiration.sec.to_s}")
     $("#time").countdown(expire, function(event) {
       $(this).text(
