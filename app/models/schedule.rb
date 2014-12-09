@@ -10,7 +10,7 @@ class Schedule < ActiveRecord::Base
     if self.start && self.end
       return true
     else
-      raise ActiveRecord::RecordInvalid.new(self)
+      return false
     end
   end
 
