@@ -146,7 +146,6 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'admin should not be able to finalize future event' do
-    skip
     attended = []
     not_attended = []
     @futureevent.attendees.each do |a|
@@ -162,12 +161,12 @@ class EventsControllerTest < ActionController::TestCase
     assert_not @futureevent.past?
     assert_redirected_to :calendar
     assert_not_nil flash[:error]
-    assert_match /Events can only be finalized after they have ended/, flash[:error]
+    assert_match /Events can not be finalized before they end./, flash[:error]
 
   end
 
   test 'host should not be able to finalize future event' do
-    skip
+
     attended = []
     not_attended = []
     @futureevent.attendees.each do |a|
@@ -182,7 +181,7 @@ class EventsControllerTest < ActionController::TestCase
     post :finalize, { id: @futureevent.id, user_data: user_data }, current_user_id: @futureevent.hosts.first.user_id
     assert_redirected_to :calendar
     assert_not_nil flash[:error]
-    assert_match /Events can only be finalized after they have ended/, flash[:error]
+    assert_match /Events can not be finalized before they end./, flash[:error]
 
   end
 
@@ -213,7 +212,7 @@ class EventsControllerTest < ActionController::TestCase
   test 'should not see lunchlearn info if not attendee' do
     get :show, { id: @lunchlearn.id }, current_user_id: @user.id
     assert_response :success
-    assert_select 'h4', false, 'Information is hidden from the user'
+    assert_select '.userdisplays', 'Event Details will be displayed for event attendees'
   end
 
   test 'should see lunchlearn info if host' do
@@ -233,24 +232,26 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'admin should be able to create an event' do
-    skip
     event = @lunchlearn
-    params = { event: {
+    params = { 
+      event_date: DateTime.now.strftime('%m/%d/%Y'),
+      event: {
       title: event.title,
       description: event.description,
-      start: event.schedules.first.start,
-      'end' => event.schedules.first.end,
       event_style: 'lunch_and_learn',
-      hosts: [1, 2, 3]
+      hosts: [1, 2, 3],
+      start: event.schedules.first.start,
+      'end' => event.schedules.first.end
     } }
     post :create, params, current_user_id: @admin.id
     assert_nil flash[:error]
   end
 
   test 'admin should be able to create a webinar' do
-    skip
     event = @webinar
-    params = { event: {
+    params = { 
+      event_date: DateTime.now.strftime('%m/%d/%Y'),
+      event: {
       title: event.title,
       description: event.description,
       start: event.schedules.first.start,
@@ -264,9 +265,10 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'admin should not be able to create a webinar with out url' do
-    skip
     event = @webinar
-    params = { event: {
+    params = {
+      event_date: DateTime.now.strftime('%m/%d/%Y'),
+      event: {
       title: event.title,
       description: event.description,
       start: event.schedules.first.start,
@@ -280,9 +282,10 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'admin should be not able to create an event without description' do
-    skip
     event = @lunchlearn
-    params = { event: {
+    params = {
+      event_date: DateTime.now.strftime('%m/%d/%Y'),
+      event: {
       title: event.title,
       start: event.schedules.first.start,
       'end' => event.schedules.first.end,
@@ -296,11 +299,12 @@ class EventsControllerTest < ActionController::TestCase
   test 'admin should be not able to create an event without end time ' do
     skip
     event = @lunchlearn
-    params = { event: {
+    params = {
+      event_date: DateTime.now.strftime('%m/%d/%Y'),
+      event: {
       title: event.title,
       description: event.description,
-      event_date: event.schedules.first.event_date.strftime('%m/%d/%Y'),
-      event_time: (event.schedules.first.event_time).to_time,
+      event_time: (event.schedules.first.start).to_time,
       event_style: 'lunch_and_learn'
     } }
     post :create, params, current_user_id: @admin.id
@@ -310,7 +314,9 @@ class EventsControllerTest < ActionController::TestCase
 
   test 'user should not be able to create an event' do
     event = @lunchlearn
-    params = { event: {
+    params = {
+      event_date: DateTime.now.strftime('%m/%d/%Y'),
+      event: {
       title: event.title,
       description: event.description,
       start: event.schedules.first.start,
@@ -323,9 +329,10 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'admin should be able to update an event' do
-    skip
     event = @webinar
-    params = { event: {
+    params = {
+      event_date: DateTime.now.strftime('%m/%d/%Y'),
+      event: {
       title: event.title + 'abc',
       description: event.description + 'abc',
       start: event.schedules.first.start,
@@ -342,11 +349,12 @@ class EventsControllerTest < ActionController::TestCase
   test 'admin should not be able to update an event without event time' do
     skip
     event = @lunchlearn
-    params = { event: {
+    params = {
+      event_date: DateTime.now.strftime('%m/%d/%Y'),
+      event: {
       title: event.title + 'abc',
       description: event.description + 'abc',
-      event_date: (event.schedules.first.event_date + 1.day).strftime('%m/%d/%Y'),
-      end_time: (event.schedules.first.end_time + 1.hour).to_time,
+      'end' => (event.schedules.first.end + 1.hour).to_time,
       event_style: 'lunch_and_learn'
     },         id: @lunchlearn.id
     }
@@ -356,9 +364,10 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'admin should not be able to update an event without description' do
-    skip
     event = @lunchlearn
-    params = { event: {
+    params = {
+      event_date: DateTime.now.strftime('%m/%d/%Y'),
+      event: {
       title: event.title + 'abc',
       description: '',
       start: event.schedules.first.start,
@@ -372,9 +381,10 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'host should be able to update an event' do
-    skip
     event = @lunchlearn
-    params = { event: {
+    params = {
+      event_date: DateTime.now.strftime('%m/%d/%Y'),
+      event: {
       title: event.title + 'abc',
       description: event.description + 'abc',
       start: event.schedules.first.start,
@@ -388,14 +398,15 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'user should not be able to update an event' do
-    skip
     event = @lunchlearn
-    params = { event: {
+    params = {
+      event_date: DateTime.now.strftime('%m/%d/%Y'),
+      event: {
       title: event.title + 'abc',
       description: event.description + 'abc',
       event_date: '08/30/2014',
-      event_time: (event.schedules.first.event_time - 1.hour).to_time,
-      end_time: (event.schedules.first.end_time + 1.hour).to_time
+      event_time: (event.schedules.first.start - 1.hour).to_time,
+      end_time: (event.schedules.first.end + 1.hour).to_time
     },         id: @lunchlearn.id
     }
     patch :update,  params, current_user_id: @user.id

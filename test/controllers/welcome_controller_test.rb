@@ -26,7 +26,7 @@ class WelcomeControllerTest < ActionController::TestCase
     post :validate, params
     assert_redirected_to :calendar
   end
-
+#outdated
   test 'user should validate if doesnt exists' do
     skip
     params = {
@@ -50,7 +50,7 @@ class WelcomeControllerTest < ActionController::TestCase
   #      assert_redirected_to :login
   #      assert_not_nil flash[:error]
   #    end
-
+#outdated
   test 'user should be able to logout' do
     skip
     get :logout, {}, current_user_id: @user.id
