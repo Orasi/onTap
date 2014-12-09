@@ -186,6 +186,12 @@ FactoryGirl.define do
     food_pref 'None'
     location 'Other'
     notification_settings true
+
+    trait :other do
+      after(:build) do |profile|
+        profile.update(food_pref: 'I only eat hotdogs')
+      end
+    end
   end
 
   # ***********************Referral Factory **************************

@@ -7,7 +7,7 @@ class ScheduleTest < ActiveSupport::TestCase
     event.schedules.each(&:destroy)
 
     schedule = event.schedules.new(start: (DateTime.now + 100.years),
-                                   end: (DateTime.now + 1.hour))
+                                   end: (DateTime.now +100.years + 1.hour))
     assert_raises ActiveRecord::RecordInvalid do
       schedule.save!
     end

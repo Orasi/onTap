@@ -38,4 +38,42 @@ class SurveysControllerTest < ActionController::TestCase
     get :index, { id: @futureevent.id }, current_user_id: @user.id
     assert_response :success
   end
+
+  test 'Survey should be created' do
+    notification = FactoryGirl.create(:notification, :surveynotification)
+    params = {
+              survey:
+                {
+                    went_well: 1,
+                    improved: 1,
+                    host_knowledge: 1,
+                    host_presentation: 1,
+                    effect: 1,
+                    extra: 1,
+                    event_id: notification.event_id
+                }
+              }
+    post :create, params, current_user_id: notification.user_id
+    assert_not_nil flash[:success]
+    assert_match /Event survey was submitted/, flash[:success]
+  end
+
+  test 'survey should not be created if event_id is blank' do
+    notification = FactoryGirl.create(:notification, :surveynotification)
+    params = {
+        survey:
+            {
+                went_well: 1,
+                improved: 1,
+                host_knowledge: 1,
+                host_presentation: 1,
+                effect: 1,
+                extra: 1,
+                event_id: nil
+            }
+    }
+    post :create, params, current_user_id: notification.user_id
+    assert_not_nil flash[:error]
+    assert_match /Survey  was not created/, flash[:error]
+  end
 end
