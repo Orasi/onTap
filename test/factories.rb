@@ -160,4 +160,37 @@ FactoryGirl.define do
     location 'Other'
     notification_settings true
   end
+
+  # ***********************Referral Factory **************************
+  factory :referral do
+    refer_email 'test.test@orasi.com'
+    refer_message 'some message'
+    refer_sender_id 1
+    event_id 1
+    refer_event_id 1
+  end
+
+  trait :multiple do
+    after(:build) do |refer|
+      refer.update(refer_email: 'test1.test1@orasi.com, test2.test2@orasi.com')
+    end
+  end
+
+  trait :non_orasi do
+    after(:build) do |refer|
+      refer.update(refer_email: 'nogood@wrong.com')
+    end
+  end
+
+  trait :worse do
+    after(:build) do |refer|
+      refer.update(refer_email: 'nogood@wrong')
+    end
+  end
+
+  trait :worst do
+    after(:build) do |refer|
+      refer.update(refer_email: 'what?')
+    end
+  end
 end
