@@ -140,6 +140,18 @@ FactoryGirl.define do
       end
     end
 
+    trait :no_status do
+     after(:build) do |notification|
+       notification.update(status: nil)
+     end
+    end
+
+    trait :wrong_status do
+      after(:build) do |notification|
+        notification.update(status: 'not valid status')
+      end
+    end
+
     trait :surveynotification do
       after(:create) do |notification|
         notification.update_attribute(:notification_type, 'survey')
@@ -151,7 +163,22 @@ FactoryGirl.define do
         notification.update_attribute(:notification_type, 'attendance')
       end
     end
+    trait :no_type do
+      after(:build) do |notification|
+        notification.update(notification_type: nil)
+      end
+    end
+    trait :invalid_type do
+      after(:build) do |notification|
+        notification.update(notification_type: 'whats this doing here?')
+      end
+    end
 
+    trait :old do
+      after(:create) do |notification|
+        notification.update(created_at: DateTime.now - 10.days)
+      end
+    end
   end
 
   # ***********************Profile Factory **************************

@@ -13,15 +13,15 @@ class ReferralTest < ActiveSupport::TestCase
   end
 
   test 'referral can be created with non-orasi email' do
-    @non_orasi = FactoryGirl.create(:referral, :non_orasi)
-    assert_not @non_orasi
+    @non_orasi = FactoryGirl.build(:referral, :non_orasi)
+    assert_not @non_orasi.valid?
   end
 
   test 'referal can not be created with poorly formed email' do
-    @worse = FactoryGirl.create(:referral, :worse)
-    assert_not @worse
-    @worst = FactoryGirl.create(:referral, :worst)
-    assert_not @worst
+    @worse = FactoryGirl.build(:referral, :worse)
+    assert_not @worse.valid?
+    @worst = FactoryGirl.build(:referral, :worst)
+    assert_not @worst.valid?
   end
-  
+
 end
