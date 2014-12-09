@@ -38,7 +38,7 @@ class ProfilesControllerTest < ActionController::TestCase
       id: @profile.id
     }
     post :update, params, current_user_id: @user.id
-    assert_redirected_to :back
+    assert_redirected_to :calendar
     #    assert_not_nil flash[:error], flash[:success]
   end
 

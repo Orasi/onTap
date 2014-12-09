@@ -25,6 +25,11 @@ FactoryGirl.define do
     factory :host_user do
       admin false
     end
+
+    after(:create) do |user|
+      @profile=user.build_profile(food_pref: 'None', location: 'Other', notification_settings: true)
+      @profile.save
+    end
   end
 
   # **************  EVENT FACTORIES **********************
@@ -34,7 +39,7 @@ FactoryGirl.define do
     description 'this is a description of an event.  descriptions are not very long'
 
     after(:create) do |event|
-      event.schedules.create(start: DateTime.now, 'end' => DateTime.now)
+      event.schedules.create(start: DateTime.now, 'end' => DateTime.now+ 3.hours)
 
       [1, 2, 3].sample.times do
         event.hosts.create(user_id: create(:host_user).id)
