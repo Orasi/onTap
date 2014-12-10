@@ -4,3 +4,8 @@ machine:
 test:
   post:
     - bundle exec rake
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: ontapstaging
