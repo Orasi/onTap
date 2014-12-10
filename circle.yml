@@ -8,3 +8,4 @@ deployment:
             - git push git@heroku.com:ontapstaging.git $CIRCLE_SHA1:master
             - heroku run rake db:migrate --app ontapstaging
             - heroku run rake db:seed --app ontapstaging
+            - heroku run script/delayed_job start --app ontapstaging
