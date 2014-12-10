@@ -34,4 +34,15 @@ module EventsHelper
   def check_for_notifications
     Notification.exists?(user_id: session[:current_user_id])
   end
+
+  def fields_for_day(day, &block)
+    prefix = day.new_record? ? 'new' : 'existing'
+    fields_for("event[#{prefix}_day_attributes][]", day, &block)
+  end
+
+  def add_day_link(name)
+    link_to_function name do |page|
+      page.insert_html :bottom, :schedules, :partial => 'schedule_days', :object => Schedule.new
+    end
+  end
 end

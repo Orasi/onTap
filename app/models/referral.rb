@@ -6,7 +6,7 @@ class Referral < ActiveRecord::Base
   def validate_email_format
     emails = self.refer_email.downcase.split(',')
     emails.each do |email|
-      self.errors.add(:refer_email, "Emails should be in the format name@domain.  Multiple emails should be seperate by commas.") unless email.strip=~ /^([^\s]+)@([^\s]+)$/i
+      self.errors.add(:refer_email, "Emails should be in the format name@domain.  Multiple emails should be seperate by commas.") unless email.strip=~ /^([^\s]+\.[^\s]+)@orasi.com$/i
     end
   end
 

@@ -1,0 +1,4 @@
+=f.label "Daily Schedule(s)", class: "control-group"
+.days
+  = render partial: ('events/_schedule"_days'), collection: @event.schedules
+= add_day_link "Add a Day

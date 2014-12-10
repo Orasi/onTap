@@ -21,22 +21,8 @@
           %br
           = render partial: 'events/forms/' +file.last, locals: { f: f, event: @event }
 
-  -@event.schedules.each do |schedule|
-    .form_group
-      =f.label :event_date, class: "control-label"
-      - if schedule.start
-        = text_field_tag :event_date, schedule.start.to_date.strftime("%m/%d/%Y"), class: "form-control", id: "datepicker", required: true
-      - if not schedule.start
-        = text_field_tag :event_date, schedule.start, class: "form-control", id: "datepicker", required: true
-    .form_group
-      %br
-      =f.label :start, "Event start time:", class: "control-label"
-      =f.text_field :start, value: (schedule.start.strftime("%I:%M%p") unless schedule.start.blank?), class: "time", id: "timepicker", required: true
-    .form_group
-      %br
-      =f.label :end, "Event end time:", class: "control-label"
-      =f.text_field :end, value: (schedule.end.strftime("%I:%M%p") unless schedule.end.blank?), id: "timepickerend", required: true
-      = hidden_field_tag 'time_zone_offset'
+  = render partial: ('events/_schedule_fields'), locals: {f: f}
+
 
   .form_group
     =f.label :restricted, "Restricted?", class: "control-label"
