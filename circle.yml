@@ -4,5 +4,7 @@ machine:
 deployment:
   staging:
     branch: staging
-    heroku:
-      appname: ontapstaging
+    commands:
+            - git push git@heroku.com:ontapstaging.git $CIRCLE_SHA1:master
+            - heroku run rake db:migrate --app ontapstaging
+            - heroku run rake db:seed
