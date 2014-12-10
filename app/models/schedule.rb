@@ -7,20 +7,11 @@ class Schedule < ActiveRecord::Base
   belongs_to :event
 
   def times_exist
-    if self.start && self.end
-      return true
-    else
-      return false
-    end
+    false if self.start.blank? || self.end.blank?
   end
 
   def start_before_end
-    if self.end < self.start
-      raise ActiveRecord::RecordInvalid.new(self)
-      return false
-    else
-      return true
-    end
+    raise ActiveRecord::RecordInvalid.new(self) if self.end < self.start
   end
 
   def event_date_range
