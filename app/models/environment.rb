@@ -11,20 +11,20 @@ class Environment < ActiveRecord::Base
 
   def add_to_skytap
     remove_existing_environment
-    if id.blank?
-      form_data = {
-        'template_id' => template_id
-      }
-      json = api_call(request_type: 'post', request_path: '/configurations', request_form_data: form_data)
-      puts '----------------------------------  Create Environment JSON ---------------------------'
-      puts json
-      puts '---------------------------------------------------------------------------------------'
-      if json['error'].blank?
-        self.id = json['id'].to_i
-        return true
-      else
-        return false
-      end
+    form_data = {
+      'template_id' => template_id
+    }
+    json = api_call(request_type: 'post', request_path: '/configurations', request_form_data: form_data)
+    #puts '----------------------------------  Create Environment JSON ---------------------------'
+    #puts json
+    #puts '---------------------------------------------------------------------------------------'
+    if json.nil? || json['error']
+      raise ActiveRecord::RecordInvalid.new(self)
+      errors.add(:id, 'Environment could not be created in skytap.')
+      return false
+    else
+      self.id = json['id'].to_i
+      return true
     end
   end
 
@@ -122,7 +122,7 @@ class Environment < ActiveRecord::Base
   end
 
   def remove_existing_environment
-    puts '------------------------------------removing existing environment----------------------------------'
+    #puts '------------------------------------removing existing environment----------------------------------'
     unless User.find(user_id).environment.nil?
       puts '----------------------------------existing environment found-------------------------------------'
       User.find(user_id).environment.remove_from_skytap

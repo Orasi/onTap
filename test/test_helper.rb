@@ -1,6 +1,6 @@
  require 'simplecov'
  require 'coveralls'
-
+ require 'webmock/test_unit'
  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
  SimpleCov.start do
    add_filter 'test'
