@@ -54,7 +54,7 @@ class EnvironmentTest < ActiveSupport::TestCase
         to_return(:status => 200, :body => [{id: "4077776", runstate: "suspended", error: false, interfaces: [{"id"=>"nic-1695630-4014316-0", "ip"=>"10.0.0.1", "hostname"=>"administrator", "mac"=>"00:50:56:3A:32:AD", "services_count"=>0, "services"=>[], "public_ips_count"=>0, "public_ips"=>[], "status"=>"Suspended", "vm_name"=>"Windows_7_Office2010_X86_UFT115", "vm_id"=>"4077776", "network_name"=>"Network 1", "network_subnet"=>"10.0.0.0/24", "network_id"=>"1775634", "network_type"=>"automatic", "nic_type"=>"e1000"}]}].to_json.to_s, :headers => {})
 
   end
-
+ 
   test 'can create environment from template' do
     stubs
     @template = Template.create( id: 111, title: 'test', description: 'test', username: 'test', password: 'test', properties: 'test;test;test', public: true)
