@@ -20,8 +20,13 @@
         .form_styles{id: file.last, style: 'display:none'}
           %br
           = render partial: 'events/forms/' +file.last, locals: { f: f, event: @event }
+  =f.label "Daily Schedule(s)", class: "control-group"
 
-  = render partial: ('events/_schedule_fields'), locals: {f: f}
+  .fields
+    =f.fields_for :schedules do |builder|
+      = render partial: ('events/schedule_fields'), locals: {f: builder}
+
+    =link_to_add_fields "Add Day", f, :schedules
 
 
   .form_group

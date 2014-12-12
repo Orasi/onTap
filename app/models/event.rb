@@ -7,7 +7,7 @@ class Event < ActiveRecord::Base
   has_many :attachments
   has_many :notifications
   has_one :event_style
-
+  accepts_nested_attributes_for :schedules, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
   # has_one :lunchlearns, :through => :event_style, :source => :element, :source_type => 'lunchlearn'
   # has_one :webinars, :through => :event_style, :source => :element, :source_type => 'webinar'
   validates_presence_of :title, :description
@@ -108,5 +108,4 @@ class Event < ActiveRecord::Base
     # Required To Show Up in Outlook
     cal.to_ical.gsub("ORGANIZER:", "ORGANIZER;").gsub("ACCEPTED:", "ACCEPTED;").gsub("TRUE:", "TRUE;").gsub("PUBLISH", "REQUEST")
   end
-
 end

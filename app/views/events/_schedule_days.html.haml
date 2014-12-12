@@ -1,14 +1,5 @@
-.day
-  fields_for_day(day) do |day_form|
-    .event-schedule-section.form-inline
-      Day: =taskform.text_field :name
-      =link_to "remove", "#", class: "remove_date"
+.schedule
+  =f.fields_for :schedules do |builder|
+    = render partial: ('events/schedule_fields'), locals: {f: builder}
 
-:javascript
-  $(document).on("ready", function(){
-    return $(".remove_date").on("click", function(){
-      return $(this).up('.task').remove();
-    });
-  });
-
-
+  =link_to_add_fields "Add Day", f, :schedules

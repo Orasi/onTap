@@ -24,7 +24,10 @@ class EventsController < ApplicationController
   end
 
   def create
-    e_date = params[:event_date] = DateTime.strptime(params[:event_date], '%m/%d/%Y').to_date
+    puts "kevin"
+    puts params[:event][:schedules_attributes]["0"][:event_date]
+    sleep(4)
+    e_date = schedule_params[:event_date] = DateTime.strptime(schedule_params[:event_date], '%m/%d/%Y').to_date
 
     @event = Event.new(event_params)
 
@@ -187,7 +190,7 @@ class EventsController < ApplicationController
   end
 
   def schedule_params
-    params.require(:event).permit(:event_date, :end, :start)
+    params[:event][:schedules_attributes].permit(:event_date, :end, :start)
   end
 
   def lunchlearn_params

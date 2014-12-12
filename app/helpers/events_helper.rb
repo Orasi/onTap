@@ -35,14 +35,20 @@ module EventsHelper
     Notification.exists?(user_id: session[:current_user_id])
   end
 
-  def fields_for_day(day, &block)
-    prefix = day.new_record? ? 'new' : 'existing'
-    fields_for("event[#{prefix}_day_attributes][]", day, &block)
+
+  def link_to_remove_fields(name, f)
+    f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")
   end
 
-  def add_day_link(name)
-    link_to_function name do |page|
-      page.insert_html :bottom, :schedules, :partial => 'schedule_days', :object => Schedule.new
+  def link_to_add_fields(name, f, association)
+    new_object = f.object.class.reflect_on_association(association).klass.new
+    fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
+      render(association.to_s.singularize + "_fields", :f => builder)
     end
+  link_to_function(name, ("add_fields(this, '#{association}', '#{escape_javascript(fields)}')"))
   end
+
+
+
+
 end
