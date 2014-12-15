@@ -19,38 +19,39 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
-    @schedule = @event.schedules.new
+    @schedules = @event.schedules.new
     @labs = Template.all
   end
 
   def create
-    puts "kevin"
-    puts params[:event][:schedules_attributes]["0"][:event_date]
-    sleep(4)
-    e_date = schedule_params[:event_date] = DateTime.strptime(schedule_params[:event_date], '%m/%d/%Y').to_date
 
     @event = Event.new(event_params)
+
+    unless @event.save
+      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created" }
+      return
+    end
+
+    params[:event][:schedules_attributes].each do |key, value|
+      e_date = value[:event_date] = DateTime.strptime(value[:event_date], '%m/%d/%Y').to_date
+      e_start = Time.parse(value[:start])
+      e_end = Time.parse(value[:end])
+      e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec, '-' + (value[:time_zone_offset].to_i / 60).to_s)
+      e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec, '-' + (value[:time_zone_offset].to_i / 60).to_s)
+      @schedule = @event.schedules.new(start: e_start, end: e_end)
+      unless @schedule.save
+        @event.destroy
+        redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created.   Error: " + @schedule.errors.full_messages.join }
+        return
+      end
+    end
 
     #Add Lab
     if params[:add_lab]
       @event.update(lab_id: params[:event][:lab_id])
     end
 
-    unless @event.save
-      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created" }
-      return
-    end
-    # e_date = Date.strptime(params[:event_date], "%m/%d/%Y")
-    e_start = Time.parse(schedule_params[:start])
-    e_end = Time.parse(schedule_params[:end])
-    e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec, '-' + (schedule_params[:time_zone_offset].to_i / 60).to_s)
-    e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec, '-' + (schedule_params[:time_zone_offset].to_i / 60).to_s)
-    @schedule = @event.schedules.new(start: e_start, end: e_end)
-    unless @schedule.save
-      @event.destroy
-      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created.   Error: " + @schedule.errors.full_messages.join }
-      return
-    end
+
 
     if params[:event][:event_style] == 'lunch_and_learn'
       @eventtype = Lunchlearn.new(lunchlearn_params)
@@ -88,6 +89,7 @@ class EventsController < ApplicationController
     #  Survey.create_survey_notification(current_user.id, params[:id])
     # end temp for testing surveys
     @event = Event.find(params[:id])
+    @schedules = @event.schedules
     @labs = Template.all
     render :new
   end
