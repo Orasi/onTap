@@ -248,8 +248,6 @@ class EventsControllerTest < ActionController::TestCase
       description: event.description,
       event_style: 'lunch_and_learn',
       hosts: [1, 2, 3],
-      start: event.schedules.first.start,
-      end: event.schedules.first.end
     } }
     post :create, params, current_user_id: @admin.id
     assert_nil flash[:error]
@@ -270,8 +268,6 @@ class EventsControllerTest < ActionController::TestCase
       },
       title: event.title,
       description: event.description,
-      start: event.schedules.first.start,
-      end:  event.schedules.first.end,
       url: 'https://www.someurl.com',
       host: 'Some Guy Off The Street',
       event_style: 'webinar'
@@ -295,8 +291,6 @@ class EventsControllerTest < ActionController::TestCase
       },
       title: event.title,
       description: event.description,
-      start: event.schedules.first.start,
-      end:  event.schedules.first.end,
       host: 'Some Guy Off The Street',
       event_style: 'webinar'
     } }
@@ -319,8 +313,6 @@ class EventsControllerTest < ActionController::TestCase
         }
       },
       title: event.title,
-      start: event.schedules.first.start,
-      end:  event.schedules.first.end,
       event_style: 'lunch_and_learn'
     } }
     post :create, params, current_user_id: @admin.id
@@ -351,8 +343,6 @@ class EventsControllerTest < ActionController::TestCase
       event: {
       title: event.title,
       description: event.description,
-      start: event.schedules.first.start,
-      end:  event.schedules.first.end,
       event_style: 'lunch_and_learn'
     } }
     post :create, params, current_user_id: @user.id
@@ -375,8 +365,6 @@ class EventsControllerTest < ActionController::TestCase
       },
       title: event.title + 'abc',
       description: event.description + 'abc',
-      start: event.schedules.first.start,
-      'end' => event.schedules.first.end,
       url: 'https://yourmomrocks.com',
       host: 'some other host',
       event_style: 'webinar'
@@ -426,8 +414,6 @@ class EventsControllerTest < ActionController::TestCase
       },
       title: event.title + 'abc',
       description: '',
-      start: event.schedules.first.start,
-      'end' => event.schedules.first.end,
       event_style: 'lunch_and_learn'
     },         id: @lunchlearn.id
     }
@@ -451,8 +437,6 @@ class EventsControllerTest < ActionController::TestCase
       },
       title: event.title + 'abc',
       description: event.description + 'abc',
-      start: event.schedules.first.start,
-      'end' => event.schedules.first.end,
       url: 'https://www.google.com',
       hosts: [2, 3, 4],
       event_style: 'lunch_and_learn'
