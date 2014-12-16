@@ -236,6 +236,14 @@ class EventsControllerTest < ActionController::TestCase
     params = { 
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: (event.schedules.first.start - 1.hour).to_time,
+        'end' => (event.schedules.first.end + 1.hour).to_time
+        }
+      },
       title: event.title,
       description: event.description,
       event_style: 'lunch_and_learn',
@@ -252,6 +260,14 @@ class EventsControllerTest < ActionController::TestCase
     params = { 
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: (event.schedules.first.start - 1.hour).to_time,
+        'end' => (event.schedules.first.end + 1.hour).to_time
+        }
+      },
       title: event.title,
       description: event.description,
       start: event.schedules.first.start,
@@ -269,6 +285,14 @@ class EventsControllerTest < ActionController::TestCase
     params = {
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: (event.schedules.first.start - 1.hour).to_time,
+        'end' => (event.schedules.first.end + 1.hour).to_time
+        }
+      },
       title: event.title,
       description: event.description,
       start: event.schedules.first.start,
@@ -286,6 +310,14 @@ class EventsControllerTest < ActionController::TestCase
     params = {
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: (event.schedules.first.start - 1.hour).to_time,
+        'end' => (event.schedules.first.end + 1.hour).to_time
+        }
+      },
       title: event.title,
       start: event.schedules.first.start,
       end:  event.schedules.first.end,
@@ -333,6 +365,14 @@ class EventsControllerTest < ActionController::TestCase
     params = {
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: (event.schedules.first.start - 1.hour).to_time,
+        'end' => (event.schedules.first.end + 1.hour).to_time
+        }
+      },
       title: event.title + 'abc',
       description: event.description + 'abc',
       start: event.schedules.first.start,
@@ -352,6 +392,14 @@ class EventsControllerTest < ActionController::TestCase
     params = {
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: (event.schedules.first.start - 1.hour).to_time,
+        'end' => (event.schedules.first.end + 1.hour).to_time
+        }
+      },
       title: event.title + 'abc',
       description: event.description + 'abc',
       'end' => (event.schedules.first.end + 1.hour).to_time,
@@ -368,6 +416,14 @@ class EventsControllerTest < ActionController::TestCase
     params = {
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: (event.schedules.first.start - 1.hour).to_time,
+        'end' => (event.schedules.first.end + 1.hour).to_time
+        }
+      },
       title: event.title + 'abc',
       description: '',
       start: event.schedules.first.start,
@@ -385,6 +441,14 @@ class EventsControllerTest < ActionController::TestCase
     params = {
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: (event.schedules.first.start - 1.hour).to_time,
+        'end' => (event.schedules.first.end + 1.hour).to_time
+        }
+      },
       title: event.title + 'abc',
       description: event.description + 'abc',
       start: event.schedules.first.start,

@@ -97,7 +97,6 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     @event.schedules.each(&:destroy)
-
     params[:event][:schedules_attributes].each do |key, value|
       e_date = Date.strptime(value[:event_date], '%m/%d/%Y')
       e_start = Time.parse(value[:start])
