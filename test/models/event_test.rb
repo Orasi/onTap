@@ -55,4 +55,25 @@ class EventTest < ActiveSupport::TestCase
     event.notifications.create(user_id: user.id, status: 'new', notification_type: 'attendance')
     assert_equal event.attend_button_text(user), 'Cancel Request'
   end
+
+  test 'should correctly identify event older than x' do
+    event = FactoryGirl.create(:lunchlearnstyle, :past)
+    assert event.older_than_days 4
+  end
+
+  test 'should correctly identify not older than x' do
+    event = FactoryGirl.create(:lunchlearnstyle, :past)
+    assert_not event.older_than_days 5
+  end
+
+  test 'should generate ical' do
+    event = FactoryGirl.create(:lunchlearnstyle)
+    assert event.ical_attachment
+  end
+
+  test 'should get food preferences' do
+    event = FactoryGirl.create(:lunchlearnstyle)
+    event.attendees.first.user.profile.update(food_pref: 'i eat hotdogs')
+    assert_includes event.get_food_preferences, 'i eat hotdogs'
+  end
 end

@@ -140,6 +140,18 @@ FactoryGirl.define do
       end
     end
 
+    trait :no_status do
+     after(:build) do |notification|
+       notification.update(status: nil)
+     end
+    end
+
+    trait :wrong_status do
+      after(:build) do |notification|
+        notification.update(status: 'not valid status')
+      end
+    end
+
     trait :surveynotification do
       after(:create) do |notification|
         notification.update_attribute(:notification_type, 'survey')
@@ -151,7 +163,22 @@ FactoryGirl.define do
         notification.update_attribute(:notification_type, 'attendance')
       end
     end
+    trait :no_type do
+      after(:build) do |notification|
+        notification.update(notification_type: nil)
+      end
+    end
+    trait :invalid_type do
+      after(:build) do |notification|
+        notification.update(notification_type: 'whats this doing here?')
+      end
+    end
 
+    trait :old do
+      after(:create) do |notification|
+        notification.update(created_at: DateTime.now - 10.days)
+      end
+    end
   end
 
   # ***********************Profile Factory **************************
@@ -159,5 +186,44 @@ FactoryGirl.define do
     food_pref 'None'
     location 'Other'
     notification_settings true
+
+    trait :other do
+      after(:build) do |profile|
+        profile.update(food_pref: 'I only eat hotdogs')
+      end
+    end
+  end
+
+  # ***********************Referral Factory **************************
+  factory :referral do
+    refer_email 'test.test@orasi.com'
+    refer_message 'some message'
+    refer_sender_id 1
+    event_id 1
+    refer_event_id 1
+  end
+
+  trait :multiple do
+    after(:build) do |refer|
+      refer.update(refer_email: 'test1.test1@orasi.com, test2.test2@orasi.com')
+    end
+  end
+
+  trait :non_orasi do
+    after(:build) do |refer|
+      refer.update(refer_email: 'nogood@wrong.com')
+    end
+  end
+
+  trait :worse do
+    after(:build) do |refer|
+      refer.update(refer_email: 'nogood@wrong')
+    end
+  end
+
+  trait :worst do
+    after(:build) do |refer|
+      refer.update(refer_email: 'what?')
+    end
   end
 end

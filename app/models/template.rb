@@ -5,8 +5,10 @@ class Template < ActiveRecord::Base
 
   def exists_in_skytap?
     json = api_call(request_type: 'get', request_path: '/templates/' + id.to_s)
-    json['id'] === id.to_s
-    print json
+    if json.nil? || json['error']
+      errors.add(:id, 'must match template ID in skytap.')
+      return false
+    end
   end
 
   def create_environment(user)
@@ -17,7 +19,6 @@ class Template < ActiveRecord::Base
         user_id: user.id,
         description: description,
         status: 'in queue'
-
     )
   end
 end

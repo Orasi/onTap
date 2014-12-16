@@ -84,3 +84,4 @@ gem 'whenever'
 gem 'ruby-saml'
 gem 'better_errors'
 gem 'binding_of_caller'
+gem 'webmock', group: :test

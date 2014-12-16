@@ -1,0 +1,10 @@
+machine:
+  ruby:
+    version: 2.0.0
+deployment:
+  staging:
+    branch: staging
+    commands:
+            - git push git@heroku.com:ontapstaging.git $CIRCLE_SHA1:master
+            - heroku run rake db:migrate --app ontapstaging
+            - heroku run rake db:seed --app ontapstaging

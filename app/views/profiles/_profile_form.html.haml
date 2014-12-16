@@ -1,53 +1,54 @@
-= form_for profile, html: {class: "form-horizontal", role: "form", id: 'profile_form'} do |f|
-  = f.label "Dietary Restrictions"
-  %div.indented
-    = f.radio_button :food_pref, "Vegan", class: "picky food"
-    = f.label :food_pref, "Vegan", :value => "Vegan", checked: (@profile.food_pref=="Vegan" unless @profile.food_pref.nil?)
-    %br
-    = f.radio_button :food_pref, "Vegetarian", class: "picky food"
-    = f.label :food_pref, "Vegetarian", :value => "Vegetarian", checked: (@profile.food_pref=="Vegetarian" unless @profile.food_pref.nil?)
-    %br
-    = f.radio_button :food_pref, "Gluten Free", class: "picky food"
-    = f.label :food_pref, "Gluten Free", :value => "Gluten Free", checked: (@profile.food_pref=="Gluten Free" unless @profile.food_pref.nil?)
-    %br
-    = f.radio_button :food_pref, "None", class: "picky food"
-    = f.label :food_pref, "None", :value => "None", checked: (@profile.food_pref=="None" unless @profile.food_pref.nil?)
-    %br
-    %div.other_choice
-    = f.radio_button :food_pref, "Other", class: "picky eater"
-    = f.label :food_pref, "Other", :value => "Other", checked: (@profile.food_pref=="Other" unless @profile.food_pref.nil?)
-  %div.indented#otherfoodbox
-    =f.label :other_food, nil, class: "control-label"
-    =f.text_field :other_food, value: @profile.other_food, class: "form-control"
-
-  = f.label "Location"
-  %div.indented
-    = f.radio_button :location, "Greensboro", class: "location known"
-    = f.label :location, "Greensboro", :value => "Greensboro", checked: (@profile.location=="Greensboro" unless @profile.location.nil?)
-    %br
-    %div.other_choice
-    = f.radio_button :location, "Georgia", class: "location not_known"
-    = f.label :location, "Atlanta", :value => "Georgia", checked: (@profile.location=="Georgia" unless @profile.location.nil?)
-    %br
-    %div.other_choice
-    = f.radio_button :location, "Other", class: "location not_known"
-    = f.label :location, "Other", :value => "Other", checked: (@profile.location=="Other" unless @profile.location.nil?)
-
-  = f.label "Notification Settings"
-  %div.indented
-    =f.check_box :notification_settings, checked: (@profile.notification_settings unless @profile.notification_settings.nil?)
-    =f.label :notification_settings, "I would like to receive a weekly email about new and upcoming events on OnTap", class: "control-label"
-
-  - unless modal
-    %div.form_group
+- unless profile.nil?
+  = form_for profile, html: {class: "form-horizontal", role: "form", id: 'profile_form'} do |f|
+    = f.label "Dietary Restrictions"
+    %div.indented
+      = f.radio_button :food_pref, "Vegan", class: "picky food"
+      = f.label :food_pref, "Vegan", :value => "Vegan", checked: (@profile.food_pref=="Vegan" unless @profile.food_pref.nil?)
       %br
-      =f.submit class: "btn btn-primary", data: { disable_with: "Adding Suggestion..."}
+      = f.radio_button :food_pref, "Vegetarian", class: "picky food"
+      = f.label :food_pref, "Vegetarian", :value => "Vegetarian", checked: (@profile.food_pref=="Vegetarian" unless @profile.food_pref.nil?)
+      %br
+      = f.radio_button :food_pref, "Gluten Free", class: "picky food"
+      = f.label :food_pref, "Gluten Free", :value => "Gluten Free", checked: (@profile.food_pref=="Gluten Free" unless @profile.food_pref.nil?)
+      %br
+      = f.radio_button :food_pref, "None", class: "picky food"
+      = f.label :food_pref, "None", :value => "None", checked: (@profile.food_pref=="None" unless @profile.food_pref.nil?)
+      %br
+      %div.other_choice
+      = f.radio_button :food_pref, "Other", class: "picky eater"
+      = f.label :food_pref, "Other", :value => "Other", checked: (@profile.food_pref=="Other" unless @profile.food_pref.nil?)
+    %div.indented#otherfoodbox
+      =f.label :other_food, nil, class: "control-label"
+      =f.text_field :other_food, value: @profile.other_food, class: "form-control"
 
-    :javascript
-      $(document).on("ready", function(){
-        if ($(".eater:checked").length > 0)
-          $("#otherfoodbox").show()
-        $(".picky").on("change", function(){
-          $("#otherfoodbox").toggle($(this).hasClass("eater"));
+    = f.label "Location"
+    %div.indented
+      = f.radio_button :location, "Greensboro", class: "location known"
+      = f.label :location, "Greensboro", :value => "Greensboro", checked: (@profile.location=="Greensboro" unless @profile.location.nil?)
+      %br
+      %div.other_choice
+      = f.radio_button :location, "Georgia", class: "location not_known"
+      = f.label :location, "Atlanta", :value => "Georgia", checked: (@profile.location=="Georgia" unless @profile.location.nil?)
+      %br
+      %div.other_choice
+      = f.radio_button :location, "Other", class: "location not_known"
+      = f.label :location, "Other", :value => "Other", checked: (@profile.location=="Other" unless @profile.location.nil?)
+
+    = f.label "Notification Settings"
+    %div.indented
+      =f.check_box :notification_settings, checked: (@profile.notification_settings unless @profile.notification_settings.nil?)
+      =f.label :notification_settings, "I would like to receive a weekly email about new and upcoming events on OnTap", class: "control-label"
+
+    - unless modal
+      %div.form_group
+        %br
+        =f.submit class: "btn btn-primary", data: { disable_with: "Adding Suggestion..."}
+
+      :javascript
+        $(document).on("ready", function(){
+          if ($(".eater:checked").length > 0)
+            $("#otherfoodbox").show()
+          $(".picky").on("change", function(){
+            $("#otherfoodbox").toggle($(this).hasClass("eater"));
+          });
         });
-      });
