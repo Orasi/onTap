@@ -95,13 +95,23 @@ class EventsController < ApplicationController
   end
 
   def update
-    e_date = Date.strptime(params[:event_date], '%m/%d/%Y')
-    e_start = Time.parse(schedule_params[:start])
-    e_end = Time.parse(schedule_params[:end])
-    e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec, '-' + (schedule_params[:time_zone_offset].to_i / 60).to_s)
-    e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec, '-' + (schedule_params[:time_zone_offset].to_i / 60).to_s)
-    # need better way to find event
     @event = Event.find(params[:id])
+    @event.schedules.each(&:destroy)
+
+    params[:event][:schedules_attributes].each do |key, value|
+      e_date = Date.strptime(value[:event_date], '%m/%d/%Y')
+      e_start = Time.parse(value[:start])
+      e_end = Time.parse(value[:end])
+      e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec, '-' + (value[:time_zone_offset].to_i / 60).to_s)
+      e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec, '-' + (value[:time_zone_offset].to_i / 60).to_s)
+      @schedule = @event.schedules.new(start: e_start, end: e_end)
+      unless @schedule.save
+        @event.destroy
+        redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated.  Error: " + @schedle.errors.full_messages.join }
+        return
+      end
+    end
+
     @event_style = EventStyle.find_by(event_id: @event.id)
 
     if params[:add_lab]
@@ -117,14 +127,6 @@ class EventsController < ApplicationController
       end
     end
 
-    @event.schedules.each(&:destroy)
-
-    @schedule = @event.schedules.new(start: e_start, end: e_end)
-    unless @schedule.save
-      @event.destroy
-      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated.  Error: " + @schedle.errors.full_messages.join }
-      return
-    end
 
     if params[:event][:event_style] == 'lunch_and_learn'
       @event_type = Lunchlearn.find_by(id: @event_style.element_id)

@@ -20,7 +20,14 @@
         = event.title
       .jumbo-date-hosts.h2
         .jumbo-date.small
-          = event.schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + event.schedules.first.end.strftime("%I:%M %p")
+          - if params[:action] != 'show'
+            -event.upcoming_date.each do |schedule|
+              = schedule.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedule.end.strftime("%I:%M %p")
+              %br
+          - if params[:action] == 'show'
+            -event.schedules.sort_by(&:start).each do |schedule|
+              = schedule.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedule.end.strftime("%I:%M %p")
+              %br
         .jumbo-spacer
         .jumbo-hosts
           - if event.hosts.first.external

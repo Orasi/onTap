@@ -30,7 +30,11 @@ class Event < ActiveRecord::Base
   end
 
   def past?
-    schedules.last.end <= DateTime.now - 5.hours
+    schedules.sort_by(&:start).last.end <= DateTime.now - 5.hours
+  end
+
+  def upcoming_date
+    return schedules.where("schedules.end >= ?", DateTime.now)
   end
 
   def attend_button_text(user)
