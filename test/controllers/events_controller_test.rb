@@ -240,8 +240,8 @@ class EventsControllerTest < ActionController::TestCase
         '0' =>
         {
         event_date: DateTime.now.strftime('%m/%d/%Y'),
-        start: (event.schedules.first.start - 1.hour).to_time,
-        'end' => (event.schedules.first.end + 1.hour).to_time
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
         }
       },
       title: event.title,
@@ -262,8 +262,8 @@ class EventsControllerTest < ActionController::TestCase
         '0' =>
         {
         event_date: DateTime.now.strftime('%m/%d/%Y'),
-        start: (event.schedules.first.start - 1.hour).to_time,
-        'end' => (event.schedules.first.end + 1.hour).to_time
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
         }
       },
       title: event.title,
@@ -285,8 +285,8 @@ class EventsControllerTest < ActionController::TestCase
         '0' =>
         {
         event_date: DateTime.now.strftime('%m/%d/%Y'),
-        start: (event.schedules.first.start - 1.hour).to_time,
-        'end' => (event.schedules.first.end + 1.hour).to_time
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
         }
       },
       title: event.title,
@@ -308,8 +308,8 @@ class EventsControllerTest < ActionController::TestCase
         '0' =>
         {
         event_date: DateTime.now.strftime('%m/%d/%Y'),
-        start: (event.schedules.first.start - 1.hour).to_time,
-        'end' => (event.schedules.first.end + 1.hour).to_time
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
         }
       },
       title: event.title,
@@ -359,8 +359,8 @@ class EventsControllerTest < ActionController::TestCase
         '0' =>
         {
         event_date: DateTime.now.strftime('%m/%d/%Y'),
-        start: (event.schedules.first.start - 1.hour).to_time,
-        'end' => (event.schedules.first.end + 1.hour).to_time
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
         }
       },
       title: event.title + 'abc',
@@ -384,8 +384,8 @@ class EventsControllerTest < ActionController::TestCase
         '0' =>
         {
         event_date: DateTime.now.strftime('%m/%d/%Y'),
-        start: (event.schedules.first.start - 1.hour).to_time,
-        'end' => (event.schedules.first.end + 1.hour).to_time
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
         }
       },
       title: event.title + 'abc',
@@ -408,8 +408,8 @@ class EventsControllerTest < ActionController::TestCase
         '0' =>
         {
         event_date: DateTime.now.strftime('%m/%d/%Y'),
-        start: (event.schedules.first.start - 1.hour).to_time,
-        'end' => (event.schedules.first.end + 1.hour).to_time
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
         }
       },
       title: event.title + 'abc',
@@ -431,8 +431,8 @@ class EventsControllerTest < ActionController::TestCase
         '0' =>
         {
         event_date: DateTime.now.strftime('%m/%d/%Y'),
-        start: (event.schedules.first.start - 1.hour).to_time,
-        'end' => (event.schedules.first.end + 1.hour).to_time
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
         }
       },
       title: event.title + 'abc',
