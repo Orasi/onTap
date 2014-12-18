@@ -21,7 +21,7 @@
       .jumbo-date-hosts.h2
         .jumbo-date.small
           - if params[:action] != 'show'
-            -event.upcoming_date.each do |schedule|
+            -event.upcoming_dates.sort_by(&:start).each do |schedule|
               = schedule.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedule.end.strftime("%I:%M %p")
               %br
           - if params[:action] == 'show'

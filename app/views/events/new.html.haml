@@ -29,7 +29,6 @@
   .organizer
     =link_to_add_fields "Add Day", f, :schedules
 
-
   .form_group
     =f.label :restricted, "Restricted?", class: "control-label"
     =f.check_box :restricted, checked: (@event.restricted unless @event.restricted.blank?), class: "restriction"
