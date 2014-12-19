@@ -11,7 +11,7 @@ class Event < ActiveRecord::Base
   # has_one :lunchlearns, :through => :event_style, :source => :element, :source_type => 'lunchlearn'
   # has_one :webinars, :through => :event_style, :source => :element, :source_type => 'webinar'
   validates_presence_of :title, :description
-  attr_accessor :has_GoToMeeting, :go_to_meeting_url, :meeting_phone_number, :access_code, :url
+  attr_accessor :has_GoToMeeting, :go_to_meeting_url, :meeting_phone_number, :access_code, :url, :location
 
   def lab
     if lab_id.nil?

@@ -21,6 +21,7 @@
             -if event.past?
               = "#{ event.schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' +event.schedules.first.start.strftime("%B %d, %Y from %I:%M %p")}"
           .pull-right= event.event_style.display_name.titleize.sub("_", " ")
+
       %div
         - if event.attending_event?(current_user) && !event.past?
           .well.well-sm.well-success

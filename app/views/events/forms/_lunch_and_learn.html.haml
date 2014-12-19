@@ -21,6 +21,19 @@
         });
       });
 
+    = f.label "Location"
+    %div.form_group
+      = f.radio_button :location, "Greensboro", class: "location known"
+      = f.label :location, "Greensboro", :value => "Greensboro", checked: (event.event_style.element.location=="Greensboro" unless event.event_style.nil?)
+      %br
+      %div.other_choice
+      = f.radio_button :location, "Georgia", class: "location known"
+      = f.label :location, "Atlanta", :value => "Georgia", checked: (event.event_style.element.location=="Georgia" unless event.event_style.nil?)
+      %br
+      %div.other_choice
+      = f.radio_button :location, "Other", class: "location not_known"
+      = f.label :location, "Other", :value => "Other", checked: (event.event_style.element.location=="Other" unless event.event_style.nil?)
+
   .form_group
     =f.label :has_GoToMeeting, "Add GoToMeeting", class: "control-label"
     =f.check_box :has_GoToMeeting, checked: (event.event_style.element.has_GoToMeeting unless event.event_style.nil?), class: "meeting gotomeeting"

@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.string   "access_code"
     t.boolean  "has_GoToMeeting"
     t.string   "go_to_meeting_url"
+    t.string   "location"
   end
 
   create_table "notifications", force: true do |t|

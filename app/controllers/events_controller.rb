@@ -197,7 +197,7 @@ class EventsController < ApplicationController
   end
 
   def lunchlearn_params
-    params[:event].permit(:has_GoToMeeting, :meeting_phone_number, :access_code, :go_to_meeting_url)
+    params[:event].permit(:has_GoToMeeting, :meeting_phone_number, :access_code, :go_to_meeting_url, :location)
   end
 
   def trainingclass_params
