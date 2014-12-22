@@ -27,8 +27,8 @@
       = f.label :location, "Greensboro", :value => "Greensboro", checked: (@profile.location=="Greensboro" unless @profile.location.nil?)
       %br
       %div.other_choice
-      = f.radio_button :location, "Georgia", class: "location not_known"
-      = f.label :location, "Atlanta", :value => "Georgia", checked: (@profile.location=="Georgia" unless @profile.location.nil?)
+      = f.radio_button :location, "Atlanta", class: "location not_known"
+      = f.label :location, "Atlanta", :value => "Atlanta", checked: (@profile.location=="Atlanta" unless @profile.location.nil?)
       %br
       %div.other_choice
       = f.radio_button :location, "Other", class: "location not_known"

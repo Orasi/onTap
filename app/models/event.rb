@@ -41,6 +41,90 @@ class Event < ActiveRecord::Base
     return schedules.where("schedules.end >= ?", DateTime.now).sort_by(&:start).first
   end
 
+
+
+  def jumbo_dates
+    if schedules.count == 1
+      return  schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedules.first.end.strftime("%I:%M %p")
+    elsif schedules.count > 1
+      scheds=schedules.sort_by(&:start)
+      if consecutive_days?
+        if time_same?
+          return scheds.first.start.strftime("%B") + " "+ scheds.first.start.strftime("%d")+"-" + scheds.last.start.strftime("%d") + ", "+ scheds.last.start.strftime("%I:%M %p")+ " until "+ scheds.last.end.strftime("%I:%M %p")
+        else
+          return scheds.first.start.strftime("%B") + " "+ scheds.first.start.strftime("%d")+"-" + scheds.last.start.strftime("%d")
+        end
+      else
+        if time_same?
+          return build_consecutive
+        else
+
+        end
+      end
+    end
+  end
+
+  def build_consecutive
+    month_string = ""
+    the_month = ""
+    hash=Hash.new
+    schedules.sort_by(&:start).each do |schedule|
+      if(the_month.nil?)
+        the_month=schedule.start.strftime("%B").to_s
+      end
+      if(the_month==schedule.start.strftime("%B"))
+        month_string = month_string + schedule.start.strftime("%d").to_s
+      else
+        hash={the_month => month_string}
+        month_string = ""
+        the_month = schedule.start.strftime("%B").to_s
+      end
+    end
+    if hash.empty?
+      hash={the_month => month_string}
+    end
+    hash.each do|month,day|
+      schedule_string = month + " " + day +"\n"
+    end 
+  end
+
+  def consecutive_days?
+    prev_day=0
+    schedules.sort_by(&:start).each do |schedule|
+      if(prev_day==0)
+        prev_day=schedule
+      else
+        if(((prev_day.start) +1.day).to_date == schedule.start.to_date)
+          prev_day=schedule
+        else
+          return false
+        end
+      end
+    end
+    return true
+  end
+
+  def time_same?
+    stime=schedules.first.start.strftime("%I:%M %p")
+    etime=schedules.first.end.strftime("%I:%M %p")
+    date_month=schedules.first.start.strftime("%B")
+    schedules.sort_by(&:start).each do |day|
+      if date_month != day.start.strftime("%B")
+        return false
+      end
+      if stime != day.start.strftime("%I:%M %p")
+        return false
+      end
+      if etime != day.end.strftime("%I:%M %p")
+        return false
+      end
+    end
+    return true
+  end
+
+
+
+
   def attend_button_text(user)
     if attending_event?(user)
       return "Don't Attend"

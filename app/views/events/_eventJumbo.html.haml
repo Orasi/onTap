@@ -15,21 +15,15 @@
 
     .h2.small.pull-right
       = event.event_style.display_name.titleize.sub("_", " ")
-      %br
-      = event.event_style.element.location unless event.event_style.element.location.nil?
+      -if event.event_style.element.has_attribute?(:location)
+        %br
+        = event.event_style.element.location unless (event.event_style.element.location.nil? || (event.event_style.element.location == "Other"))
     .jumbo-title.h1
       .title
         = event.title
       .jumbo-date-hosts.h2
         .jumbo-date.small
-          - if params[:action] != 'show'
-            -event.upcoming_dates.sort_by(&:start).each do |schedule|
-              = schedule.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedule.end.strftime("%I:%M %p")
-              %br
-          - if params[:action] == 'show'
-            -event.schedules.sort_by(&:start).each do |schedule|
-              = schedule.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedule.end.strftime("%I:%M %p")
-              %br
+          =event.jumbo_dates
         .jumbo-spacer
         .jumbo-hosts
           - if event.hosts.first.external
