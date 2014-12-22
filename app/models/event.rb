@@ -69,7 +69,7 @@ class Event < ActiveRecord::Base
     the_month = ""
     hash=Hash.new
     schedules.sort_by(&:start).each do |schedule|
-      if(the_month.nil?)
+      if(the_month.blank?)
         the_month=schedule.start.strftime("%B").to_s
       end
       if(the_month==schedule.start.strftime("%B"))
@@ -83,9 +83,12 @@ class Event < ActiveRecord::Base
     if hash.empty?
       hash={the_month => month_string}
     end
+puts hash
+        sleep(10)
     hash.each do|month,day|
       schedule_string = month + " " + day +"\n"
     end 
+    return schedule_string
   end
 
   def consecutive_days?
