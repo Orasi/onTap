@@ -40,9 +40,15 @@
       = f.label 'Select Lab', class: 'control-label'
       = f.collection_select( 'lab_id', @labs,  :id, :title )
 
-  .form_group
-    %br
-    =f.submit class: "btn btn-primary", data: { disable_with: "Adding Event..."}
+  - if params[:action] == 'new'
+    .form_group
+      %br
+      =f.submit class: "btn btn-primary", data: { disable_with: "Adding Event..."}
+
+  - if params[:action] != 'new'
+    .form_group
+      %br
+      =f.submit class: "btn btn-primary", data: { disable_with: "Adding Event..."}
 :javascript
 
   $("#event_event_style").on('change', forms)

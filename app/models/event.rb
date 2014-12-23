@@ -56,9 +56,9 @@ class Event < ActiveRecord::Base
         end
       else
         if time_same?
-          return build_consecutive
+          return build_consecutive + " " + scheds.last.start.strftime("%I:%M %p")+ " until "+ scheds.last.end.strftime("%I:%M %p")
         else
-
+          return build_consecutive
         end
       end
     end
@@ -66,6 +66,7 @@ class Event < ActiveRecord::Base
 
   def build_consecutive
     month_string = ""
+    schedule_string= ""
     the_month = ""
     hash=Hash.new
     schedules.sort_by(&:start).each do |schedule|
@@ -73,27 +74,26 @@ class Event < ActiveRecord::Base
         the_month=schedule.start.strftime("%B").to_s
       end
       if(the_month==schedule.start.strftime("%B"))
-        month_string = month_string + schedule.start.strftime("%d").to_s
+        month_string = month_string + schedule.start.strftime("%d").to_s+","
       else
-        hash={the_month => month_string}
-        month_string = ""
+        schedule_string=schedule_string+the_month+" "+month_string + "\n "
+        month_string = schedule.start.strftime("%d").to_s+","
         the_month = schedule.start.strftime("%B").to_s
       end
     end
-    if hash.empty?
-      hash={the_month => month_string}
-    end
-puts hash
-        sleep(10)
-    hash.each do|month,day|
-      schedule_string = month + " " + day +"\n"
-    end 
+   
+    schedule_string=schedule_string+the_month+" "+month_string
+    
     return schedule_string
   end
 
   def consecutive_days?
     prev_day=0
+    date_month=schedules.first.start.strftime("%B")
     schedules.sort_by(&:start).each do |schedule|
+      if date_month != schedule.start.strftime("%B")
+        return false
+      end
       if(prev_day==0)
         prev_day=schedule
       else
@@ -110,11 +110,7 @@ puts hash
   def time_same?
     stime=schedules.first.start.strftime("%I:%M %p")
     etime=schedules.first.end.strftime("%I:%M %p")
-    date_month=schedules.first.start.strftime("%B")
     schedules.sort_by(&:start).each do |day|
-      if date_month != day.start.strftime("%B")
-        return false
-      end
       if stime != day.start.strftime("%I:%M %p")
         return false
       end
