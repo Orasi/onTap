@@ -1,0 +1,23 @@
+#sendEmail.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{type: 'button', 'data-dismiss' => 'modal'}
+          %span{ 'aria-hidden' => true} &times;
+          %span.sr-only Close
+        %h4.modal-title Notify Attendees of Updates?
+      .modal-body
+        .h5
+          Would you like to send an email notifying attendees that this event has been updated?
+        .h5
+          = select_tag 'send_email',  options_for_select(["No", "Yes"])
+      .modal-footer
+        %button.btn.btn-primary#cancel_referral_button{'data-dismiss' => 'modal'} Cancel
+        =f.submit class: "btn btn-primary submitupdates", data: { disable_with: "Adding Event..."}
+
+:javascript
+  $(document).on("ready", function(){
+    $('#submitupdates').click(function(){
+      $('#cancel_referral_button').addClass('disabled')
+    })
+  });

@@ -199,4 +199,8 @@ class Event < ActiveRecord::Base
     # Required To Show Up in Outlook
     cal.to_ical.gsub("ORGANIZER:", "ORGANIZER;").gsub("ACCEPTED:", "ACCEPTED;").gsub("TRUE:", "TRUE;").gsub("PUBLISH", "REQUEST")
   end
+
+  def update_attendees_email()
+    EventUpdatedMailer.event_updated_mailer(self)
+  end
 end

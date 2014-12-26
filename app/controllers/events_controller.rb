@@ -146,7 +146,9 @@ class EventsController < ApplicationController
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated.  Error: " + @event.errors.full_messages.join }
       return
     end
-
+    if params[:send_email]=="Yes"
+      @event.update_attendees_email()
+    end
     redirect_to event_path(@event), flash: { success: "Event \"#{@event.title}\" was updated" }
   end
 
