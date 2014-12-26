@@ -28,7 +28,7 @@ class AttendeesController < ApplicationController
       else
         @attendee = Event.find(params[:id]).attendees.new(user_id: session[:current_user_id])
         if @attendee.save
-          flash[:success] = "You are now attending the event: #{Event.find(params[:id]).title}!"
+          flash[:success] = "You are now attending the event: #{Event.find(params[:id]).title}!  #{view_context.link_to 'Add To Calendar', event_invite_path(params[:id]), class: 'invite_link', remote: true}".html_safe
           redirect_to (:back)
           return
         else

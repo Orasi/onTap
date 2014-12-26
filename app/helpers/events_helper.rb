@@ -13,7 +13,7 @@ module EventsHelper
     if @notifications.count > 0
       @notifications.each do |notification|
         if (notification.status == 'approved')
-          flashmessage += "#{User.find(notification.manager_id).display_name} has approved your request to attend event #{Event.find(notification.event_id).title}.  #{link_to 'Remove', notification_path(id: notification.id), method: :delete}<br />"
+          flashmessage += "#{User.find(notification.manager_id).display_name} has approved your request to attend event #{Event.find(notification.event_id).title}.  #{link_to 'Remove', notification_path(id: notification.id), method: :delete} #{link_to 'Add To Calendar', event_invite_path(Event.find(notification.event_id)), class: 'invite_link', remote: true}<br />"
         else
           flashmessage += "#{User.find(notification.manager_id).display_name} has rejected your request to attend event #{Event.find(notification.event_id).title}.  #{link_to 'Remove', notification_path(id: notification.id), method: :delete}<br />"
         end
