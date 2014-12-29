@@ -25,6 +25,11 @@ class EventsController < ApplicationController
 
   def create
 
+    if params[:event][:schedules_attributes].nil?
+      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created. Must have at least one day scheduled"}
+      return
+    end
+
     @event = Event.new(event_params)
 
     unless @event.save
@@ -97,6 +102,12 @@ class EventsController < ApplicationController
   end
 
   def update
+
+    if params[:event][:schedules_attributes].nil?
+      redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created. Must have at least one day scheduled"}
+      return
+    end
+
     @event = Event.find(params[:id])
     @event.schedules.each(&:destroy)
     params[:event][:schedules_attributes].each do |key, value|
