@@ -56,15 +56,15 @@ class Event < ActiveRecord::Base
         end
       else
         if time_same?
-          return build_consecutive + " " + scheds.last.start.strftime("%I:%M %p")+ " until "+ scheds.last.end.strftime("%I:%M %p")
+          return build_nonconsecutive + " " + scheds.last.start.strftime("%I:%M %p")+ " until "+ scheds.last.end.strftime("%I:%M %p")
         else
-          return build_consecutive
+          return build_nonconsecutive
         end
       end
     end
   end
 
-  def build_consecutive
+  def build_nonconsecutive
     month_string = ""
     schedule_string= ""
     the_month = ""
@@ -76,15 +76,16 @@ class Event < ActiveRecord::Base
       if(the_month==schedule.start.strftime("%B"))
         month_string = month_string + schedule.start.strftime("%d").to_s+","
       else
-        schedule_string=schedule_string+the_month+" "+month_string + "\n "
+        month_string=month_string.chomp(",")
+        schedule_string=schedule_string+the_month+" "+month_string +"<br/>"
         month_string = schedule.start.strftime("%d").to_s+","
         the_month = schedule.start.strftime("%B").to_s
       end
     end
-   
+    month_string=month_string.chomp(",")
     schedule_string=schedule_string+the_month+" "+month_string
     
-    return schedule_string
+    return schedule_string.html_safe
   end
 
   def consecutive_days?
