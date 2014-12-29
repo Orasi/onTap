@@ -56,7 +56,7 @@ class Event < ActiveRecord::Base
         end
       else
         if time_same?
-          return build_nonconsecutive + " " + scheds.last.start.strftime("%I:%M %p")+ " until "+ scheds.last.end.strftime("%I:%M %p")
+          return build_nonconsecutive + ", " + scheds.last.start.strftime("%I:%M %p")+ " until "+ scheds.last.end.strftime("%I:%M %p")
         else
           return build_nonconsecutive
         end
