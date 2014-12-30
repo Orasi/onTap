@@ -61,6 +61,6 @@
       - if current_user
         = render partial: ('profiles/profile'), locals: {profile: @profile}
         = render partial: 'email_form', locals: {id: 'email_all', trigger: false, title: 'Email onTap Users', to: User.all.pluck(:email)}
-        = render partial: '/suggestions/host_event_request'
+        = render partial: 'host_event_request'
       = yield
 

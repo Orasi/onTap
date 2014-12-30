@@ -1,0 +1,24 @@
+#wantToHost.modal.fade
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss' => 'modal'}
+          %span{'aria-hidden' => 'true'}x
+          %span.sr-only Close
+        %h4.modal-title I would like to host an event
+      .modal-body
+        = form_tag hostrequest_path, class: "form-horizontal", role: "form", id: 'host_event_request', style: 'padding-left:60px;padding-right:60px' do
+          .form-group
+            = label_tag :event_details, 'Please provide details of the event you would like to host'
+            %div.indented
+              = text_area :email, :event_details, style: 'width:700px;height:400px', required: ''
+      .modal-footer
+        %button.btn.btn-primary{id: 'cancel_host_button', data: {dismiss: 'modal'}} Cancel
+        %button.btn.btn-primary{id: 'send_host_button', data: {disable_with: 'Sending Request...'}} Send
+
+:javascript
+  $("#send_host_button").click(function(){
+    $("#host_event_request").submit()
+    $("#cancel_host_button").addClass('disabled')
+    $("#send_host_button").addClass('disabled')
+  });
