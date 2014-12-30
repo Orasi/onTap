@@ -14,6 +14,15 @@ class ApplicationController < ActionController::Base
     redirect_to :back, flash: { success: "Email sent to #{users.split.count} users." }
   end
 
+  def host_request_email
+    users=User.where(admin: true).pluck(:email)
+    puts users
+    sleep(10)
+    requester=User.find(session[:current_user_id])
+    HostRequestMailer.host_request_mailer(users, "#{requester.display_name} would like to host an event", params[:email][:event_details])
+    redirect_to :back, flash: { success: "Your request to host an event has been sent!" }
+  end
+
   def logs
     @dj_log = IO.readlines(Rails.root.to_s + '/log/delayed_job.log') if File.exist?(Rails.root.to_s + '/log/delayed_job.log')
     if @dj_log && @dj_log.length > 1000
