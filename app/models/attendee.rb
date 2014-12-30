@@ -16,4 +16,5 @@ class Attendee < ActiveRecord::Base
       errors.add(:event_id, 'Attendee must have event id')
     end
   end
+
 end

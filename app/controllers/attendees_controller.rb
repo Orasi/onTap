@@ -40,6 +40,19 @@ class AttendeesController < ApplicationController
     end
   end
 
+  def check_employee_department(bluesource_name, departments_to_match)
+    bluesource_name="adam.thomas"
+    auth = {:username => "bluesource", :password => "ontap"}
+    department = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/subordinates.json?q=#{bluesource_name}", :basic_auth => auth)
+
+    departments_to_match.each do |department_name|
+      if department["department"] == department_name
+        return true
+      end
+    end
+    return false
+  end
+
   def approve_attend
     @notification = Notification.find(params[:id])
     @attendee = Event.find(@notification.event_id).attendees.new(user_id: @notification.user_id)

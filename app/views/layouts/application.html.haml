@@ -27,7 +27,7 @@
               %li
                 = link_to "Archive", archive_index_path
               %li
-                = link_to "Suggest Topics", new_suggestion_path
+                = link_to "I would like to host an event", '#wantToHost', data: {toggle: 'modal'}
               -if admin?
                 %li.dropdown
                   %a.dropdown-toggle{href: "#", "data-toggle" => "dropdown"}
@@ -61,5 +61,6 @@
       - if current_user
         = render partial: ('profiles/profile'), locals: {profile: @profile}
         = render partial: 'email_form', locals: {id: 'email_all', trigger: false, title: 'Email onTap Users', to: User.all.pluck(:email)}
+        = render partial: '/suggestions/host_event_request'
       = yield
 
