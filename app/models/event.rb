@@ -7,11 +7,11 @@ class Event < ActiveRecord::Base
   has_many :attachments
   has_many :notifications
   has_one :event_style
-
+  accepts_nested_attributes_for :schedules, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
   # has_one :lunchlearns, :through => :event_style, :source => :element, :source_type => 'lunchlearn'
   # has_one :webinars, :through => :event_style, :source => :element, :source_type => 'webinar'
   validates_presence_of :title, :description
-  attr_accessor :has_GoToMeeting, :go_to_meeting_url, :meeting_phone_number, :access_code, :url
+  attr_accessor :has_GoToMeeting, :go_to_meeting_url, :meeting_phone_number, :access_code, :url, :location
 
   def lab
     if lab_id.nil?
@@ -30,8 +30,100 @@ class Event < ActiveRecord::Base
   end
 
   def past?
-    schedules.last.end <= DateTime.now - 5.hours
+    schedules.sort_by(&:start).last.end <= DateTime.now - 5.hours
   end
+
+  def upcoming_dates
+    return schedules.where("schedules.end >= ?", DateTime.now)
+  end
+
+  def next_date
+    return schedules.where("schedules.end >= ?", DateTime.now).sort_by(&:start).first
+  end
+
+
+
+  def jumbo_dates
+    if schedules.count == 1
+      return  schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedules.first.end.strftime("%I:%M %p")
+    elsif schedules.count > 1
+      scheds=schedules.sort_by(&:start)
+      if consecutive_days?
+        if time_same?
+          return scheds.first.start.strftime("%B") + " "+ scheds.first.start.strftime("%d")+"-" + scheds.last.start.strftime("%d") + ", "+ scheds.last.start.strftime("%I:%M %p")+ " until "+ scheds.last.end.strftime("%I:%M %p")
+        else
+          return scheds.first.start.strftime("%B") + " "+ scheds.first.start.strftime("%d")+"-" + scheds.last.start.strftime("%d")
+        end
+      else
+        if time_same?
+          return build_nonconsecutive + ", " + scheds.last.start.strftime("%I:%M %p")+ " until "+ scheds.last.end.strftime("%I:%M %p")
+        else
+          return build_nonconsecutive
+        end
+      end
+    end
+  end
+
+  def build_nonconsecutive
+    month_string = ""
+    schedule_string= ""
+    the_month = ""
+    hash=Hash.new
+    schedules.sort_by(&:start).each do |schedule|
+      if(the_month.blank?)
+        the_month=schedule.start.strftime("%B").to_s
+      end
+      if(the_month==schedule.start.strftime("%B"))
+        month_string = month_string + schedule.start.strftime("%d").to_s+","
+      else
+        month_string=month_string.chomp(",")
+        schedule_string=schedule_string+the_month+" "+month_string +"<br/>"
+        month_string = schedule.start.strftime("%d").to_s+","
+        the_month = schedule.start.strftime("%B").to_s
+      end
+    end
+    month_string=month_string.chomp(",")
+    schedule_string=schedule_string+the_month+" "+month_string
+    
+    return schedule_string.html_safe
+  end
+
+  def consecutive_days?
+    prev_day=0
+    date_month=schedules.first.start.strftime("%B")
+    schedules.sort_by(&:start).each do |schedule|
+      if date_month != schedule.start.strftime("%B")
+        return false
+      end
+      if(prev_day==0)
+        prev_day=schedule
+      else
+        if(((prev_day.start) +1.day).to_date == schedule.start.to_date)
+          prev_day=schedule
+        else
+          return false
+        end
+      end
+    end
+    return true
+  end
+
+  def time_same?
+    stime=schedules.first.start.strftime("%I:%M %p")
+    etime=schedules.first.end.strftime("%I:%M %p")
+    schedules.sort_by(&:start).each do |day|
+      if stime != day.start.strftime("%I:%M %p")
+        return false
+      end
+      if etime != day.end.strftime("%I:%M %p")
+        return false
+      end
+    end
+    return true
+  end
+
+
+
 
   def attend_button_text(user)
     if attending_event?(user)
@@ -109,4 +201,7 @@ class Event < ActiveRecord::Base
     cal.to_ical.gsub("ORGANIZER:", "ORGANIZER;").gsub("ACCEPTED:", "ACCEPTED;").gsub("TRUE:", "TRUE;").gsub("PUBLISH", "REQUEST")
   end
 
+  def update_attendees_email()
+    EventUpdatedMailer.event_updated_mailer(self)
+  end
 end

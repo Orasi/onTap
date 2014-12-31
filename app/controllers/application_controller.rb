@@ -10,8 +10,15 @@ class ApplicationController < ActionController::Base
 
   def send_email
     users = params[:users] == 'all' ? User.all.pluck(:email) : params[:users]
-    UserEmail.user_email(users, params[:email][:subject], params[:email][:message]).deliver
+    UserEmail.user_email(users, params[:email][:subject], params[:email][:message])
     redirect_to :back, flash: { success: "Email sent to #{users.split.count} users." }
+  end
+
+  def host_request_email
+    users=User.where(admin: true).pluck(:email)
+    requester=User.find(session[:current_user_id])
+    HostRequestMailer.host_request_mailer(users, "#{requester.display_name} would like to host an event", params[:email][:event_details])
+    redirect_to :back, flash: { success: "Your request to host an event has been sent!" }
   end
 
   def logs

@@ -236,12 +236,18 @@ class EventsControllerTest < ActionController::TestCase
     params = { 
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
+        }
+      },
       title: event.title,
       description: event.description,
       event_style: 'lunch_and_learn',
       hosts: [1, 2, 3],
-      start: event.schedules.first.start,
-      end: event.schedules.first.end
     } }
     post :create, params, current_user_id: @admin.id
     assert_nil flash[:error]
@@ -252,10 +258,16 @@ class EventsControllerTest < ActionController::TestCase
     params = { 
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
+        }
+      },
       title: event.title,
       description: event.description,
-      start: event.schedules.first.start,
-      end:  event.schedules.first.end,
       url: 'https://www.someurl.com',
       host: 'Some Guy Off The Street',
       event_style: 'webinar'
@@ -269,10 +281,16 @@ class EventsControllerTest < ActionController::TestCase
     params = {
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
+        }
+      },
       title: event.title,
       description: event.description,
-      start: event.schedules.first.start,
-      end:  event.schedules.first.end,
       host: 'Some Guy Off The Street',
       event_style: 'webinar'
     } }
@@ -286,9 +304,15 @@ class EventsControllerTest < ActionController::TestCase
     params = {
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
+        }
+      },
       title: event.title,
-      start: event.schedules.first.start,
-      end:  event.schedules.first.end,
       event_style: 'lunch_and_learn'
     } }
     post :create, params, current_user_id: @admin.id
@@ -319,8 +343,6 @@ class EventsControllerTest < ActionController::TestCase
       event: {
       title: event.title,
       description: event.description,
-      start: event.schedules.first.start,
-      end:  event.schedules.first.end,
       event_style: 'lunch_and_learn'
     } }
     post :create, params, current_user_id: @user.id
@@ -333,10 +355,16 @@ class EventsControllerTest < ActionController::TestCase
     params = {
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
+        }
+      },
       title: event.title + 'abc',
       description: event.description + 'abc',
-      start: event.schedules.first.start,
-      'end' => event.schedules.first.end,
       url: 'https://yourmomrocks.com',
       host: 'some other host',
       event_style: 'webinar'
@@ -352,6 +380,14 @@ class EventsControllerTest < ActionController::TestCase
     params = {
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
+        }
+      },
       title: event.title + 'abc',
       description: event.description + 'abc',
       'end' => (event.schedules.first.end + 1.hour).to_time,
@@ -368,10 +404,16 @@ class EventsControllerTest < ActionController::TestCase
     params = {
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
+        }
+      },
       title: event.title + 'abc',
       description: '',
-      start: event.schedules.first.start,
-      'end' => event.schedules.first.end,
       event_style: 'lunch_and_learn'
     },         id: @lunchlearn.id
     }
@@ -385,10 +427,16 @@ class EventsControllerTest < ActionController::TestCase
     params = {
       event_date: DateTime.now.strftime('%m/%d/%Y'),
       event: {
+      schedules_attributes: {
+        '0' =>
+        {
+        event_date: DateTime.now.strftime('%m/%d/%Y'),
+        start: DateTime.now.to_time,
+        'end' => (DateTime.now+ 3.hours).to_time
+        }
+      },
       title: event.title + 'abc',
       description: event.description + 'abc',
-      start: event.schedules.first.start,
-      'end' => event.schedules.first.end,
       url: 'https://www.google.com',
       hosts: [2, 3, 4],
       event_style: 'lunch_and_learn'

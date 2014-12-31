@@ -15,12 +15,15 @@
 
     .h2.small.pull-right
       = event.event_style.display_name.titleize.sub("_", " ")
+      -if event.event_style.element.has_attribute?(:location)
+        %br
+        = event.event_style.element.location unless (event.event_style.element.location.nil? || (event.event_style.element.location == "Other"))
     .jumbo-title.h1
       .title
         = event.title
       .jumbo-date-hosts.h2
         .jumbo-date.small
-          = event.schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + event.schedules.first.end.strftime("%I:%M %p")
+          =event.jumbo_dates
         .jumbo-spacer
         .jumbo-hosts
           - if event.hosts.first.external

@@ -68,6 +68,9 @@ gem 'icalendar'
 
 gem 'coveralls', require: false
 
+# httparty for calls to Bluesource api
+gem 'httparty'
+
 # Paperclip for attaching files to eventsgem
 gem 'paperclip', '~> 4.1'
 gem 'delayed_job'

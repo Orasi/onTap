@@ -28,7 +28,7 @@ class AttendeesController < ApplicationController
       else
         @attendee = Event.find(params[:id]).attendees.new(user_id: session[:current_user_id])
         if @attendee.save
-          flash[:success] = "You are now attending the event: #{Event.find(params[:id]).title}!"
+          flash[:success] = "You are now attending the event: #{Event.find(params[:id]).title}!  #{view_context.link_to 'Add To Calendar', event_invite_path(params[:id]), class: 'invite_link', remote: true}".html_safe
           redirect_to (:back)
           return
         else
@@ -38,6 +38,19 @@ class AttendeesController < ApplicationController
         end
       end
     end
+  end
+
+  def check_employee_department(bluesource_name, departments_to_match)
+    bluesource_name="adam.thomas"
+    auth = {:username => "bluesource", :password => "ontap"}
+    department = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/subordinates.json?q=#{bluesource_name}", :basic_auth => auth)
+
+    departments_to_match.each do |department_name|
+      if department["department"] == department_name
+        return true
+      end
+    end
+    return false
   end
 
   def approve_attend
