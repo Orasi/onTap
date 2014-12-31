@@ -11,7 +11,7 @@ class Schedule < ActiveRecord::Base
   end
 
   def start_before_end
-    raise ActiveRecord::RecordInvalid.new(self) if self.end.strftime("%I:%M%p") < self.start.strftime("%I:%M%p")
+    raise ActiveRecord::RecordInvalid.new(self) if self.end < self.start
   end
 
   def event_date_range
