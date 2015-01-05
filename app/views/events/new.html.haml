@@ -31,7 +31,23 @@
 
   .form_group
     =f.label :restricted, "Restricted?", class: "control-label"
-    =f.check_box :restricted, checked: (@event.restricted unless @event.restricted.blank?), class: "restriction"
+    =f.check_box :restricted, checked: (@event.restricted unless @event.restricted.blank?), class: "restriction restricted_event"
+
+  .form_group.depart_options.indented#bluesource_departments
+    = f.fields_for :department_approvals do |d|
+      - if @event.department_approvals.blank?
+        .form_group
+          =d.label "Rural Testing", class: "control-label"
+          =d.check_box "Rural Testing", checked: false
+        .form_group
+          =d.label "Mobile", class: "control-label"
+          =d.check_box "Mobile", checked: false
+      - else
+        -@event.department_approvals.each do |h, v|
+          .form_group
+            =d.label h, class: "control-label"
+            =d.check_box h, checked: (v == "1" ? "checked" : "")
+
 
   .form_group
     = label_tag 'Add Lab to Event?'
@@ -90,6 +106,11 @@
     $("#add_lab").on('change', function(){
       $('.lab_section').fadeToggle();
     })
+    if ($(".restricted_event:checked").length > 0)
+      $("#bluesource_departments").show()
+    $(".restricted_event").on("click", function(){
+      $("#bluesource_departments").toggle($(this));        
+    });
   });
  
 .clearfix
