@@ -6,7 +6,6 @@ class AttendeesController < ApplicationController
       redirect_to (:back)
       return
     else
-
       if Event.find(params[:id]).restricted
         if Event.find(params[:id]).notifications.exists?(user_id: session[:current_user_id])
           Event.find(params[:id]).notifications.find_by(user_id: session[:current_user_id]).destroy
@@ -14,6 +13,10 @@ class AttendeesController < ApplicationController
           redirect_to (:back)
           return
         else
+         # if check_employee_department(params[:id])
+         #   attend_now(params[:id])
+         #   return          
+         # end
           @notification = Event.find(params[:id]).notifications.create(user_id: session[:current_user_id], status: 'new', notification_type: 'attendance')
           if @notification.save
             flash[:success] = "A request has been sent to attend the event: #{Event.find(params[:id]).title}!"
@@ -26,27 +29,32 @@ class AttendeesController < ApplicationController
           end
         end
       else
-        @attendee = Event.find(params[:id]).attendees.new(user_id: session[:current_user_id])
-        if @attendee.save
-          flash[:success] = "You are now attending the event: #{Event.find(params[:id]).title}!  #{view_context.link_to 'Add To Calendar', event_invite_path(params[:id]), class: 'invite_link', remote: true}".html_safe
-          redirect_to (:back)
-          return
-        else
-          flash[:error] = "#{Event.find(params[:id]).title} is in the archive."
-          redirect_to :calendar
-          return
-        end
+        attend_now(params[:id])
+        return
       end
     end
   end
 
-  def check_employee_department(bluesource_name, departments_to_match)
-    bluesource_name="adam.thomas"
+  def attend_now(e_id)
+    @attendee = Event.find(e_id).attendees.new(user_id: session[:current_user_id])
+    if @attendee.save
+      flash[:success] = "You are now attending the event: #{Event.find(e_id).title}!  #{view_context.link_to 'Add To Calendar', event_invite_path(e_id), class: 'invite_link', remote: true}".html_safe
+      redirect_to (:back)
+      return
+    else
+      flash[:error] = "#{Event.find(e_id).title} is in the archive."
+      redirect_to :calendar
+      return
+    end
+  end
+
+  def check_employee_department(e_id)
+    bluesource_name=User.find(session[:current_user_id]).display_name
     auth = {:username => "bluesource", :password => "ontap"}
     department = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/subordinates.json?q=#{bluesource_name}", :basic_auth => auth)
 
-    departments_to_match.each do |department_name|
-      if department["department"] == department_name
+    Event.find(e_id).department_approvals.each do |deparment_name, approve_status|
+      if (department["department"] == department_name && approve_status=="1")
         return true
       end
     end

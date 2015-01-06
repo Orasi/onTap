@@ -14,6 +14,10 @@ class Event < ActiveRecord::Base
   serialize :department_approvals, Hash
   attr_accessor :has_GoToMeeting, :go_to_meeting_url, :meeting_phone_number, :access_code, :url, :location
 
+  def get_department_array
+    return ["Rural Testing", "Mobile", "Sales"]
+  end
+
   def lab
     if lab_id.nil?
       return nil
@@ -41,8 +45,6 @@ class Event < ActiveRecord::Base
   def next_date
     return schedules.where("schedules.end >= ?", DateTime.now).sort_by(&:start).first
   end
-
-
 
   def jumbo_dates
     if schedules.count == 1
