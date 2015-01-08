@@ -8,6 +8,8 @@ class Template < ActiveRecord::Base
     if json.nil? || json['error']
       errors.add(:id, 'must match template ID in skytap.')
       return false
+    else
+      return true
     end
   end
 

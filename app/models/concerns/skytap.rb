@@ -10,6 +10,20 @@ module Skytap
     def api_call(**kwargs)
       self.class.api_call(**kwargs)
     end
+    def skytap_log
+      @@skytap_log ||= Logger.new("#{Rails.root}/log/skytap.log")
+      @@skytap_log.formatter = proc do |sev, dt, prog, msg|
+        "#{User.find(self.user_id).username}-#{sev}: #{msg}"
+      end
+      return @@skytap_log
+    end
+
+    def log_json step_name, message
+      msg ="------ #{step_name} -------\n" +
+           message.to_s + "\n" +
+          "-------#{DateTime.now.utc}-------\n\n"
+      skytap_log.info(msg)
+    end
   end
 
   module ClassMethods
@@ -38,5 +52,7 @@ module Skytap
 
       JSON.parse(resp.body) unless resp.body.blank?
     end
+
+
   end
 end

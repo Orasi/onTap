@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>class Attachment - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">ActiveRecord::Base
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-transfer_and_cleanup">::transfer_and_cleanup</a>
+    
+    <li ><a href="#method-i-direct_upload_url-3D">#direct_upload_url=</a>
+    
+    <li ><a href="#method-i-queue_processing">#queue_processing</a>
+    
+    <li ><a href="#method-i-set_upload_attributes">#set_upload_attributes</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Attachment">
+  <h1 id="class-Attachment" class="class">
+    class Attachment
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="DIRECT_UPLOAD_URL_FORMAT">DIRECT_UPLOAD_URL_FORMAT
+        
+        <dd><p>Environment-specific direct upload url verifier screens for malicious
+posted upload locations. <a
+href="Attachment.html#DIRECT_UPLOAD_URL_FORMAT">DIRECT_UPLOAD_URL_FORMAT</a>
+= %r{A<a
+href="https:\/\/orasitest\.s3\.amazonaws\.com\/uploads\/.+\/(?<file_file_name>.+)z}.freeze“>//orasitest.s3.amazonaws.com/uploads/.+/(?<file_file_name>.+)z}.freeze</a></p>
+
+<pre class="ruby"><span class="ruby-constant">DIRECT_UPLOAD_URL_FORMAT</span> = <span class="ruby-regexp">%r{\Ahttps:\/\/orasitest\.s3\.amazonaws\.com\/uploads\/.*\z}</span>.<span class="ruby-identifier">freeze</span>
+</pre>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-transfer_and_cleanup" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">transfer_and_cleanup</span><span
+            class="method-args">(id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Final upload processing step</p>
+          
+          
+
+          
+          <div class="method-source-code" id="transfer_and_cleanup-source">
+            <pre><span class="ruby-comment"># File app/models/attachment.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">transfer_and_cleanup</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-identifier">attachment</span> = <span class="ruby-constant">Attachment</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-identifier">direct_upload_url_data</span> = <span class="ruby-constant">DIRECT_UPLOAD_URL_FORMAT</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">attachment</span>.<span class="ruby-identifier">direct_upload_url</span>)
+  <span class="ruby-identifier">s3</span> = <span class="ruby-constant">AWS</span><span class="ruby-operator">::</span><span class="ruby-constant">S3</span>.<span class="ruby-identifier">new</span>
+
+  <span class="ruby-identifier">paperclip_file_path</span> = <span class="ruby-node">&quot;attachments/files/#{id}/original/#{direct_upload_url_data[:filename]}&quot;</span>
+  <span class="ruby-identifier">s3</span>.<span class="ruby-identifier">buckets</span>[<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">aws</span>[<span class="ruby-value">:bucket</span>]].<span class="ruby-identifier">objects</span>[<span class="ruby-identifier">paperclip_file_path</span>].<span class="ruby-identifier">copy_from</span>(<span class="ruby-identifier">direct_upload_url_data</span>[<span class="ruby-value">:path</span>])
+
+  <span class="ruby-identifier">attachment</span>.<span class="ruby-identifier">processed</span> = <span class="ruby-keyword">true</span>
+  <span class="ruby-identifier">attachment</span>.<span class="ruby-identifier">save</span>
+
+  <span class="ruby-identifier">s3</span>.<span class="ruby-identifier">buckets</span>[<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">aws</span>[<span class="ruby-value">:bucket</span>]].<span class="ruby-identifier">objects</span>[<span class="ruby-identifier">direct_upload_url_data</span>[<span class="ruby-value">:path</span>]].<span class="ruby-identifier">delete</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-direct_upload_url-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">direct_upload_url=</span><span
+            class="method-args">(escaped_url)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>process_in_background :file</p>
+          
+          
+
+          
+          <div class="method-source-code" id="direct_upload_url-3D-source">
+            <pre><span class="ruby-comment"># File app/models/attachment.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">direct_upload_url=</span>(<span class="ruby-identifier">escaped_url</span>)
+  <span class="ruby-identifier">write_attribute</span>(<span class="ruby-value">:direct_upload_url</span>, (<span class="ruby-constant">CGI</span>.<span class="ruby-identifier">unescape</span>(<span class="ruby-identifier">escaped_url</span>) <span class="ruby-keyword">rescue</span> <span class="ruby-keyword">nil</span>))
+ <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-queue_processing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">queue_processing</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Queue file processing</p>
+          
+          
+
+          
+          <div class="method-source-code" id="queue_processing-source">
+            <pre><span class="ruby-comment"># File app/models/attachment.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">queue_processing</span>
+  <span class="ruby-constant">Attachment</span>.<span class="ruby-identifier">delay</span>.<span class="ruby-identifier">transfer_and_cleanup</span>(<span class="ruby-identifier">id</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="protected-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Protected Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-set_upload_attributes" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_upload_attributes</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Set attachment attributes from the direct upload @note Retry logic handles
+S3 “eventual consistency” lag.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="set_upload_attributes-source">
+            <pre><span class="ruby-comment"># File app/models/attachment.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_upload_attributes</span>
+  <span class="ruby-identifier">tries</span> <span class="ruby-operator">||=</span> <span class="ruby-value">5</span>
+  <span class="ruby-identifier">direct_upload_url_data</span> = <span class="ruby-constant">DIRECT_UPLOAD_URL_FORMAT</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">direct_upload_url</span>)
+  <span class="ruby-identifier">s3</span> = <span class="ruby-constant">AWS</span><span class="ruby-operator">::</span><span class="ruby-constant">S3</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">direct_upload_head</span> = <span class="ruby-identifier">s3</span>.<span class="ruby-identifier">buckets</span>[<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">aws</span>[<span class="ruby-value">:bucket</span>]].<span class="ruby-identifier">objects</span>[<span class="ruby-identifier">direct_upload_url_data</span>[<span class="ruby-value">:path</span>]].<span class="ruby-identifier">head</span>
+
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">file_file_name</span>     = <span class="ruby-identifier">direct_upload_url_data</span>[<span class="ruby-value">:filename</span>]
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">file_file_size</span>     = <span class="ruby-identifier">direct_upload_head</span>.<span class="ruby-identifier">content_length</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">file_content_type</span>  = <span class="ruby-identifier">direct_upload_head</span>.<span class="ruby-identifier">content_type</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">file_updated_at</span>    = <span class="ruby-identifier">direct_upload_head</span>.<span class="ruby-identifier">last_modified</span>
+  <span class="ruby-comment"># rescue AWS::S3::Errors::NoSuchKey =&gt; e</span>
+  <span class="ruby-comment">#  tries -= 1</span>
+  <span class="ruby-comment">#  if tries &gt; 0</span>
+  <span class="ruby-comment">#    sleep(3)</span>
+  <span class="ruby-comment">#    retry</span>
+  <span class="ruby-comment">#  else</span>
+  <span class="ruby-comment">#    false</span>
+  <span class="ruby-comment">#  end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

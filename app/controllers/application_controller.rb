@@ -34,6 +34,10 @@ class ApplicationController < ActionController::Base
     if @whenever_log && @whenever_log.length > 1000
       @whenever_log = @whenever_log[1..1000]
     end
+    @skytap_log = IO.readlines(Rails.root.to_s + '/log/skytap.log')  if File.exist?(Rails.root.to_s + '/log/skytap.log')
+    if @skytap_log && @skytap_log.length > 1000
+      @skytap_log = @skytap_log[1..1000]
+    end
   end
 
   def get_profile

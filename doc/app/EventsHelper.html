@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>module EventsHelper - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-check_for_notifications">#check_for_notifications</a>
+    
+    <li ><a href="#method-i-get_flash_for_user">#get_flash_for_user</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-EventsHelper">
+  <h1 id="module-EventsHelper" class="module">
+    module EventsHelper
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-check_for_notifications" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_for_notifications</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_for_notifications-source">
+            <pre><span class="ruby-comment"># File app/helpers/events_helper.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_for_notifications</span>
+  <span class="ruby-constant">Notification</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">session</span>[<span class="ruby-value">:current_user_id</span>])
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_flash_for_user" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_flash_for_user</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_flash_for_user-source">
+            <pre><span class="ruby-comment"># File app/helpers/events_helper.rb, line 2</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_flash_for_user</span>
+  <span class="ruby-identifier">flashmessage</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">session</span>[<span class="ruby-value">:current_user_id</span>]).<span class="ruby-identifier">check_if_admin?</span>
+    <span class="ruby-ivar">@notifications</span> = <span class="ruby-constant">Notification</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">notification_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;attendance&#39;</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> [<span class="ruby-string">&#39;new&#39;</span>])
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@notifications</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-ivar">@notifications</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">notification</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">flashmessage</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;#{User.find(notification.user_id).display_name} is requesting to attend the event #{Event.find(notification.event_id).title}.  #{link_to &#39;Approve &#39;, approve_attend_path(id: notification.id)}  #{link_to &#39;Reject&#39;, reject_attend_path(id: notification.id)}  #{link_to &#39;Details &#39;, notifications_path}&lt;br /&gt;&quot;</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@notifications</span> = <span class="ruby-constant">Notification</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">session</span>[<span class="ruby-value">:current_user_id</span>], <span class="ruby-identifier">notification_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;attendance&#39;</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-node">%w(approved rejected)</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@notifications</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-ivar">@notifications</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">notification</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> (<span class="ruby-identifier">notification</span>.<span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;approved&#39;</span>)
+        <span class="ruby-identifier">flashmessage</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;#{User.find(notification.manager_id).display_name} has approved your request to attend event #{Event.find(notification.event_id).title}.  #{link_to &#39;Remove&#39;, notification_path(id: notification.id), method: :delete}&lt;br /&gt;&quot;</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">flashmessage</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;#{User.find(notification.manager_id).display_name} has rejected your request to attend event #{Event.find(notification.event_id).title}.  #{link_to &#39;Remove&#39;, notification_path(id: notification.id), method: :delete}&lt;br /&gt;&quot;</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@notifications</span> = <span class="ruby-constant">Notification</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">notification_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;survey&#39;</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> [<span class="ruby-string">&#39;new&#39;</span>], <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">session</span>[<span class="ruby-value">:current_user_id</span>])
+  <span class="ruby-keyword">if</span>  <span class="ruby-ivar">@notifications</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-ivar">@notifications</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">notification</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">flashmessage</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;You have a new survey to take for #{Event.find(notification.event_id).title}. #{link_to &#39;Click here to take the survey now! &#39;, new_survey_path(event_id: notification.event_id)}&lt;br /&gt;&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">flashmessage</span>.<span class="ruby-identifier">blank?</span>
+    <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:success</span>] = <span class="ruby-identifier">flashmessage</span>.<span class="ruby-identifier">html_safe</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

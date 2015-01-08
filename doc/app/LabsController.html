@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>class LabsController - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-create">#create</a>
+    
+    <li ><a href="#method-i-create_lab">#create_lab</a>
+    
+    <li ><a href="#method-i-delete_lab">#delete_lab</a>
+    
+    <li ><a href="#method-i-destroy">#destroy</a>
+    
+    <li ><a href="#method-i-edit">#edit</a>
+    
+    <li ><a href="#method-i-extend_lab">#extend_lab</a>
+    
+    <li ><a href="#method-i-generate_rdp_file">#generate_rdp_file</a>
+    
+    <li ><a href="#method-i-index">#index</a>
+    
+    <li ><a href="#method-i-lab_status">#lab_status</a>
+    
+    <li ><a href="#method-i-manage">#manage</a>
+    
+    <li ><a href="#method-i-new">#new</a>
+    
+    <li ><a href="#method-i-redirect_from_manage">#redirect_from_manage</a>
+    
+    <li ><a href="#method-i-redirect_to_manage">#redirect_to_manage</a>
+    
+    <li ><a href="#method-i-set_cache_buster">#set_cache_buster</a>
+    
+    <li ><a href="#method-i-show">#show</a>
+    
+    <li ><a href="#method-i-update">#update</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-LabsController">
+  <h1 id="class-LabsController" class="class">
+    class LabsController
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-create" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 28</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
+  <span class="ruby-ivar">@template</span> = <span class="ruby-constant">Template</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">template_params</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@template</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">labs_path</span>, <span class="ruby-identifier">flash</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">success</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;The lab was successfully created&#39;</span> }
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">root_path</span>,  <span class="ruby-identifier">flash</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">error</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Lab could not be created.  Please Check that the lab exists in skytap and try again&#39;</span> }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-create_lab" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_lab</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create_lab-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 80</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_lab</span>
+  <span class="ruby-identifier">template</span> = <span class="ruby-constant">Template</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-identifier">env</span> = <span class="ruby-identifier">template</span>.<span class="ruby-identifier">create_environment</span> <span class="ruby-identifier">current_user</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">env</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-identifier">env</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-identifier">env</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-delete_lab" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete_lab</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="delete_lab-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 90</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_lab</span>
+  <span class="ruby-identifier">env</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">environment</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">env</span>
+    <span class="ruby-identifier">env</span>.<span class="ruby-identifier">destroy</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">labs_path</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-identifier">plain</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Deleted&#39;</span> <span class="ruby-keyword">and</span> <span class="ruby-keyword">return</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-destroy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="destroy-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 43</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
+  <span class="ruby-ivar">@lab</span> = <span class="ruby-constant">Template</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@lab</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">labs_path</span>, <span class="ruby-identifier">flash</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">success</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;The Lab Template was Deleted&quot;</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-edit" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">edit</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="edit-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
+  <span class="ruby-ivar">@lab</span> = <span class="ruby-constant">Template</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:new</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-extend_lab" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extend_lab</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="extend_lab-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 54</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extend_lab</span>
+  <span class="ruby-ivar">@env</span> = <span class="ruby-constant">Environment</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@env</span>.<span class="ruby-identifier">extend_delete_schedule</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:hours</span>].<span class="ruby-identifier">to_i</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@env</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-generate_rdp_file" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generate_rdp_file</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="generate_rdp_file-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 105</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generate_rdp_file</span>
+  <span class="ruby-identifier">env</span> = <span class="ruby-constant">Environment</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-identifier">file</span> = <span class="ruby-string">&quot;screen mode id:i:2\ndesktopwidth:i:679\ndesktopheight:i:509\nsession bpp:i:16\nwinposstr:s:0,3,0,0,800,600\nfull address:s:&lt;URL&gt;\naddress:s:&lt;URL&gt;\n&quot;</span>            <span class="ruby-string">&quot;compression:i:1\nkeyboardhook:i:2\naudiomode:i:0\nredirectdrives:i:0\nredirectprinters:i:0\nredirectcomports:i:0\nredirectsmartcards:i:0\n&quot;</span>             <span class="ruby-string">&quot;displayconnectionbar:i:1\nautoreconnection enabled:i:1\nusername:s:Administrator\ndomain:s:\nalternate shell:s:\nshell working directory:s:\n&quot;</span>            <span class="ruby-string">&quot;disable wallpaper:i:1\ndisable full window drag:i:0\ndisable menu anims:i:0\ndisable themes:i:0\ndisable cursor setting:i:0\nbitmapcachepersistenable:i:1&quot;</span>
+
+  <span class="ruby-identifier">file</span>.<span class="ruby-identifier">gsub!</span> <span class="ruby-string">&#39;&lt;URL&gt;&#39;</span>, <span class="ruby-identifier">env</span>.<span class="ruby-identifier">rdp_address</span>
+  <span class="ruby-identifier">send_data</span> <span class="ruby-identifier">file</span>, <span class="ruby-identifier">filename</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;connection.rdp&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-index" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">index</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="index-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+  <span class="ruby-ivar">@labs</span> = <span class="ruby-constant">Template</span>.<span class="ruby-identifier">all</span>
+  <span class="ruby-ivar">@env</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">environment</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-lab_status" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">lab_status</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="lab_status-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 100</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">lab_status</span>
+  <span class="ruby-identifier">lab</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">environment</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-identifier">lab</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-manage" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">manage</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="manage-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">manage</span>
+  <span class="ruby-ivar">@env</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">environment</span>
+  <span class="ruby-ivar">@lab</span> = <span class="ruby-ivar">@env</span>.<span class="ruby-identifier">template</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 49</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@lab</span> = <span class="ruby-constant">Template</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@lab</span>.<span class="ruby-identifier">public</span> = <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-redirect_from_manage" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">redirect_from_manage</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="redirect_from_manage-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">redirect_from_manage</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">environment</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">environment</span>.<span class="ruby-identifier">status</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;running&#39;</span>
+    <span class="ruby-identifier">lab</span> = <span class="ruby-constant">Environment</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">template</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">lab_path</span>(<span class="ruby-identifier">lab</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-redirect_to_manage" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">redirect_to_manage</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="redirect_to_manage-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">redirect_to_manage</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">environment</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">environment</span>.<span class="ruby-identifier">template_id</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">environment</span>.<span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;running&#39;</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">manage_lab_path</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">environment</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-set_cache_buster" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_cache_buster</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_cache_buster-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_cache_buster</span>
+  <span class="ruby-identifier">response</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-string">&#39;Cache-Control&#39;</span>] = <span class="ruby-string">&#39;no-cache, no-store, max-age=0, must-revalidate&#39;</span>
+  <span class="ruby-identifier">response</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-string">&#39;Pragma&#39;</span>] = <span class="ruby-string">&#39;no-cache&#39;</span>
+  <span class="ruby-identifier">response</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-string">&#39;Expires&#39;</span>] = <span class="ruby-string">&#39;Fri, 01 Jan 1990 00:00:00 GMT&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-show" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">show</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="show-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
+  <span class="ruby-ivar">@lab</span> = <span class="ruby-constant">Template</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@env</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">environment</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-update" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update-source">
+            <pre><span class="ruby-comment"># File app/controllers/labs_controller.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
+  <span class="ruby-ivar">@template</span> = <span class="ruby-constant">Template</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:template</span>][<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@template</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">template_params</span>)
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">labs_path</span>, <span class="ruby-identifier">flash</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">success</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;The lab was successfully updated&#39;</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

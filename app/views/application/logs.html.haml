@@ -38,6 +38,18 @@
               = log.gsub(/\n/, '<br>').html_safe
           - unless log =~ /.*ERROR -- :.*/
             = log.gsub(/\n/, '<br>').html_safe
+  - if @skytap_log
+    %h5
+      .title
+        Skytap Log
+    %div
+      .whenever_log
+        - @skytap_log.reverse.each do |log|
+          - if log =~ /.*ERROR -- :.*/
+            .info{style: 'color:red'}
+              = log.gsub(/\n/, '<br>').html_safe
+          - unless log =~ /.*ERROR -- :.*/
+            = log.gsub(/\n/, '<br>').html_safe
 
 
 
