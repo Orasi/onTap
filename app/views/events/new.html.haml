@@ -15,11 +15,18 @@
     =f.label :description, nil, class: "control-label"
     =f.text_field :description, value: @event.description, class: "form-control", required: true
 
+  .form_group
+    .training_and_lunch_display{style: 'display:none'}
+      = render partial: ('events/event_host'), locals: {f: f, event: @event}
+      = render partial: ('events/event_location'), locals: {f: f, event: @event}
+      = render partial: ('events/event_gotomeeting_form'), locals: {f: f, event: @event}
+
     .form_group
       - files.each do |file|
         .form_styles{id: file.last, style: 'display:none'}
           %br
           = render partial: 'events/forms/' +file.last, locals: { f: f, event: @event }
+
   %br
   =f.label "Daily Schedule(s)", class: "control-group"
 
@@ -55,7 +62,13 @@
   $("#event_event_style").on('change', forms)
   function forms(){
     $('.form_styles').fadeOut('fast');
-    $('#' + this.value).fadeIn('fast');  
+    $('#' + this.value).fadeIn('fast'); 
+    if (this.value=='training_class' || this.value=='lunch_and_learn'){
+      $('.training_and_lunch_display').fadeIn('fast');
+    }
+    else{
+      $('.training_and_lunch_display').fadeOut('fast');
+    }
   }
 
   $(document).on("ready", function(){
@@ -70,6 +83,9 @@
 
     value = $("#event_event_style").val();
     $('#' + value).show();
+    if (value=='training_class' || value=='lunch_and_learn'){
+      $('.training_and_lunch_display').show();
+    }
     
     if ($(".meeting:checked").length > 0)
       $("#gotomeetingform").show()
