@@ -22,6 +22,7 @@
               = "#{ event.schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' +event.schedules.first.start.strftime("%B %d, %Y from %I:%M %p")}"
           .pull-right= event.event_style.display_name.titleize.sub("_", " ")
           -if event.event_style.element.has_attribute?(:location)
+            %br
             .pull-right= event.event_style.element.location unless (event.event_style.element.location.nil? || (event.event_style.element.location == "Other"))
 
       %div

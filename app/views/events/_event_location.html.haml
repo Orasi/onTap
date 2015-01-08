@@ -1,13 +1,14 @@
-%br
-= f.label "Location"
-%div.form_group
-  = f.radio_button :location, "Greensboro", checked: (event.event_style.element.location =="Greensboro" unless event.event_style.nil?), class: "location known"
-  = f.label :location, "Greensboro", :value => "Greensboro"
+-if event.event_style.nil? || event.event_style.element_type == "Lunchlearn" || event.event_style.element_type == "TrainingClass"
   %br
-  %div.other_choice
-  = f.radio_button :location, "Atlanta", checked: (event.event_style.element.location =="Atlanta" unless event.event_style.nil?), class: "location known"
-  = f.label :location, "Atlanta", :value => "Atlanta"
-  %br
-  %div.other_choice
-  = f.radio_button :location, "Other", checked: (event.event_style.element.location == "Other" unless event.event_style.nil?), class: "location not_known"
-  = f.label :location, "Other", :value => "Other"
+  = f.label "Location"
+  %div.form_group
+    = f.radio_button :location, "Greensboro", checked: (event.event_style.element.location =="Greensboro" unless event.event_style.nil?), class: "location known"
+    = f.label :location, "Greensboro", :value => "Greensboro"
+    %br
+    %div.other_choice
+    = f.radio_button :location, "Atlanta", checked: (event.event_style.element.location =="Atlanta" unless event.event_style.nil?), class: "location known"
+    = f.label :location, "Atlanta", :value => "Atlanta"
+    %br
+    %div.other_choice
+    = f.radio_button :location, "Other", checked: (event.event_style.element.location == "Other" unless event.event_style.nil?), class: "location not_known"
+    = f.label :location, "Other", :value => "Other"
