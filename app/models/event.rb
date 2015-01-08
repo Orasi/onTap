@@ -15,7 +15,11 @@ class Event < ActiveRecord::Base
   attr_accessor :has_GoToMeeting, :go_to_meeting_url, :meeting_phone_number, :access_code, :url, :location
 
   def get_department_array
-    return ["Rural Testing", "Mobile", "Sales"]
+    auth = {:username => "bluesource", :password => "ontap"}
+    department_list = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/department_list.json?", :basic_auth => auth)
+    return department_list
+
+  #    if (department["department"] == department_name && approve_status=="1")
   end
 
   def lab

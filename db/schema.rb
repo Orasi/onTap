@@ -188,6 +188,11 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
   create_table "training_classes", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "has_GoToMeeting"
+    t.string   "go_to_meeting_url"
+    t.string   "access_code"
+    t.string   "meeting_phone_number"
+    t.string   "location"
   end
 
   create_table "users", force: true do |t|
