@@ -17,9 +17,11 @@ class Event < ActiveRecord::Base
   def get_department_array
     auth = {:username => "bluesource", :password => "ontap"}
     department_list = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/department_list.json?", :basic_auth => auth)
-    return department_list
-
-  #    if (department["department"] == department_name && approve_status=="1")
+    department_list.each do |department_info|
+      puts department_info
+      puts "kevin"
+      sleep(5)
+    end
   end
 
   def lab
