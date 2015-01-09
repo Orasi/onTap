@@ -59,4 +59,8 @@ module EventsHelper
      content_tag(:a, name, html_options.merge(:href => href, :onclick => onclick))
   end
 
+  def build_department_tree(department_hash)
+    
+  end
+
 end
