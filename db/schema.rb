@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.string   "status"
     t.date     "finalized_date"
     t.integer  "lab_id"
+    t.text     "department_approvals"
   end
 
   create_table "hosts", force: true do |t|
