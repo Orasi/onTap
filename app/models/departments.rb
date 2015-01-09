@@ -6,10 +6,6 @@ class Department
     @hash = {}
   end
 
-  def add_department(dep_hash)
-
-  end
-
   def add_subDepartment
     
   end
