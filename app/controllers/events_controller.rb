@@ -21,6 +21,7 @@ class EventsController < ApplicationController
     @event = Event.new
     @schedules = @event.schedules.new
     @labs = Template.all
+    @margin = 25
   end
 
   def create
@@ -99,6 +100,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @schedules = @event.schedules
     @labs = Template.all
+    @margin = 25
     render :new
   end
 

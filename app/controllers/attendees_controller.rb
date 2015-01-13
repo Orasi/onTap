@@ -13,10 +13,10 @@ class AttendeesController < ApplicationController
           redirect_to (:back)
           return
         else
-         # if check_employee_department(params[:id])
-         #   attend_now(params[:id])
-         #   return          
-         # end
+          if check_employee_department(params[:id])
+            attend_now(params[:id])
+            return          
+          end
           @notification = Event.find(params[:id]).notifications.create(user_id: session[:current_user_id], status: 'new', notification_type: 'attendance')
           if @notification.save
             flash[:success] = "A request has been sent to attend the event: #{Event.find(params[:id]).title}!"
@@ -49,12 +49,12 @@ class AttendeesController < ApplicationController
   end
 
   def check_employee_department(e_id)
-    bluesource_name=User.find(session[:current_user_id]).display_name
-    auth = {:username => "bluesource", :password => "ontap"}
-    department = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/subordinates.json?q=#{bluesource_name}", :basic_auth => auth)
-
-    Event.find(e_id).department_approvals.each do |deparment_name, approve_status|
-      if (department["department"] == department_name && approve_status=="1")
+    bluesource_name=User.find(session[:current_user_id]).username
+    @api_user = YAML.load_file(File.join(Rails.root, 'config', 'bluesource_api.yml'))
+    auth = {:username => @api_user[0]["username"], :password => @api_user[0]["password"]}
+    department = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/department.json?q=#{bluesource_name}", :basic_auth => auth)
+    Event.find(e_id).department_approvals.each do |department_name, approve_status|
+      if (department["name"] == department_name && approve_status=="1")
         return true
       end
     end

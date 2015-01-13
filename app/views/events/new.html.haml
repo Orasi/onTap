@@ -34,19 +34,11 @@
     =f.check_box :restricted, checked: (@event.restricted unless @event.restricted.blank?), class: "restriction restricted_event"
 
   .form_group.depart_options.indented#bluesource_departments
+    =f.label "Department Auto-Approvals", id: "dep_auto_approve"
     = f.fields_for :department_approvals do |d|
-      - if @event.department_approvals.blank?
-        -@event.get_department_array.each do |dep|
-          .form_group
-            =d.label dep, class: "control-label"
-            -Department.get_children(dep).each do |child_dep|
-              %ul.list-group
-                =render '/events/event_departments', dept: child_dep, depth: 0, d: d
-      - else
-        -@event.department_approvals.each do |h, v|
-          .form_group
-            =d.label h, class: "control-label"
-            =d.check_box h, checked: (v == "1" ? "checked" : "")
+      -@event.get_department_array.each do |dep|
+        .form_group
+          =render '/events/event_departments', dept: dep, depth: 0, d: d, event: @event
 
   .form_group
     = label_tag 'Add Lab to Event?'

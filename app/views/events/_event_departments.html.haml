@@ -1,6 +1,7 @@
-= content_tag :li, class: "list-group-item", style: "margin-left: #{@margin*depth}px;" do -
-  =d.label dept, class: "control-label"
-  =d.check_box dept, checked: false
-unless dept["sub_departments"].blank?
-  - dept["sub_departments"].each do |sub_dept| %>
-    = render "list_item_dept_layout", depth: depth+1, dept: sub_dept, d: d
+= content_tag :li, class: "list-item", style: "margin-left: #{@margin*depth}px;" do 
+  =d.label dept["name"], class: "control-label"
+  =d.check_box dept["name"], checked: (event.department_approvals[dept["name"]] == "1" ? "checked" : "")
+-unless dept["sub_departments"].blank?
+  - dept["sub_departments"].each do |sub_dept|
+    = render '/events/event_departments', depth: depth+1, dept: sub_dept, d: d, event: event
+
