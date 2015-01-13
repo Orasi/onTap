@@ -17,8 +17,7 @@ class Event < ActiveRecord::Base
   def get_department_array
     auth = {:username => "bluesource", :password => "ontap"}
     department_list = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/department_list.json?", :basic_auth => auth)
-    @department_list = Department.new(department_list)
-
+    return department_list
   end
 
   def lab

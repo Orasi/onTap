@@ -2,34 +2,32 @@ class Department
   include ActiveModel::Model
   attr_accessor :name, :parent
   
-  def initialize(department_hash)
+  def self.get_top_levels
+    top_levels=Array.new
+    department_list=query_api()
+    department_list.each do |department_hash|
+      if department_hash["parent"].nil?
+        top_levels << department_hash["name"]
+      end
+    end
+    return top_levels
+  end
+
+  def self.get_children(dep)
     
-    department_hash.each do |department_info|
-      if !department_exist?(department_info["name"])
-        add_department(department_info)
-      end
-      if department_info["parent"].nil?
-        if department_exist?(department_info["parent"])
-          addChild(department_info["parent"], department_info["name"])
-        else
-          add_department(department_info)
-          addChild(department_info["parent"], department_info["name"])
-        end
-      end
-    end
   end
 
-  def add_department(dep_hash)
-    if dep_hash["parent"].nil?
-      Department.new(name: dep_hash["name"], parent: nil)
-    else
-      Department.new(name: dep_hash["name"], parent: dep_hash["parent"])    
-    end
+  def self.query_api
+    auth = {:username => "bluesource", :password => "ontap"}
+    department_list = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/department_list.json?", :basic_auth => auth)
+    return department_list
+  #  department_list.each do |department_hash|
+  #    if department_hash["parent"].nil?
+  #      Department.new(name: department_hash["name"])
+  #    else
+  #      Department.new(name: department_hash["name"], parent: department_hash["parent"])
+  #    end
+  #  end
+
   end
-
-  def department_exist?(dep_name)
-
-  end
-
-  def addChild(parent, child)
 end

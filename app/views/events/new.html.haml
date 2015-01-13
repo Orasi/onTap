@@ -39,7 +39,9 @@
         -@event.get_department_array.each do |dep|
           .form_group
             =d.label dep, class: "control-label"
-            =d.check_box dep, checked: false
+            -Department.get_children(dep).each do |child_dep|
+              %ul.list-group
+                =render '/events/event_departments', dept: child_dep, depth: 0, d: d
       - else
         -@event.department_approvals.each do |h, v|
           .form_group
