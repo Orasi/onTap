@@ -26,12 +26,15 @@
           =event.jumbo_dates
         .jumbo-spacer
         .jumbo-hosts
-          - if event.hosts.first.external
+          - if event.hosts.first.nil?
+            .jumbo-hosted-by.small
+              
+          - elsif event.hosts.first.external
             .jumbo-hosted-by.small
               Hosted by
               %br
               = event.hosts.first.host
-          - unless event.hosts.first.external
+          - else
             .jumbo-hosted-by.small
               Hosted by
             -event.hosts.collect.each do |host|

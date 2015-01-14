@@ -25,7 +25,6 @@ class EventsController < ApplicationController
   end
 
   def create
-
     if params[:event][:schedules_attributes].nil?
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created. Must have at least one day scheduled"}
       return
@@ -60,12 +59,18 @@ class EventsController < ApplicationController
       @event.update(lab_id: params[:event][:lab_id])
     end
 
-
+    if !params[:event][:hosts].nil?
+      params[:event][:hosts].each do |host|
+        @event.hosts.create(user_id: host)
+      end
+    end
 
     if params[:event][:event_style] == 'lunch_and_learn'
       @eventtype = Lunchlearn.new(lunchlearn_params)
     elsif params[:event][:event_style] == 'webinar'
       @eventtype = Webinar.new(webinar_params)
+      @event.hosts.each(&:destroy)
+      @event.hosts.create(external: true, host: params[:event][:host])
     elsif params[:event][:event_style] == 'training_class'
       @eventtype = TrainingClass.new(trainingclass_params)
     end
@@ -76,13 +81,6 @@ class EventsController < ApplicationController
       return
     end
 
-    if params[:event][:host]
-      @event.hosts.create(external: true, host: params[:event][:host])
-    elsif !params[:event][:hosts].nil?
-      params[:event][:hosts].each do |host|
-        @event.hosts.create(user_id: host)
-      end
-    end
 
     @eventstyle = @event.build_event_style(element: @eventtype)
     if  @eventstyle.save
@@ -155,6 +153,8 @@ class EventsController < ApplicationController
       @event.hosts.each(&:destroy)
       @event.hosts.create(external: true, host: params[:event][:host])
     elsif params[:event][:event_style] == 'training_class'
+      @event_type = TrainingClass.find_by(id: @event_style.element_id)
+      @event_type.update_attributes(trainingclass_params)
     end
 
     unless @event.update_attributes(event_params)
@@ -224,7 +224,7 @@ class EventsController < ApplicationController
   end
 
   def trainingclass_params
-    params[:event].permit(:has_GoToMeeting, :meeting_phone_number, :access_code, :go_to_meeting_url)
+    params[:event].permit(:has_GoToMeeting, :meeting_phone_number, :access_code, :go_to_meeting_url, :location)
   end
 
   def webinar_params

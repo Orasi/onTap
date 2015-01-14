@@ -1,0 +1,15 @@
+-if event.event_style.nil? || event.event_style.element_type == "Lunchlearn" || event.event_style.element_type == "TrainingClass"
+  .form_group
+    =f.label :has_GoToMeeting, "Add GoToMeeting", class: "control-label"
+    =f.check_box :has_GoToMeeting, checked: (event.event_style.element.has_GoToMeeting unless event.event_style.nil?), class: "meeting gotomeeting"
+
+    .form_group#gotomeetingform
+      %div.form_group
+        =f.label :go_to_meeting_url, nil, class: "control-label"
+        =f.text_field :go_to_meeting_url, value: (event.event_style.element.go_to_meeting_url unless event.event_style.nil?), class: "form-control"
+      .form_group
+        =f.label :meeting_phone_number, nil, class: "control-label"
+        =f.text_field :meeting_phone_number, value: (event.event_style.element.meeting_phone_number unless event.event_style.nil?), class: "form-control", pattern: '\(\d{3}\)\d{3}-\d{4}', placeholder: "(XXX)XXX-XXXX", title: "(XXX)XXX-XXXX" 
+      .form_group
+        =f.label :access_code, nil, class: "control-label"
+        =f.text_field :access_code, value: (event.event_style.element.access_code unless event.event_style.nil?), class: "form-control", pattern: '\d{3}-\d{3}-\d{3}', placeholder: "XXX-XXX-XXX", title: "XXX-XXX-XXX" 
