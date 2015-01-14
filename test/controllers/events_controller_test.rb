@@ -10,6 +10,8 @@ class EventsControllerTest < ActionController::TestCase
     assert @futureevent
     @webinar = FactoryGirl.create(:webinarstyle)
     assert @webinar
+    @trainingclass = FactoryGirl.create(:trainingclassstyle)
+    assert @trainingclass
     @user = FactoryGirl.create(:normal_user)
     assert @user
     @admin = FactoryGirl.create(:admin_user)
@@ -263,6 +265,22 @@ class EventsControllerTest < ActionController::TestCase
     assert_nil flash[:error]
   end
 
+  test 'admin should not be able to create lunchlearn without schedule' do
+    event = @lunchlearn
+    params = { 
+      event_date: DateTime.now.strftime('%m/%d/%Y'),
+      event: {
+      title: event.title,
+      description: event.description,
+      event_style: 'lunch_and_learn',
+      hosts: [1, 2, 3],
+    } }
+    post :create, params, current_user_id: @admin.id
+    assert_not_nil flash[:error]
+    assert_nil flash[:success]
+    assert_redirected_to :calendar
+  end
+
   test 'admin should be able to create a webinar' do
     event = @webinar
     params = { 
@@ -382,6 +400,24 @@ class EventsControllerTest < ActionController::TestCase
     }
     patch :update, params, current_user_id: @admin.id
     assert_nil flash[:error], flash[:success]
+  end
+
+  test 'admin should not be able to update an event with no schedule' do
+    event = @webinar
+    params = {
+      event_date: DateTime.now.strftime('%m/%d/%Y'),
+      event: {
+      title: event.title + 'abc',
+      description: event.description + 'abc',
+      url: 'https://yourmomrocks.com',
+      host: 'some other host',
+      event_style: 'webinar'
+    },         id: @webinar.id
+    }
+    patch :update, params, current_user_id: @admin.id
+    assert_not_nil flash[:error]
+    assert_nil flash[:success]
+    assert_redirected_to :calendar
   end
 
   test 'admin should not be able to update an event without event time' do

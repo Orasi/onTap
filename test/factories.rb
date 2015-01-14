@@ -58,6 +58,10 @@ FactoryGirl.define do
       after(:build) { |event| event.build_event_style(element: Webinar.find(create(:webinar).id)) }
     end
 
+    factory :trainingclassstyle do
+      after(:build) { |event| event.build_event_style(element: TrainingClass.find(create(:trainingclass).id)) }
+    end
+
   end
   trait :past do
     after(:create) do |event|
@@ -90,6 +94,13 @@ FactoryGirl.define do
     access_code '123-456-789'
     meeting_phone_number '(123)123-1234'
     go_to_meeting_url 'https://somecompany.com/meeting'
+  end
+
+  factory :trainingclass, :class => 'TrainingClass' do
+    has_GoToMeeting true
+    access_code '987-654-321'
+    meeting_phone_number '(195)195-1951'
+    go_to_meeting_url 'https://atrainingclass.com/meeting'
   end
 
   factory :webinar do
