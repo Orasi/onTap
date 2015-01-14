@@ -24,6 +24,11 @@ class EventsControllerTest < ActionController::TestCase
     assert @surveynotification
   end
 
+  def stubs with_error: [], return_nil: []
+    WebMock.stub_request(:get, "http://bluesource:ontap@bluesourcestaging.herokuapp.com/api/department_list.json").with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).to_return(:status => 200, :body => "", :headers => {})
+
+  end
+
   test 'should not get calendar if user not logged in' do
     get :calendar
     assert_redirected_to :login
@@ -35,6 +40,7 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should be able to get new event page if admin' do
+    stubs
     get :new, { id: @lunchlearn.id }, current_user_id: @admin.id
     assert_response :success
   end
@@ -55,6 +61,7 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should be able to get to new page if admin' do
+    stubs
     get :new, {}, current_user_id: @admin.id
     assert_response :success
   end
@@ -80,6 +87,7 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should be able to edit if host' do
+    stubs
     get :edit, { id: @lunchlearn.id }, current_user_id: @lunchlearn.hosts.first.user_id
     assert_response :success
   end
@@ -90,11 +98,13 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should be able to commit edits if admin' do
+    stubs
     post :edit, { id: @lunchlearn.id }, current_user_id: @admin.id
     assert_response :success
   end
 
   test 'should be able to commit edits if host' do
+    stubs
     post :edit, { id: @lunchlearn.id }, current_user_id: @lunchlearn.hosts.first.user_id
     assert_response :success
   end

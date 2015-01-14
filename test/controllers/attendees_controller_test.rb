@@ -12,7 +12,15 @@ class AttendeesControllerTest < ActionController::TestCase
     @request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
   end
 
+  def stubs with_error: [], return_nil: []
+    WebMock.stub_request(:get, /http:\/\/bluesource:ontap@bluesourcestaging\.herokuapp\.com\/api\/department\.json\?q=.*/).
+  with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+  to_return(:status => 200, :body => "", :headers => {})
+
+  end
+
   test 'Admin should be added to attendees if event is restricted' do
+    stubs
     assert_not_nil @restricted_event
     assert_not_nil @admin
     get :change, { id: @restricted_event.id }, current_user_id: @admin.id
@@ -22,6 +30,7 @@ class AttendeesControllerTest < ActionController::TestCase
   end
 
   test 'base user should not be able to attend restricted event' do
+    stubs
     get :change, { id: @restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
@@ -29,6 +38,7 @@ class AttendeesControllerTest < ActionController::TestCase
   end
 
   test 'Base user should generate request when asking to attend a restricted event' do
+    stubs
     get :change, { id: @restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
@@ -36,6 +46,7 @@ class AttendeesControllerTest < ActionController::TestCase
   end
 
   test 'admin should generate request when asking to attend a restricted event' do
+    stubs
     get :change, { id: @restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
@@ -43,6 +54,7 @@ class AttendeesControllerTest < ActionController::TestCase
   end
 
   test 'Base user should destroy request if cancel request was selected' do
+    stubs
     get :change, { id: @restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
@@ -55,6 +67,7 @@ class AttendeesControllerTest < ActionController::TestCase
   end
 
   test 'admin should destroy request if cancel request was selected' do
+    stubs
     get :change, { id: @restricted_event.id }, current_user_id: @admin.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
@@ -113,6 +126,7 @@ class AttendeesControllerTest < ActionController::TestCase
   end
 
   test 'admin should be able to approve requeset' do
+    stubs
     get :change, { id: @restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
@@ -123,6 +137,7 @@ class AttendeesControllerTest < ActionController::TestCase
   end
 
   test 'admin should be not able to approve finalized restricted event' do
+    stubs
     get :change, { id:     @finalized_restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
@@ -133,6 +148,7 @@ class AttendeesControllerTest < ActionController::TestCase
   end
 
   test 'admin should be able to reject request' do
+    stubs
     get :change, { id: @restricted_event.id }, current_user_id: @user.id
     assert_not_nil flash[:success]
     assert_match /request has been sent/, flash[:success]
