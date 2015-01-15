@@ -1,0 +1,16 @@
+="Total Events:"
+=@events.count
+.indents
+  -Event.event_type_totals.each do |k, v|
+    .type_totals
+      =k.pluralize+":"
+      =v
+%br
+="Total onTap Users:"
+=@users.count
+%br
+="Total Attendances:"
+=Event.event_attendees_total
+%br
+="Average Attendance of Attendable Events:"
+=Event.event_attendees_average
