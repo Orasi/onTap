@@ -16,4 +16,8 @@
  *= require jquery.timepicker.css
  */
 
-
+.indents
+   {
+   padding-left: 25pt;
+   padding-right: 25pt;
+   }

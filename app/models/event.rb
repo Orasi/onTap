@@ -204,4 +204,43 @@ class Event < ActiveRecord::Base
   def update_attendees_email()
     EventUpdatedMailer.event_updated_mailer(self)
   end
+
+  def self.event_type_totals
+    @events=Event.all
+    hash = {}
+    @events.each do |event|
+      if hash[event.event_style.element_type].nil?
+        hash[event.event_style.element_type]=1
+      else
+        hash[event.event_style.element_type]=hash[event.event_style.element_type]+1
+      end
+    end
+    return hash
+  end
+
+  def self.event_attendees_total
+    @events=Event.all
+    total=0
+    @events.each do |event|
+      total+=event.attendees.count
+    end
+    return total
+  end
+
+  def self.event_attendees_average
+    @events=Event.all
+    total=0
+    events_total=0
+    @events.each do |event|
+      if event.type.class::ATTENDABLE
+        events_total+=1
+        total+=event.attendees.count
+      end
+    end
+      puts events_total
+      puts total
+      puts "kevin"
+      puts sleep(5)
+    return total/events_total
+  end
 end

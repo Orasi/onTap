@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :require_login
   before_action :get_profile
   helper_method :current_user
-  before_action :require_admin, only: [:send_email]
+  before_action :require_admin, only: [:send_email, :metrics]
 
   def send_email
     users = params[:users] == 'all' ? User.all.pluck(:email) : params[:users]
@@ -38,6 +38,11 @@ class ApplicationController < ActionController::Base
     if @skytap_log && @skytap_log.length > 1000
       @skytap_log = @skytap_log[1..1000]
     end
+  end
+
+  def metrics
+    @events=Event.all
+    @users=User.all
   end
 
   def get_profile
