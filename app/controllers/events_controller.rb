@@ -33,6 +33,8 @@ class EventsController < ApplicationController
 
     @event = Event.new(event_params)
     @event.visible_to_departments=params[:event][:visible_to_departments]
+    #not sure why department approvals not being picked up as part of event_params
+    @event.department_approvals=params[:event][:department_approvals]
     unless @event.save
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created" }
       return
@@ -109,6 +111,7 @@ class EventsController < ApplicationController
     end
 
     @event = Event.find(params[:id])
+
     @event.schedules.each(&:destroy)
     params[:event][:schedules_attributes].each do |key, value|
       if (!value[:event_date].nil? && !value[:end].nil? && !value[:start].nil?)
@@ -160,6 +163,8 @@ class EventsController < ApplicationController
       return
     end
     @event.update(visible_to_departments: params[:event][:visible_to_departments])
+    #not sure why department approvals not being picked up as part of event_params
+    @event.update(department_approvals: params[:event][:department_approvals])
     if params[:send_email]=="Yes"
       @event.update_attendees_email()
     end
@@ -209,7 +214,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :restricted, :limited_visibility, :visible_to_departments)
+    params.require(:event).permit(:title, :description, :restricted, :department_approvals, :limited_visibility, :visible_to_departments))
   end
 
   def schedule_params

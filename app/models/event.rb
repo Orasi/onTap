@@ -12,6 +12,7 @@ class Event < ActiveRecord::Base
   # has_one :webinars, :through => :event_style, :source => :element, :source_type => 'webinar'
   validates_presence_of :title, :description
   serialize :visible_to_departments, Hash
+  serialize :department_approvals, Hash
   attr_accessor :has_GoToMeeting, :go_to_meeting_url, :meeting_phone_number, :access_code, :url, :location
 
   def get_department_array
@@ -48,8 +49,6 @@ class Event < ActiveRecord::Base
   def next_date
     return schedules.where("schedules.end >= ?", DateTime.now).sort_by(&:start).first
   end
-
-
 
   def jumbo_dates
     if schedules.count == 1
