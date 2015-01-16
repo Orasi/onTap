@@ -10,6 +10,7 @@ class EventsController < ApplicationController
   def calendar
     # @events = Event.joins(:schedules).merge(Schedule.where('event_date >= ?', DateTime.now.to_date))
     @events = Event.where(status: nil)
+    @events.delete_if { |event| !event.can_view_event?(current_user.id) && !event.hosting_or_above?(current_user) }
     @events.sort! { |a, b| a.schedules.first.start <=> b.schedules.first.start }
   end
 
@@ -31,7 +32,7 @@ class EventsController < ApplicationController
     end
 
     @event = Event.new(event_params)
-    @event.department_approvals=params[:event][:visible_to_departments]
+    @event.visible_to_departments=params[:event][:visible_to_departments]
     unless @event.save
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created" }
       return
@@ -102,7 +103,6 @@ class EventsController < ApplicationController
   end
 
   def update
-
     if params[:event][:schedules_attributes].nil?
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created. Must have at least one day scheduled"}
       return
@@ -159,7 +159,7 @@ class EventsController < ApplicationController
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated.  Error: " + @event.errors.full_messages.join }
       return
     end
-    @event.department_approvals=params[:event][:visible_to_departments]
+    @event.update(visible_to_departments: params[:event][:visible_to_departments])
     if params[:send_email]=="Yes"
       @event.update_attendees_email()
     end
@@ -209,7 +209,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :restricted)
+    params.require(:event).permit(:title, :description, :restricted, :limited_visibility, :visible_to_departments)
   end
 
   def schedule_params

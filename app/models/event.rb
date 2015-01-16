@@ -249,7 +249,14 @@ class Event < ActiveRecord::Base
     return total/events_total
   end
 
-  def self.get_all_visible_events
-    
+  def can_view_event?(u_id)
+    if !limited_visibility
+      return true
+    end
+    department=User.find(u_id).get_user_department
+    if(visible_to_departments.has_key?(department) && (visible_to_departments[department] == "1"))
+      return true
+    end
+    return false
   end
 end
