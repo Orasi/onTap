@@ -11,7 +11,15 @@ class Event < ActiveRecord::Base
   # has_one :lunchlearns, :through => :event_style, :source => :element, :source_type => 'lunchlearn'
   # has_one :webinars, :through => :event_style, :source => :element, :source_type => 'webinar'
   validates_presence_of :title, :description
+  serialize :visible_to_departments, Hash
   attr_accessor :has_GoToMeeting, :go_to_meeting_url, :meeting_phone_number, :access_code, :url, :location
+
+  def get_department_array
+    @api_user = YAML.load_file(File.join(Rails.root, 'config', 'bluesource_api.yml'))[Rails.env]
+    auth = {:username => @api_user["username"], :password => @api_user["password"]}
+    department_list = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/department_list.json?", :basic_auth => auth)
+    return department_list
+  end
 
   def lab
     if lab_id.nil?
@@ -237,10 +245,11 @@ class Event < ActiveRecord::Base
         total+=event.attendees.count
       end
     end
-      puts events_total
-      puts total
-      puts "kevin"
-      puts sleep(5)
+
     return total/events_total
+  end
+
+  def self.get_all_visible_events
+    
   end
 end

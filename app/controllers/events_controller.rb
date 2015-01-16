@@ -21,6 +21,7 @@ class EventsController < ApplicationController
     @event = Event.new
     @schedules = @event.schedules.new
     @labs = Template.all
+    @margin = 25
   end
 
   def create
@@ -30,7 +31,7 @@ class EventsController < ApplicationController
     end
 
     @event = Event.new(event_params)
-
+    @event.department_approvals=params[:event][:visible_to_departments]
     unless @event.save
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created" }
       return
@@ -96,6 +97,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @schedules = @event.schedules
     @labs = Template.all
+    @margin = 25
     render :new
   end
 
@@ -157,6 +159,7 @@ class EventsController < ApplicationController
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated.  Error: " + @event.errors.full_messages.join }
       return
     end
+    @event.department_approvals=params[:event][:visible_to_departments]
     if params[:send_email]=="Yes"
       @event.update_attendees_email()
     end

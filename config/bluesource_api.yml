@@ -1,0 +1,16 @@
+# config/aws.yml
+defaults: &defaults
+
+  username: bluesource
+  password: ontap
+staging:
+  username: <%=ENV["BLUESOURCE_API_USERNAME"]%>
+  password: <%=ENV["BLUESOURCE_API_PASSWORD"]%>
+development:
+  <<: *defaults
+test:
+  <<: *defaults
+
+production:
+  username: <%=ENV["BLUESOURCE_API_USERNAME"]%>
+  password: <%=ENV["BLUESOURCE_API_PASSWORD"]%>

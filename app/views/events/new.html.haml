@@ -47,6 +47,17 @@
       = f.label 'Select Lab', class: 'control-label'
       = f.collection_select( 'lab_id', @labs,  :id, :title )
 
+  .form_group
+    =f.label :limited_visibility, "Limit Visibility?", class: "control-label"
+    =f.check_box :limited_visibility, checked: (@event.limited_visibility unless @event.limited_visibility.blank?), class: "visibility_of_event"
+    
+  .form_group.set_visible_departments.indented#visibility_options
+    =f.label "Select which departments can view the event:", id: "visibility_instructions"
+    = f.fields_for :visibile_to_departments do |t|
+      -@event.get_department_array.each do |dep|
+        .form_group
+          =render '/events/event_visibility', dept: dep, depth: 0, t: t, event: @event
+
   - if params[:action] == 'new'
     .form_group
       %br
@@ -106,6 +117,11 @@
     $("#add_lab").on('change', function(){
       $('.lab_section').fadeToggle();
     })
+    if ($(".visibility_of_event:checked").length > 0)
+      $("#visibility_options").show()
+    $(".visibility_of_event").on("click", function(){
+      $("#visibility_options").toggle($(this));
+    });
   });
  
 .clearfix
