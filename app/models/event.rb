@@ -237,10 +237,6 @@ class Event < ActiveRecord::Base
         total+=event.attendees.count
       end
     end
-      puts events_total
-      puts total
-      puts "kevin"
-      puts sleep(5)
     return total/events_total
   end
 end
