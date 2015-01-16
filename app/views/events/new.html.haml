@@ -128,10 +128,11 @@
       $("#visibility_options").show()
     $(".visibility_of_event").on("click", function(){
       $("#visibility_options").toggle($(this));
+    });
     if ($(".restricted_event:checked").length > 0)
       $("#bluesource_departments").show()
     $(".restricted_event").on("click", function(){
-      $("#bluesource_departments").toggle($(this));        
+      $("#bluesource_departments").toggle($(this));
     });
   });
  
