@@ -214,7 +214,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :restricted, :department_approvals, :limited_visibility, :visible_to_departments))
+    params.require(:event).permit(:title, :description, :restricted, :department_approvals, :limited_visibility, :visible_to_departments)
   end
 
   def schedule_params
