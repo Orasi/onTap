@@ -335,6 +335,7 @@ DEPENDENCIES
   rails_12factor
   ruby-saml
   s3_direct_upload
+  sass (~> 3.2.2)
   sass-rails (~> 4.0.0)
   sdoc
   sqlite3
