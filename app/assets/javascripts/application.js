@@ -18,6 +18,7 @@
 //= require_tree .
 //= require jquery.timepicker.js
 //= require jquery.countdown.js
+//= require chosen-jquery
 
 function remove_fields(link) {
   $(link).prev("input[type=hidden]").val("1");

@@ -11,7 +11,18 @@ class Event < ActiveRecord::Base
   # has_one :lunchlearns, :through => :event_style, :source => :element, :source_type => 'lunchlearn'
   # has_one :webinars, :through => :event_style, :source => :element, :source_type => 'webinar'
   validates_presence_of :title, :description
+  serialize :visible_to_departments, Hash
+  serialize :department_approvals, Hash
   attr_accessor :has_GoToMeeting, :go_to_meeting_url, :meeting_phone_number, :access_code, :url, :location
+
+  def get_department_array
+    @api_user = YAML.load_file(File.join(Rails.root, 'config', 'bluesource_api.yml'))[Rails.env]
+    auth = {:username => @api_user["username"], :password => @api_user["password"]}
+    department_list = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/department_list.json?", :basic_auth => auth)
+    rescue 
+    return ""
+    return department_list
+  end
 
   def lab
     if lab_id.nil?
@@ -40,8 +51,6 @@ class Event < ActiveRecord::Base
   def next_date
     return schedules.where("schedules.end >= ?", DateTime.now).sort_by(&:start).first
   end
-
-
 
   def jumbo_dates
     if schedules.count == 1
@@ -237,6 +246,18 @@ class Event < ActiveRecord::Base
         total+=event.attendees.count
       end
     end
+
     return total/events_total
+  end
+
+  def can_view_event?(u_id)
+    if !limited_visibility
+      return true
+    end
+    department=User.find(u_id).get_user_department
+    if(visible_to_departments.has_key?(department) && (visible_to_departments[department] == "1"))
+      return true
+    end
+    return false
   end
 end

@@ -67,4 +67,16 @@ class User < ActiveRecord::Base
       update_attribute('photo', nil)
     end
   end
+
+  def get_user_department
+    bluesource_name=username
+    @api_user = YAML.load_file(File.join(Rails.root, 'config', 'bluesource_api.yml'))[Rails.env]
+    auth = {:username => @api_user["username"], :password => @api_user["password"]}
+    begin
+      department = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/department.json?q=#{bluesource_name}", :basic_auth => auth)
+      return department["name"]
+    rescue 
+      return ""
+    end
+  end
 end

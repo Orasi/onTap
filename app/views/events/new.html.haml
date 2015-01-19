@@ -38,7 +38,18 @@
 
   .form_group
     =f.label :restricted, "Restricted?", class: "control-label"
-    =f.check_box :restricted, checked: (@event.restricted unless @event.restricted.blank?), class: "restriction"
+    =f.check_box :restricted, checked: (@event.restricted unless @event.restricted.blank?), class: "restriction restricted_event"
+
+  .form_group.depart_options.indented#bluesource_departments
+    = f.fields_for :department_approvals do |d|
+      -departs=@event.get_department_array
+      -if departs.blank?
+        =f.label "Bluesource appears to be down, Please edit your even later to add auto-approvals", class: "bluesource_is_down_approvals"
+      -else
+        =f.label "Department Auto-Approvals:", id: "dep_auto_approve"
+        -departs.each do |dep|
+          .form_group
+            =render '/events/event_departments', dept: dep, depth: 0, d: d, event: @event
 
   .form_group
     = label_tag 'Add Lab to Event?'
@@ -46,6 +57,21 @@
     .lab_section.form_group
       = f.label 'Select Lab', class: 'control-label'
       = f.collection_select( 'lab_id', @labs,  :id, :title )
+
+  .form_group
+    =f.label :limited_visibility, "Limit Visibility?", class: "control-label"
+    =f.check_box :limited_visibility, checked: (@event.limited_visibility unless @event.limited_visibility.blank?), class: "visibility_of_event"
+    
+  .form_group.set_visible_departments.indented#visibility_options
+    = f.fields_for :visible_to_departments do |t|
+      -departments=@event.get_department_array
+      -if departments.blank?
+        =f.label "Bluesource appears to be down, Please edit your event later to limit visibility", class: "bluesource_is_down_visibility"
+      -else
+        =f.label "Select which departments can view the event:", id: "visibility_instructions"
+        -@event.get_department_array.each do |dep|
+          .form_group
+            =render '/events/event_visibility', dept: dep, depth: 0, t: t, event: @event
 
   - if params[:action] == 'new'
     .form_group
@@ -106,6 +132,16 @@
     $("#add_lab").on('change', function(){
       $('.lab_section').fadeToggle();
     })
+    if ($(".visibility_of_event:checked").length > 0)
+      $("#visibility_options").show()
+    $(".visibility_of_event").on("click", function(){
+      $("#visibility_options").toggle($(this));
+    });
+    if ($(".restricted_event:checked").length > 0)
+      $("#bluesource_departments").show()
+    $(".restricted_event").on("click", function(){
+      $("#bluesource_departments").toggle($(this));
+    });
   });
  
 .clearfix
