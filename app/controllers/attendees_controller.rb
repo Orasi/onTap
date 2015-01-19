@@ -49,12 +49,10 @@ class AttendeesController < ApplicationController
   end
 
   def check_employee_department(e_id)
-    bluesource_name=User.find(session[:current_user_id]).username
-    @api_user = YAML.load_file(File.join(Rails.root, 'config', 'bluesource_api.yml'))[Rails.env]
-    auth = {:username => @api_user["username"], :password => @api_user["password"]}
-    department = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/department.json?q=#{bluesource_name}", :basic_auth => auth)
+    @user=User.find(session[:current_user_id])
+    dep_name=@user.get_user_department
     Event.find(e_id).department_approvals.each do |department_name, approve_status|
-      if (department["name"] == department_name && approve_status=="1")
+      if (dep_name == department_name && approve_status=="1")
         return true
       end
     end

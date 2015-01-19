@@ -19,6 +19,8 @@ class Event < ActiveRecord::Base
     @api_user = YAML.load_file(File.join(Rails.root, 'config', 'bluesource_api.yml'))[Rails.env]
     auth = {:username => @api_user["username"], :password => @api_user["password"]}
     department_list = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/department_list.json?", :basic_auth => auth)
+    rescue 
+    return ""
     return department_list
   end
 

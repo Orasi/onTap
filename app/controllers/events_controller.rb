@@ -140,6 +140,7 @@ class EventsController < ApplicationController
         @event.hosts.each(&:destroy)
     unless params[:event][:hosts].nil?
       params[:event][:hosts].each do |host|
+        next if host.blank?
         @event.hosts.create(user_id: host)
       end
     end
