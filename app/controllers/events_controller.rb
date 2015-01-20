@@ -45,8 +45,8 @@ class EventsController < ApplicationController
         e_date = value[:event_date] = DateTime.strptime(value[:event_date], '%m/%d/%Y').to_date
         e_start = Time.parse(value[:start])
         e_end = Time.parse(value[:end])
-        e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec, '-' + (value[:time_zone_offset].to_i / 60).to_s)
-        e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec, '-' + (value[:time_zone_offset].to_i / 60).to_s)
+        e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec)
+        e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec)
         @schedule = @event.schedules.new(start: e_start, end: e_end)
         unless @schedule.save
           @event.destroy
