@@ -70,8 +70,10 @@ class User < ActiveRecord::Base
 
   def get_user_department
     bluesource_name=username
-    @api_user = YAML.load_file(File.join(Rails.root, 'config', 'bluesource_api.yml'))[Rails.env]
-    auth = {:username => @api_user["username"], :password => @api_user["password"]}
+    template = ERB.new File.new("config/bluesource_api.yml").read
+    @api_user = YAML.load template.result(binding)
+    #@api_user = YAML.load_file(File.join(Rails.root, 'config', 'bluesource_api.yml'))[Rails.env]
+    auth = {:username => @api_user[Rails.env]["username"], :password => @api_user[Rails.env]["password"]}
     begin
       department = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/department.json?q=#{bluesource_name}", :basic_auth => auth)
       return department["name"]

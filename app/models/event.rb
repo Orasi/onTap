@@ -16,12 +16,17 @@ class Event < ActiveRecord::Base
   attr_accessor :has_GoToMeeting, :go_to_meeting_url, :meeting_phone_number, :access_code, :url, :location
 
   def get_department_array
-    @api_user = YAML.load_file(File.join(Rails.root, 'config', 'bluesource_api.yml'))[Rails.env]
-    auth = {:username => @api_user["username"], :password => @api_user["password"]}
-    department_list = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/department_list.json?", :basic_auth => auth)
+
+    template = ERB.new File.new("config/bluesource_api.yml").read
+    @api_user = YAML.load template.result(binding)
+    #@api_user = YAML.load_file(File.join(Rails.root, 'config', 'bluesource_api.yml'))[Rails.env]
+    auth = {:username => @api_user[Rails.env]["username"], :password => @api_user[Rails.env]["password"]}
+    begin
+      department_list = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/department_list.json?", :basic_auth => auth)
+      return department_list
     rescue 
-    return ""
-    return department_list
+      return ""
+    end
   end
 
   def lab
