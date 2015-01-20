@@ -23,7 +23,7 @@
         = event.title
       .jumbo-date-hosts.h2
         .jumbo-date.small
-          =event.jumbo_dates
+          =event.jumbo_dates(current_user)
         .jumbo-spacer
         .jumbo-hosts
           - if event.hosts.first.nil?

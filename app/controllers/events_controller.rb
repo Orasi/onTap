@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   before_action :require_admin_or_host, only: [:new, :edit, :destroy, :update, :create, :finalize]
   before_action :require_past, only: [:finalize]
+  before_filter :set_timezone
 
   def send_invite
     @event = Event.find(params[:id])
@@ -45,8 +46,8 @@ class EventsController < ApplicationController
         e_date = value[:event_date] = DateTime.strptime(value[:event_date], '%m/%d/%Y').to_date
         e_start = Time.parse(value[:start])
         e_end = Time.parse(value[:end])
-        e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec)
-        e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec)
+        e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec).change(:offset => Time.zone.formatted_offset)
+        e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec).change(:offset => Time.zone.formatted_offset)
         @schedule = @event.schedules.new(start: e_start, end: e_end)
         unless @schedule.save
           @event.destroy
@@ -118,8 +119,8 @@ class EventsController < ApplicationController
         e_date = Date.strptime(value[:event_date], '%m/%d/%Y')
         e_start = Time.parse(value[:start])
         e_end = Time.parse(value[:end])
-        e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec, '-' + (value[:time_zone_offset].to_i / 60).to_s)
-        e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec, '-' + (value[:time_zone_offset].to_i / 60).to_s)
+        e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec).change(:offset => Time.zone.formatted_offset)
+        e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec).change(:offset => Time.zone.formatted_offset)
         @schedule = @event.schedules.new(start: e_start, end: e_end)
         unless @schedule.save
           @event.destroy
@@ -212,6 +213,10 @@ class EventsController < ApplicationController
     unless Event.find(params[:id]).past?
       redirect_to :calendar, flash: { error: 'Events can not be finalized before they end.' }
     end
+  end
+
+  def set_timezone
+    Time.zone=current_user.profile.time_zone || LunchLearn::Application.config.time_zone
   end
 
   def event_params
