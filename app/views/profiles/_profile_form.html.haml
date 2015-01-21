@@ -39,10 +39,6 @@
       =f.check_box :notification_settings, checked: (@profile.notification_settings unless @profile.notification_settings.nil?)
       =f.label :notification_settings, "I would like to receive a weekly email about new and upcoming events on OnTap", class: "control-label"
 
-    = f.label "Time Zone"
-    %div.indented
-      =f.time_zone_select(:time_zone, ActiveSupport::TimeZone.us_zones, include_blank: true)
-
     - unless modal
       %div.form_group
         %br

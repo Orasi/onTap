@@ -1,7 +1,6 @@
 class EventsController < ApplicationController
   before_action :require_admin_or_host, only: [:new, :edit, :destroy, :update, :create, :finalize]
   before_action :require_past, only: [:finalize]
-  before_filter :set_timezone
 
   def send_invite
     @event = Event.find(params[:id])
@@ -213,10 +212,6 @@ class EventsController < ApplicationController
     unless Event.find(params[:id]).past?
       redirect_to :calendar, flash: { error: 'Events can not be finalized before they end.' }
     end
-  end
-
-  def set_timezone
-    Time.zone=current_user.profile.time_zone || LunchLearn::Application.config.time_zone
   end
 
   def event_params

@@ -13,7 +13,7 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params[:profile].permit(:food_pref, :location, :notification_settings, :other_food, :time_zone)
+    params[:profile].permit(:food_pref, :location, :notification_settings, :other_food)
   end
 
   def require_owner
