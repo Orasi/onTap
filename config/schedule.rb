@@ -27,8 +27,8 @@
  every :day, at: '3:00pm' do
    runner 'FinalizeEventMailer.finalize_event_mailer'
  end
-#temp change to test time zones
- every :day, at: '12:30pm'  do
+
+ every :monday, at: '9:00 am'  do
    runner 'WeeklyMailer.weekly_mailer((User.all-User.joins(:profile).where(:profiles => {notification_settings: false}))).deliver'
  end
 
