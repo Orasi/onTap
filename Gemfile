@@ -72,6 +72,7 @@ gem 'coveralls', require: false
 gem 'httparty'
 
 gem 'chosen-rails'
+gem 'browser-timezone-rails'
 
 # Paperclip for attaching files to eventsgem
 gem 'paperclip', '~> 4.1'

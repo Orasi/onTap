@@ -57,9 +57,13 @@ class Event < ActiveRecord::Base
     return schedules.where("schedules.end >= ?", DateTime.now).sort_by(&:start).first
   end
 
-  def jumbo_dates
+  def jumbo_dates(c_user)
     if schedules.count == 1
-      return  schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedules.first.end.strftime("%I:%M %p")
+      if schedules.first.start.strftime("%d") != schedules.first.end.strftime("%d")
+        return  schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedules.first.end.strftime("%B %d, %Y from %I:%M %p")
+      else
+        return  schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedules.first.end.strftime("%I:%M %p")
+      end
     elsif schedules.count > 1
       scheds=schedules.sort_by(&:start)
       if consecutive_days?

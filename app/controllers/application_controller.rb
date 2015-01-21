@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :get_profile
   helper_method :current_user
   before_action :require_admin, only: [:send_email, :metrics]
+  around_filter :set_time_zone
 
   def send_email
     users = params[:users] == 'all' ? User.all.pluck(:email) : params[:users]
@@ -87,5 +88,17 @@ class ApplicationController < ActionController::Base
     if current_user.nil? || !current_user.admin
       redirect_to :calendar, flash: { error: 'You do not have the required permissions to access this area' }
     end
+  end
+
+  def set_time_zone
+    old_time_zone = Time.zone
+    Time.zone = browser_timezone if browser_timezone.present?
+    yield
+  ensure
+    Time.zone = old_time_zone 
+  end
+
+  def browser_timezone
+    cookies["browser.timezone"]
   end
 end

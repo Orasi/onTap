@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "other_food"
+    t.string   "time_zone"
   end
 
   create_table "referrals", force: true do |t|

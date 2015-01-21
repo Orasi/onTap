@@ -29,7 +29,6 @@
 
   %br
   =f.label "Daily Schedule(s)", class: "control-group"
-
   .fields
     =f.fields_for :schedules do |builder|
       = render partial: ('events/schedule_fields'), locals: {f: builder}
