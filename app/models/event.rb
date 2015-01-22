@@ -255,8 +255,11 @@ class Event < ActiveRecord::Base
         total+=event.attendees.count
       end
     end
-
-    return total/events_total
+    if events_total != 0
+      return total/events_total
+    else
+      return 0
+    end
   end
 
   def can_view_event?(u_id)
