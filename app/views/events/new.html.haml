@@ -69,9 +69,10 @@
         =f.label "Bluesource appears to be down, Please edit your event later to limit visibility", class: "bluesource_is_down_visibility"
       -else
         =f.label "Select which departments can view the event:", id: "visibility_instructions"
-        -@event.get_department_array.each do |dep|
-          .form_group
-            =render '/events/event_visibility', dept: dep, depth: 0, t: t, event: @event
+        .indented
+          -@event.get_department_array.each do |dep|
+            .form_group
+              =render '/events/event_visibility', dept: dep, depth: 0, t: t, event: @event, class_val: "parentCheckBox"
 
   - if params[:action] == 'new'
     .form_group
@@ -141,6 +142,9 @@
       $("#bluesource_departments").show()
     $(".restricted_event").on("click", function(){
       $("#bluesource_departments").toggle($(this));
+    });
+    $(".parentCheckBox").on("click", function(){
+      $(this).parents('fieldset:eq(0)').find('.childCheckBox').attr('checked', this.checked);
     });
   });
  

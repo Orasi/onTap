@@ -6,9 +6,3 @@
     - dept["sub_departments"].each do |sub_dept|
       = render '/events/event_departments', depth: depth+1, dept: sub_dept, d: d, event: event, class_val: "childCheckBox parentCheckBox"
 
-:javascript
-  $(document).on("ready", function(){
-    $(".parentCheckBox").on("click", function(){
-      $(this).parents('fieldset:eq(0)').find('.childCheckBox').attr('checked', this.checked);
-    });
-  });

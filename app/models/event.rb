@@ -60,7 +60,7 @@ class Event < ActiveRecord::Base
   def jumbo_dates(c_user)
     if schedules.count == 1
       if schedules.first.start.strftime("%d") != schedules.first.end.strftime("%d")
-        return  schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedules.first.end.strftime("%B %d, %Y from %I:%M %p")
+        return  schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedules.first.end.strftime("%B %d, %Y %I:%M %p")
       else
         return  schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedules.first.end.strftime("%I:%M %p")
       end
