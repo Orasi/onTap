@@ -100,14 +100,15 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @schedules = @event.schedules
   #  attempt to fix host editing an event that becomes split due to timezones (need to find way to remove old schedule)
-  #  @schedules.each do |schedule|
-  #    if schedule.start.strftime("%d") != schedule.end.strftime("%d")
-  #      e_start = DateTime.new(schedule.end.year, schedule.end.month, schedule.end.day, 0, 1, schedule.end.sec).change(:offset => Time.zone.formatted_offset)
-  #      e_end = DateTime.new(schedule.start.year, schedule.start.month, schedule.start.day, 23, 59, schedule.start.sec).change(:offset => Time.zone.formatted_offset)
-  #      @start_schedule = @event.schedules.new(start: schedule.start, end: e_end)
-  #      @end_schedule = @event.schedules.new(start: e_start, end:  schedule.end)
-  #    end
-  #  end
+    @schedules.each do |schedule|
+      if schedule.start.strftime("%d") != schedule.end.strftime("%d")
+        e_start = DateTime.new(schedule.end.year, schedule.end.month, schedule.end.day, 0, 1, schedule.end.sec).change(:offset => Time.zone.formatted_offset)
+        e_end = DateTime.new(schedule.start.year, schedule.start.month, schedule.start.day, 23, 59, schedule.start.sec).change(:offset => Time.zone.formatted_offset)
+        temp_end=schedule.end
+        schedule.assign_attributes(start: schedule.start, end: e_end)
+        @end_schedule = @event.schedules.new(start: e_start, end:  temp_end)
+      end
+    end
     @labs = Template.all
     @margin = 25
     render :new
