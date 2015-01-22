@@ -1,7 +1,14 @@
-= content_tag :li, class: "list-item", style: "margin-left: #{@margin*depth}px;" do 
-  =d.label dept["name"], class: "control-label"
-  =d.check_box dept["name"], checked: (event.department_approvals[dept["name"]] == "1" ? "checked" : "")
--unless dept["sub_departments"].blank?
-  - dept["sub_departments"].each do |sub_dept|
-    = render '/events/event_departments', depth: depth+1, dept: sub_dept, d: d, event: event
+%fieldset
+  = content_tag :li, class: "list-item", style: "margin-left: #{@margin*depth}px;" do
+    =d.check_box dept["name"], checked: (event.department_approvals[dept["name"]] == "1" ? "checked" : ""), class: class_val
+    =d.label dept["name"], class: "control-label"
+  -unless dept["sub_departments"].blank?
+    - dept["sub_departments"].each do |sub_dept|
+      = render '/events/event_departments', depth: depth+1, dept: sub_dept, d: d, event: event, class_val: "childCheckBox parentCheckBox"
 
+:javascript
+  $(document).on("ready", function(){
+    $(".parentCheckBox").on("click", function(){
+      $(this).parents('fieldset:eq(0)').find('.childCheckBox').attr('checked', this.checked);
+    });
+  });

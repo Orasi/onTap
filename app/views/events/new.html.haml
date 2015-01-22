@@ -46,9 +46,10 @@
         =f.label "Bluesource appears to be down, Please edit your even later to add auto-approvals", class: "bluesource_is_down_approvals"
       -else
         =f.label "Department Auto-Approvals:", id: "dep_auto_approve"
-        -departs.each do |dep|
-          .form_group
-            =render '/events/event_departments', dept: dep, depth: 0, d: d, event: @event
+        .indented
+          -departs.each do |dep|
+            .form_group
+              =render '/events/event_departments', dept: dep, depth: 0, d: d, event: @event, class_val: "parentCheckBox"
 
   .form_group
     = label_tag 'Add Lab to Event?'
