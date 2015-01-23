@@ -63,6 +63,11 @@ class NotificationsControllerTest < ActionController::TestCase
     assert Notification.where(user_id: @user.id, event_id: eventid, notification_type: 'survey').blank?
   end
 
+  test 'should be able to view index of notifications' do
+    get :index, {}, current_user_id: @admin.id
+    assert_response :success
+  end
+
   #  test 'Users should see survey notifications' do
 
   # end

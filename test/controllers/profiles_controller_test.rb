@@ -33,7 +33,7 @@ class ProfilesControllerTest < ActionController::TestCase
       profile: {
         food_pref: 'None',
         location: 'Other',
-        notification_settings: false
+        notification_settings: "1"
       },
       id: @profile.id
     }

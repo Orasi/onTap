@@ -49,9 +49,9 @@ class Event < ActiveRecord::Base
     schedules.sort_by(&:start).last.end <= DateTime.now - 5.hours
   end
 
-  def upcoming_dates
-    return schedules.where("schedules.end >= ?", DateTime.now)
-  end
+ # def upcoming_dates
+ #   return schedules.where("schedules.end >= ?", DateTime.now)
+ # end
 
   def next_date
     return schedules.where("schedules.end >= ?", DateTime.now).sort_by(&:start).first
