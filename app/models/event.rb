@@ -38,7 +38,12 @@ class Event < ActiveRecord::Base
   end
 
   def next_date
-    return schedules.where("schedules.end >= ?", DateTime.now).sort_by(&:start).first
+    @schedule=schedules.where("schedules.end >= ?", DateTime.now).sort_by(&:start).first
+    if @schedule.nil?
+      return schedules.sort_by(&:start).first
+    else
+      return @schedule
+    end
   end
 
 
