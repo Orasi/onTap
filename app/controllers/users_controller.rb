@@ -11,7 +11,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    raise "error"
     user = User.find(params[:id])
     user.update(admin: params[:user][:admin])
     render json: user
