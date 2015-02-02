@@ -268,6 +268,9 @@ class Event < ActiveRecord::Base
   end
 
   def can_view_event?(u_id)
+    if limited_visibility.nil?
+      return true
+    end
     if !limited_visibility
       return true
     end

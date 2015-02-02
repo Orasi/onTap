@@ -11,7 +11,7 @@
           .form-group
             = label_tag :event_details, 'Please provide details of the event you would like to host'
             %div.indented
-              = text_area :email, :event_details, style: 'width:700px;height:400px', required: ''
+              = text_area :email, :event_details, style: 'width:100%;height:50%', required: ''
       .modal-footer
         %button.btn.btn-primary{id: 'cancel_host_button', data: {dismiss: 'modal'}} Cancel
         %button.btn.btn-primary{id: 'send_host_button', data: {disable_with: 'Sending Request...'}} Send
