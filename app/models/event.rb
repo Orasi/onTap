@@ -22,7 +22,7 @@ class Event < ActiveRecord::Base
     #@api_user = YAML.load_file(File.join(Rails.root, 'config', 'bluesource_api.yml'))[Rails.env]
     auth = {:username => @api_user[Rails.env]["username"], :password => @api_user[Rails.env]["password"]}
     begin
-      department_list = HTTParty.get("http://bluesourcestaging.herokuapp.com/api/department_list.json?", :basic_auth => auth)
+      department_list = HTTParty.get("https://bluesource.orasi.com/api/department_list.json?", :basic_auth => auth)
       return department_list
     rescue 
       return ""
@@ -85,6 +85,8 @@ class Event < ActiveRecord::Base
         end
       end
     end
+    #catchall
+    return  schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedules.first.end.strftime("%I:%M %p")
   end
 
   def build_nonconsecutive
@@ -97,15 +99,15 @@ class Event < ActiveRecord::Base
         the_month=schedule.start.strftime("%B").to_s
       end
       if(the_month==schedule.start.strftime("%B"))
-        month_string = month_string + schedule.start.strftime("%d").to_s+","
+        month_string = month_string + schedule.start.strftime("%d").to_s+", "
       else
         month_string=month_string.chomp(",")
         schedule_string=schedule_string+the_month+" "+month_string +"<br/>"
-        month_string = schedule.start.strftime("%d").to_s+","
+        month_string = schedule.start.strftime("%d").to_s+", "
         the_month = schedule.start.strftime("%B").to_s
       end
     end
-    month_string=month_string.chomp(",")
+    month_string=month_string.chomp(", ")
     schedule_string=schedule_string+the_month+" "+month_string
     
     return schedule_string.html_safe
