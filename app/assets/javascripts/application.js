@@ -18,6 +18,8 @@
 //= require_tree .
 //= require jquery.timepicker.js
 //= require jquery.countdown.js
+//= require lib/abstract-chosen
+//= require lib/select-parser
 //= require chosen-jquery
 //= require browser_timezone_rails/application.js
 
