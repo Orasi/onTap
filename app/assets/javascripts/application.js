@@ -15,6 +15,7 @@
 //= require bootstrap.min
 //= require s3_direct_upload
 //= require jquery-ui-1.10.4.custom.min
+//= require_tree .
 //= require jquery.timepicker.js
 //= require jquery.countdown.js
 //= require chosen-jquery
