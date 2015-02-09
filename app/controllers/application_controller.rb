@@ -24,19 +24,19 @@ class ApplicationController < ActionController::Base
   def logs
     @dj_log = IO.readlines(Rails.root.to_s + '/log/delayed_job.log') if File.exist?(Rails.root.to_s + '/log/delayed_job.log')
     if @dj_log && @dj_log.length > 1000
-      @dj_log = @dj_log[1..1000]
+      @dj_log = @dj_log[@dj_log.length-1000..@dj_log.length]
     end
     @prod_log = IO.readlines(Rails.root.to_s + '/log/production.log') if File.exist?(Rails.root.to_s + '/log/production.log')
     if  @prod_log && @prod_log.length > 1000
-      @prod_log = @prod_log[1..1000]
+      @prod_log = @prod_log[@prod_log.length-1000..@prod_log.length]
     end
     @whenever_log = IO.readlines(Rails.root.to_s + '/log/whenever.log')  if File.exist?(Rails.root.to_s + '/log/whenever.log')
     if @whenever_log && @whenever_log.length > 1000
-      @whenever_log = @whenever_log[1..1000]
+      @whenever_log = @whenever_log[@whenever_log.length-1000..@whenever_log.length]
     end
     @skytap_log = IO.readlines(Rails.root.to_s + '/log/skytap.log')  if File.exist?(Rails.root.to_s + '/log/skytap.log')
     if @skytap_log && @skytap_log.length > 1000
-      @skytap_log = @skytap_log[1..1000]
+      @skytap_log = @skytap_log[@skytap_log.length-1000..@skytap_log.length]
     end
   end
 
