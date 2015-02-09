@@ -11,9 +11,9 @@ module ApplicationHelper
 
   def display_picture(user_id)
     if User.find(user_id).photo
-      image_tag User.find(user_id).photo
+      image_tag User.find(user_id).photo, class: 'user-picture'
     else
-      image_tag '/photos/blank.jpg'
+      image_tag '/photos/blank.jpg', class: 'user-picture'
     end
   end
 
