@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   def send_email
     users = params[:users] == 'all' ? User.all.pluck(:email) : params[:users]
-    UserEmail.user_email(users, params[:email][:subject], params[:email][:message]).deliver
+    UserEmail.user_email(users, params[:email][:subject], params[:email][:message])
     redirect_to :back, flash: { success: "Email sent to #{users.split.count} users." }
   end
 
