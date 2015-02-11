@@ -85,8 +85,6 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.date     "finalized_date"
     t.integer  "lab_id"
     t.text     "department_approvals"
-    t.boolean  "limited_visibility"
-    t.text     "visible_to_departments"
   end
 
   create_table "hosts", force: true do |t|
@@ -126,7 +124,6 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "other_food"
-    t.string   "time_zone"
   end
 
   create_table "referrals", force: true do |t|

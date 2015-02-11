@@ -58,7 +58,7 @@
 
       - if event.hosting_event?(current_user) || admin?
         .jumbo-admin-buttons.pull-right
-          .pull-left{style: 'margin-right:5px'}= render partial: 'email_form', locals: {id: 'event', trigger: button_tag('Email Attendees', class: 'pull-left btn btn-default btn-sm'), title: 'Email Event Users', to: event.attendees_email}
+          .pull-left{style: 'margin-right:5px'}= render partial: 'email_form', locals: {id: 'event', trigger: button_tag('Email Attendees', class: 'pull-left btn btn-default btn-sm'), title: 'Email Event Users', to: event.attendees_email, event: event.id}
           = link_to "Edit",  edit_event_path(event), class: "btn btn-default btn-sm"
           = link_to "Delete", event_path(event), method: :delete, class: "btn btn-default btn-sm"
           -if event.status == 'finalized' && event.past?

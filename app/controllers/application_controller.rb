@@ -6,12 +6,13 @@ class ApplicationController < ActionController::Base
   before_action :require_login
   before_action :get_profile
   helper_method :current_user
-  before_action :require_admin, only: [:send_email, :metrics]
+  before_action :require_admin, only: [:metrics]
+  before_action :require_admin_or_host, only: [:send_email]
   around_filter :set_time_zone
 
   def send_email
     users = params[:users] == 'all' ? User.all.pluck(:email) : params[:users]
-    UserEmail.user_email(users, params[:email][:subject], params[:email][:message])
+    UserEmail.user_email(users, params[:email][:subject], params[:email][:message]).deliver
     redirect_to :back, flash: { success: "Email sent to #{users.split.count} users." }
   end
 
@@ -87,6 +88,16 @@ class ApplicationController < ActionController::Base
   def require_admin
     if current_user.nil? || !current_user.admin
       redirect_to :calendar, flash: { error: 'You do not have the required permissions to access this area' }
+    end
+  end
+
+  def require_admin_or_host
+    if current_user.nil? || !current_user.admin
+      if params[:event].nil?
+        redirect_to :calendar, flash: { error: 'You do not have the required permissions to access this area' }
+      elsif !(Event.find(params[:event]).hosting_event?(current_user))
+        redirect_to :calendar, flash: { error: 'You do not have the required permissions to access this area' }
+      end
     end
   end
 
