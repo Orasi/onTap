@@ -62,7 +62,7 @@
       = render partial: '/labs/lab_flash', locals: {env: current_user.environment} if current_user
       - if current_user
         = render partial: ('profiles/profile'), locals: {profile: @profile}
-        = render partial: 'email_form', locals: {id: 'email_all', trigger: false, title: 'Email onTap Users', to: User.all.pluck(:email), event: nil}
+        = render partial: 'email_form', locals: {id: 'email_all', trigger: false, title: 'Email onTap Users', to: "all", event: nil}
         = render partial: 'host_event_request'
       = yield
 

@@ -11,8 +11,9 @@ class ApplicationController < ActionController::Base
   around_filter :set_time_zone
 
   def send_email
-    UserEmail.user_email(params[:users] == 'all' ? User.all.pluck(:email) : params[:users], params[:email][:subject], params[:email][:message])
-    redirect_to :back, flash: { success: "Email sent to #{users.split.count} users." }
+    users=params[:users] == "all" ? User.all.pluck(:email) : Event.find(params[:users]).attendees_email
+    UserEmail.user_email(users, params[:email][:subject], params[:email][:message])
+    redirect_to :back, flash: { success: "Email sent to #{users.count} users." }
   end
 
   def host_request_email

@@ -2,6 +2,7 @@ class Survey < ActiveRecord::Base
   belongs_to :event
   belongs_to :user
   validates :user_id, :event_id, presence: true
+  validates :host_knowledge, :host_presentation, inclusion: { in: 1..10 }
 
   def self.create_survey_notification(user_id, event_id)
     @user = User.find(user_id)
