@@ -14,7 +14,7 @@ role :db,  %w(deploy@10.238.240.36)
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server '10.238.240.36', user: 'deploy', roles: %w(web app), my_property: :my_value
+server 'orasi-portal', user: 'deploy', roles: %w(web app), my_property: :my_value
 
 # Custom SSH Options
 # ==================
