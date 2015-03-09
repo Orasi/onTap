@@ -22,7 +22,7 @@ class Event < ActiveRecord::Base
     #@api_user = YAML.load_file(File.join(Rails.root, 'config', 'bluesource_api.yml'))[Rails.env]
     auth = {:username => @api_user[Rails.env]["username"], :password => @api_user[Rails.env]["password"]}
     begin
-      department_list = HTTParty.get("https://bluesource.orasi.com/api/department_list.json?", :basic_auth => auth)
+      department_list = HTTParty.get("https://bluesource.orasi.com/api/department_list.json?", :basic_auth => auth, :verify => false)
       return department_list
     rescue 
       return ""
