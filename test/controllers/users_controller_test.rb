@@ -12,6 +12,16 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to :login
   end
 
+  test 'Admins should be able to view the manage users page' do
+    get :manage, {}, current_user_id: @admin.id
+    assert_response :success
+  end
+
+  test 'Base user should be able to view the manage users page' do
+    get :manage, {}, current_user_id: @user.id
+    assert_redirected_to :calendar
+    assert_not_nil flash[:error]
+  end
   # test "should get notifications page if user logged in" do
   #  get :notifications, {current_user_id: @admin.id}
   #  assert_response :success

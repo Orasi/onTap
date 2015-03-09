@@ -1,0 +1,7 @@
+%fieldset
+  = content_tag :li, class: "list-item", style: "margin-left: #{@margin*depth}px;" do
+    =t.check_box dept["name"], checked: (event.visible_to_departments[dept["name"]] == "1" ? "checked" : ""), class: class_val
+    =t.label dept["name"], class: "control-label"
+  -unless dept["sub_departments"].blank?
+    - dept["sub_departments"].each do |sub_dept|
+      = render '/events/event_visibility', depth: depth+1, dept: sub_dept, t: t, event: event, class_val: "childCheckBox parentCheckBox"

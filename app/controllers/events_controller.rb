@@ -10,6 +10,7 @@ class EventsController < ApplicationController
   def calendar
     # @events = Event.joins(:schedules).merge(Schedule.where('event_date >= ?', DateTime.now.to_date))
     @events = Event.where(status: nil)
+    @events.delete_if { |event| !event.can_view_event?(current_user.id) && !event.hosting_or_above?(current_user) }
     @events.sort! { |a, b| a.schedules.first.start <=> b.schedules.first.start }
   end
 
@@ -21,6 +22,7 @@ class EventsController < ApplicationController
     @event = Event.new
     @schedules = @event.schedules.new
     @labs = Template.all
+    @margin = 25
   end
 
   def create
@@ -30,7 +32,9 @@ class EventsController < ApplicationController
     end
 
     @event = Event.new(event_params)
-
+    @event.visible_to_departments=params[:event][:visible_to_departments]
+    #not sure why department approvals not being picked up as part of event_params
+    @event.department_approvals=params[:event][:department_approvals]
     unless @event.save
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created" }
       return
@@ -41,8 +45,8 @@ class EventsController < ApplicationController
         e_date = value[:event_date] = DateTime.strptime(value[:event_date], '%m/%d/%Y').to_date
         e_start = Time.parse(value[:start])
         e_end = Time.parse(value[:end])
-        e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec, '-' + (value[:time_zone_offset].to_i / 60).to_s)
-        e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec, '-' + (value[:time_zone_offset].to_i / 60).to_s)
+        e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec).change(:offset => Time.zone.formatted_offset)
+        e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec).change(:offset => Time.zone.formatted_offset)
         @schedule = @event.schedules.new(start: e_start, end: e_end)
         unless @schedule.save
           @event.destroy
@@ -95,26 +99,37 @@ class EventsController < ApplicationController
     # end temp for testing surveys
     @event = Event.find(params[:id])
     @schedules = @event.schedules
+  #  attempt to fix host editing an event that becomes split due to timezones (need to find way to remove old schedule)
+    @schedules.each do |schedule|
+      if schedule.start.strftime("%d") != schedule.end.strftime("%d")
+        e_start = DateTime.new(schedule.end.year, schedule.end.month, schedule.end.day, 0, 1, schedule.end.sec).change(:offset => Time.zone.formatted_offset)
+        e_end = DateTime.new(schedule.start.year, schedule.start.month, schedule.start.day, 23, 59, schedule.start.sec).change(:offset => Time.zone.formatted_offset)
+        temp_end=schedule.end
+        schedule.assign_attributes(start: schedule.start, end: e_end)
+        @end_schedule = @event.schedules.new(start: e_start, end:  temp_end)
+      end
+    end
     @labs = Template.all
+    @margin = 25
     render :new
   end
 
   def update
-
     if params[:event][:schedules_attributes].nil?
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created. Must have at least one day scheduled"}
       return
     end
 
     @event = Event.find(params[:id])
+
     @event.schedules.each(&:destroy)
     params[:event][:schedules_attributes].each do |key, value|
       if (!value[:event_date].nil? && !value[:end].nil? && !value[:start].nil?)
         e_date = Date.strptime(value[:event_date], '%m/%d/%Y')
         e_start = Time.parse(value[:start])
         e_end = Time.parse(value[:end])
-        e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec, '-' + (value[:time_zone_offset].to_i / 60).to_s)
-        e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec, '-' + (value[:time_zone_offset].to_i / 60).to_s)
+        e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec).change(:offset => Time.zone.formatted_offset)
+        e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec).change(:offset => Time.zone.formatted_offset)
         @schedule = @event.schedules.new(start: e_start, end: e_end)
         unless @schedule.save
           @event.destroy
@@ -135,6 +150,7 @@ class EventsController < ApplicationController
         @event.hosts.each(&:destroy)
     unless params[:event][:hosts].nil?
       params[:event][:hosts].each do |host|
+        next if host.blank?
         @event.hosts.create(user_id: host)
       end
     end
@@ -157,6 +173,9 @@ class EventsController < ApplicationController
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated.  Error: " + @event.errors.full_messages.join }
       return
     end
+    @event.update(visible_to_departments: params[:event][:visible_to_departments])
+    #not sure why department approvals not being picked up as part of event_params
+    @event.update(department_approvals: params[:event][:department_approvals])
     if params[:send_email]=="Yes"
       @event.update_attendees_email()
     end
@@ -206,7 +225,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :restricted)
+    params.require(:event).permit(:title, :description, :restricted, :department_approvals, :limited_visibility, :visible_to_departments)
   end
 
   def schedule_params

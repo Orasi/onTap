@@ -18,6 +18,8 @@
 //= require_tree .
 //= require jquery.timepicker.js
 //= require jquery.countdown.js
+//= require chosen-jquery
+//= require browser_timezone_rails/application.js
 
 function remove_fields(link) {
   $(link).prev("input[type=hidden]").val("1");

@@ -27,7 +27,6 @@
 :javascript
   $("#send_email_button_#{id}").click(function(){
     $("#email_form_#{id}").submit().fail(function(){
-      alert('test')
       $("#cancel_email_button_#{id}").removeClass('disabled')
       $("#send_email_button_#{id}").removeClass('disabled')
     })

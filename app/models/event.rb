@@ -11,7 +11,23 @@ class Event < ActiveRecord::Base
   # has_one :lunchlearns, :through => :event_style, :source => :element, :source_type => 'lunchlearn'
   # has_one :webinars, :through => :event_style, :source => :element, :source_type => 'webinar'
   validates_presence_of :title, :description
+  serialize :visible_to_departments, Hash
+  serialize :department_approvals, Hash
   attr_accessor :has_GoToMeeting, :go_to_meeting_url, :meeting_phone_number, :access_code, :url, :location
+
+  def get_department_array
+
+    template = ERB.new File.new("config/bluesource_api.yml").read
+    @api_user = YAML.load template.result(binding)
+    #@api_user = YAML.load_file(File.join(Rails.root, 'config', 'bluesource_api.yml'))[Rails.env]
+    auth = {:username => @api_user[Rails.env]["username"], :password => @api_user[Rails.env]["password"]}
+    begin
+      department_list = HTTParty.get("https://bluesource.orasi.com/api/department_list.json?", :basic_auth => auth)
+      return department_list
+    rescue 
+      return ""
+    end
+  end
 
   def lab
     if lab_id.nil?
@@ -33,9 +49,9 @@ class Event < ActiveRecord::Base
     schedules.sort_by(&:start).last.end <= DateTime.now - 5.hours
   end
 
-  def upcoming_dates
-    return schedules.where("schedules.end >= ?", DateTime.now)
-  end
+ # def upcoming_dates
+ #   return schedules.where("schedules.end >= ?", DateTime.now)
+ # end
 
   def next_date
     @schedule=schedules.where("schedules.end >= ?", DateTime.now).sort_by(&:start).first
@@ -46,11 +62,13 @@ class Event < ActiveRecord::Base
     end
   end
 
-
-
-  def jumbo_dates
+  def jumbo_dates(c_user)
     if schedules.count == 1
-      return  schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedules.first.end.strftime("%I:%M %p")
+      if schedules.first.start.strftime("%d") != schedules.first.end.strftime("%d")
+        return  schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedules.first.end.strftime("%B %d, %Y %I:%M %p")
+      else
+        return  schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedules.first.end.strftime("%I:%M %p")
+      end
     elsif schedules.count > 1
       scheds=schedules.sort_by(&:start)
       if consecutive_days?
@@ -67,6 +85,8 @@ class Event < ActiveRecord::Base
         end
       end
     end
+    #catchall
+    return  schedules.first.start.strftime("%B %d, %Y from %I:%M %p") + ' until ' + schedules.first.end.strftime("%I:%M %p")
   end
 
   def build_nonconsecutive
@@ -79,15 +99,15 @@ class Event < ActiveRecord::Base
         the_month=schedule.start.strftime("%B").to_s
       end
       if(the_month==schedule.start.strftime("%B"))
-        month_string = month_string + schedule.start.strftime("%d").to_s+","
+        month_string = month_string + schedule.start.strftime("%d").to_s+", "
       else
         month_string=month_string.chomp(",")
         schedule_string=schedule_string+the_month+" "+month_string +"<br/>"
-        month_string = schedule.start.strftime("%d").to_s+","
+        month_string = schedule.start.strftime("%d").to_s+", "
         the_month = schedule.start.strftime("%B").to_s
       end
     end
-    month_string=month_string.chomp(",")
+    month_string=month_string.chomp(", ")
     schedule_string=schedule_string+the_month+" "+month_string
     
     return schedule_string.html_safe
@@ -242,6 +262,24 @@ class Event < ActiveRecord::Base
         total+=event.attendees.count
       end
     end
-    return total/events_total
+    if events_total != 0
+      return total/events_total
+    else
+      return 0
+    end
+  end
+
+  def can_view_event?(u_id)
+    if limited_visibility.nil?
+      return true
+    end
+    if !limited_visibility
+      return true
+    end
+    department=User.find(u_id).get_user_department
+    if(visible_to_departments.has_key?(department) && (visible_to_departments[department] == "1"))
+      return true
+    end
+    return false
   end
 end

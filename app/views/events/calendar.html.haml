@@ -1,6 +1,6 @@
 - @events.delete_if { |event| event.past? && !event.hosting_or_above?(current_user)}
 -get_flash_for_user
--if @events.count != 0
+-if @events.length != 0
   .h1
     Next Event
   -first_event = @events.shift

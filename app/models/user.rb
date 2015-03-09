@@ -67,4 +67,18 @@ class User < ActiveRecord::Base
       update_attribute('photo', nil)
     end
   end
+
+  def get_user_department
+    bluesource_name=username
+    template = ERB.new File.new("config/bluesource_api.yml").read
+    @api_user = YAML.load template.result(binding)
+    #@api_user = YAML.load_file(File.join(Rails.root, 'config', 'bluesource_api.yml'))[Rails.env]
+    auth = {:username => @api_user[Rails.env]["username"], :password => @api_user[Rails.env]["password"]}
+    begin
+      department = HTTParty.get("https://bluesource.orasi.com/api/department.json?q=#{bluesource_name}", :basic_auth => auth)
+      return department["name"]
+    rescue 
+      return ""
+    end
+  end
 end
