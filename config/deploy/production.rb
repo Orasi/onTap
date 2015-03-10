@@ -4,7 +4,7 @@
 # is considered to be the first unless any hosts have the primary
 # property set.  Don't declare `role :all`, it's a meta role.
 
-role :web, %w(deploy@10.238.240.36)
+role :web, %w(deploy@orasi-portal)
 
 
 # Extended Server Syntax
