@@ -20,7 +20,7 @@ set :deploy_to, '/var/www/ontap'
 # set :log_level, :debug
 
 # Default value for :pty is false
-set :pty, true
+#set :pty, true
 
 # Default value for :linked_files is []
 set :linked_files, %w(config/aws.yml config/initializers/saml.rb)
