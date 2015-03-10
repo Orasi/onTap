@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
     #@api_user = YAML.load_file(File.join(Rails.root, 'config', 'bluesource_api.yml'))[Rails.env]
     auth = {:username => @api_user[Rails.env]["username"], :password => @api_user[Rails.env]["password"]}
     begin
-      department = HTTParty.get("https://bluesource.orasi.com/api/department.json?q=#{bluesource_name}", :basic_auth => auth)
+      department = HTTParty.get("https://bluesource.orasi.com/api/department.json?q=#{bluesource_name}", :basic_auth => auth, :verify => false)
       return department["name"]
     rescue 
       return ""
