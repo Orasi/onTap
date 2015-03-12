@@ -84,6 +84,7 @@ gem 'faker'
 gem 'factory_girl_rails', '~> 4.0'
 gem 'validates_timeliness'
 gem 'capistrano-rvm'
+gem "airbrussh", :require => false
 gem 'aws-sdk', '< 2.0'
 gem 's3_direct_upload'
 gem 'whenever'
