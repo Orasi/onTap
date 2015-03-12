@@ -6,7 +6,7 @@
 development:
     adapter: postgresql
     encoding: unicode
-    database: ontap_dev
+
     pool: 10
     timeout: 5000
     username: ontap
