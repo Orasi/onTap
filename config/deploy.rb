@@ -33,6 +33,7 @@ set :linked_dirs, %w(public/photos tmp/pids)
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+set :rails_env, "production"
 
 namespace :deploy do
 
