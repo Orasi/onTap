@@ -16,7 +16,7 @@ class Environment < ActiveRecord::Base
     }
     json = api_call(request_type: 'post', request_path: '/configurations', request_form_data: form_data)
     log_json 'Create Environment JSON', json
-    if !json.nil? && json['error'].blank?
+    if !json.nil? && json['error']
       self.id = json['id'].to_i
     else
       self.status = 'error'
@@ -43,7 +43,7 @@ class Environment < ActiveRecord::Base
             form_data = { 'name' => title }
             json = api_call(request_type: 'put', request_path: '/configurations/' + id.to_s, request_form_data: form_data)
             log_json 'Change Environment Name', json
-            if json[:error].blank?
+            if json[:error]
               break
             else
               update(status: 'error')
