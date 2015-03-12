@@ -35,7 +35,7 @@ class LabsController < ApplicationController
   end
 
   def update
-    @template = Template.find(params[:template][:id])
+    @template = Template.find(params[:old_lab_id])
     @template.update(template_params)
     redirect_to labs_path, flash: { success: 'The lab was successfully updated' }
   end

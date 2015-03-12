@@ -33,5 +33,10 @@
   .form_group
     = f.label :public, nil, class: 'control-label'
     = f.check_box :public
+
+  =hidden_field_tag :old_lab_id
+  :javascript
+    $('#old_lab_id').val($('#template_id').val())
   .form_group
     = f.submit
+
