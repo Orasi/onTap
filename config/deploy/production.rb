@@ -6,7 +6,6 @@
 
 role :web, %w(deploy@orasi-portal)
 
-
 # Extended Server Syntax
 # ======================
 # This can be used to drop a more detailed server definition into the
