@@ -54,7 +54,7 @@ class Environment < ActiveRecord::Base
             if Environment.is_error(json)
               break
             else
-              update(status: 'error')
+             # update(status: 'error')
               break if Rails.env == 'test'
             end
           end
