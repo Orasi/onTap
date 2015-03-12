@@ -1,12 +1,12 @@
 class Event < ActiveRecord::Base
-  has_many :hosts
-  has_many :lunch_hosts, through: :hosts, source: :user
-  has_many :attendees
-  has_many :schedules
-  has_many :surveys
-  has_many :attachments
-  has_many :notifications
-  has_one :event_style
+  has_many :hosts, dependent: :destroy
+  has_many :lunch_hosts, through: :hosts, source: :user, dependent: :destroy
+  has_many :attendees, dependent: :destroy
+  has_many :schedules, dependent: :destroy
+  has_many :surveys, dependent: :destroy
+  has_many :attachments, dependent: :destroy
+  has_many :notifications, dependent: :destroy
+  has_one :event_style, dependent: :destroy
   accepts_nested_attributes_for :schedules, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
   # has_one :lunchlearns, :through => :event_style, :source => :element, :source_type => 'lunchlearn'
   # has_one :webinars, :through => :event_style, :source => :element, :source_type => 'webinar'
