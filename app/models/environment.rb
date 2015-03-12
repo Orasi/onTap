@@ -9,6 +9,14 @@ class Environment < ActiveRecord::Base
   belongs_to :user
   attr_accessor :vm, :interface, :service, :rdp_service
 
+  def self.is_error(json)
+    return false if json['error'].blank?
+    return false if json['error'].nil?
+    return false if json['error'] == 'false'
+    return false if json['error'] === 'false'
+    return true
+  end
+
   def add_to_skytap
     remove_existing_environment
     form_data = {
@@ -16,7 +24,7 @@ class Environment < ActiveRecord::Base
     }
     json = api_call(request_type: 'post', request_path: '/configurations', request_form_data: form_data)
     log_json 'Create Environment JSON', json
-    if !json.nil? && json['error']
+    if !json.nil? && !Environment.is_error(json)
       self.id = json['id'].to_i
     else
       self.status = 'error'
@@ -43,7 +51,7 @@ class Environment < ActiveRecord::Base
             form_data = { 'name' => title }
             json = api_call(request_type: 'put', request_path: '/configurations/' + id.to_s, request_form_data: form_data)
             log_json 'Change Environment Name', json
-            if json[:error]
+            if Environment.is_error(json)
               break
             else
               update(status: 'error')

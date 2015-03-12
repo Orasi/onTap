@@ -5,8 +5,9 @@ class Template < ActiveRecord::Base
 
   def exists_in_skytap?
     json = api_call(request_type: 'get', request_path: '/templates/' + id.to_s)
-    if json.nil? || json['error']
+    if json.nil? || Environment.is_error(json)
       errors.add(:id, 'must match template ID in skytap.')
+      puts json
       return false
     else
       return true
