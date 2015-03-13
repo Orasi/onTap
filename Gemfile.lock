@@ -29,6 +29,7 @@ GEM
     airbrussh (0.2.1)
       sshkit (>= 1.6.1, != 1.7.0)
     arel (4.0.2)
+    awesome_print (1.6.1)
     aws-sdk (1.61.0)
       aws-sdk-v1 (= 1.61.0)
     aws-sdk-v1 (1.61.0)
@@ -304,6 +305,7 @@ PLATFORMS
 
 DEPENDENCIES
   airbrussh
+  awesome_print
   aws-sdk (< 2.0)
   better_errors
   binding_of_caller
