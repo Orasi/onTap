@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 201407231923422322432) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "attachments", force: true do |t|
     t.string   "title"
     t.integer  "event_id"
@@ -51,14 +48,14 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "updated_at"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "environments", force: true do |t|
     t.integer  "template_id"
     t.integer  "user_id"
     t.datetime "expiration"
     t.string   "title"
-    t.string   "description"
+    t.text     "description",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
@@ -178,7 +175,7 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
 
   create_table "templates", force: true do |t|
     t.string   "title"
-    t.string   "description"
+    t.text     "description", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
