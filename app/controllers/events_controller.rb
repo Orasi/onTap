@@ -32,9 +32,9 @@ class EventsController < ApplicationController
     end
 
     @event = Event.new(event_params)
-    @event.visible_to_departments=params[:event][:visible_to_departments]
+    #@event.visible_to_departments=params[:event][:visible_to_departments]
     #not sure why department approvals not being picked up as part of event_params
-    @event.department_approvals=params[:event][:department_approvals]
+    #@event.department_approvals=params[:event][:department_approvals]
     unless @event.save
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not created" }
       return
@@ -45,8 +45,9 @@ class EventsController < ApplicationController
         e_date = value[:event_date] = DateTime.strptime(value[:event_date], '%m/%d/%Y').to_date
         e_start = Time.parse(value[:start])
         e_end = Time.parse(value[:end])
-        e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec).change(:offset => Time.zone.formatted_offset)
-        e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec).change(:offset => Time.zone.formatted_offset)
+
+        e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec).change(:offset => Time.zone.parse(e_date.to_s).formatted_offset)
+        e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec).change(:offset => Time.zone.parse(e_date.to_s).formatted_offset)
         @schedule = @event.schedules.new(start: e_start, end: e_end)
         unless @schedule.save
           @event.destroy
@@ -173,9 +174,9 @@ class EventsController < ApplicationController
       redirect_to :calendar, flash: { error: "Event \"#{params[:event][:title]}\" was not updated.  Error: " + @event.errors.full_messages.join }
       return
     end
-    @event.update(visible_to_departments: params[:event][:visible_to_departments])
+    #@event.update(visible_to_departments: params[:event][:visible_to_departments])
     #not sure why department approvals not being picked up as part of event_params
-    @event.update(department_approvals: params[:event][:department_approvals])
+    #@event.update(department_approvals: params[:event][:department_approvals])
     if params[:send_email]=="Yes"
       @event.update_attendees_email()
     end

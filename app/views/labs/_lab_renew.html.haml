@@ -12,8 +12,11 @@
             This Lab expires
             - if env.expiration.to_datetime.today?
               today at
-            - if (env.expiration.to_datetime + 1.day).today?
-              tomorrow at
+            - unless env.expiration.to_datetime.today?
+              - if (env.expiration.to_datetime - 1.day).today?
+                tomorrow at
+              - unless (env.expiration.to_datetime - 1.day).today?
+                = "#{env.expiration.to_date.to_s} at"
             = env.expiration.to_time.strftime("%I:%M %p")
           .h5
             %span
