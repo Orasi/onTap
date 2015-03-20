@@ -103,8 +103,8 @@ class EventsController < ApplicationController
   #  attempt to fix host editing an event that becomes split due to timezones (need to find way to remove old schedule)
     @schedules.each do |schedule|
       if schedule.start.strftime("%d") != schedule.end.strftime("%d")
-        e_start = DateTime.new(schedule.end.year, schedule.end.month, schedule.end.day, 0, 1, schedule.end.sec).change(:offset => Time.zone.formatted_offset)
-        e_end = DateTime.new(schedule.start.year, schedule.start.month, schedule.start.day, 23, 59, schedule.start.sec).change(:offset => Time.zone.formatted_offset)
+        e_start = DateTime.new(schedule.end.year, schedule.end.month, schedule.end.day, 0, 1, schedule.end.sec).change(:offset => Time.zone.parse(e_date.to_s).formatted_offset)
+        e_end = DateTime.new(schedule.start.year, schedule.start.month, schedule.start.day, 23, 59, schedule.start.sec).change(:offset => Time.zone.parse(e_date.to_s).formatted_offset)
         temp_end=schedule.end
         schedule.assign_attributes(start: schedule.start, end: e_end)
         @end_schedule = @event.schedules.new(start: e_start, end:  temp_end)
@@ -129,8 +129,8 @@ class EventsController < ApplicationController
         e_date = Date.strptime(value[:event_date], '%m/%d/%Y')
         e_start = Time.parse(value[:start])
         e_end = Time.parse(value[:end])
-        e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec).change(:offset => Time.zone.formatted_offset)
-        e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec).change(:offset => Time.zone.formatted_offset)
+        e_start = DateTime.new(e_date.year, e_date.month, e_date.day, e_start.hour, e_start.min, e_start.sec).change(:offset => Time.zone.parse(e_date.to_s).formatted_offset)
+        e_end = DateTime.new(e_date.year, e_date.month, e_date.day, e_end.hour, e_end.min, e_end.sec).change(:offset => Time.zone.parse(e_date.to_s).formatted_offset)
         @schedule = @event.schedules.new(start: e_start, end: e_end)
         unless @schedule.save
           @event.destroy
