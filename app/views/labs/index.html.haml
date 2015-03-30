@@ -3,9 +3,12 @@
   .panel-heading
     %h4.panel-title
       Orasi Labs
+      = link_to "Request New Lab", '#request_lab', data: {toggle: 'modal'}, class: 'btn btn-primary btn-xs pull-right', style: 'color:white'
   .panel-body
     .h5
       Labs are a method of creating a temporary environment for use in training events.  The labs below have been configured for users to be able to effortlessly create cloud based virtual machines and immediatly begin using them.  In order to not waste valuable resources these labs have been configured to delete themselves after two hours.  Additional time can be added by selecting the Extend Lab button after you have created your lab.  These labs are not appropriate for storing files as they will be deleted when the lab is deleted. If you need to persist files between sessions please store them in the Skytap Shared Folder found on the Lab's desktop.
+    = render partial: 'request_lab'
+
 
 #accordion
   - @labs.each do |lab|

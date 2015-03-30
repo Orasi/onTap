@@ -1,0 +1,24 @@
+#request_lab.modal.fade
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss' => 'modal'}
+          %span{'aria-hidden' => 'true'}x
+          %span.sr-only Close
+        %h4.modal-title Request New Lab
+      .modal-body
+        = form_tag lab_request_path, class: "form-horizontal", role: "form", id: 'new_lab_request', style: 'padding-left:60px;padding-right:60px' do
+          .form-group
+            = label_tag :event_details, 'Please provide details of the lab you would like created'
+            %div.indented
+              = text_area :email, :event_details, style: 'width:100%;height:50%', required: ''
+      .modal-footer
+        %button.btn.btn-primary{id: 'cancel_lab_button', data: {dismiss: 'modal'}} Cancel
+        %button.btn.btn-primary{id: 'send_lab_button', data: {disable_with: 'Sending Request...'}} Send
+
+:javascript
+  $("#send_lab_button").click(function(){
+    $("#new_lab_request").submit()
+    $("#cancel_lab_button").addClass('disabled')
+    $("#send_lab_button").addClass('disabled')
+  });
