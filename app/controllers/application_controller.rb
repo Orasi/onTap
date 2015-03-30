@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     users=User.where(admin: true).pluck(:email)
     requester=User.find(session[:current_user_id])
     HostRequestMailer.host_request_mailer(users, "#{requester.display_name} would like a lab added", params[:email][:event_details])
-    redirect_to :back, flash: { success: "Your request to host an event has been sent!" }
+    redirect_to :back, flash: { success: "Your request to add a lab has been sent!" }
   end
 
   def logs
