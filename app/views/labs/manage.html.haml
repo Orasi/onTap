@@ -15,3 +15,10 @@
 :javascript
    env_id = "#{@env.id unless @env.nil?}"
    create_lab_path = "#{create_lab_path(@lab)}"
+
+   expire = Date.parse("#{@env.expiration}")
+           $("#time").countdown(expire, function(event) {
+             $(this).text(
+               event.strftime(' %H hour and %M minutes')
+             );
+           })
