@@ -44,6 +44,8 @@ LunchLearn::Application.routes.draw do
   get '/logout' => 'welcome#logout'
   get 'approve_attend' => 'attendees#approve_attend'
   get 'reject_attend' => 'attendees#reject_attend'
+
+  get 'admin/environments' => 'labs#admin', as: :environments_admin
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

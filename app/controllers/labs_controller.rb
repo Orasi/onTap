@@ -10,6 +10,10 @@ class LabsController < ApplicationController
     response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
   end
 
+  def admin
+    @environments = Environment.all
+  end
+
   def index
     @labs = Template.all
     @env = current_user.environment

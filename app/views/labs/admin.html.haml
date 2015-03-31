@@ -1,0 +1,32 @@
+%table.table
+  %thead
+    %td
+      %strong User
+    %td
+      %strong Environment
+    %td
+      %strong Created
+    %td
+      %strong Expiring
+    %td
+      %strong Delete
+  - @environments.each do |env|
+    %tr
+      %td
+        %b
+          = env.user.display_name
+      %td
+        %b
+          = env.title
+      %td
+        %b
+          = env.created_at.to_formatted_s(:long_ordinal)
+      %td
+        %b
+          = env.expiration.to_formatted_s(:long_ordinal)
+      %td
+        %b
+          = link_to  delete_lab_path(@env), :confirm => 'Are you sure?', :method => :delete do
+            %span.glyphicon.glyphicon-trash
+
+
