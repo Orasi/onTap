@@ -91,6 +91,16 @@ class LabsController < ApplicationController
     end
   end
 
+  def delete_user_lab
+    env = Environment.find(params[:id])
+    if env
+      env.destroy
+      redirect_to :back
+    else
+      render plain: 'Deleted' and return
+    end
+  end
+
   def delete_lab
     env = current_user.environment
     if env

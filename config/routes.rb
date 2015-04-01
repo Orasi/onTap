@@ -24,6 +24,7 @@ LunchLearn::Application.routes.draw do
   get 'labs/:id/manage' => 'labs#manage', as: :manage_lab
   post 'labs/:id/extend/:hours' => 'labs#extend_lab', as: :extend_lab
   delete 'labs' => 'labs#delete_lab', as: :delete_lab
+  delete 'labs/:id' => 'labs#delete_user_lab', as: :delete_user_lab
   get 'labs/:id/rdp'    => 'labs#generate_rdp_file', as: :lab_rdp
   resources :labs
   get 'users/manage' => 'users#manage', as: :manage_user

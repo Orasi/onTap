@@ -1,4 +1,4 @@
-%table.table
+%table.table.table-striped.table-bordered
   %thead
     %td
       %strong User
@@ -9,24 +9,23 @@
     %td
       %strong Expiring
     %td
+      %strong Status
+    %td
       %strong Delete
   - @environments.each do |env|
     %tr
       %td
-        %b
-          = env.user.display_name
+        = env.user.display_name
       %td
-        %b
-          = env.title
+        = env.title
       %td
-        %b
-          = env.created_at.to_formatted_s(:long_ordinal)
+        = env.created_at.to_formatted_s(:long_ordinal)
       %td
-        %b
-          = env.expiration.to_formatted_s(:long_ordinal)
+        = env.expiration.to_formatted_s(:long_ordinal)
       %td
-        %b
-          = link_to  delete_lab_path(@env), :confirm => 'Are you sure?', :method => :delete do
-            %span.glyphicon.glyphicon-trash
+        = env.status.capitalize
+      %td
+        = link_to  delete_user_lab_path(env), :confirm => 'Are you sure?', :method => :delete do
+          %span.glyphicon.glyphicon-trash
 
 
