@@ -73,6 +73,7 @@ namespace :deploy do
   end
 
 end
-after 'deploy:publishing', 'deploy:restart'
 after 'deploy:restart', 'deploy:restart_dj'
+after 'deploy:publishing', 'deploy:restart'
+
 after 'deploy:publishing', 'deploy:clear_cache'
