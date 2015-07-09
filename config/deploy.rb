@@ -48,6 +48,7 @@ namespace :deploy do
       execute :touch, release_path.join('tmp/restart.txt')
       within release_path do
         sudo "#{release_path}/bin/delayed_job restart RAILS_ENV=production"
+        execute "#{release_path}/whenever -i"
       end
     end
   end
