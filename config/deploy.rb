@@ -74,7 +74,7 @@ namespace :deploy do
   end
 
 end
-after 'deploy:restart', 'deploy:restart_dj'
+after 'deploy:restart', 'whenever:update_crontab'
 after 'deploy:publishing', 'deploy:restart'
 
 after 'deploy:publishing', 'deploy:clear_cache'
