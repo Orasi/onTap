@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 201407231923422322432) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "attachments", force: true do |t|
     t.string   "title"
     t.integer  "event_id"
@@ -48,14 +51,14 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "updated_at"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "environments", force: true do |t|
     t.integer  "template_id"
     t.integer  "user_id"
     t.datetime "expiration"
     t.string   "title"
-    t.text     "description",   limit: 255
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
@@ -81,9 +84,9 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.string   "status"
     t.date     "finalized_date"
     t.integer  "lab_id"
-    t.text     "department_approvals"
     t.boolean  "limited_visibility"
     t.text     "visible_to_departments"
+    t.text     "department_approvals"
   end
 
   create_table "hosts", force: true do |t|
@@ -118,11 +121,12 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
   create_table "profiles", force: true do |t|
     t.string   "food_pref"
     t.string   "location"
-    t.boolean  "notification_settings"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "other_food"
+    t.boolean  "notification_settings", default: true
+    t.string   "time_zone"
   end
 
   create_table "referrals", force: true do |t|
@@ -131,7 +135,6 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "refer_sender_id"
-    t.integer  "event_id"
     t.integer  "refer_event_id"
   end
 
@@ -175,7 +178,7 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
 
   create_table "templates", force: true do |t|
     t.string   "title"
-    t.text     "description", limit: 255
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
@@ -188,10 +191,10 @@ ActiveRecord::Schema.define(version: 201407231923422322432) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "has_GoToMeeting"
-    t.string   "go_to_meeting_url"
-    t.string   "access_code"
-    t.string   "meeting_phone_number"
-    t.string   "location"
+    t.text     "access_code"
+    t.text     "go_to_meeting_url"
+    t.text     "meeting_phone_number"
+    t.text     "location"
   end
 
   create_table "users", force: true do |t|

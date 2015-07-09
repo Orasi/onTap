@@ -51,11 +51,8 @@ class Environment < ActiveRecord::Base
             form_data = { 'name' => title }
             json = api_call(request_type: 'put', request_path: '/configurations/' + id.to_s, request_form_data: form_data)
             log_json 'Change Environment Name', json
-            if Environment.is_error(json)
+            unless Environment.is_error(json)
               break
-            else
-             # update(status: 'error')
-              break if Rails.env == 'test'
             end
           end
         end
@@ -115,27 +112,30 @@ class Environment < ActiveRecord::Base
   handle_asynchronously :wait_for_runstate, priority: 5
 
   def remove_from_skytap
-    Environment.delay.remove_from_skytap_async(id.to_s)
+    Environment.delay.remove_from_skytap_async(id.to_s, title)
   end
 
-  def self.remove_from_skytap_async(id)
+  def self.remove_from_skytap_async(id, title)
     begin
       Timeout.timeout(60) do
         loop do
           sleep(5)
           json = Environment.api_call(request_type: 'delete', request_path: '/configurations/' + id.to_s)
-          log_json 'Remove From Skytap', json
           if json.is_a?(Hash) && json['error']
             if json['error'] == "Couldn't get the requested environment"
-              skytap_log.info('Environment Removed')
+              skytap_log.info("#{title} Succesfully Removed")
               break
+            else
+              log_json 'Remove From Skytap', json
             end
           end
         end
       end
     rescue Timeout::Error
-      skytap_log.error('Timeout occurred while trying to remove Environment')
-   end
+      skytap_log.error("Timeout occurred while trying to remove Environment #{title}")
+
+    end
+
   end
 
   def remove_existing_environment

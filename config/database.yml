@@ -9,7 +9,7 @@ development:
 
     pool: 10
     timeout: 5000
-    username: postgres
+    username: ontap
     password: 'ontap123'
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
