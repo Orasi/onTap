@@ -29,9 +29,6 @@ GEM
     airbrussh (0.2.1)
       sshkit (>= 1.6.1, != 1.7.0)
     arel (4.0.2)
-    autoprefixer-rails (5.2.1)
-      execjs
-      json
     awesome_print (1.6.1)
     aws-sdk (1.61.0)
       aws-sdk-v1 (= 1.61.0)
@@ -44,9 +41,6 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.5)
-      autoprefixer-rails (>= 5.0.0.1)
-      sass (>= 3.2.19)
     browser-timezone-rails (0.0.8)
       jquery-rails
       rails (>= 3.1)
@@ -315,7 +309,6 @@ DEPENDENCIES
   aws-sdk (< 2.0)
   better_errors
   binding_of_caller
-  bootstrap-sass
   browser-timezone-rails
   capistrano (~> 3.2.1)
   capistrano-bundler
