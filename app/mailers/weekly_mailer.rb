@@ -4,7 +4,9 @@ class WeeklyMailer < ActionMailer::Base
 
   def weekly_mailer(users)
     @weeks_events = Event.joins(:schedules).merge(Schedule.where('start >= ? AND start < ?', DateTime.now.to_date,  DateTime.now.to_date + 7.days))
+
     @new_events = Event.where('created_at > ?',  DateTime.now.to_date - 7.days)
+    @new_events -= @week_events
 
     @days = {}
     @days[:monday] = []
@@ -17,6 +19,8 @@ class WeeklyMailer < ActionMailer::Base
       @days[day_of_week].append event
     end
 
-    mail(to: users.map{|user| user.email}, subject: 'Events onTap This Week')
+    if @week_events.count > 0 or @new_events.count > 0
+      mail(to: users.map{|user| user.email}, subject: 'Events onTap This Week')
+    end
   end
 end
