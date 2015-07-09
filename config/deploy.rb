@@ -43,7 +43,9 @@ namespace :deploy do
   task :restart do
     on roles(:web), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
+      invoke 'delayed_job:stop'
       execute :touch, release_path.join('tmp/restart.txt')
+      invoke 'delayed_job:restart'
     end
   end
 
@@ -70,4 +72,4 @@ end
 after 'deploy:publishing', 'deploy:restart'
 before 'deploy:publishing', 'deploy:stop_dj'
 after 'deploy:publishing', 'deploy:clear_cache'
-after 'deploy:restart', 'deploy:restart_dj'
+after 'deploy:publishing', 'deploy:restart_dj'
