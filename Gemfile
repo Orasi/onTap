@@ -30,7 +30,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-timepicker-rails'
 gem 'twitter-bootstrap-rails'
-# gem 'bootstrap-sass', '~> 3.3.0'
+gem 'bootstrap-sass'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -80,16 +80,23 @@ gem 'delayed_job'
 gem 'daemons'
 gem 'delayed_paperclip'
 gem 'delayed_job_active_record'
+
 gem 'faker'
 gem 'factory_girl_rails', '~> 4.0'
+
 gem 'validates_timeliness'
+
 gem 'capistrano-rvm'
 gem "airbrussh", :require => false
+
 gem 'aws-sdk', '< 2.0'
 gem 's3_direct_upload'
+
 gem 'whenever'
 gem 'ruby-saml'
+
 gem 'better_errors'
 gem 'binding_of_caller'
+
 gem 'webmock', group: :test
 gem 'awesome_print'
