@@ -47,7 +47,7 @@ namespace :deploy do
       # Your restart mechanism here, for example:
       execute :touch, release_path.join('tmp/restart.txt')
       within release_path do
-        execute "#{release_path}/bin/delayed_job restart RAILS_ENV=production"
+        sudo "#{release_path}/bin/delayed_job restart RAILS_ENV=production"
       end
     end
   end
