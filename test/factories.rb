@@ -210,7 +210,6 @@ FactoryGirl.define do
     refer_email 'test.test@orasi.com'
     refer_message 'some message'
     refer_sender_id 1
-    event_id 1
     refer_event_id 1
   end
 
