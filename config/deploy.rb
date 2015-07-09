@@ -34,8 +34,10 @@ set :linked_dirs, %w(public/photos tmp/pids log)
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 set :rails_env, "production"
-set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+set :whenever_environment, defer { stage }
+set :whenever_command, 'bundle exec whenever'
 
 namespace :deploy do
 
@@ -70,5 +72,5 @@ namespace :deploy do
 
 end
 after 'deploy:publishing', 'deploy:restart'
-after 'deploy:publishing', 'delayed_job:restart'
+after 'deploy:restart', 'delayed_job:restart'
 after 'deploy:publishing', 'deploy:clear_cache'
