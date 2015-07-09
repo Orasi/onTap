@@ -7,7 +7,7 @@
 production:
   adapter: postgresql
   encoding: unicode
-  database: ontap_prod
+  database: ontap
   pool: 10
   timeout: 5000
   username: ontap
