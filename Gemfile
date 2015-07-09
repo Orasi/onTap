@@ -57,7 +57,7 @@ gem 'capistrano-rails', '~> 1.1'
 gem 'capistrano-touch-linked-files'
 gem 'capistrano-bundler'
 gem 'capistrano-faster-assets'
-#gem 'capistrano-delayed_job'
+#gem 'capistrano-delayed_job', '~> 3.0.0'
 # Use debugger
 gem 'pry', group: [:development, :test]
 
