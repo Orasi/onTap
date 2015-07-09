@@ -36,7 +36,7 @@ set :linked_dirs, %w(public/photos tmp/pids log)
 set :rails_env, "production"
 
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
-set :whenever_environment, defer { stage }
+
 set :whenever_command, 'bundle exec whenever'
 
 namespace :deploy do
@@ -63,7 +63,9 @@ namespace :deploy do
 
 
   task :restart_dj do
-    invoke 'delayed_job:restart'
+    on roles(:web), in: :sequence, wait: 5 do
+      invoke 'delayed_job:restart'
+    end
   end
 
   task :stop_dj do
