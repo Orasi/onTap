@@ -45,9 +45,9 @@ namespace :deploy do
   task :restart do
     on roles(:web), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
-      invoke 'delayed_job:stop'
+      execute 'RAILS_ENV=production bin/delayed_job -n 4 stop'
       execute :touch, release_path.join('tmp/restart.txt')
-      invoke 'delayed_job:restart'
+      execute 'RAILS_ENV=production bin/delayed_job -n 4 start'
     end
   end
 
