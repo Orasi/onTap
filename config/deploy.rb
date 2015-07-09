@@ -38,7 +38,7 @@ set :rails_env, "production"
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
 set :whenever_command, 'bundle exec whenever'
-SSHKit.config.command_map(:whenever) = 'bundle exec whenever'
+SSHKit.config.command_map[:whenever] = 'bundle exec whenever'
 
 namespace :deploy do
 
