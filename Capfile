@@ -5,6 +5,8 @@ require 'capistrano/setup'
 require 'capistrano/deploy'
 require 'capistrano/rails'
 require 'whenever/capistrano'
+require 'capistrano/delayed_job'
+require 'capistrano/faster_assets'
 #require "airbrussh/capistrano"
 # Includes tasks from other gems included in your Gemfile
 #

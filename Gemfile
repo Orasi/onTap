@@ -52,10 +52,12 @@ gem 'net-ldap'
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-gem 'capistrano', '~> 3.2.1', group: :development
-gem 'capistrano-rails', '~> 1.1'
+gem 'capistrano', group: :development
+gem 'capistrano-rails'
 gem 'capistrano-touch-linked-files'
 gem 'capistrano-bundler'
+gem 'capistrano-faster-assets'
+gem 'capistrano-delayed_job'
 # Use debugger
 gem 'pry', group: [:development, :test]
 
