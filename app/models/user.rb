@@ -55,16 +55,20 @@ class User < ActiveRecord::Base
   end
 
   def retrieve_picture(ldap)
-    filter = Net::LDAP::Filter.eq('samaccountname', username.downcase)
-    treebase = 'dc=orasi, dc=com'
-    f = File.open(Rails.root.join('public', 'photos', first_name + last_name + '.jpg'), 'wb')
-    thumbnail_array = ldap.search(base: treebase, filter: filter).first['thumbnailphoto'].first
-    thumbnail_array.each_line { |line| f.puts line } unless thumbnail_array.nil?
-    f.close
-    unless thumbnail_array.nil?
-      update_attribute('photo', '/photos/' + first_name + last_name + '.jpg')
-    else
-      update_attribute('photo', nil)
+    begin
+      filter = Net::LDAP::Filter.eq('samaccountname', username.downcase)
+      treebase = 'dc=orasi, dc=com'
+      f = File.open(Rails.root.join('public', 'photos', first_name + last_name + '.jpg'), 'wb')
+      thumbnail_array = ldap.search(base: treebase, filter: filter).first['thumbnailphoto'].first
+      thumbnail_array.each_line { |line| f.puts line } unless thumbnail_array.nil?
+      f.close
+      unless thumbnail_array.nil?
+        update_attribute('photo', '/photos/' + first_name + last_name + '.jpg')
+      else
+        update_attribute('photo', nil)
+      end
+    rescue Exception
+      p "Error processing #{username}"
     end
   end
 
@@ -79,6 +83,13 @@ class User < ActiveRecord::Base
       return department["name"]
     rescue 
       return ""
+    end
+  end
+
+  def update_all_pictures(admin_password)
+    ldap = get_ldap(username, admin_password)
+    User.each do |u|
+      u.retrieve_picture(ldap)
     end
   end
 end
