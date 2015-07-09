@@ -317,11 +317,11 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   browser-timezone-rails
-  capistrano
+  capistrano (~> 3.2.1)
   capistrano-bundler
   capistrano-delayed_job
   capistrano-faster-assets
-  capistrano-rails
+  capistrano-rails (~> 1.1)
   capistrano-rvm
   capistrano-touch-linked-files
   chosen-rails
