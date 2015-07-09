@@ -61,7 +61,7 @@ namespace :deploy do
     end
   end
 
-
+  desc 'Restart Delayed Job'
   task :restart_dj do
     on roles(:web), in: :sequence, wait: 5 do
       invoke 'delayed_job:restart'
@@ -74,5 +74,5 @@ namespace :deploy do
 
 end
 after 'deploy:publishing', 'deploy:restart'
-after 'deploy:restart', 'delayed_job:restart'
+after 'deploy:restart', 'deploy:restart_dj'
 after 'deploy:publishing', 'deploy:clear_cache'
