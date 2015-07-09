@@ -26,7 +26,7 @@ set :deploy_to, '/var/www/ontap'
 set :linked_files, %w(config/aws.yml config/initializers/saml.rb)
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w(public/photos tmp/pids logs)
+set :linked_dirs, %w(public/photos tmp/pids log)
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -34,6 +34,39 @@ set :linked_dirs, %w(public/photos tmp/pids logs)
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 set :rails_env, "production"
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+
+namespace :whenever do
+
+  def setup_whenever_task(*args, &block)
+    args = Array(fetch(:whenever_command)) + args
+
+    on roles fetch(:whenever_roles) do |host|
+      args_for_host = block_given? ?cd  args + Array(yield(host)) : args
+      within release_path do
+        with fetch(:whenever_command_environment_variables) do
+          execute *args_for_host
+        end
+      end
+    end
+  end
+
+  desc "Update application's crontab entries using Whenever"
+  task :update_crontab do
+    setup_whenever_task do |host|
+      roles = host.roles_array.join(",")
+      [fetch(:whenever_update_flags),  "--roles=#{roles}"]
+    end
+  end
+
+  desc "Clear application's crontab entries using Whenever"
+  task :clear_crontab do
+    setup_whenever_task(fetch(:whenever_clear_flags))
+  end
+
+  after "deploy:updated",  "whenever:update_crontab"
+  after "deploy:reverted", "whenever:update_crontab"
+end
 
 namespace :deploy do
 
