@@ -35,6 +35,11 @@ set :linked_dirs, %w(public/photos tmp/pids)
 # set :keep_releases, 5
 set :rails_env, "production"
 
+set :file_permissions_paths, ["logs"]
+set :file_permissions_users, ['deploy']
+set :file_permissions_groups, ['deploy']
+set :file_permissions_chmod_mode, "0777"
+
 namespace :deploy do
 
   desc 'Restart application'
@@ -68,6 +73,7 @@ namespace :deploy do
   end
 
   before :publishing, :stop_dj
+  before :restart, 'deploy:set_permissions:chmod'
   after :publishing, :clear_cache
   after :clear_cache, :restart
   after :publishing, :restart_dj

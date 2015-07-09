@@ -5,7 +5,8 @@ require 'capistrano/setup'
 require 'capistrano/deploy'
 require 'capistrano/rails'
 require 'whenever/capistrano'
-require "airbrussh/capistrano" 
+require "airbrussh/capistrano"
+require 'capistrano/file-permissions'
 # Includes tasks from other gems included in your Gemfile 
 #
 # For documentation on these, see for example:
