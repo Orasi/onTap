@@ -55,7 +55,11 @@ namespace :deploy do
     end
   end
 
-  task :restart do
+  task :mod_logs do
+    run "chmod 777 #{release_path}/log -R"
+  end
+
+  task :restart_dj do
     invoke 'delayed_job:restart'
   end
 
@@ -66,5 +70,6 @@ namespace :deploy do
   before :publishing, :stop_dj
   after :publishing, :clear_cache
   after :clear_cache, :restart
-  after :publishing, :restart
+  after :publishing, :restart_dj
+  after :publishing, :mod_logs
 end
