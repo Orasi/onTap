@@ -26,7 +26,7 @@ set :deploy_to, '/var/www/ontap'
 set :linked_files, %w(config/aws.yml config/initializers/saml.rb)
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w(public/photos tmp/pids)
+set :linked_dirs, %w(public/photos tmp/pids logs)
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -34,11 +34,6 @@ set :linked_dirs, %w(public/photos tmp/pids)
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 set :rails_env, "production"
-
-set :file_permissions_paths, ["logs"]
-set :file_permissions_users, ['deploy']
-set :file_permissions_groups, ['deploy']
-set :file_permissions_chmod_mode, "0777"
 
 namespace :deploy do
 
@@ -60,9 +55,6 @@ namespace :deploy do
     end
   end
 
-  task :mod_logs do
-    run "chmod 777 #{release_path}/log -R"
-  end
 
   task :restart_dj do
     invoke 'delayed_job:restart'
@@ -73,9 +65,7 @@ namespace :deploy do
   end
 
   before :publishing, :stop_dj
-  before :restart, 'deploy:set_permissions:chmod'
   after :publishing, :clear_cache
   after :clear_cache, :restart
   after :publishing, :restart_dj
-  after :publishing, :mod_logs
 end
