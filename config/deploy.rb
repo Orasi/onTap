@@ -36,37 +36,6 @@ set :linked_dirs, %w(public/photos tmp/pids log)
 set :rails_env, "production"
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
-namespace :whenever do
-
-  def setup_whenever_task(*args, &block)
-    args = Array(fetch(:whenever_command)) + args
-
-    on roles fetch(:whenever_roles) do |host|
-      args_for_host = block_given? ?cd  args + Array(yield(host)) : args
-      within release_path do
-        with fetch(:whenever_command_environment_variables) do
-          execute *args_for_host
-        end
-      end
-    end
-  end
-
-  desc "Update application's crontab entries using Whenever"
-  task :update_crontab do
-    setup_whenever_task do |host|
-      roles = host.roles_array.join(",")
-      [fetch(:whenever_update_flags),  "--roles=#{roles}"]
-    end
-  end
-
-  desc "Clear application's crontab entries using Whenever"
-  task :clear_crontab do
-    setup_whenever_task(fetch(:whenever_clear_flags))
-  end
-
-  after "deploy:updated",  "whenever:update_crontab"
-  after "deploy:reverted", "whenever:update_crontab"
-end
 
 namespace :deploy do
 
@@ -97,8 +66,8 @@ namespace :deploy do
     invoke 'delayed_job:stop'
   end
 
-  before :publishing, :stop_dj
-  after :publishing, :clear_cache
+  after :published, :stop_dj
+  after :stop_dj, :clear_cache
   after :clear_cache, :restart
-  after :publishing, :restart_dj
+  after :restart, :restart_dj
 end
