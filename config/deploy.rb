@@ -68,6 +68,6 @@ namespace :deploy do
 
 end
 after 'deploy:publishing', 'deploy:restart'
-before 'deploy:publishing', 'deply:stop_dj'
-after 'deploy:publishing', 'deply:clear_cache'
+before 'deploy:publishing', 'deploy:stop_dj'
+after 'deploy:publishing', 'deploy:clear_cache'
 after 'deploy:restart', 'deploy:restart_dj'
